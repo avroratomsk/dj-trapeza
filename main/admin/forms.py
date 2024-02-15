@@ -1,6 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
-from shop.models import Categories, Day, Product
+from home.models import BaseSettings, HomeTemplate
+from shop.models import Categories, Day, Product, Subsidiary
 
 # class ProductForm(forms.ModelForm):
 #   # description = forms.CharField(label="Полное описание товара", required=False, widget=CKEditorUploadingWidget())
@@ -23,7 +24,73 @@ from shop.models import Categories, Day, Product
 #       "subsidiary",
 #       "weight",
 #       )
-
+class GlobalSettingsForm(forms.ModelForm):
+  """ Form, глобальные и общие настройки сайта(лого, телефон, email)"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  class Meta:
+    model = BaseSettings
+    fields = [
+        'logo',
+        'phone_one',
+        'phone_two',
+        'time_work',
+        'email',
+        'address_one',
+        'address_two',
+        'meta_h1',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+    ]
+    labels = {
+        'logo': 'Логотип',
+        'phone_one': 'Номер телефона Пролетарская',
+        'phone_two': 'Номер телефона Ракетная',
+        'time_work': 'Режим работы',
+        'email': 'Email',
+        'address_one': 'Адрес Пролетарская',
+        'address_two': 'Адрес Ракетная',
+        'meta_h1':'Заголвок первого уровня',
+        'meta_title':'Meta title',
+        'meta_description':'Мета description',
+        'meta_keywords':'Meta keywords',
+    }
+    widgets = {
+        'phone_one': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'phone_one': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'phone_two': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'time_work': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'email': forms.EmailInput(attrs={
+            'class': 'form__controls'
+        }),
+        'address_one': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'address_two': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'meta_h1': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'meta_title': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'meta_description': forms.TextInput(attrs={
+            'class': 'form__controls'
+        }),
+        'meta_keywords': forms.TextInput(attrs={
+            'class': 'form__controls'
+        })
+    }
+    
 class ProductForm(forms.ModelForm):
     """ Form, отвечает за создание товара и редактирование товара"""
     # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
@@ -126,10 +193,10 @@ class ProductForm(forms.ModelForm):
                 'class': 'form__controls', 
                 # 'placeholder': 'Категория',
             }),
-            'day': forms.Select(attrs={
-                'class': 'form__controls',
-                # 'placeholder': 'День приготовления',
-            }),
+            # 'day': forms.Select(attrs={
+            #     'class': 'form__controls',
+            #     # 'placeholder': 'День приготовления',
+            # }),
             # 'subsidiary': forms.Select(attrs={
             #     'class': 'form__controls',
             #     'placeholder': 'Филлиал',
@@ -170,6 +237,7 @@ class ProductForm(forms.ModelForm):
         }
    
 class CategoryForm(forms.ModelForm):
+  """ Form, отвечает за создание категорий и редактирование категорий"""
   class Meta:
     model = Categories
     fields = [
@@ -226,6 +294,7 @@ class CategoryForm(forms.ModelForm):
     }
     
 class DayForm(forms.ModelForm):
+  """ Form, отвечает за создание дней и редактирование дней"""
   class Meta:
     model = Day
     fields = [
@@ -248,3 +317,87 @@ class DayForm(forms.ModelForm):
         # "placeholder": "Название категори"
       })
     }
+    
+
+class FillialForm(forms.ModelForm):
+  """ Form, отвечает за добавление филлиала и редактирование филлиала"""
+  class Meta:
+    model = Subsidiary
+    fields = [
+      "name",
+      "address_fillial",
+      "slug"
+    ]
+    labels = {
+      "name": "Название филлиала",
+      "address_fillial": "Адрес филлиала",
+      "slug": "URL",
+    }
+    widgets = {
+      "name": forms.TextInput(attrs={
+          "class": "form__controls",
+          "id":"name"
+      }),
+      "address_fillial": forms.TextInput(attrs={
+          "class": "form__controls",
+          "id":"name",
+          "placeholder": "г.Томск, ул.Ленина 111"
+      }),
+      "slug": forms.TextInput(attrs={
+        "class":"form__controls",
+        "id": "slug"
+        # "placeholder": "Название категори"
+      })
+    }
+    
+class HomeTemplateForm(forms.ModelForm):
+  """ Form, редактирование главной страницы"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+      model = HomeTemplate
+      fields = [
+          'banner',
+          'meta_h1',
+          'untitle',
+          'meta_title',
+          'meta_description',
+          'meta_keywords',
+          'about_text',
+          'about_image'
+      ]
+      labels = {
+          'banner': 'Изображение банера',
+          'meta_h1':'Заголвок первого уровня',
+          'meta_title':'Meta title',
+          'untitle': 'Надзаголовок',
+          'meta_description':'Мета description',
+          'meta_keywords':'Meta keywords',
+          'about_text':'Текст о нас',
+          'about_image':'Изображение о нас'
+      }
+      widgets = {
+          'name': forms.TextInput(attrs={
+              'class': 'form__controls'
+          }),
+          'meta_h1': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'untitle': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'meta_title': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета заголовок',
+          }),
+          'meta_description': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета описание',
+          }),
+          'meta_keywords': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'about_text': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+      }

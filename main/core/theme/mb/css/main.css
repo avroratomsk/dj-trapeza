@@ -562,7 +562,7 @@ html.lock body::before {
 
 .item-service {
   overflow: hidden;
-  display: none;
+  display: flex;
   flex-direction: column;
   background-color: #fff;
   box-shadow: 0 0 4px 2px rgba(37, 55, 70, 0.05);
@@ -715,9 +715,11 @@ html.lock body::before {
   margin-bottom: 15px;
 }
 
+.index-catalog .day-single__days {
+  margin-bottom: 30px;
+}
+
 .tab {
-  margin: 0 auto;
-  border-top: 1px solid rgba(37, 55, 70, 0.1);
   padding-top: 15px;
 }
 
@@ -1000,7 +1002,7 @@ html.lock body::before {
   padding: 0 15px 0px 15px;
   box-shadow: 0px 0px 10px #253746;
   overflow: hidden;
-  border-radius: 50% 0px 0px 50%;
+  border-radius: 10px 0px 0px 10px;
 }
 
 .index-about__image img {

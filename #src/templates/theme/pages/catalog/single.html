@@ -24,8 +24,10 @@
           </div>
           <h1 class="products__title title-page__title">{{ title }}</h1>
         </div>
-
         <section class="single__day day-single">
+          {% for t in test %}
+          {{ t.name }}
+        {% endfor %}
           <div class="day-single__inner">
             <button type="button" id="open-search" class="day-single__btn">
               <i class="fa-solid fa-magnifying-glass"></i>

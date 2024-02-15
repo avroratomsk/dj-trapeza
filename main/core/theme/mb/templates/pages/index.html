@@ -4,19 +4,18 @@
   <div class="wrapper">
     {% include "components/header.html" %}
     <main class="page">
-      <div class="index-banner" style="background-image: url({%static "theme/mb/images/banner-first-3.jpg"%})">
+      <div class="index-banner" style="background-image: url({{ home_page.banner.url }})">
         <div class="index-banner__container">
           <div class="index-banner__content">
-            <p class="index-banner__undertitle">столовая по-домашнему</p>
-            <h1 class="index-banner__title">трапеза</h1>
+            <p class="index-banner__undertitle">{{ home_page.untitle }}</p>
+            <h1 class="index-banner__title">{{ home_page.meta_h1 }}</h1>
             <div class="index-banner__btns">
-              <a href="#" class="index-banner__btn btn">Перейти в меню</a>
+              <a href="{% url 'catalog' %}" class="index-banner__btn btn">Перейти в меню</a>
               <a href="#" class="index-banner__btn btn">Связаться</a>
             </div>
           </div>
         </div>
       </div>
-
       <div class="index-service">
         <button type="button" class="index-service__union" style="background-image: url(img/Union.svg)">
           <span><img src="img/icon/i-chevron-down.svg" alt="" /></span>
@@ -217,27 +216,17 @@
         <div class="index-about__content">
           <div class="index-about__container">
             <div class="index-about__body">
-              <h2 class="index-about__title">Немного о нас</h2>
+              <h2 class="index-about__title _title">Немного о нас</h2>
+              <h2 class="index-about__title _title">{{ site_settings.phone }}</h2>
               <div class="index-about__text">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id aut autem inventore hic quibusdam, sequi consequatur corporis, earum doloremque aspernatur optio
-                  assumenda nulla quae tempora debitis ducimus. Labore, aliquam dolorem! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id aut autem inventore hic
-                  quibusdam, sequi consequatur corporis, earum doloremque aspernatur optio assumenda nulla quae tempora debitis ducimus. Labore, aliquam dolorem!
-                </p>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id aut autem inventore hic quibusdam, sequi consequatur corporis, earum doloremque aspernatur optio
-                  assumenda nulla quae tempora debitis ducimus. Labore, aliquam dolorem!
-                </p>
+                <p>{{ home_page.about_text }}</p>
               </div>
               <a href="#" class="btn index-about__link">Подробнее</a>
             </div>
           </div>
         </div>
         <div class="index-about__image">
-          <picture>
-            <source srcset="img/about.webp" type="image/webp" />
-            <img src="img/about.jpg" alt="" title="" />
-          </picture>
+          <img src="{{ home_page.about_image.url }}" alt="Немного о нас" title="Немного о нас" />
         </div>
       </div>
 

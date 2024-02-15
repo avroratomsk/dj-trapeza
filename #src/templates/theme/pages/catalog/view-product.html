@@ -85,26 +85,27 @@
       </div>
     </section>
 
-    <section class="product-related">
-      <div class="product-related__container">
-        <h2 class="product-related__title _title">Похожие товары</h2>
-        <div class="product-related__grid">
-          {% for product in products %} {% if forloop.counter <= 4 %} <div class="card-product"
-            data-id="{{ product.display_id }}">
-            <a href="{{ product.get_absolute_url }}" class="card-product__image">
-              <img src="{% static 'admin/images/food.webp' %}" alt="{{ product.name }}" title="{{ product.name }}" />
-            </a>
-            <a href="#" class="card-product__name">{{ product.name }}</a>
-            <p class="card-product__price">{{ product.price }} руб.</p>
-            <div class="card-product__btns">
-              <button class="card-product__btn">Корзина</button>
-              <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
-            </div>
+    {% if products > 0 %}
+      <section class="product-related">
+        <div class="product-related__container">
+          <h2 class="product-related__title _title">Похожие товары</h2>
+          <div class="product-related__grid">
+            {% for product in products %} 
+              <div class="card-product" data-id="{{ product.display_id }}">
+                <a href="{{ product.get_absolute_url }}" class="card-product__image">
+                  <img src="{% static 'admin/images/food.webp' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                </a>
+                <a href="#" class="card-product__name">{{ product.name }}</a>
+                <p class="card-product__price">{{ product.price }} руб.</p>
+                <div class="card-product__btns">
+                  <button class="card-product__btn">Корзина</button>
+                  <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
+                </div>
+              </div>
+            {% endfor %}
         </div>
-        {% endif %} {% endfor %}
-      </div>
-</div>
-</section>
-</main>
+      </section>
+    {% endif %}
+  </main>
 </div>
 {% endblock content %}

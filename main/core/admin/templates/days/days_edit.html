@@ -4,7 +4,8 @@
   <div class="page__inner">
     <div class="page__add">
       <h1 class="page__title">День подачи блюда</h1>
-      <a href="{% url 'product_add' %}">Добавить день</a>
+      <a href="{% url 'days_add' %}">Добавить день</a>
+      <a href="javascript:history.back()"> Назад </a>
     </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
       {% csrf_token %}

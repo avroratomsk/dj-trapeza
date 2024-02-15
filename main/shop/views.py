@@ -31,6 +31,7 @@ def category_detail(request, slug=None):
   
   if slug == "all":
     products =  Product.objects.all()
+    
   # elif query:  
   #   products = q_search(query)
   else:
@@ -43,7 +44,7 @@ def category_detail(request, slug=None):
     "products": current_page,
     "category": category,
     "day_names": days,
-    "give_today": day_default,
+    "give_today": day_default
   }
   return render(request, "pages/catalog/single.html", context)
 

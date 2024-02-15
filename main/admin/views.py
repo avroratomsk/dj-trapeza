@@ -1,10 +1,13 @@
+import subprocess
 import xlrd
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, DayForm, ProductForm
-from shop.models import Product,Categories,Day
+from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm
+from home.models import BaseSettings, HomeTemplate
+from reviews.models import Reviews
+from shop.models import Product,Categories,Day,Subsidiary
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 # from django.contrib.auth.decorators import user_passes_test
@@ -22,6 +25,34 @@ def admin(request):
   """Данная предстовление отобразает главную страницу админ панели"""
   return render(request, "page/index.html")
 
+def admin_settings(request):
+  try:
+    settings = BaseSettings.objects.get()
+  except:
+    settings = BaseSettings()
+    settings.save()
+  
+  if request.method == "POST":
+    form_new = GlobalSettingsForm(request.POST, request.FILES, instance=settings)
+    if form_new.is_valid():
+      form_new.save()
+      
+      print("Все хорошо")
+      # subprocess.call(["touch", RESET_FILE])
+      return redirect("admin")
+    else:
+      return render(request, "settings/general_settings.html", {"form": form_new})
+
+  settings = BaseSettings.objects.get()
+
+  form = GlobalSettingsForm(instance=settings)
+  context = {
+    "form": form,
+    "settings":settings
+  }  
+
+  return render(request, "settings/general_settings.html", context)
+
 def admin_product(request):
   """
   View, которая возвращаяет и отрисовывает все товары на странице
@@ -37,7 +68,6 @@ def admin_product(request):
     "products": current_page
   }
   return render(request, "shop/product/product.html", context)
-
 
 def product_edit(request, pk):
   """
@@ -159,7 +189,6 @@ def upload_goods(request):
       
   return render(request, "upload/upload.html")
 
-
 def admin_category(request):
   categorys = Categories.objects.all()
   
@@ -207,7 +236,7 @@ def category_delete(request, pk):
   return redirect('admin_category')
 
 def day_product(request):
-  days = Day.objects.all()
+  days = Day.objects.all().exclude(slug="ezhednevno")
   
   context = {
     "days": days,
@@ -219,8 +248,8 @@ def day_edit(request, pk):
   day = Day.objects.get(id=pk)
   form = DayForm(instance=day)
   
+  form_new = DayForm(request.POST, instance=day)
   if request.method == "POST":
-    form_new = DayForm(request.POST)
     if form_new.is_valid():
       form_new.save()
       return redirect("admin_day")
@@ -233,3 +262,106 @@ def day_edit(request, pk):
   
   return render(request, "days/days_edit.html", context)
 
+def day_add(request):
+  form = DayForm()
+  if request.method == "POST":
+    form_new = DayForm(request.POST)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_day")
+    else:
+      return render(request, "days/days_add.html", {"form": form_new})
+  context = {
+    "form": form
+  }
+  
+  return render(request, "days/days_add.html", context)
+
+def admin_fillial(request):
+  fillials = Subsidiary.objects.all()
+  
+  context = {
+    "fillials": fillials
+  }
+  
+  return render(request, "fillials/fillial.html", context)
+
+def fillial_edit(request, pk):
+  fillial = Subsidiary.objects.get(id=pk)
+  form = FillialForm(instance=fillial)
+  
+  form_new = FillialForm(request.POST, instance=fillial)
+  if request.method == "POST":
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_fillial")
+    else:
+      return render(request, "fillials/fillial_edit.html", {"form": form_new})
+  
+  context = {
+    "form": form,
+  }
+  
+  return render(request, "fillials/fillial_edit.html", context)
+
+def fillial_add(request):
+  form = FillialForm()
+  if request.method == "POST":
+    form_new = FillialForm(request.POST)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_fillial")
+    else:
+      return render(request, "fillials/fillial_add.html", {"form": form_new})
+    
+  context = {
+    "form": form
+  }
+  
+  return render(request, "fillials/fillial_add.html", context)
+
+def admin_home(request):
+  try:
+    home_page = HomeTemplate.objects.get()
+  except:
+    home_page = HomeTemplate()
+    home_page.save()
+    
+  if request.method == "POST":
+    form_new = HomeTemplateForm(request.POST, request.FILES, instance=home_page)
+    if form_new.is_valid():
+      form_new.save()
+      
+      print("Все хорошо")
+      # subprocess.call(["touch", RESET_FILE])
+      return redirect("admin")
+    else:
+      return render(request, "static/home_page.html", {"form": form_new})
+  
+  home_page = HomeTemplate.objects.get()
+  
+  form = HomeTemplateForm(instance=home_page)
+  context = {
+    "form": form,
+    "home_page":home_page
+  }  
+  
+  return render(request, "static/home_page.html", context)
+
+def admin_reviews(request):
+  reviews = Reviews.objects.all()
+  
+  context = {
+    "reviews": reviews
+  }
+  
+  return render(request, "reviews/reviews.html", context)
+
+def admin_reviews_edit(request, pk):
+  review = Reviews.objects.filter(id=pk)
+  
+  context = {
+    "review": review
+  }
+  
+  return render(request, "reviews/reviews_edit.html", context)

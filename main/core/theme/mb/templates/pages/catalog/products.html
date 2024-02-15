@@ -20,7 +20,7 @@
           </div>
           <section class="service">
             <div class="service__container">
-              {% for category in category %}
+              {% if category %} {% for category in category %}
               <div class="service__row">
                 <a href="{{category.slug}}" class="service__item">
                   {% if category.image %}
@@ -32,7 +32,9 @@
                   </div>
                 </a>
               </div>
-              {% endfor %}
+              {% endfor %} {% else %}
+              <p>Товаров пока что нет</p>
+              {% endif %}
             </div>
           </section>
         </div>

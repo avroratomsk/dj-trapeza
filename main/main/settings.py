@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# RESET_FILE = "/home/gorills/project/knc/main/manage.py"
 
 # Application definition
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "home",
     "shop",
     "users",
+    "reviews",
     'django_ckeditor_5',
 ]
 
@@ -56,10 +58,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "main.urls"
@@ -78,6 +78,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # "admin.context_processors.load_settings",
             ],
         },
     },
@@ -94,7 +95,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "trapeza",
-        "USER": "trapeza",
+        "USER": "postgres",
         "PASSWORD": "1111",
         "HOST": "localhost",
         "PORT": "5432",
