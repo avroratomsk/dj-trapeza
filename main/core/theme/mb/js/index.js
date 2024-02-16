@@ -125,3 +125,15 @@ orderBtn.forEach(btn => {
     // e.preventDefault();
   })
 })
+
+const regNum = document.querySelectorAll('.reg-num');
+if (regNum) {
+  regNum.forEach(num => {
+    phoneNumber = num.href.replace('tel:', '');
+    newNumber = clearSimvol(phoneNumber.replace('8', "+7"));
+    num.href = newNumber
+  });
+}
+function clearSimvol(str) {
+  return str.replace(/[\s.,%,),(,-]/g, '');
+}

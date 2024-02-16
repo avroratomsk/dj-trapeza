@@ -20,6 +20,20 @@
     }
   }
 
+  // .page__add
+  &__add {
+    margin-bottom: 30px;
+  }
+
+  // .page__add-btn
+  &__add-btn {
+    background-color: $orange;
+    padding: 15px 40px;
+    color: $white;
+    border-radius: 6px;
+    display: inline-flex;
+  }
+
   // .page__inner
 
   &__inner {}

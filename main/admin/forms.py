@@ -1,6 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import BaseSettings, HomeTemplate
+from reviews.models import Reviews
 from shop.models import Categories, Day, Product, Subsidiary
 
 # class ProductForm(forms.ModelForm):
@@ -318,7 +319,6 @@ class DayForm(forms.ModelForm):
       })
     }
     
-
 class FillialForm(forms.ModelForm):
   """ Form, отвечает за добавление филлиала и редактирование филлиала"""
   class Meta:
@@ -401,3 +401,69 @@ class HomeTemplateForm(forms.ModelForm):
               'class': 'form__controls',
           }),
       }
+      
+      
+class ReviewsForm(forms.ModelForm):
+  """ Form, добавление и редактирование отзыва"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = Reviews
+    fields = [
+        'avatar',
+        'name',
+        'slug',
+        'date',
+        'text',
+        'status',
+        'meta_h1',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+    ]
+    labels = {
+        'avatar': 'Фотография пользователя',
+        'name':'ФИО пользователя',
+        'slug': 'URL',
+        'date':'Дата коментария',
+        'text':'Текст коментария',
+        'status':'Статус публикации',
+        'meta_h1':'Заголвок первого уровня',
+        'meta_title':'Meta title',
+        'untitle': 'Надзаголовок',
+        'meta_description':'Мета description',
+        'meta_keywords':'Meta keywords',
+    }
+    widgets = {
+      'name': forms.TextInput(attrs={
+        'class': 'form__controls',
+        'id': 'name'
+      }),
+      'slug': forms.TextInput(attrs={
+        'class':'form__controls',
+        "id": "slug"
+      }),
+      'date': forms.DateInput(attrs={
+        'class':'form__controls',
+      }),
+      'text': forms.Textarea(attrs={
+        'class': 'form__controls',
+        'rows': 5,
+      }),
+      'status': forms.CheckboxInput(attrs={
+        'class': 'form__controls-checkbox',
+      }),
+      'meta_h1': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_title': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_description': forms.Textarea(attrs={
+        'class': 'form-controls',
+        'rows': 5,
+      }),
+      'meta_keywords': forms.TextInput(attrs={
+        'class': 'form__controls'
+      })
+    }

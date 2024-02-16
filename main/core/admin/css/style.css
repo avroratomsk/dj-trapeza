@@ -324,6 +324,18 @@ ol {
   font-weight: 600;
 }
 
+.page__add {
+  margin-bottom: 30px;
+}
+
+.page__add-btn {
+  background-color: #e76642;
+  padding: 15px 40px;
+  color: #fff;
+  border-radius: 6px;
+  display: inline-flex;
+}
+
 .page__title-h2 {
   font-size: clamp(18px, 1.8vw, 23px);
   color: #253746;

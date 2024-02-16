@@ -36,7 +36,13 @@ urlpatterns = [
     #URl - отвечающие за отображение отзывов, редактирование и удаление отзывов
     path('admin-reviews/', views.admin_reviews, name='admin_reviews'),
     path('admin-reviews/edit/<int:pk>/', views.admin_reviews_edit, name='admin_reviews_edit'),
-    # path('admin-reviews/add/', views.admin_reviews_add, name='admin_reviews_add'),
+    path('admin-reviews/add/', views.admin_reviews_add, name='admin_reviews_add'),
+    # path('admin_reviews/delete/<int:pk>/', views.admin_reviews_delete, name='admin_reviews_delete'),
+    
+    #URl - отвечающие за отображение акций, редактирование и удаление акций
+    path('stock/', views.stock, name='admin_stock'),
+    path('stock/edit/<int:pk>/', views.admin_reviews_edit, name='admin_reviews_edit'),
+    path('stock/add/', views.admin_reviews_add, name='admin_reviews_add'),
     # path('admin_reviews/delete/<int:pk>/', views.admin_reviews_delete, name='admin_reviews_delete'),
     
     #URl - Шаблон главной страницы

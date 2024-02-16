@@ -96,7 +96,7 @@
 
       <div class="index-catalog">
         <div class="index-catalog__container">
-          <h2 class="index-catalog__title title--dark">Меню</h2>
+          <h2 class="index-catalog__title title--dark">Меню дня</h2>
           <div class="index-catalog__tab tab">
             <div class="day-single__days">
               <a href="#" data-day="" class="day-single__day">Понедельник</a>
@@ -108,104 +108,21 @@
             </div>
             <div class="tab__content">
               <div class="tab__content-grid" data-id="all">
+                {% for product in products %}
                 <div class="tab__content-item card-product">
-                  <a href="#" class="card-product__image">
-                    <picture>
-                      <source srcset="img/menu/food-1.webp" type="image/webp" />
-                      <img src="img/menu/food-1.jpg" alt="" title="" />
-                    </picture>
+                  <a href="{{ product.get_absolute_url}}" class="card-product__image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                    {% endif %}
                   </a>
-                  <a href="#" class="card-product__name">Блинчики</a>
-                  <p class="card-product__price">85₽</p>
+                  <a href="{{ product.get_absolute_url}}" class="card-product__name">{{ product.name }}</a>
+                  <p class="card-product__price">{{ product.price }}₽</p>
                   <div class="card-product__btns">
-                    <a href="#" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
+                    <a href="{{ product.get_absolute_url }}" class="card-product__btn">Подробнее</a>
+                    {% comment %} <a href="#" class="card-product__btn">Описание</a> {% endcomment %}
                   </div>
                 </div>
-                <div class="tab__content-item card-product">
-                  <a href="#" class="card-product__image">
-                    <picture>
-                      <source srcset="img/menu/food-1.webp" type="image/webp" />
-                      <img src="img/menu/food-1.jpg" alt="" title="" />
-                    </picture>
-                  </a>
-                  <a href="#" class="card-product__name">Блинчики</a>
-                  <p class="card-product__price">85₽</p>
-                  <div class="card-product__btns">
-                    <a href="#" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
-                  </div>
-                </div>
-                <div class="tab__content-item card-product">
-                  <a href="#" class="card-product__image">
-                    <picture>
-                      <source srcset="img/menu/food-1.webp" type="image/webp" />
-                      <img src="img/menu/food-1.jpg" alt="" title="" />
-                    </picture>
-                  </a>
-                  <a href="#" class="card-product__name">Блинчики</a>
-                  <p class="card-product__price">85₽</p>
-                  <div class="card-product__btns">
-                    <a href="#" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
-                  </div>
-                </div>
-                <div class="tab__content-item card-product">
-                  <a href="#" class="card-product__image">
-                    <picture>
-                      <source srcset="img/menu/food-1.webp" type="image/webp" />
-                      <img src="img/menu/food-1.jpg" alt="" title="" />
-                    </picture>
-                  </a>
-                  <a href="#" class="card-product__name">Блинчики</a>
-                  <p class="card-product__price">85₽</p>
-                  <div class="card-product__btns">
-                    <a href="#" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
-                  </div>
-                </div>
-                <div class="tab__content-item card-product">
-                  <a href="#" class="card-product__image">
-                    <picture>
-                      <source srcset="img/menu/food-1.webp" type="image/webp" />
-                      <img src="img/menu/food-1.jpg" alt="" title="" />
-                    </picture>
-                  </a>
-                  <a href="#" class="card-product__name">Блинчики</a>
-                  <p class="card-product__price">85₽</p>
-                  <div class="card-product__btns">
-                    <a href="#" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
-                  </div>
-                </div>
-                <div class="tab__content-item card-product">
-                  <a href="#" class="card-product__image">
-                    <picture>
-                      <source srcset="img/menu/food-1.webp" type="image/webp" />
-                      <img src="img/menu/food-1.jpg" alt="" title="" />
-                    </picture>
-                  </a>
-                  <a href="#" class="card-product__name">Блинчики</a>
-                  <p class="card-product__price">85₽</p>
-                  <div class="card-product__btns">
-                    <a href="#" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
-                  </div>
-                </div>
-                <div class="tab__content-item card-product">
-                  <a href="#" class="card-product__image">
-                    <picture>
-                      <source srcset="img/menu/food-1.webp" type="image/webp" />
-                      <img src="img/menu/food-1.jpg" alt="" title="" />
-                    </picture>
-                  </a>
-                  <a href="#" class="card-product__name">Блинчики</a>
-                  <p class="card-product__price">85₽</p>
-                  <div class="card-product__btns">
-                    <a href="#" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
-                  </div>
-                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -238,106 +155,28 @@
             </div>
             <div class="reviews__slider swiper">
               <div class="reviews__wrapper swiper-wrapper">
+                {% for review in reviews %}
                 <div class="reviews__slide swiper-slide">
                   <div class="reviews__quote">"</div>
                   <div class="reviews__top">
                     <div class="reviews__avatar">
-                      <picture>
-                        <source srcset="img/face-1.webp" type="image/webp" />
-                        <img src="img/face-1.jpg" alt="" />
-                      </picture>
+                      {% if review.avatar %}
+                      <img src="{{ review.avatar.url }}" alt="{{ review.name }}" title="{{ review.name }}" />
+                      {% endif %}
                     </div>
                     <div class="reviews__name">
-                      <p>Иван Сидоров</p>
-                      <span>12.12.2023</span>
+                      <p>{{ review.name }}</p>
+                      <span>{{ review.date }}</span>
                     </div>
                   </div>
                   <div class="reviews__bottom">
                     <div class="reviews__text">
-                      <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia quas? Perferendis iure illo commodi cum, accusamus officiis
-                        eius neque quo, voluptate aliquid minima ullam unde culpa! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia
-                        quas? Perferendis iure illo commodi cum, accusamus officiis eius neque quo, voluptate aliquid minima ullam unde culpa!
-                      </p>
+                      <p>{{ review.text }}</p>
                     </div>
-                    <button type="button" class="reviews__btn">Читать отзыв полностью</button>
+                    <a href="{{ review.get_absolute_url }}" class="reviews__btn">Читать отзыв полностью</a>
                   </div>
                 </div>
-                <div class="reviews__slide swiper-slide">
-                  <div class="reviews__quote">"</div>
-                  <div class="reviews__top">
-                    <div class="reviews__avatar">
-                      <picture>
-                        <source srcset="img/face-1.webp" type="image/webp" />
-                        <img src="img/face-1.jpg" alt="" />
-                      </picture>
-                    </div>
-                    <div class="reviews__name">
-                      <p>Иван Сидоров</p>
-                      <span>12.12.2023</span>
-                    </div>
-                  </div>
-                  <div class="reviews__bottom">
-                    <div class="reviews__text">
-                      <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia quas? Perferendis iure illo commodi cum, accusamus officiis
-                        eius neque quo, voluptate aliquid minima ullam unde culpa! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia
-                        quas? Perferendis iure illo commodi cum, accusamus officiis eius neque quo, voluptate aliquid minima ullam unde culpa!
-                      </p>
-                    </div>
-                    <button type="button" class="reviews__btn">Читать отзыв полностью</button>
-                  </div>
-                </div>
-                <div class="reviews__slide swiper-slide">
-                  <div class="reviews__quote">"</div>
-                  <div class="reviews__top">
-                    <div class="reviews__avatar">
-                      <picture>
-                        <source srcset="img/face-1.webp" type="image/webp" />
-                        <img src="img/face-1.jpg" alt="" />
-                      </picture>
-                    </div>
-                    <div class="reviews__name">
-                      <p>Иван Сидоров</p>
-                      <span>12.12.2023</span>
-                    </div>
-                  </div>
-                  <div class="reviews__bottom">
-                    <div class="reviews__text">
-                      <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia quas? Perferendis iure illo commodi cum, accusamus officiis
-                        eius neque quo, voluptate aliquid minima ullam unde culpa! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia
-                        quas? Perferendis iure illo commodi cum, accusamus officiis eius neque quo, voluptate aliquid minima ullam unde culpa!
-                      </p>
-                    </div>
-                    <button type="button" class="reviews__btn">Читать отзыв полностью</button>
-                  </div>
-                </div>
-                <div class="reviews__slide swiper-slide">
-                  <div class="reviews__quote">"</div>
-                  <div class="reviews__top">
-                    <div class="reviews__avatar">
-                      <picture>
-                        <source srcset="img/face-1.webp" type="image/webp" />
-                        <img src="img/face-1.jpg" alt="" />
-                      </picture>
-                    </div>
-                    <div class="reviews__name">
-                      <p>Иван Сидоров</p>
-                      <span>12.12.2023</span>
-                    </div>
-                  </div>
-                  <div class="reviews__bottom">
-                    <div class="reviews__text">
-                      <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia quas? Perferendis iure illo commodi cum, accusamus officiis
-                        eius neque quo, voluptate aliquid minima ullam unde culpa! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat expedita vero adipisci quia
-                        quas? Perferendis iure illo commodi cum, accusamus officiis eius neque quo, voluptate aliquid minima ullam unde culpa!
-                      </p>
-                    </div>
-                    <button type="button" class="reviews__btn">Читать отзыв полностью</button>
-                  </div>
-                </div>
+                {% endfor %}
               </div>
               <div class="reviews__controls">
                 <button type="button" class="reviews__controls-btn">Оставить отзыв</button>
@@ -468,7 +307,7 @@
                 <div class="contact-info__icon">
                   <i class="fa-solid fa-phone-volume"></i>
                 </div>
-                <a href="#" class="contact-info__content"> 8(999) 999-99-99 </a>
+                <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num">{{ settings.phone_one }}</a>
               </div>
               <div class="contact-info__row">
                 <div class="contact-info__icon">
@@ -527,7 +366,7 @@
             </div>
             <div class="footer__item">
               <span>Телефон: </span>
-              <span>8(999) 999-99-99</span>
+              <a href="tel:{{ settings.phone_one }}" class="reg-num">{{ settings.phone_one }}</a>
             </div>
             <div class="footer__item">
               <span>Время работы: </span>

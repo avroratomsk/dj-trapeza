@@ -4,7 +4,7 @@ import xlrd
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm
+from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm
 from home.models import BaseSettings, HomeTemplate
 from reviews.models import Reviews
 from shop.models import Product,Categories,Day,Subsidiary
@@ -358,10 +358,39 @@ def admin_reviews(request):
   return render(request, "reviews/reviews.html", context)
 
 def admin_reviews_edit(request, pk):
-  review = Reviews.objects.filter(id=pk)
+  review = Reviews.objects.get(id=pk)
+  form = ReviewsForm(instance=review)
+  
+  if request.method == "POST":
+    form_new = ReviewsForm(request.POST, request.FILES, instance=review)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_reviews")
+    else:
+      return render(request, "reviews/reviews_edit.html", {"form": form_new})
   
   context = {
-    "review": review
+    "review":review,
+    "form": form
   }
   
   return render(request, "reviews/reviews_edit.html", context)
+
+def admin_reviews_add(request):
+  form = ReviewsForm()
+  if request.method == "POST":
+    form_new = ReviewsForm(request.POST)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_reviews")
+    else:
+      return render(request, "reviews/reviews_add.html", {"form": form_new})
+    
+  context = {
+    "form": form
+  }
+  
+  return render(request, "reviews/reviews_add.html", context)
+
+def stock(request):
+  return HttpResponse("Акции")

@@ -4,7 +4,7 @@
   <div class="page__inner">
     <div class="page__add">
       <h1 class="page__title">Отзывы</h1>
-      <a href="{% url 'product_add' %}">Добавить отзыв</a>
+      <a href="{% url 'admin_reviews_add' %}" class="page__add-btn">Добавить отзыв</a>
       <a href="javascript:history.back()"> Назад </a>
     </div>
     <div class="table-3">
@@ -17,14 +17,14 @@
         {% for review in reviews %}
         <div class="body-table__row">
           <div class="body-table__image">
-            {% if product.image %}
+            {% if review.avatar %}
             <img src="{{ review.avatar.url }}" alt="{{ review.name }}" title="{{ review.name }}" />
             {% else%}
             <img src="{% static 'admin/images/food.webp' %}" alt="" />
             {% endif %}
           </div>
           <div class="body-table__name">
-            {% if product.slug %}
+            {% if review.slug %}
             <a href="" class="">{{ review.name }}</a>
             {% else %}
             <p class="">{{ review.name }}</p>

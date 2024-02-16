@@ -111,3 +111,6 @@ function viewProduct(e) {
   }
 
 }
+
+
+
