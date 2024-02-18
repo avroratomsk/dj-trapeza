@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from home.models import BaseSettings, HomeTemplate
+from home.models import BaseSettings, HomeTemplate, Stock
 from shop.models import Product
 from reviews.models import Reviews
 
@@ -25,10 +25,25 @@ def index(request):
     return render(request, 'pages/index.html', context)
 
 def about(request):
-    return HttpResponse('About page')
+    return render(request, "pages/about.html")
 
 def contact(request):
     return render(request, "pages/contact.html")
 
 def stock(request):
-    return render(request, "pages/stock.html")
+    stocks = Stock.objects.filter(status=True)
+    
+    context = {
+        "stocks": stocks
+    }
+    
+    return render(request, "pages/stock/stock.html", context)
+
+def stock_detail(request, slug):
+    stock = Stock.objects.get(slug=slug)
+    
+    context = {
+        "stock": stock
+    }
+    
+    return render(request, "pages/stock/stock_detail.html", context)

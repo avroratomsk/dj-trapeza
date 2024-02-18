@@ -1,113 +1,128 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}{% load static %} {% block content %}
 
 <body>
   <div class="wrapper">
-    <header class="header">
-      <div class="header__top top-header">
-        <div class="top-header__container">
-          <div class="top-header__inner">
-            <div class="top-header__logo">
-              <img src="img/logo-2.svg" alt="" />
-            </div>
-            <div class="top-header__nav nav">
-              <ul class="nav__list">
-                <li class="nav__item"><a href="#" class="nav__link">Меню</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Услуги</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">О нас</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Акции</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Вакансии</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Контакты</a></li>
-              </ul>
-            </div>
-            <div class="top-header__actions">
-              <a href="tel:+79999999999" class="top-header__phone">+7 (999) 999-99-99</a>
-              <button type="button">Связаться с нами</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
+    {% include "components/header-single.html" %}
     <main class="page">
-      <div class="single-banner" style="background-image: url(img/stock.jpg)" data-speed="70">
-        <h1 class="stock__title _title">Скидки и Акции</h1>
-        <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
-            Главная
-            <meta itemprop="position" content="1" />
-          </a>
-          <span itemprop="name" class="breadcrumbs__item">
-            Акции
-            <meta itemprop="position" content="2" />
-          </span>
+      <div class="service-page">
+        <div class="service-page__container">
+          <div class="products__top title-page">
+            <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+              <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+                Главная
+                <meta itemprop="position" content="1" />
+              </a>
+              <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+                Услуги
+                <meta itemprop="position" content="2" />
+              </a>
+              <span itemprop="name" class="breadcrumbs__item">
+                {{ service.name }}
+                <meta itemprop="position" content="3" />
+              </span>
+            </div>
+            <h1 class="products__title title-page__title">{{ service.name }}</h1>
+            {% if service.subtitle %}
+            <p class="products__subtitle">{{ service.subtitle }}</p>
+            {% endif %}
+          </div>
         </div>
-      </div>
-      <section class="stock">
-        <div class="stock__container">
-          <div class="stock__inner">
-            <div class="stock__row">
-              <div class="stock__col">
-                <div class="stock__image">
-                  <picture
-                    ><source srcset="img/about.webp" type="image/webp" />
-                    <img src="img/about.jpg" alt="" title=""
-                  /></picture>
+        <section class="service-page__body body-service">
+          <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
+          <div class="service__container">
+            <div class="body-service__row">
+              <div class="body-service__col">
+                <div class="body-service__image">
+                  <img src="{% static 'theme/mb/images/hall.jpg' %}" alt="" />
+                  <span>Пролетарская 123</span>
                 </div>
               </div>
-              <div class="stock__col">
-                <div class="stock__col-content">
-                  <h3 class="stock__col-title">Первая акция, акиця дня купи и получи скидку</h3>
-                  <p class="stock__col-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non esse quis tenetur commodi quam ipsum, consequatur iusto odit! Voluptatum quia, rem repudiandae qui
-                    cumque doloribus beatae impedit illo reprehenderit suscipit.
-                  </p>
-                  <a href="#" class="stock__col-link">Читать больше</a>
+              <div class="body-service__col">
+                <h2 class="body-service__title _title">
+                  Заказать обед <br />
+                  в столовой
+                </h2>
+                <p class="body-service__subtitle">У нас есть два зала с посадкой до 50 человек</p>
+                <div class="body-service__image">
+                  <img src="{% static 'theme/mb/images/hall-2.jpg' %}" alt="" />
+                  <span>Ракетная 123</span>
                 </div>
-              </div>
-            </div>
-            <div class="stock__row">
-              <div class="stock__col">
-                <div class="stock__image">
-                  <picture
-                    ><source srcset="img/about.webp" type="image/webp" />
-                    <img src="img/about.jpg" alt="" title=""
-                  /></picture>
-                </div>
-              </div>
-              <div class="stock__col">
-                <div class="stock__col-content">
-                  <h3 class="stock__col-title">Вторая акция, акиця дня купи и получи скидку</h3>
-                  <p class="stock__col-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non esse quis tenetur commodi quam ipsum, consequatur iusto odit! Voluptatum quia, rem repudiandae qui
-                    cumque doloribus beatae impedit illo reprehenderit suscipit.
-                  </p>
-                  <a href="#" class="stock__col-link">Читать больше</a>
-                </div>
+                <button type="button" class="body-service__btn _btn">Забронировать зал</button>
               </div>
             </div>
-            <div class="stock__row">
-              <div class="stock__col">
-                <div class="stock__image">
-                  <picture
-                    ><source srcset="img/about.webp" type="image/webp" />
-                    <img src="img/about.jpg" alt="" title=""
-                  /></picture>
+          </div>
+        </section>
+        <section class="service-menu">
+          <div class="service-menu__container">
+            <div class="single-content">
+              <aside class="single-content__aside aside">
+                <div class="aside__options" id="option-part">
+                  <h5 class="aside__title">Раздел</h5>
+
+                  <div class="aside__filter">
+                    <input type="hidden" value="" class="aside__filter-hidden" />
+                    <ul class="aside__list">
+                      {% for category in category %}
+                      <li class="aside__item">
+                        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div class="stock__col">
-                <div class="stock__col-content">
-                  <h3 class="stock__col-title">Третья акция, акиця дня купи и получи скидку</h3>
-                  <p class="stock__col-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non esse quis tenetur commodi quam ipsum, consequatur iusto odit! Voluptatum quia, rem repudiandae qui
-                    cumque doloribus beatae impedit illo reprehenderit suscipit.
-                  </p>
-                  <a href="#" class="stock__col-link">Читать больше</a>
+                <div class="aside__options" id="option-part">
+                  <h5 class="aside__title">Цена</h5>
+                  <div class="price-input">
+                    <div class="price-input__fields">
+                      <div class="price-input__field">
+                        <input type="number" class="price-input__min" value="25" />
+                      </div>
+                      <div class="separator"></div>
+                      <div class="price-input__field">
+                        <input type="number" class="price-input__max" value="75" />
+                      </div>
+                    </div>
+                    <div class="price-input__slider">
+                      <div class="price-input__progress" id="prodgress"></div>
+                    </div>
+                    <div class="price-input__range">
+                      <input type="range" name="range-min" id="range-min" min="0" max="10000" class="price-input__range-min" value="2500" />
+                      <input type="range" name="range-max" id="range-max" min="0" max="10000" class="price-input__range-max" value="7500" />
+                    </div>
+                  </div>
+                </div>
+              </aside>
+              <div class="single-content__products products-single">
+                <div class="products-single__grid">
+                  {% for product in products %}
+                  <div class="card-product" data-id="{{ product.display_id }}">
+                    <a href="#" class="card-product__image">
+                      {% if product.image %}
+                      <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                      {% else %}
+                      <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                      {% endif %}
+                    </a>
+                    <a href="#" class="card-product__name">{{ product.name }}</a>
+                    <a href="#" class="card-product__name">{{ product.category.name }} - {{ product.day}}</a>
+
+                    {% if product.discount %}
+                    <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
+                    {% else %}
+                    <p class="card-product__price">{{ product.price }}₽</p>
+                    {% endif %}
+                    <div class="card-product__btns">
+                      <button class="card-product__btn">Корзина</button>
+                      <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
+                    </div>
+                  </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
       <section class="contact">
         <div class="contact__container">
           <h2 class="contact__title _title">Контакты</h2>
@@ -239,24 +254,5 @@
       </div>
     </div>
   </div>
-  <div id="popup" aria-hidden="true" class="popup popup-view">
-    <div class="popup__wrapper">
-      <div class="popup__content">
-        <button data-close type="button" class="popup__close">X</button>
-        <div class="popup__grid">
-          <div class="popup__image">
-            <img src="" alt="" class="popup-image" />
-          </div>
-          <div class="popup__info">
-            <p class="popup__title"></p>
-            <p class="popup__price"></p>
-            <p class="popup__bjy"></p>
-            <p class="popup__descr"></p>
-          </div>
-          <button type="button" class="popup__btn">Позвонить</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
-{% endblock %} {% include "../components/footer.html" %}
+{% endblock %}

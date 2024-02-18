@@ -31,6 +31,18 @@ ol {
   list-style: none;
 }
 
+.empty {
+  height: 100%;
+  font-size: clamp(25px, 2.5vw, 45px);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(37, 55, 70, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .sidebar {
   width: 400px;
   height: calc(100vh - 0px);

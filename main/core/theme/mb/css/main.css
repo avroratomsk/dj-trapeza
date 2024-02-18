@@ -199,6 +199,8 @@ html.lock body::before {
 }
 
 .products__subtitle {
+  max-width: 600px;
+  text-wrap: balance;
   text-align: center;
   line-height: 150%;
   color: rgba(37, 55, 70, 0.8);
@@ -1442,6 +1444,54 @@ html.lock body::before {
   border-radius: 4px;
 }
 
+.about__row {
+  display: flex;
+  gap: 30px;
+}
+
+.about__col {
+  flex: 1 1 50%;
+}
+
+.about__title {
+  margin-bottom: 20px;
+}
+
+.about__subtitle {
+  font-size: 20px;
+  line-height: 140%;
+  max-width: 550px;
+  text-wrap: balance;
+  color: rgba(37, 55, 70, 0.7);
+}
+
+.about__text p + p {
+  margin-top: 20px;
+}
+
+.about .body-service__row {
+  padding: 120px 0px 60px;
+}
+
+.text {
+  font-size: 17px;
+  line-height: 150%;
+  color: rgba(37, 55, 70, 0.8);
+}
+
+.service-page__item {
+  padding: 15px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0px 0px 10px rgba(37, 55, 70, 0.1);
+  border: 1px solid rgba(37, 55, 70, 0.1);
+  border-radius: 6px;
+}
+
+.service-page__icon {
+  margin-right: 10px;
+}
+
 /*
     Подключение стилей отдельных блоков
 */
@@ -1713,7 +1763,8 @@ section {
   background-position: 0 0;
   overflow: hidden;
   position: relative;
-  border-radius: 0px 0px 20% 20%;
+  border-radius: 20px;
+  margin: 20px 15px 0px;
 }
 
 .single-banner::before {

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 
 from admin.singleton_model import SingletonModel
@@ -33,6 +34,11 @@ class Stock(models.Model):
   description = models.TextField(blank=True, null=True, verbose_name="Описание акции")
   validity = models.DateTimeField(blank=True, null=True, help_text="После окончания акции, она перейдет в состояние не активна", verbose_name="Срок дейстия акции")
   status = models.BooleanField(default=True, verbose_name="Статус публикации")
+  image = models.ImageField(upload_to="stock", null=True, blank=True, verbose_name="ФОтография акции")
+  slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+
+  def get_absolute_url(self):
+      return reverse("stock_detail", kwargs={"slug": self.slug})

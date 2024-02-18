@@ -4,8 +4,9 @@ import xlrd
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm
-from home.models import BaseSettings, HomeTemplate
+from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm
+from home.models import BaseSettings, HomeTemplate, Stock
+from service.models import Service
 from reviews.models import Reviews
 from shop.models import Product,Categories,Day,Subsidiary
 from django.core.paginator import Paginator
@@ -290,8 +291,8 @@ def fillial_edit(request, pk):
   fillial = Subsidiary.objects.get(id=pk)
   form = FillialForm(instance=fillial)
   
-  form_new = FillialForm(request.POST, instance=fillial)
   if request.method == "POST":
+    form_new = FillialForm(request.POST, request.FILES, instance=fillial)
     if form_new.is_valid():
       form_new.save()
       return redirect("admin_fillial")
@@ -307,7 +308,7 @@ def fillial_edit(request, pk):
 def fillial_add(request):
   form = FillialForm()
   if request.method == "POST":
-    form_new = FillialForm(request.POST)
+    form_new = FillialForm(request.POST, request.FILES)
     if form_new.is_valid():
       form_new.save()
       return redirect("admin_fillial")
@@ -379,7 +380,7 @@ def admin_reviews_edit(request, pk):
 def admin_reviews_add(request):
   form = ReviewsForm()
   if request.method == "POST":
-    form_new = ReviewsForm(request.POST)
+    form_new = ReviewsForm(request.POST, request.FILES)
     if form_new.is_valid():
       form_new.save()
       return redirect("admin_reviews")
@@ -392,5 +393,98 @@ def admin_reviews_add(request):
   
   return render(request, "reviews/reviews_add.html", context)
 
-def stock(request):
-  return HttpResponse("Акции")
+def admin_stock(request):
+  stocks = Stock.objects.all()
+  
+  context = {
+    "stocks": stocks
+  }
+  
+  return render(request, "stock/stock.html", context)
+
+def stock_add(request):
+  form = StockForm()
+  
+  if request.method == "POST":
+    form_new = StockForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_stock")
+    else: 
+      return render(request, "stock/stock_add.html", {"form": form_new})
+  
+  context = {
+    "form": form
+  }
+  
+  return render(request, "stock/stock_add.html", context)
+
+def stock_edit(request, pk):
+  stock = Stock.objects.get(id=pk)
+  form = StockForm(instance=stock)
+  if request.method == "POST":
+    form_new = StockForm(request.POST, request.FILES, instance=stock)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_stock")
+    else:
+      return render(request, "stock/stock_edit.html", {"form": form_new})
+  
+  context = {
+    "form": form
+  }
+  
+  return render(request, "stock/stock_edit.html", context)
+
+def stock_delete(request, pk):
+  stock = Stock.objects.get(id=pk)
+  stock.delete()
+  return redirect("admin_stock")
+
+def admin_service(request):
+  services = Service.objects.all()
+  
+  context = {
+    "services": services
+  }
+  
+  return render(request, "serv/admin_serv.html", context)
+
+def service_add(request):
+  form = ServiceForm()
+  
+  if request.method == "POST":
+    form_new = ServiceForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_service")
+    else: 
+      return render(request, "serv/serv_add.html", {"form": form_new})
+  
+  context = {
+    "form": form
+  }
+  
+  return render(request, "serv/serv_add.html", context)
+
+def service_edit(request, pk):
+  services = Service.objects.get(id=pk)
+  form = ServiceForm(instance=services)
+  if request.method == "POST":
+    form_new = ServiceForm(request.POST, request.FILES, instance=services)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_service")
+    else:
+      return render(request, "serv/stock_edit.html", {"form": form_new})
+  
+  context = {
+    "form": form
+  }
+  
+  return render(request, "serv/serv_edit.html", context)
+
+def service_delete(request, pk):
+  service = Service.objects.get(id=pk)
+  service.delete()
+  return redirect("admin_service")

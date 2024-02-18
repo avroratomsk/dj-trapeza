@@ -80,7 +80,8 @@ section {
   background-position: 0 0;
   overflow: hidden;
   position: relative;
-  border-radius: 0px 0px 20% 20%;
+  border-radius: 20px;
+  margin: 20px 15px 0px;
 
   &::before {
     content: "";

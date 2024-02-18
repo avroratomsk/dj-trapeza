@@ -1,6 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
-from home.models import BaseSettings, HomeTemplate
+from home.models import BaseSettings, HomeTemplate, Stock
+from service.models import Service
 from reviews.models import Reviews
 from shop.models import Categories, Day, Product, Subsidiary
 
@@ -326,11 +327,13 @@ class FillialForm(forms.ModelForm):
     fields = [
       "name",
       "address_fillial",
+      "image",
       "slug"
     ]
     labels = {
       "name": "Название филлиала",
       "address_fillial": "Адрес филлиала",
+      "image": "Фотография зала",
       "slug": "URL",
     }
     widgets = {
@@ -346,7 +349,6 @@ class FillialForm(forms.ModelForm):
       "slug": forms.TextInput(attrs={
         "class":"form__controls",
         "id": "slug"
-        # "placeholder": "Название категори"
       })
     }
     
@@ -401,8 +403,7 @@ class HomeTemplateForm(forms.ModelForm):
               'class': 'form__controls',
           }),
       }
-      
-      
+           
 class ReviewsForm(forms.ModelForm):
   """ Form, добавление и редактирование отзыва"""
   # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
@@ -455,6 +456,121 @@ class ReviewsForm(forms.ModelForm):
       }),
       'meta_h1': forms.TextInput(attrs={
         'class': 'form__controls',
+      }),
+      'meta_title': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_description': forms.Textarea(attrs={
+        'class': 'form-controls',
+        'rows': 5,
+      }),
+      'meta_keywords': forms.TextInput(attrs={
+        'class': 'form__controls'
+      })
+    }
+    
+class StockForm(forms.ModelForm):
+  """ Form, добавление и редактирование акций"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = Stock
+    fields = [
+        'title',
+        'slug',
+        'description',
+        'validity',
+        'status',
+        'image',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+    ]
+    labels = {
+        'title':'Название акции',
+        'slug': 'URL',
+        'validity':'Срок действия акции',
+        'description':'Текст коментария',
+        'status':'Статус публикации',
+        'image': 'Изображение акции',
+        'meta_title':'Meta title',
+        'untitle': 'Надзаголовок',
+        'meta_description':'Мета description',
+        'meta_keywords':'Meta keywords',
+    }
+    widgets = {
+      'title': forms.TextInput(attrs={
+        'class': 'form__controls',
+        'id': 'name'
+      }),
+      'slug': forms.TextInput(attrs={
+        'class':'form__controls',
+        "id": "slug"
+      }),
+      'validity': forms.DateInput(attrs={
+        'class':'form__controls',
+      }),
+      'description': forms.Textarea(attrs={
+        'class': 'form__controls',
+        'rows': 5,
+      }),
+      'status': forms.CheckboxInput(attrs={
+        'class': 'form__controls-checkbox',
+      }),
+      'meta_title': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_description': forms.Textarea(attrs={
+        'class': 'form-controls',
+        'rows': 5,
+      }),
+      'meta_keywords': forms.TextInput(attrs={
+        'class': 'form__controls'
+      })
+    }
+    
+    
+class ServiceForm(forms.ModelForm):
+  """ Form, добавление и редактирование услуг"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = Service
+    fields = [
+        'name',
+        'slug',
+        'subtitle',
+        'status',
+        'image',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+    ]
+    labels = {
+        'name':'Название',
+        'slug': 'URL',
+        'subtitle':'Текст под заголовком',
+        'status':'Статус публикации',
+        'image': 'Изображение акции',
+        'meta_title':'Meta title',
+        'untitle': 'Надзаголовок',
+        'meta_description':'Мета description',
+        'meta_keywords':'Meta keywords',
+    }
+    widgets = {
+      'name': forms.TextInput(attrs={
+        'class': 'form__controls',
+        'id': 'name'
+      }),
+      'slug': forms.TextInput(attrs={
+        'class':'form__controls',
+        "id": "slug"
+      }),
+      'subtitle': forms.DateInput(attrs={
+        'class':'form__controls',
+      }),
+      'status': forms.CheckboxInput(attrs={
+        'class': 'form__controls-checkbox',
       }),
       'meta_title': forms.TextInput(attrs={
         'class': 'form__controls',

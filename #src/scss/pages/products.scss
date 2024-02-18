@@ -21,6 +21,8 @@
   // .products__subtitle
 
   &__subtitle {
+    max-width: 600px;
+    text-wrap: balance;
     text-align: center;
     line-height: 150%;
     color: rgba($color: $mainColor, $alpha: .8);

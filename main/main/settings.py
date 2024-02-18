@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "shop",
     "users",
     "reviews",
+    "service",
     'django_ckeditor_5',
 ]
 
@@ -78,7 +79,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # "admin.context_processors.load_settings",
+                "home.context_processors.load_settings",
             ],
         },
     },
