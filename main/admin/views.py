@@ -1,10 +1,10 @@
-import subprocess
-import xlrd
+import os
+import zipfile
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm
+from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
 from home.models import BaseSettings, HomeTemplate, Stock
 from service.models import Service
 from reviews.models import Reviews
@@ -113,82 +113,33 @@ def product_delete(request,pk):
   
   return redirect('admin_product')
 
-class UploadingProducts(object):
-  # prod = Product.objects.all()
-  # prod.delete()
-  
-  foreign_key_fields = ["category","day"]
-  model = Product
-  
-  
-  def __init__(self, data):
-    data = data
-    self.uploaded_file = data.get("file")
-    self.parsing()
-    
-  def getting_related_model(self, field_name):
-    related_model = self.model._meta.get_field(field_name).remote_field.model
-    return related_model
-  
-  def getting_headers(self):
-    s = self.s 
-    headers = dict()
-    for column in range(s.ncols):
-      value = s.cell(0, column).value
-      headers[column] = value
-    return headers
-  
-  def parsing(self):
-    uploaded_file = self.uploaded_file
-    wb = xlrd.open_workbook(file_contents=uploaded_file.read())
-    s = wb.sheet_by_index(0)
-    self.s = s
-    
-    headers = self.getting_headers()
-    print(f"{headers} -  Заголовки")
-    
-    product_bulk_list = list()
-    for row in range(1, s.nrows):
-      row_dict = {}
-      for column in range(s.ncols):
-        value = s.cell(row,column).value
-        field_name = headers[column]
-        
-        if field_name == "id" and not value:
-          continue
-        
-        if field_name == "date" and not value:
-          continue
-        
-        if field_name in self.foreign_key_fields:
-          related_model = self.getting_related_model(field_name)
-          print(related_model)
-          
-          isinstance, created = related_model.objects.get_or_create(name=value)
-          value = isinstance
-        row_dict[field_name] = value
-      
-      print(row_dict)
-      # product_bulk_list.append(Product(**row_dict))
-      Product.objects.create(**row_dict)
-    
-    # Product.objects.bulk_create(product_bulk_list)
-    # return True
+
+folder = 'upload/'
 
 def upload_goods(request):
-  if request.POST:
-    print(request.POST)
-    print(request.FILES)
-    file = request.FILES['upload_file']
-    uploading_file = UploadingProducts({"file": file})
-    if uploading_file:
-      print('Успешная загрузка')
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            destination = open(os.path.join('upload/', file.name), 'wb+')
+            for chunk in file.chunks():
+                destination.write(chunk)
+            destination.close()
+            
+            # with open('upload/upload.zip', 'wb+') as destination:
+            #   for chunk in f.chunks():
+            #       destination.write(chunk)
+                
+            # Распаковка архива
+            with zipfile.ZipFile('upload/upload.zip', 'r') as zip_ref:
+                zip_ref.extractall('/')
+
+            # Удаление загруженного архива
+            os.remove('upload/upload.zip')
+            return render(request, 'upload/upload.html')
     else:
-      print('Ошибка загрузки файла')
-  else:
-    print("Не метод POST")
-      
-  return render(request, "upload/upload.html")
+        form = UploadFileForm()
+    return render(request, 'upload/upload.html', {'form': form})
 
 def admin_category(request):
   categorys = Categories.objects.all()

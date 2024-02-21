@@ -5,6 +5,9 @@ from service.models import Service
 from reviews.models import Reviews
 from shop.models import Categories, Day, Product, Subsidiary
 
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
+
 # class ProductForm(forms.ModelForm):
 #   # description = forms.CharField(label="Полное описание товара", required=False, widget=CKEditorUploadingWidget())
 #   class Meta:
