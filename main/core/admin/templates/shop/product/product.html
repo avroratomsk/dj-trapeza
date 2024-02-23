@@ -1,4 +1,4 @@
-{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% block body %}
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% load thumbnail %} {% block body %}
 
 <div class="page">
   <div class="page__inner">
@@ -34,9 +34,9 @@
         {% for product in products %}
         <div class="body-table__row">
           <div class="body-table__image">
-            {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-            {% else%}
+            {% if product.image %} {% thumbnail product.image "150x150" format="WEBP" as im %}
+            <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+            {% endthumbnail %} {% else%}
             <img src="{% static 'admin/images/food.webp' %}" alt="" />
             {% endif %}
           </div>

@@ -163,39 +163,76 @@ from pytils.translit import slugify
 path = f"{BASE_DIR}/upload/upload.xlsx"
 from pytils.translit import slugify
 
-def parse_exel(path):
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
+def parse_exсel(path):
   data = pd.read_excel(path)
-  prod = Product.objects.all()
-  prod.delete()
+  Product.objects.all().delete()
+
   for index, row in data.iterrows():
-    # print(f"{row['name']}- {row['image']} - {row['price']} - {row['category']} - {row['day']} - {row['weight']} - {row['subsidiary']}")
-    
-    
-    
-    product_instance = Product(
-      name = row['name'],
-      slug = slugify(row['name']),
-      short_description = '',
-      description = row['description'],
-      meta_h1 = '',
-      meta_title = '',
-      meta_description = '',
-      meta_keywords = '',
-      image = f"goods/{row['image']}",
-      price = row['price'],
-      discount = 0.0,
-      quantity = 1.0,
-      category = None,
-      weight = '',
-      calories = '',
-      proteins = '',
-      fats = '',
-      carbonhydrates = '',
-      status = True
+    name = row['name']
+    slug = slugify(row['name'])
+    short_description = ''
+    description = row['description']
+    meta_h1 = ''
+    meta_title = ''
+    meta_description = ''
+    meta_keywords = ''
+    image = f"goods/{row['image']}"
+    price = row['price']
+    discount = 0.0
+    quantity = 1.0
+    category_name = row['category']
+    category_slug = slugify(category_name)
+
+    try:
+      category = Categories.objects.get(slug=category_slug)
+    except ObjectDoesNotExist:
+      if not Categories.objects.filter(name=category_name).exists():
+        category = Categories.objects.create(
+          name=category_name,
+          slug=category_slug
+        )
+      else:
+        category = Categories.objects.filter(name=category_name).first()
+
+    weight = ''
+    calories = ''
+    proteins = ''
+    fats = ''
+    carbonhydrates = ''
+    status = True
+    print(category)
+
+    new_product = Product(
+      name=name,
+      slug=slug,
+      short_description=short_description,
+      description=description,
+      meta_h1=meta_h1,
+      meta_title=meta_title,
+      meta_description=meta_description,
+      meta_keywords=meta_keywords,
+      image=image,
+      price=price,
+      discount=discount,
+      quantity=quantity,
+      category=category,
+      weight=weight,
+      calories=calories,
+      proteins=proteins,
+      fats=fats,
+      carbonhydrates=carbonhydrates,
+      status=status
     )
-    product_instance.save()
+
+    try:
+        new_product.save()
+    except IntegrityError:
+        # Обработка ошибки при сохранении объекта, если возник конфликт по ключу
+        pass
   
-# parse_exel(path)
+parse_exсel(path)
 
 def admin_category(request):
   categorys = Categories.objects.all()

@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     
+    "sorl.thumbnail",
     "debug_toolbar",
-    # "sorl.thumbnail",
     "home",
     "shop",
     "users",
