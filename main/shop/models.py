@@ -70,7 +70,7 @@ class Product(models.Model):
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
   image = models.ImageField(upload_to="product_iamge", blank=True, null=True, verbose_name="Изображение товара")
-  price = models.DecimalField(default=0, max_digits=7, decimal_places=2, verbose_name="Цена товра")
+  price = models.CharField(max_length=150, db_index=True, verbose_name="Цена товра")
   discount = models.DecimalField(default=0, max_digits=4, decimal_places=2, verbose_name="Скидака в %")
   quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
   category = models.ForeignKey("Categories", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')

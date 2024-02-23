@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     
     "debug_toolbar",
-    
+    # "sorl.thumbnail",
     "home",
     "shop",
     "users",
@@ -62,6 +62,13 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache'),
+    }
+}
 
 ROOT_URLCONF = "main.urls"
 theme_name = "core/theme/mb/templates"

@@ -6,11 +6,14 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
 from home.models import BaseSettings, HomeTemplate, Stock
+from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import Product,Categories,Day,Subsidiary
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+import openpyxl
+import pandas as pd
 # from django.contrib.auth.decorators import user_passes_test
 
 # @user_passes_test(lambda u: u.is_superuser)
@@ -24,7 +27,11 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 
 def admin(request):
   """Данная предстовление отобразает главную страницу админ панели"""
-  return render(request, "page/index.html")
+  product = Product.objects.all()
+  context = {
+    "product": product
+  }
+  return render(request, "page/index.html", context)
 
 def admin_settings(request):
   try:
@@ -116,30 +123,79 @@ def product_delete(request,pk):
 
 folder = 'upload/'
 
+from PIL import Image
 def upload_goods(request):
+    form = UploadFileForm()
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = request.FILES['file']
-            destination = open(os.path.join('upload/', file.name), 'wb+')
-            for chunk in file.chunks():
-                destination.write(chunk)
-            destination.close()
-            
-            # with open('upload/upload.zip', 'wb+') as destination:
-            #   for chunk in f.chunks():
-            #       destination.write(chunk)
+      form = UploadFileForm(request.POST, request.FILES)
+      if form.is_valid():
+          file = request.FILES['file']
+          destination = open(os.path.join('upload/', file.name), 'wb+')
+          for chunk in file.chunks():
+              destination.write(chunk)
+          destination.close()
+              
+          # Распаковка архива
+          with zipfile.ZipFile('upload/upload.zip', 'r') as zip_ref:
+              zip_ref.extractall('media/')
+              
+          # Удаление загруженного архива
+          os.remove('upload/upload.zip')
+          
+          # Сжатие фотографий
+          for filename in os.listdir('media/upload'):
+            if filename.endswith('.jpg') or filename.endswith('.png') or filename.endswith('.JPG'):
+              with Image.open(os.path.join('media/upload', filename)) as img:
+                img.save(os.path.join('media/goods', filename), quality=60)  # quality=60 для JPEG файла
                 
-            # Распаковка архива
-            with zipfile.ZipFile('upload/upload.zip', 'r') as zip_ref:
-                zip_ref.extractall('/')
-
-            # Удаление загруженного архива
-            os.remove('upload/upload.zip')
-            return render(request, 'upload/upload.html')
-    else:
+          # Очистка временной папки
+          os.system('rm -rf media/upload')
+          return redirect('upload-succes')
+      else:
         form = UploadFileForm()
     return render(request, 'upload/upload.html', {'form': form})
+
+def upload_succes(request):
+  return render(request, "upload/upload-succes.html")
+
+
+from pytils.translit import slugify
+path = f"{BASE_DIR}/upload/upload.xlsx"
+from pytils.translit import slugify
+
+def parse_exel(path):
+  data = pd.read_excel(path)
+  prod = Product.objects.all()
+  prod.delete()
+  for index, row in data.iterrows():
+    # print(f"{row['name']}- {row['image']} - {row['price']} - {row['category']} - {row['day']} - {row['weight']} - {row['subsidiary']}")
+    
+    
+    
+    product_instance = Product(
+      name = row['name'],
+      slug = slugify(row['name']),
+      short_description = '',
+      description = row['description'],
+      meta_h1 = '',
+      meta_title = '',
+      meta_description = '',
+      meta_keywords = '',
+      image = f"goods/{row['image']}",
+      price = row['price'],
+      discount = 0.0,
+      quantity = 1.0,
+      category = None,
+      weight = '',
+      calories = '',
+      proteins = '',
+      fats = '',
+      carbonhydrates = '',
+      status = True
+    )
+    product_instance.save()
+  
+# parse_exel(path)
 
 def admin_category(request):
   categorys = Categories.objects.all()

@@ -1,14 +1,14 @@
 /**
  * Добавление класса активности вкладкам sidebar
  */
-const sideBarItem = document.querySelectorAll('.sidebar__item');
-if (sideBarItem) {
-  sideBarItem.forEach(item => {
-    item.addEventListener('click', function (e) {
-      this.classList.toggle('_active');
-    })
-  })
-}
+// const sideBarItem = document.querySelectorAll('.sidebar__item');
+// if (sideBarItem) {
+//   sideBarItem.forEach(item => {
+//     item.addEventListener('click', function (e) {
+//       this.classList.toggle('_active');
+//     })
+//   })
+// }
 
 /**
  * Переключение вкладок на страницах продуктов, категорий
@@ -97,4 +97,35 @@ if (metaFields) {
     })
   })
 }
+
+const dropdownButtons = document.querySelectorAll('.dropdownButton');
+
+if (dropdownButtons) {
+  dropdownButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      console.log(this);
+      let dropdownContent = this.querySelector('.dropdownContent');
+      if (dropdownContent) {
+        if (dropdownContent.classList.contains('hidden')) {
+          dropdownContent.classList.remove('hidden');
+          dropdownContent.style.maxHeight = dropdownContent.scrollHeight + 'px';
+        } else {
+          dropdownContent.style.maxHeight = 0;
+          setTimeout(function () {
+            dropdownContent.classList.add('hidden');
+          }, 500); // transition duration
+        }
+      }
+    })
+  })
+}
+
+// const page = document.querySelector('.page');
+// if (page) {
+//   let headerAdmin = document.querySelector('.header ').clientHeight;
+
+//   // let heightPage = page.style.height = 'calc(' + 100 + 'vh' + ' - ' + headerAdmin + 'px - 20px)';
+//   console.log(heightPage);
+// }
+
 
