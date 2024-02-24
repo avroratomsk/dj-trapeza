@@ -31,7 +31,8 @@ node_modules
 venv
 .idea
 .ssh
-**/cache
+**/main/cache
+**/main/cache/*
 .bash_history
 
 **/ckeditor
