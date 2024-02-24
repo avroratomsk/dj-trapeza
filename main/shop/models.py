@@ -74,7 +74,7 @@ class Product(models.Model):
   discount = models.DecimalField(default=0, max_digits=4, decimal_places=2, verbose_name="Скидака в %")
   quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
   category = models.ForeignKey("Categories", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')
-  day = models.ManyToManyField(Day, blank=True, verbose_name='День недели')
+  day = models.ManyToManyField("Day", blank=True, verbose_name='День недели')
   subsidiary = models.ManyToManyField(Subsidiary, blank=True, verbose_name='Филлиал')
   weight = models.CharField(max_length=150, blank=True, null=True, verbose_name="Вес в граммах")
   calories = models.CharField(max_length=150, blank=True, null=True, verbose_name="Каллории")

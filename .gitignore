@@ -31,7 +31,7 @@ node_modules
 venv
 .idea
 .ssh
-.cache
+**/cache
 .bash_history
 
 **/ckeditor
@@ -40,3 +40,5 @@ venv
 **/__pycache__
 **/migrations
 releases
+**/upload
+**/goods

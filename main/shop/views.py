@@ -28,6 +28,7 @@ def category_detail(request, slug=None):
   days = Day.objects.all()
   day_default = get_slug_day(datetime.today().isoweekday())
   day_filter = request.GET.get('day', day_default)
+      
   
   if slug == "all":
     products =  Product.objects.all()
@@ -36,7 +37,7 @@ def category_detail(request, slug=None):
   #   products = q_search(query)
   else:
     products = Product.objects.filter(Q(category__slug=slug) & Q(day__slug=day_filter)) 
-  paginator = Paginator(products, 3)
+  paginator = Paginator(products, 15)
   current_page = paginator.page(int(page))
   
   context = {

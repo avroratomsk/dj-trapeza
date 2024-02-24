@@ -159,12 +159,12 @@ def upload_succes(request):
   return render(request, "upload/upload-succes.html")
 
 
-from pytils.translit import slugify
 path = f"{BASE_DIR}/upload/upload.xlsx"
-from pytils.translit import slugify
 
+from pytils.translit import slugify
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
+
 def parse_exсel(path):
   data = pd.read_excel(path)
   Product.objects.all().delete()
@@ -195,6 +195,21 @@ def parse_exсel(path):
         )
       else:
         category = Categories.objects.filter(name=category_name).first()
+    
+    day_names = row['day'].split(';') if isinstance(row['day'], str) else []
+    
+    # print(f'{day_names} - массив после сплита')
+    days = []
+    
+    # print(f'{days} - массив после пуша')
+    for day_name in day_names:
+      day_slug = slugify(day_name)
+      try:
+        day = Day.objects.get(slug=day_slug)  # замените day_slug на day
+      except Day.DoesNotExist: 
+        day = Day.objects.create(name=day_name, slug=day_slug)
+      
+      days.append(day)
 
     weight = ''
     calories = ''
@@ -202,9 +217,9 @@ def parse_exсel(path):
     fats = ''
     carbonhydrates = ''
     status = True
-    print(category)
+    
 
-    new_product = Product(
+    new_product = Product.objects.create(
       name=name,
       slug=slug,
       short_description=short_description,
@@ -225,14 +240,17 @@ def parse_exсel(path):
       carbonhydrates=carbonhydrates,
       status=status
     )
-
     try:
-        new_product.save()
+      pr = Product.objects.filter(name=new_product.name)
+      for day_add in days:
+          pr[0].day.add(day_add) 
+      new_product.save()
+      print(new_product.day)
     except IntegrityError:
-        # Обработка ошибки при сохранении объекта, если возник конфликт по ключу
-        pass
+      # Обработка ошибки при сохранении объекта, если возник конфликт по ключу
+      pass
   
-parse_exсel(path)
+# parse_exсel(path)
 
 def admin_category(request):
   categorys = Categories.objects.all()

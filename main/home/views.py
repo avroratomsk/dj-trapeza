@@ -10,9 +10,12 @@ from reviews.models import Reviews
 
 def index(request):
     page = request.GET.get('page', 1)
-    
-    home_page = HomeTemplate.objects.get()
-    settings = BaseSettings.objects.get()
+    try:
+        home_page = HomeTemplate.objects.get()
+        settings = BaseSettings.objects.get()
+    except:
+        home_page = HomeTemplate.objects.all()
+        settings = BaseSettings.objects.all()
     product = Product.objects.all()
     reviews = Reviews.objects.filter(status=True)
     
