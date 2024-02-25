@@ -25,10 +25,19 @@ def category_detail(request, slug=None):
   category_name = get_object_or_404(Categories, slug=slug)
   category = Categories.objects.all()
   
-  days = Day.objects.all()
-  day_default = get_slug_day(datetime.today().isoweekday())
-  day_filter = request.GET.get('day', day_default)
-      
+  # days = Day.objects.all()
+  
+  current_day = datetime.now().strftime('%A')
+  
+  try:
+    day_default = Day.objects.get(slug=current_day)
+    print(f"{day_default} - try")
+  except:
+    day_default = Day.objects.get(slug="Monday")
+    print(f"{day_default} - excepts")
+  
+  day_filter = request.GET.get('day', day_default.slug)
+  print(day_filter)
   
   if slug == "all":
     products =  Product.objects.all()
@@ -39,12 +48,13 @@ def category_detail(request, slug=None):
     products = Product.objects.filter(Q(category__slug=slug) & Q(day__slug=day_filter)) 
   paginator = Paginator(products, 15)
   current_page = paginator.page(int(page))
+  current_slug = request.GET.get('slug')
   
   context = {
     "title": f"{ category_name.name }",
     "products": current_page,
+    "current_slug": current_slug,
     "category": category,
-    "day_names": days,
     "give_today": day_default
   }
   return render(request, "pages/catalog/single.html", context)

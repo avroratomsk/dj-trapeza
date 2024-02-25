@@ -168,6 +168,7 @@ from django.db import IntegrityError
 def parse_exсel(path):
   data = pd.read_excel(path)
   Product.objects.all().delete()
+  Day.objects.all().delete()
 
   for index, row in data.iterrows():
     name = row['name']
@@ -197,15 +198,30 @@ def parse_exсel(path):
         category = Categories.objects.filter(name=category_name).first()
     
     day_names = row['day'].split(';') if isinstance(row['day'], str) else []
-    
-    # print(f'{day_names} - массив после сплита')
     days = []
-    
-    # print(f'{days} - массив после пуша')
     for day_name in day_names:
-      day_slug = slugify(day_name)
+      if day_name == "Понедельник" or day_name == "понедельник":
+        day_slug = "Monday"
+      if day_name == "Вторник" or day_name == "вторник":
+        day_slug = "Tuesday"
+      if day_name == "Среда" or day_name == "среда":
+        day_slug = "Wednesday"
+      if day_name == "Четверг" or day_name == "четверг":
+        day_slug = "Thursday"
+      if day_name == "Пятница" or day_name == "пятница":
+        day_slug = "Friday"
+      if day_name == "Суббота" or day_name == "суббота":
+        day_slug = "Saturday"
+      if day_name == "Воскресенье" or day_name == "Воскресенье":
+        day_slug = "Sunday"
+      if day_name == "Ежедневно" or day_name == "eжедневно":
+        day_slug = "all_days"
+      
+        
+      # day_slug = slugify(day_name)
+      
       try:
-        day = Day.objects.get(slug=day_slug)  # замените day_slug на day
+        day = Day.objects.get(slug=day_slug)
       except Day.DoesNotExist: 
         day = Day.objects.create(name=day_name, slug=day_slug)
       
@@ -245,7 +261,6 @@ def parse_exсel(path):
       for day_add in days:
           pr[0].day.add(day_add) 
       new_product.save()
-      print(new_product.day)
     except IntegrityError:
       # Обработка ошибки при сохранении объекта, если возник конфликт по ключу
       pass
