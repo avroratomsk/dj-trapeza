@@ -2,7 +2,11 @@
   <div class="header__top top-header">
     <div class="top-header__container">
       <div class="top-header__inner">
-        <a href="/" class="top-header__logo"> {% comment %} <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.phone_one }}" /> {% endcomment %} </a>
+        <a href="/" class="top-header__logo">
+          {% if site_settings.logo %}
+          <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.phone_one }}" />
+          {% else %} Logo {% endif %}
+        </a>
         <div class="top-header__nav nav">
           <ul class="nav__list">
             <li class="nav__item"><a href="{% url 'catalog' %}" class="nav__link">Меню</a></li>
@@ -15,7 +19,14 @@
           </ul>
         </div>
         <div class="top-header__actions">
-          <a href="tel:{{ site_settings.phone_one }}" class="top-header__phone reg-num">{{ site_settings.phone_one }}</a>
+          <div class="top-header__actions-inner">
+            {% csrf_token %}
+            <select name="fillal" id="branch-select">
+              <option value="23">{{ site_settings.address_one }}</option>
+              <option value="24">{{ site_settings.address_two }}</option>
+            </select>
+            <a href="tel:{{ site_settings.phone_one }}" class="top-header__phone reg-num"> {{ site_settings.phone_one }} </a>
+          </div>
           <button type="button">Связаться с нами</button>
         </div>
       </div>

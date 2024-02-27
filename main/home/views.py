@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from home.models import BaseSettings, HomeTemplate, Stock
-from shop.models import Product
+from shop.models import Product, Subsidiary
 from reviews.models import Reviews
 
 
@@ -21,7 +21,7 @@ def index(request):
     
     context = {
         "home_page": home_page,
-        "products": product,
+        # "products": product,
         "settings": settings,
         "reviews": reviews,
     }

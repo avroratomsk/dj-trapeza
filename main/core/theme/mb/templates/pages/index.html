@@ -2,7 +2,7 @@
 
 <body>
   <div class="wrapper">
-    {% include "components/header.html" %}
+    {% include "components/header-single.html" %}
     <main class="page">
       <div class="index-banner" style="background-image: url({{ home_page.banner.url }})">
         <div class="index-banner__container">
@@ -93,7 +93,7 @@
           </div>
         </div>
       </div>
-
+      <div id="product">1ssssssssss</div>
       <div class="index-catalog">
         <div class="index-catalog__container">
           <h2 class="index-catalog__title title--dark">Меню дня</h2>
@@ -119,7 +119,7 @@
                   <p class="card-product__price">{{ product.price }}₽</p>
                   <div class="card-product__btns">
                     <a href="{{ product.get_absolute_url }}" class="card-product__btn">Подробнее</a>
-                    {% comment %} <a href="#" class="card-product__btn">Описание</a> {% endcomment %}
+                    <a href="#" class="card-product__btn">Описание</a>
                   </div>
                 </div>
                 {% endfor %}

@@ -22,7 +22,7 @@
               <meta itemprop="position" content="3" />
             </span>
           </div>
-          <h1 class="products__title title-page__title">{{ title }}</h1>
+          <h1 class="products__title title-page__title">{{ category_name.name }}</h1>
         </div>
         <section class="single__day day-single">
           <div class="day-single__inner">
@@ -33,13 +33,13 @@
               {% comment %} {% for day in day_names %}
                 <a href="?day={{ day.slug }}" data-day="{{ day.slug }}" class="day-single__day {% if  request.GET.day  == day.slug %}_active{% endif %}">{{ day.name }}</a>
               {% endfor %} {% endcomment %}
-              <a href="?day=Monday" data-day="Monday" class="day-single__day">Понедельник</a>
-              <a href="?day=Tuesday" data-day="Tuesday" class="day-single__day">Вторник</a>
-              <a href="?day=Wednesday" data-day="Wednesday" class="day-single__day">Среда</a>
-              <a href="?day=Thursday" data-day="Thursday" class="day-single__day">Четверг</a>
-              <a href="?day=Friday" data-day="Friday" class="day-single__day">Пятница</a>
-              <a href="?day=Saturday" data-day="Saturday" class="day-single__day">Суббота</a>
-              <a href="?day=Sunday" data-day="Sunday" class="day-single__day">Воскресенье</a>
+              <a href="?day=Monday" data-day="Monday" class="day-single__day {% if request.GET.day == "Monday" %}_active{% endif %}">Понедельник</a>
+              <a href="?day=Tuesday" data-day="Tuesday" class="day-single__day {% if request.GET.day == "Tuesday" %}_active{% endif %}">Вторник</a>
+              <a href="?day=Wednesday" data-day="Wednesday" class="day-single__day {% if request.GET.day == "Wednesday" %}_active{% endif %}">Среда</a>
+              <a href="?day=Thursday" data-day="Thursday" class="day-single__day {% if request.GET.day == "Thursday" %}_active{% endif %}">Четверг</a>
+              <a href="?day=Friday" data-day="Friday" class="day-single__day {% if request.GET.day == "Friday" %}_active{% endif %}">Пятница</a>
+              <a href="?day=Saturday" data-day="Saturday" class="day-single__day {% if request.GET.day == "Saturday" %}_active{% endif %}">Суббота</a>
+              <a href="?day=Sunday" data-day="Sunday" class="day-single__day {% if request.GET.day == "Sunday" %}_active{% endif %}">Воскресенье</a>
               <div class="search" id="single-search">
                 <form action="{% url "search" %}" method="get">
                   <input type="search" name="q" placeholder="Поиск" class="form-controls" />
@@ -68,12 +68,20 @@
                 <input type="hidden" value="" class="aside__filter-hidden" />
                 <ul class="aside__list">
                   {% for category in category %}
-                    <li class="aside__item  {% if category.slug == category_name.slug %}_active{% endif %}">
+                  {% if current_slug == category.slug %}
+                    <li class="aside__item _active">
                       <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
                     </li>
+                  {% else %}
+                  <li class="aside__item">
+                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                  </li>
+                  {% endif %}
                   {% endfor %}
                 </ul>
               </div>
+            </div>
+            <div id="product">
             </div>
             <div class="aside__options" id="option-part">
               <h5 class="aside__title">Цена</h5>
@@ -101,6 +109,30 @@
             <div class="products-single__grid">
               
               {% for product in products %}
+              <div class="card-product" data-id="{{ product.display_id }}">
+                <a href="{{ product.get_absolute_url }}" class="card-product__image">
+                  {% if product.image %}
+                  {% comment %} {% thumbnail product.image "393x300" format="WEBP" as im %}
+                    <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                  {% endthumbnail %} {% endcomment %}
+                  {% else %}
+                  <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                  {% endif %}
+                </a>
+                <a href="{{ product.get_absolute_url }}" class="card-product__name">{{ product.name }}</a>
+
+                {% if product.discount %}
+                <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
+                {% else %}
+                <p class="card-product__price">{{ product.price }}₽</p>
+                {% endif %}
+                <div class="card-product__btns">
+                  <button class="card-product__btn">Корзина</button>
+                  <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
+                </div>
+              </div>
+              {% endfor %}
+              {% for product in products_day %}
               <div class="card-product" data-id="{{ product.display_id }}">
                 <a href="#" class="card-product__image">
                   {% if product.image %}

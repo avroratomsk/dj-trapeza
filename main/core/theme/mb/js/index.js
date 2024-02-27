@@ -131,9 +131,61 @@ if (regNum) {
   regNum.forEach(num => {
     phoneNumber = num.href.replace('tel:', '');
     newNumber = clearSimvol(phoneNumber.replace('8', "+7"));
-    num.href = newNumber
+    num.href = `tel:${newNumber}`;
   });
 }
 function clearSimvol(str) {
   return str.replace(/[\s.,%,),(,-]/g, '');
 }
+
+
+// Функция для сохранения выбранного филиала в localStorage
+function saveSelectedBranch(branchId) {
+  localStorage.setItem("selectedBranch", branchId);
+}
+
+// Функция для получения выбранного филиала из localStorage
+function getSelectedBranch() {
+  return localStorage.getItem("selectedBranch");
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const branchSelect = document.getElementById('branch-select');
+
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Получаем CSRF токен
+
+  const selectedBranch = getSelectedBranch();
+  if (selectedBranch) {
+    branchSelect.value = selectedBranch;
+
+    fetch('/get_product/', {
+      method: 'POST',
+      body: JSON.stringify({ branch_id: selectedBranch }),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken // Добавляем CSRF токен к запросу
+      }
+    })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('product').innerHTML = data;
+      });
+  }
+
+  branchSelect.addEventListener('change', function () {
+    saveSelectedBranch(this.value);
+
+    fetch('/get_product/', {
+      method: 'POST',
+      body: JSON.stringify({ branch_id: this.value }),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      }
+    })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('product').innerHTML = data;
+      });
+  });
+});

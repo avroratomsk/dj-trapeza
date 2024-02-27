@@ -30,10 +30,11 @@
 
     &__logo {
         font-size: 50px;
-        margin-right: clamp(20px, 10vw, 290px);
+
+        margin-right: 70px;
 
         img {
-            width: 70px;
+            width: 120px;
         }
     }
 
@@ -44,6 +45,8 @@
     // .top-header__actions
 
     &__actions {
+        display: flex;
+        align-items: center;
 
         a {
             font-family: $secondaryFont;
@@ -65,6 +68,8 @@
         }
     }
 
+
+
     // .top-header__phone
     &__phone {
         transition: $animation_speed;
@@ -72,6 +77,29 @@
         &:hover {
             color: #e76642;
         }
+    }
+
+    // .top-header__actions-inner
+    &__actions-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        select {
+            background-color: transparent;
+            font-size: 16px;
+            padding: 0px 10px;
+
+            &:focus {
+                outline: 1px solid rgba($color: $mainColor, $alpha: .1);
+            }
+        }
+    }
+
+    // .top-header__address
+    &__address {
+        margin-bottom: 20px;
     }
 }
 

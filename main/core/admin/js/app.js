@@ -10,6 +10,8 @@
 //   })
 // }
 
+// const { locale } = require("yargs");
+
 /**
  * Переключение вкладок на страницах продуктов, категорий
  */
@@ -120,12 +122,5 @@ if (dropdownButtons) {
   })
 }
 
-// const page = document.querySelector('.page');
-// if (page) {
-//   let headerAdmin = document.querySelector('.header ').clientHeight;
-
-//   // let heightPage = page.style.height = 'calc(' + 100 + 'vh' + ' - ' + headerAdmin + 'px - 20px)';
-//   console.log(heightPage);
-// }
 
 

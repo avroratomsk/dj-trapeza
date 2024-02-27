@@ -124,6 +124,7 @@ def product_delete(request,pk):
 folder = 'upload/'
 
 from PIL import Image
+
 def upload_goods(request):
     form = UploadFileForm()
     if request.method == 'POST':
@@ -167,8 +168,9 @@ from django.db import IntegrityError
 
 def parse_exсel(path):
   data = pd.read_excel(path)
-  Product.objects.all().delete()
-  Day.objects.all().delete()
+  # Product.objects.all().delete()
+  # Day.objects.all().delete()
+  # Subsidiary.objects.all().delete()
 
   for index, row in data.iterrows():
     name = row['name']
@@ -199,33 +201,50 @@ def parse_exсel(path):
     
     day_names = row['day'].split(';') if isinstance(row['day'], str) else []
     days = []
+    
     for day_name in day_names:
       if day_name == "Понедельник" or day_name == "понедельник":
         day_slug = "Monday"
+        num_day = 0
       if day_name == "Вторник" or day_name == "вторник":
         day_slug = "Tuesday"
+        num_day = 1
       if day_name == "Среда" or day_name == "среда":
         day_slug = "Wednesday"
+        num_day = 2
       if day_name == "Четверг" or day_name == "четверг":
         day_slug = "Thursday"
+        num_day = 3
       if day_name == "Пятница" or day_name == "пятница":
         day_slug = "Friday"
+        num_day = 4
       if day_name == "Суббота" or day_name == "суббота":
         day_slug = "Saturday"
+        num_day = 5
       if day_name == "Воскресенье" or day_name == "Воскресенье":
         day_slug = "Sunday"
+        num_day = 6
       if day_name == "Ежедневно" or day_name == "eжедневно":
         day_slug = "all_days"
-      
-        
-      # day_slug = slugify(day_name)
+        num_day = 7
       
       try:
         day = Day.objects.get(slug=day_slug)
       except Day.DoesNotExist: 
-        day = Day.objects.create(name=day_name, slug=day_slug)
-      
+        day = Day.objects.create(name=day_name, slug=day_slug, num_day=num_day)
       days.append(day)
+      
+    branch_names = row['subsidiary'].split(';') if isinstance(row['subsidiary'], str) else []
+    branchs = []
+    
+    for branch_name in branch_names:
+      branch_name = branch_name.strip()
+      branch_slug = slugify(branch_name)
+      try:
+        branch = Subsidiary.objects.get(slug=branch_slug)
+      except Subsidiary.DoesNotExist:
+        branch = Subsidiary.objects.create(name=branch_name, slug=branch_slug)
+      branchs.append(branch)
 
     weight = ''
     calories = ''
@@ -233,33 +252,43 @@ def parse_exсel(path):
     fats = ''
     carbonhydrates = ''
     status = True
-    
+  
+    try:
+      new_product = Product.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+      if not Product.objects.filter(name=name).exists():
+        new_product = Product.objects.create(
+        name=name,
+        slug=slug,
+        short_description=short_description,
+        description=description,
+        meta_h1=meta_h1,
+        meta_title=meta_title,
+        meta_description=meta_description,
+        meta_keywords=meta_keywords,
+        image=image,
+        price=price,
+        discount=discount,
+        quantity=quantity,
+        category=category,
+        weight=weight,
+        calories=calories,
+        proteins=proteins,
+        fats=fats,
+        carbonhydrates=carbonhydrates,
+        status=status
+      )
+      else:
+        new_product = Product.objects.filter(name=name).first()  
 
-    new_product = Product.objects.create(
-      name=name,
-      slug=slug,
-      short_description=short_description,
-      description=description,
-      meta_h1=meta_h1,
-      meta_title=meta_title,
-      meta_description=meta_description,
-      meta_keywords=meta_keywords,
-      image=image,
-      price=price,
-      discount=discount,
-      quantity=quantity,
-      category=category,
-      weight=weight,
-      calories=calories,
-      proteins=proteins,
-      fats=fats,
-      carbonhydrates=carbonhydrates,
-      status=status
-    )
     try:
       pr = Product.objects.filter(name=new_product.name)
       for day_add in days:
           pr[0].day.add(day_add) 
+      
+      for branch_add in branchs:
+        pr[0].subsidiary.add(branch_add)
+        
       new_product.save()
     except IntegrityError:
       # Обработка ошибки при сохранении объекта, если возник конфликт по ключу

@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from main import settings
+from shop import views
 
 urlpatterns = [
     path('ckeditor5/', include('django_ckeditor_5.urls')),
@@ -13,6 +14,7 @@ urlpatterns = [
     # path('user/', include('users.urls')),
     path('reviews/', include('reviews.urls')),
     path('admin/', include('admin.urls')),
+    path('get_product/', views.get_product, name="get_product"),
     path('', include('home.urls')),
 ]
 
