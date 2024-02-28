@@ -67,19 +67,20 @@ def product(request, slug):
 from django.http import JsonResponse
 # from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import SimpleUploadedFile
 @csrf_exempt
-def get_product(request,):
+def get_product(request):
   if request.method == 'POST':
       data = json.loads(request.body)
       branch_id = data.get('branch_id')
-      print(branch_id)
       products = Product.objects.filter(subsidiary__id=branch_id)
-      print(products)
-      product_list = '<ul>'
+      product_list = '<div>'
       for product in products:
-          product_url = request.build_absolute_uri(reverse('product', kwargs={'slug': product.slug}))
-          product_list += f'<li><a href="{product_url}">{product.name} - {product.price}</a></li>'
-      product_list += '</ul>'
+            product_url = request.build_absolute_uri(reverse('product', kwargs={'slug': product.slug}))
+            product_list += f'<li><a href="{product_url}">{product.name} - {product.price}<br></a></li>'
+      product_list += '</div>'
       return HttpResponse(product_list)
   return HttpResponse(status=400)
     

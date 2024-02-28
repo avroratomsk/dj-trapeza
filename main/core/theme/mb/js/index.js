@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then(response => response.text())
       .then(data => {
-        document.getElementById('product').innerHTML = data;
+        // document.getElementById('product').innerHTML = data;
       });
   }
 
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then(response => response.text())
       .then(data => {
-        document.getElementById('product').innerHTML = data;
+        // document.getElementById('product').innerHTML = data;
       });
   });
 });

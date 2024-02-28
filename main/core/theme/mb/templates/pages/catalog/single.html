@@ -112,9 +112,9 @@
               <div class="card-product" data-id="{{ product.display_id }}">
                 <a href="{{ product.get_absolute_url }}" class="card-product__image">
                   {% if product.image %}
-                  {% comment %} {% thumbnail product.image "393x300" format="WEBP" as im %}
+                  {% thumbnail product.image "393x300" format="WEBP" as im %}
                     <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-                  {% endthumbnail %} {% endcomment %}
+                  {% endthumbnail %}
                   {% else %}
                   <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
                   {% endif %}
@@ -232,50 +232,6 @@
   <div class="author">
     <div class="author__container">
       <div class="author__inner">Разработка сайта | <a href="#">РА Аврора</a></div>
-    </div>
-  </div>
-
-  <div class="popup-menu">
-    <button type="button" class="popup-menu__close"></button>
-    <nav class="popup-menu__nav">
-      <a href="#" class="popup-menu__link">О нас</a>
-      <a href="#" class="popup-menu__link">Банкетный зал</a>
-      <a href="#" class="popup-menu__link">Акции</a>
-      <a href="#" class="popup-menu__link">Фотогаллерея</a>
-      <a href="#" class="popup-menu__link">Новости</a>
-      <a href="#" class="popup-menu__link">Вакансии</a>
-      <a href="#" class="popup-menu__link">Контакты</a>
-    </nav>
-    <div class="popup-menu__socials">
-      <a href="" class="popup-menu__socials-link">
-        <i class="fa-brands fa-vk"></i>
-      </a>
-      <a href="" class="popup-menu__socials-link">
-        <i class="fa-brands fa-square-whatsapp"></i>
-      </a>
-      <a href="" class="popup-menu__socials-link">
-        <i class="fa-brands fa-telegram"></i>
-      </a>
-    </div>
-    <button type="button" class="popup-menu__btn">Позвонить</button>
-  </div>
-</div>
-<div id="popup" aria-hidden="true" class="popup popup-fulldescr">
-  <div class="popup__wrapper">
-    <div class="popup__content">
-      <button data-close type="button" class="popup__close">X</button>
-      <div class="popup__grid">
-        <div class="popup__image">
-          <img src="" alt="" class="popup-image" />
-        </div>
-        <div class="popup__info">
-          <p class="popup__title"></p>
-          <p class="popup__price"></p>
-          <p class="popup__bjy"></p>
-          <p class="popup__descr"></p>
-        </div>
-        <button type="button" class="popup__btn">Позвонить</button>
-      </div>
     </div>
   </div>
 </div>
