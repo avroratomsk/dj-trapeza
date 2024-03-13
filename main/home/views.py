@@ -2,13 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from datetime import datetime
 from home.models import BaseSettings, HomeTemplate, Stock
-from shop.models import Day, Product, Subsidiary
+from shop.models import Category, Day, Product, Subsidiary
 from reviews.models import Reviews
 from django.db.models import Q
 from django.core.paginator import Paginator
-
-
-
 
 def index(request):
     page = request.GET.get('page', 1)
@@ -20,8 +17,9 @@ def index(request):
         settings = BaseSettings.objects.all()
         
     reviews = Reviews.objects.filter(status=True)
-     # Получаем из GET параметра page для пагинации
+    # Получаем из GET параметра page для пагинации
     page = request.GET.get("page", 1)
+    category = Category.objects.all()
     
     # Получаем текущий день из таблицы Day
     current_day = Day.objects.get(num_day=datetime.today().weekday())
@@ -38,9 +36,9 @@ def index(request):
     paginator = Paginator(products, 8)
     current_page = paginator.page(int(page))
     current_slug = request.GET.get("slug")
-    current_slug = request.GET.get("slug")
     
     context = {
+        "categorys": category,
         "current_slug": current_slug,
         "home_page": home_page,
         "products": current_page,

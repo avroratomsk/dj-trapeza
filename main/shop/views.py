@@ -3,14 +3,16 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
 from django.db.models import Q
-
+from PIL import Image
+import io
+import os
 from .services import *
 
 
 from .models import *
 
 def catalog(request):
-  category = Categories.objects.all()
+  category = Category.objects.all()
   
   context = {
     "title": "Заголовок категорий",
@@ -19,13 +21,42 @@ def catalog(request):
 
   return render(request, "pages/catalog/products.html", context)
 
+def resize_image(image_path, width, height):
+  print(image_path)
+  if not os.path.exists(image_path):
+    print(f"File does not exist.")
+    return None
+  try:
+    img = Image.open(image_path)
+    img.thumbnail((width, height))
 
+    output = io.BytesIO()
+    img.save(output, format='JPG')
+    print(f"{output.getvalue()} - Первое")
+    return output.getvalue()
+  except Exception as e:
+    print(f"Error processing image: {e}")
+    return None
+
+def get_category_products(request, category_id):
+  current_day = Day.objects.get(num_day=datetime.today().weekday())
+  products = Product.objects.filter(day__id=current_day.id, category_id=category_id)
+  print(products)
+  data = []
+  for product in products:
+    data.append({
+      'name': product.name,
+      'price': product.price,
+      'url': product.get_absolute_url(), # URL детальной страницы продукта
+      'image': "None"
+    })
+  return JsonResponse({"data": data})
 
 def category_detail(request, slug=None):
   # Получаем из GET параметра page для пагинации
   page = request.GET.get("page", 1)
   
-  category_name = get_object_or_404(Categories, slug=slug)
+  category_name = get_object_or_404(Category, slug=slug)
   
   # Получаем текущий день из таблицы Day
   current_day = Day.objects.get(num_day=datetime.today().weekday())
@@ -47,7 +78,7 @@ def category_detail(request, slug=None):
     "current_slug": slug,
     "category_name": category_name,
     "products": current_page,
-    "category": Categories.objects.all(),
+    "category": Category.objects.all(),
   }
   
   return render(request, "pages/catalog/single.html", context)

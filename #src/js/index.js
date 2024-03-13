@@ -149,43 +149,128 @@ function getSelectedBranch() {
   return localStorage.getItem("selectedBranch");
 }
 
+// document.addEventListener('DOMContentLoaded', function () {
+//   const branchSelect = document.getElementById('branch-select');
+
+//   const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Получаем CSRF токен
+
+//   const selectedBranch = getSelectedBranch();
+//   if (selectedBranch) {
+//     branchSelect.value = selectedBranch;
+
+//     fetch('/get_product/', {
+//       method: 'POST',
+//       body: JSON.stringify({ branch_id: selectedBranch }),
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'X-CSRFToken': csrfToken // Добавляем CSRF токен к запросу
+//       }
+//     })
+//       .then(response => response.text())
+//       .then(data => {
+//         // document.getElementById('product').innerHTML = data;
+//       });
+//   }
+
+//   branchSelect.addEventListener('change', function () {
+//     saveSelectedBranch(this.value);
+
+//     fetch('/get_product/', {
+//       method: 'POST',
+//       body: JSON.stringify({ branch_id: this.value }),
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'X-CSRFToken': csrfToken
+//       }
+//     })
+//       .then(response => response.text())
+//       .then(data => {
+//         // document.getElementById('product').innerHTML = data;
+//       });
+//   });
+// });
+
+/**
+ * Получние товаров из категории асинхронно
+ */
+
+const categoryLink = document.querySelectorAll('.category-link');
 document.addEventListener('DOMContentLoaded', function () {
-  const branchSelect = document.getElementById('branch-select');
-
-  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Получаем CSRF токен
-
-  const selectedBranch = getSelectedBranch();
-  if (selectedBranch) {
-    branchSelect.value = selectedBranch;
-
-    fetch('/get_product/', {
-      method: 'POST',
-      body: JSON.stringify({ branch_id: selectedBranch }),
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken // Добавляем CSRF токен к запросу
+  categoryLink[0].classList.add('_active')
+  fetch(`/catalog/1`)
+    .then(response => response.json())
+    .then(data => {
+      if (Array.isArray(data)) {
+        console.log(data);
+      } else {
+        console.log(data);
+        console.log("-------------------------");
+        const dataArray = Object.values(data);
+        // console.log(dataArray);
+        dataArray.forEach(product => {
+          const productsContainer = document.getElementById('products-grid');
+          productsContainer.innerHTML = '';
+          product.forEach(item => {
+            const productElement = document.createElement('div');
+            productElement.classList.add('tab__content-item', 'card-product')
+            productElement.innerHTML = `
+                <a href="${item.url}" class="card-product__image">
+                  <img src="${item.image}" alt="${item.name}" title="${item.name}" />
+                </a>
+                <a href="${item.url}" class="card-product__name">${item.name}</a>
+                <p class="card-product__price">${item.price} ₽</p>
+                <div class="card-product__btns">
+                  <a href="${item.name}" class="card-product__btn">Подробнее</a>
+                </div>
+              `;
+            productsContainer.appendChild(productElement);
+          })
+        });
       }
     })
-      .then(response => response.text())
-      .then(data => {
-        // document.getElementById('product').innerHTML = data;
-      });
-  }
+})
+categoryLink.forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    categoryLink.forEach(item => item.classList.remove("_active"))
+    this.classList.add('_active');
+    const category_id = this.dataset.id;
+    console.log(category_id);
 
-  branchSelect.addEventListener('change', function () {
-    saveSelectedBranch(this.value);
-
-    fetch('/get_product/', {
-      method: 'POST',
-      body: JSON.stringify({ branch_id: this.value }),
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
-      }
-    })
-      .then(response => response.text())
+    fetch(`/catalog/${category_id}`)
+      .then(response => response.json())
       .then(data => {
-        // document.getElementById('product').innerHTML = data;
-      });
-  });
-});
+        if (Array.isArray(data)) {
+          console.log(data);
+        } else {
+          const dataArray = Object.values(data);
+          // console.log(dataArray);
+          dataArray.forEach(product => {
+            const productsContainer = document.getElementById('products-grid');
+            productsContainer.classList.remove('no-grid')
+            productsContainer.innerHTML = '';
+            if (product.length > 0) {
+              product.forEach(item => {
+                const productElement = document.createElement('div');
+                productElement.classList.add('tab__content-item', 'card-product')
+                productElement.innerHTML = `
+                  <a href="${item.url}" class="card-product__image">
+                    <img src="${item.image}" alt="${item.name}" title="${item.name}" />
+                  </a>
+                  <a href="${item.url}" class="card-product__name">${item.name}</a>
+                  <p class="card-product__price">${item.price} ₽</p>
+                  <div class="card-product__btns">
+                    <a href="${item.name}" class="card-product__btn">Подробнее</a>
+                  </div>
+                `;
+                productsContainer.appendChild(productElement);
+              })
+            } else {
+              productsContainer.innerHTML = '<p class="empty">Для данной категории меню дня не заполнено, посмотрите следующие категории</p>';
+              productsContainer.classList.add('no-grid');
+            }
+          });
+        }
+      })
+  })
+})

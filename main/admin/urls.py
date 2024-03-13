@@ -57,4 +57,7 @@ urlpatterns = [
     
     #URl - Шаблон общих настроек сайта
     path('settings/', views.admin_settings, name='admin_settings'),
+    
+    #URl - настройка цветовой схемы на сайте
+    path('color-scheme/', views.admin_colors, name='admin_colors'),
 ]

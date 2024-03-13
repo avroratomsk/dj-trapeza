@@ -14,7 +14,7 @@ DAY_NAMES = (
 )
 
 
-class Categories(models.Model):
+class Category(models.Model):
   name = models.CharField(max_length=150, db_index=True, unique=True, verbose_name="Название категории")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
   image = models.ImageField(upload_to="category_image", blank=True, null=True, verbose_name="Изображение категории")
@@ -73,7 +73,7 @@ class Product(models.Model):
   price = models.CharField(max_length=150, db_index=True, verbose_name="Цена товра")
   discount = models.DecimalField(default=0, max_digits=4, decimal_places=2, verbose_name="Скидака в %")
   quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
-  category = models.ForeignKey("Categories", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')
+  category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')
   day = models.ManyToManyField("Day", blank=True, verbose_name='День недели')
   subsidiary = models.ManyToManyField(Subsidiary, blank=True, verbose_name='Филлиал')
   weight = models.CharField(max_length=150, blank=True, null=True, verbose_name="Вес в граммах")

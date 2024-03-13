@@ -105,7 +105,6 @@ const dropdownButtons = document.querySelectorAll('.dropdownButton');
 if (dropdownButtons) {
   dropdownButtons.forEach(btn => {
     btn.addEventListener('click', function (e) {
-      console.log(this);
       let dropdownContent = this.querySelector('.dropdownContent');
       if (dropdownContent) {
         if (dropdownContent.classList.contains('hidden')) {

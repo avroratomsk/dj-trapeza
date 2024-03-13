@@ -9,7 +9,7 @@ from home.models import BaseSettings, HomeTemplate, Stock
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import Product,Categories,Day,Subsidiary
+from shop.models import Product,Category,Day,Subsidiary
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 import openpyxl
@@ -66,13 +66,15 @@ def admin_product(request):
   View, которая возвращаяет и отрисовывает все товары на странице
   и разбивает их на пагинацию 
   """
-  page = request.GET.get('page', 1)
   
+  page = request.GET.get('page', 1)
+  category = Category.objects.all()
   products = Product.objects.all()
   paginator = Paginator(products, 10)
   current_page = paginator.page(int(page))
   
   context = {
+    "categorys": category,
     "products": current_page
   }
   return render(request, "shop/product/product.html", context)
@@ -189,15 +191,15 @@ def parse_exсel(path):
     category_slug = slugify(category_name)
 
     try:
-      category = Categories.objects.get(slug=category_slug)
+      category = Category.objects.get(slug=category_slug)
     except ObjectDoesNotExist:
-      if not Categories.objects.filter(name=category_name).exists():
-        category = Categories.objects.create(
+      if not Category.objects.filter(name=category_name).exists():
+        category = Category.objects.create(
           name=category_name,
           slug=category_slug
         )
       else:
-        category = Categories.objects.filter(name=category_name).first()
+        category = Category.objects.filter(name=category_name).first()
     
     day_names = row['day'].split(';') if isinstance(row['day'], str) else []
     days = []
@@ -297,7 +299,7 @@ def parse_exсel(path):
 # parse_exсel(path)
 
 def admin_category(request):
-  categorys = Categories.objects.all()
+  categorys = Category.objects.all()
   
   context ={
     "categorys": categorys,
@@ -320,7 +322,7 @@ def category_add(request):
   return render(request, "shop/category/category_add.html", context)
 
 def category_edit(request, pk):
-  categorys = Categories.objects.get(id=pk)
+  categorys = Category.objects.get(id=pk)
   if request.method == "POST":
     form = CategoryForm(request.POST, request.FILES, instance=categorys)
     if form.is_valid():
@@ -337,7 +339,7 @@ def category_edit(request, pk):
   return render(request, "shop/category/category_edit.html", context)
 
 def category_delete(request, pk):
-  category = Categories.objects.get(id=pk)
+  category = Category.objects.get(id=pk)
   category.delete()
   
   return redirect('admin_category')
@@ -594,3 +596,9 @@ def service_delete(request, pk):
   service = Service.objects.get(id=pk)
   service.delete()
   return redirect("admin_service")
+
+def admin_colors(request):
+  context = {
+    "title": "Настройки цветовой схемы сайта"
+  }
+  return render(request, "settings/color_scheme.html", context)

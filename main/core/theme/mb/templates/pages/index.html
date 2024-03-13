@@ -98,48 +98,28 @@
         <div class="index-catalog__container">
           <h2 class="index-catalog__title title--dark">Меню дня</h2>
           <div class="index-catalog__tab tab">
-            <div class="day-single__days">
+            
+              <div class="day-single__days">
+                {% if categorys %}
+                {% for category in categorys %}
+                  <a href="{{ category.get_absolute_url }}" data-id="{{ category.id }}" class="day-single__day category-link">{{ category.name }}</a>
+                {% endfor %}
+                {% endif %}
+              </div>
+              
+            {% comment %} <div class="day-single__days">
               <a href="?day=Monday" data-day="Monday" class="day-single__day {% if request.GET.day == "Monday" %}_active{% endif %}">Понедельник</a>
               <a href="?day=Tuesday" data-day="Tuesday" class="day-single__day {% if request.GET.day == "Tuesday" %}_active{% endif %}">Вторник</a>
               <a href="?day=Wednesday" data-day="Wednesday" class="day-single__day {% if request.GET.day == "Wednesday" %}_active{% endif %}">Среда</a>
               <a href="?day=Thursday" data-day="Thursday" class="day-single__day {% if request.GET.day == "Thursday" %}_active{% endif %}">Четверг</a>
               <a href="?day=Friday" data-day="Friday" class="day-single__day {% if request.GET.day == "Friday" %}_active{% endif %}">Пятница</a>
               <a href="?day=Saturday" data-day="Saturday" class="day-single__day {% if request.GET.day == "Saturday" %}_active{% endif %}">Суббота</a>
-              <a href="?day=Sunday" data-day="Sunday" class="day-single__day {% if request.GET.day == "Sunday" %}_active{% endif %}">Воскресенье</a>
-            </div>
+              <a href="?day=Sunday" data-day="Sunday" class="day-single__day {% if request.GET.day == "Sunday" %}_active{% endif %}">Воскресенье</a>{% endcomment %}
+            </div> 
             <div class="tab__content">
-              <div class="tab__content-grid" data-id="all">
-                {% for product in products %}
-                <div class="tab__content-item card-product">
-                  <a href="{{ product.get_absolute_url}}" class="card-product__image">
-                    {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
-                    <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-                    {% endthumbnail %} {% endif %}
-                  </a>
-                  <a href="{{ product.get_absolute_url}}" class="card-product__name">{{ product.name }}</a>
-                  <p class="card-product__price">{{ product.price }}₽</p>
-                  <div class="card-product__btns">
-                    <a href="{{ product.get_absolute_url }}" class="card-product__btn">Подробнее</a>
-                    <a href="#" class="card-product__btn">Описание</a>
-                  </div>
-                </div>
-                {% endfor %}
+              <div id="products-container"></div>
+              <div class="tab__content-grid" id="products-grid">
               </div>
-            </div>
-            <div class="pagging">
-              <a
-                href="{% if products.has_previous %}?{% chenge_params page=products.previous_page_number %}{% else %}#{% endif %}"
-                class="pagging__arrow {% if not products.has_previous%}disabled{% endif %}"
-                >«</a
-              >
-              <ul class="pagging__list">
-                {% for page in products.paginator.page_range %} {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
-                <li>
-                  <a href="?{% chenge_params page=page %}" class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
-                </li>
-                {% endif %} {% endfor %}
-              </ul>
-              <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}" class="pagging__arrow">»</a>
             </div>
           </div>
         </div>
@@ -427,5 +407,31 @@
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true,
+      slidesPerView: 3,
+      spaceBetween: 30,
+    
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    
+      // Navigation arrows
+      navigation: {
+        nextEl: '.reviews__controls-next',
+        prevEl: '.reviews__controls-prev',
+      },
+    
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+    });
+  </script>
 </body>
 {% endblock %} {% include "../components/footer.html" %}

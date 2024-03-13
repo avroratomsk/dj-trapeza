@@ -633,6 +633,14 @@ ol {
   grid-template-columns: 10% 1fr 20% 30%;
 }
 
+.table-5__head {
+  grid-template-columns: 10% 1fr 15% 15% 30%;
+}
+
+.table-5__body .body-table__row {
+  grid-template-columns: 10% 1fr 15% 15% 30%;
+}
+
 .head-table {
   display: grid;
   justify-items: center;
@@ -650,8 +658,6 @@ ol {
 }
 
 .body-table {
-  overflow-y: auto;
-  height: 410px;
   padding-right: 10px;
 }
 

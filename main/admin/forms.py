@@ -3,7 +3,7 @@ from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import BaseSettings, HomeTemplate, Stock
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import Categories, Day, Product, Subsidiary
+from shop.models import Category, Day, Product, Subsidiary
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
@@ -244,7 +244,7 @@ class ProductForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
   """ Form, отвечает за создание категорий и редактирование категорий"""
   class Meta:
-    model = Categories
+    model = Category
     fields = [
       "name",
       "slug",
