@@ -24,9 +24,11 @@ urlpatterns = [
     
     #URl - отвечающие за отображение товаров, редактирование и удаление товара
     path('product/', views.admin_product, name='admin_product'),
+    path('product/<int:id>/', views.admin_product_category, name='admin_product_category'),
     path('product/add/', views.product_add, name='product_add'),
     path('product/edit/<int:pk>/', views.product_edit, name='product_edit'),
     path('product/delete/<int:pk>/', views.product_delete, name='product_delete'),
+    path('product/edit_day/<int:id>/', views.product_day_edit, name='product_day_edit'),
     
     #URl - отвечающие за отображение филлиалов, редактирование и удаление филлиала
     path('fillial/', views.admin_fillial, name='admin_fillial'),
@@ -46,6 +48,12 @@ urlpatterns = [
     path('stock/edit/<int:pk>/', views.stock_edit, name='stock_edit'),
     path('stock/delete/<int:pk>/', views.stock_delete, name='stock_delete'),
     
+    #URl - отвечающие за отображение галлереи, редактирование и удаление фотографий галлереи
+    path('gallery/', views.admin_gallery, name='admin_gallery'),
+    path('gallery/add/', views.gallery_add, name='gallery_add'),
+    path('gallery/edit/<int:pk>/', views.gallery_edit, name='gallery_edit'),
+    path('gallery/delete/<int:pk>/', views.gallery_delete, name='gallery_delete'),
+    
     #URl - отвечающие за отображение услуг, редактирование и удаление услуг
     path('serv/', views.admin_service, name='admin_service'),
     path('serv/add/', views.service_add, name='service_add'),
@@ -54,10 +62,11 @@ urlpatterns = [
     
     #URl - Шаблон главной страницы
     path('home/', views.admin_home, name='admin_home'),
+    path('about/', views.admin_about, name='admin_about'),
     
     #URl - Шаблон общих настроек сайта
     path('settings/', views.admin_settings, name='admin_settings'),
     
     #URl - настройка цветовой схемы на сайте
-    path('color-scheme/', views.admin_colors, name='admin_colors'),
+    path('design/', views.admin_colors, name='admin_colors'),
 ]

@@ -1,0 +1,14 @@
+<div class="popup" id="popup-delivery">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <p class="popup__title">Какой адрес к Вам ближе:</p>
+      <span class="popup__line"></span>
+      <!-- <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button> -->
+      <form action="/" class="form">
+        {% csrf_token %} {% if branchs %} {% for branch in branchs %}
+        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">{{ branch.address_fillial }}</button>
+        {% endfor %} {% endif %}
+      </form>
+    </div>
+  </div>
+</div>

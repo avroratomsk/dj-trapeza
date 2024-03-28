@@ -17,7 +17,7 @@
 // Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
 // $fontFamily: "Comfortaa", sans-serif;
 $victorMono: 'Victor Mono', monospace;
-$fontFamily: 'Victor Mono', monospace;
+$fontFamily: "Nunito";
 $ruslanDisplay: 'Ruslan Display', sans-serif;
 // $secondaryFont: "Train One", cursive;
 // $secondaryFont: "TildaSans";
@@ -31,12 +31,22 @@ $fontSize: 16px; // где 16(px) - размер шрифта по умолча�
 // Основные цвета
 // $bodyColor: #ffffff;
 $bodyColor: #f3f3f3;
-$mainColor: #253746; // Цвет шрифта по умолчанию
+// $bodyColor: #f7efdb;
+// $bodyColor: #f4f1e9;
+// $bodyColor: #f4f1e9;
+// $bodyColor: #e6e6e6;
+$mainColor: #2b463c; // Цвет шрифта по умолчанию
+// $mainColor: #3d4b58; // Цвет шрифта по умолчанию
+// $mainColor: #253746; // Цвет шрифта по умолчанию
 // $accent: #CD0000;
 // $accent: #c2ab89;
 $white: #ffffff;
-$accent: #9ac27c;
-$grey: #939297;
+// $accent: #669f49;
+// $accent: #8ea05d;
+// $accent: #688f4e;
+// $accent: #e76642;
+$accent: #5c8600;
+$grey: #e6e6e6;
 $orange: #e76642;
 $lightBlue: #d4e9f5;
 $greenAplle: #59ce65;
@@ -69,7 +79,8 @@ $responsiveType: 1;
 
 body {
 
-  // overflow-x: hidden;
+  overflow-x: hidden;
+
   // Скролл заблокирован
   .lock & {
     touch-action: none;
@@ -178,6 +189,7 @@ body {
 @import './pages/service';
 @import './pages/about';
 @import './pages/service-page';
+@import './pages/gallery';
 // @import './deps';
 // @import './bootstrap';
 
@@ -196,3 +208,4 @@ body {
 @import './components/form';
 @import './components/breadcrumbs';
 @import './components/contact';
+@import './components/popup';

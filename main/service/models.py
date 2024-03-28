@@ -17,6 +17,9 @@ class Service(models.Model):
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+  color_accent = models.CharField(max_length=50, default='#669f49', verbose_name="Акцентный цвет")
+  color_font_accent = models.CharField(max_length=50, default='#ffffff', verbose_name="Цвет шрифта на акцентном цвете")
+  
   
   def __str__(self):
     return self.name

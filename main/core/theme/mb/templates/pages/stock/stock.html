@@ -4,7 +4,7 @@
   <div class="wrapper">
     {% include "components/header-single.html" %}
     <main class="page">
-      <div class="single-banner" style="background-image: url({% static "theme/mb/images/stock.webp" %} )" data-speed="70">
+      <div class="single-banner" style="background-image: url({% static "theme/mb/images/stock.jpg" %} )" data-speed="70">
         <h1 class="stock__title _title">Скидки и Акции</h1>
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
           <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
@@ -27,7 +27,7 @@
                   {% if stock.image %}
                   <img src="{{ stock.image.url }}" alt="{{ stock.title }}" title="{{ stock.title }}" />
                   {% else %}
-                  <img src="{% static 'theme/mb/images/noimage.webp' %}" alt="Нет изображения" title="Нет изображения" />
+                  <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="Нет изображения" title="Нет изображения" />
                   {% endif %}
                 </div>
               </div>

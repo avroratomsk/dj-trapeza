@@ -22,7 +22,39 @@
               {{ form.address_fillial }} {{ form.address_fillial.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.image.id_for_label }}" class="form__controls-label">Адрес <span>:</span></label>
+              <label for="{{ form.phone.id_for_label }}" class="form__controls-label">Номер телефона <span>:</span></label>
+              {{ form.phone }} {{ form.phone.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.time_work.id_for_label }}" class="form__controls-label">Режим работы <span>:</span></label>
+              {{ form.time_work }} {{ form.time_work.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.weekend.id_for_label }}" class="form__controls-label">Выходные дни <span>:</span></label>
+              {{ form.weekend }} {{ form.weekend.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.number_seats.id_for_label }}" class="form__controls-label">Количество посадочных мест <span>:</span></label>
+              {{ form.number_seats }} {{ form.number_seats.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.hall_rental.id_for_label }}" class="form__controls-label">Цена аренды зала <span>:</span></label>
+              {{ form.hall_rental }} {{ form.hall_rental.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.hall_rental_hollyday.id_for_label }}" class="form__controls-label">Цена аренды зала в праздники <span>:</span></label>
+              {{ form.hall_rental_hollyday }} {{ form.hall_rental_hollyday.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.scheme_payment.id_for_label }}" class="form__controls-label">Схема оплаты <span>:</span></label>
+              {{ form.scheme_payment }} {{ form.scheme_payment.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.map_code.id_for_label }}" class="form__controls-label">Скрипт карты <span>:</span></label>
+              {{ form.map_code }} {{ form.map_code.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.image.id_for_label }}" class="form__controls-label">Фотография зала <span>:</span></label>
               {{ form.image }} {{ form.image.errors }}
             </div>
             <div class="form__group">

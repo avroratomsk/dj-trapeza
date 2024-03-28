@@ -1,34 +1,13 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
-from home.models import BaseSettings, HomeTemplate, Stock
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import Category, Day, Product, Subsidiary
+from shop.models import Category, Day, Product, Branch
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
 
-# class ProductForm(forms.ModelForm):
-#   # description = forms.CharField(label="Полное описание товара", required=False, widget=CKEditorUploadingWidget())
-#   class Meta:
-#     model = Product
-#     fields = (
-#       "name", 
-#       "short_description",
-#       "description",
-#       "meta_h1",
-#       "meta_title",
-#       "meta_description",
-#       "meta_keywords",
-#       "slug",
-#       "price",
-#       "discount",
-#       "quantity",
-#       "category",
-#       "day",
-#       "subsidiary",
-#       "weight",
-#       )
 class GlobalSettingsForm(forms.ModelForm):
   """ Form, глобальные и общие настройки сайта(лого, телефон, email)"""
   # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
@@ -105,6 +84,9 @@ class ProductForm(forms.ModelForm):
         fields = [
             'name',
             'slug',
+            'funeral_menu',
+            'banquet_menu_checkbox',
+            'banquet_menu',
             'short_description',
             'description',
             'meta_h1',
@@ -117,7 +99,7 @@ class ProductForm(forms.ModelForm):
             'quantity',
             'category',
             'day',
-            'subsidiary',
+            'branch',
             'image',
             'weight',
             'calories',
@@ -129,6 +111,9 @@ class ProductForm(forms.ModelForm):
         labels = {
             'name': 'Название блюда',
             'slug':'URL',
+            'funeral_menu':'Поминальное меню',
+            'banquet_menu_checkbox':'Банкетное меню',
+            'banquet_menu':'Цена и граммы за блюдо',
             'short_description':'Короткое описание',
             'description':'Полное описание',
             'meta_h1':'Заголвок первого уровня',
@@ -141,7 +126,7 @@ class ProductForm(forms.ModelForm):
             'quantity':'Количество',
             'category':'Категория',
             'day':'В какой день готовят',
-            'subsidiary':'В каком из филлиалов',
+            'branch':'В каком из филлиалов',
             'image': 'Превью изображения',
             'weight':'Грамовка',
             'calories': 'Каллорийность',
@@ -155,65 +140,56 @@ class ProductForm(forms.ModelForm):
                 'class': 'form__controls',
                 "id":"name"
                 # 'placeholder': 'Название товара',
-                
             }),
             'short_description': forms.Textarea(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Короткое описание товара',
+            }),
+            'funeral_menu': forms.CheckboxInput(attrs={
+                'class': 'form__controls-checkbox',
+                'id': 'funeral_menu'
+            }),
+            'banquet_menu_checkbox': forms.CheckboxInput(attrs={
+                'class': 'form__controls-checkbox',
+                'id': 'banquet_menu-checkbox'
+            }),
+            'banquet_menu': forms.TextInput(attrs={
+                'class': 'form__controls',
+                'id': 'banquet_menu-checkbox',
+                'placeholder': "Пример: 231р / за 100гр. или 231р / за 1 штуку"
             }),
             'description': forms.Textarea(attrs={
-                'class': 'form__controls',
-                # 'placeholder': 'Короткое описание товара',
+                'class': 'form__controls'
             }),
             'meta_h1': forms.TextInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'h1',
             }),
             'meta_title': forms.TextInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Мета заголовок',
             }),
             'meta_description': forms.TextInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Мета описание',
             }),
             'meta_keywords': forms.TextInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Ключевые слова',
             }),
             'price': forms.NumberInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Цена (с учетом скидки)',
             }),
             'quantity': forms.NumberInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Количество',
             }),
             'slug': forms.TextInput(attrs={
                 'class': 'form__controls',
                 "id": "slug"
-                # 'placeholder': 'SEO URL',
             }),
             'category': forms.Select(attrs={
                 'class': 'form__controls', 
-                # 'placeholder': 'Категория',
             }),
-            # 'day': forms.Select(attrs={
-            #     'class': 'form__controls',
-            #     # 'placeholder': 'День приготовления',
-            # }),
-            # 'subsidiary': forms.Select(attrs={
-            #     'class': 'form__controls',
-            #     'placeholder': 'Филлиал',
-            #     'multiply': True
-            # }),
             'weight': forms.TextInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Грамовка',
             }),
             'discount': forms.TextInput(attrs={
                 'class': 'form__controls',
-                # 'placeholder': 'Скидка',
             }),
             'image': forms.FileInput(attrs={
                 'class': 'submit-file',
@@ -221,24 +197,16 @@ class ProductForm(forms.ModelForm):
             }),
             'calories': forms.TextInput(attrs={
                 'class': "form__controls",
-                # 'placeholder': 'Колорийность'
             }),
             'proteins': forms.TextInput(attrs={
                 'class': "form__controls",
-                # 'placeholder': 'Белки'
             }),
             'fats': forms.TextInput(attrs={
                 'class': "form__controls",
-                # 'placeholder': 'Жиры'
             }),
             'carbonhydrates': forms.TextInput(attrs={
                 'class': "form__controls",
-                # 'placeholder': 'Углеводы'
-            }),
-            # 'status': forms.CheckboxInput(attrs={
-            #     'class': "form__controls-checkbox",
-            #     'placeholder': 'Белки'
-            # })
+            })
         }
    
 class CategoryForm(forms.ModelForm):
@@ -326,16 +294,32 @@ class DayForm(forms.ModelForm):
 class FillialForm(forms.ModelForm):
   """ Form, отвечает за добавление филлиала и редактирование филлиала"""
   class Meta:
-    model = Subsidiary
+    model = Branch
     fields = [
       "name",
       "address_fillial",
+      "phone",
+      "time_work",
+      "weekend",
+      "number_seats",
+      "hall_rental",
+      "hall_rental_hollyday",
+      "scheme_payment",
+      "map_code",
       "image",
       "slug"
     ]
     labels = {
       "name": "Название филлиала",
       "address_fillial": "Адрес филлиала",
+      "phone": "Номер телефона",
+      "time_work": "Режим работы",
+      "weekend": "Выходные дни",
+      "number_seats": "Количество посадочных мест",
+      "hall_rental": "Аренда зала",
+      "hall_rental_hollyday": "Аренда зала в праздники",
+      "scheme_payment": "Схема оплаты",
+      "map_code": "Код карты",
       "image": "Фотография зала",
       "slug": "URL",
     }
@@ -348,6 +332,30 @@ class FillialForm(forms.ModelForm):
           "class": "form__controls",
           "id":"name",
           "placeholder": "г.Томск, ул.Ленина 111"
+      }),
+      "phone": forms.TextInput(attrs={
+          "class": "form__controls",
+      }),
+      "time_work": forms.TextInput(attrs={
+          "class": "form__controls",
+      }),
+      "weekend": forms.TextInput(attrs={
+          "class": "form__controls",
+      }),
+      "number_seats": forms.TextInput(attrs={
+          "class": "form__controls",
+      }),
+      "hall_rental": forms.TextInput(attrs={
+          "class": "form__controls",
+      }),
+      "hall_rental_hollyday": forms.TextInput(attrs={
+          "class": "form__controls",
+      }),
+      "scheme_payment": forms.TextInput(attrs={
+          "class": "form__controls",
+      }),
+      "map_code": forms.Textarea(attrs={
+          "class": "form__controls",
       }),
       "slug": forms.TextInput(attrs={
         "class":"form__controls",
@@ -398,6 +406,51 @@ class HomeTemplateForm(forms.ModelForm):
           'meta_description': forms.TextInput(attrs={
               'class': 'form__controls',
               # 'placeholder': 'Мета описание',
+          }),
+          'meta_keywords': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'about_text': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+      }
+      
+class AboutTemplateForm(forms.ModelForm):
+  """ Form, редактирование главной страницы"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+      model = AboutTemplate
+      fields = [
+          'banner',
+          'meta_h1',
+          'meta_title',
+          'meta_description',
+          'meta_keywords',
+          'about_text',
+          'about_image'
+      ]
+      labels = {
+          'banner': 'Изображение банера',
+          'meta_h1':'Заголвок первого уровня',
+          'meta_title':'Meta title',
+          'meta_description':'Мета description',
+          'meta_keywords':'Meta keywords',
+          'about_text':'Текст о нас',
+          'about_image':'Изображение о нас'
+      }
+      widgets = {
+          'name': forms.TextInput(attrs={
+              'class': 'form__controls'
+          }),
+          'meta_h1': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'meta_title': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'meta_description': forms.TextInput(attrs={
+              'class': 'form__controls',
           }),
           'meta_keywords': forms.TextInput(attrs={
               'class': 'form__controls',
@@ -531,8 +584,7 @@ class StockForm(forms.ModelForm):
         'class': 'form__controls'
       })
     }
-    
-    
+       
 class ServiceForm(forms.ModelForm):
   """ Form, добавление и редактирование услуг"""
   # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
@@ -585,4 +637,21 @@ class ServiceForm(forms.ModelForm):
       'meta_keywords': forms.TextInput(attrs={
         'class': 'form__controls'
       })
+    }
+    
+class GalleryForm(forms.ModelForm):
+  """ Form, добавление и редактирование фотографий галлереи"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = Gallery
+    fields = [
+        "image",
+        "alt",
+        "status"
+    ]
+    labels = {
+        "image": "Изображение",
+        "alt": "Альтернативный текст",
+        "status": "Статус публикации ",
     }

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="">
   <head>
     <title>{{ title }}</title>
     <meta charset="UTF-8" />
@@ -19,7 +19,8 @@
     />
   </head>
   <body>
-    {% block content %}{% endblock %}
+    <div class="wrapper">{% include "./components/header-single.html" %}{% block content %}{% endblock %} {% include "./components/footer.html" %}</div>
+    {% include "./components/popup.html" %}
     <script src="{% static 'theme/mb/js/index.js' %}"></script>
   </body>
 </html>

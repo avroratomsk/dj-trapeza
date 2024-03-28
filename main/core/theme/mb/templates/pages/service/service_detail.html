@@ -62,7 +62,7 @@
                   <div class="aside__filter">
                     <input type="hidden" value="" class="aside__filter-hidden" />
                     <ul class="aside__list">
-                      {% for category in category %}
+                      {% for category in categorys %}
                       <li class="aside__item">
                         <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
                       </li>
@@ -70,6 +70,7 @@
                     </ul>
                   </div>
                 </div>
+                {% comment %}
                 <div class="aside__options" id="option-part">
                   <h5 class="aside__title">Цена</h5>
                   <div class="price-input">
@@ -91,6 +92,7 @@
                     </div>
                   </div>
                 </div>
+                {% endcomment %}
               </aside>
               <div class="single-content__products products-single">
                 <div class="products-single__grid">

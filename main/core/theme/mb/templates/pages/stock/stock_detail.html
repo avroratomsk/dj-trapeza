@@ -4,7 +4,7 @@
   <div class="wrapper">
     {% include "components/header-single.html" %}
     <main class="page">
-      <div class="single-banner" style="background-image: url({% static "theme/mb/images/stock.webp" %} )"
+      <div class="single-banner" style="background-image: url({% if stock.image %}{{ stock.image.url }}{% else %}{% static "theme/mb/images/stock.webp" %}{% endif %} )"
         data-speed="70">
         <h1 class="stock__title _title">{{ stock.title }}</h1>
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">

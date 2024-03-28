@@ -9,6 +9,11 @@
     margin-bottom: 40px;
   }
 
+  // .stock__text
+  &__text {
+    line-height: 140%;
+  }
+
   // .stock__inner
 
   &__inner {
@@ -103,6 +108,7 @@
   // .stock__col-title
 
   &__col-title {
+    color: rgba($color: $mainColor, $alpha: 1.0);
     font-size: 22px;
     font-weight: 600;
     line-height: 120%;
@@ -115,6 +121,7 @@
     font-size: 18px;
     line-height: 140%;
     margin-bottom: 20px;
+    color: rgba($color: $mainColor, $alpha: 1.0);
   }
 
   // .stock__col-link
@@ -124,7 +131,7 @@
     line-height: 150%;
     font-weight: 900;
     font-size: 18px;
-    color: rgba($color: $orange, $alpha: 1.0);
+    color: rgba($color: $accent, $alpha: 1.0);
     transition: $animation_speed;
 
     &::before {
@@ -135,7 +142,7 @@
       width: 100%;
       height: 2px;
       margin-top: 5px;
-      background-color: rgba($color: $orange, $alpha: 1.0);
+      background-color: rgba($color: $accent, $alpha: 1.0);
       transition: $animation_speed;
       z-index: 0;
     }

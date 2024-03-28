@@ -1,8 +1,9 @@
 from datetime import datetime
+from django.http import JsonResponse
 from django.shortcuts import get_list_or_404
 from django.db.models import Q
 
-from shop.models import Product, Day
+from shop.models import Branch, Product, Day
 
 def get_name_day():
   today = datetime.today()
@@ -64,7 +65,19 @@ def get_slug_day(day_id):
 
 # get_slug_day(4)
   
+def get_product_branch(slug):
+  branch = Branch.objects.get(slug=slug)
+  products = Product.objects.filter(branch=branch)
+  data = []
+  for product in products:
+    data.append({
+      "name": product.name,
+      "price": product.price,
+      "image": "None"
+    })
+  print(data)
 
+# get_product_branch("raketnaya")
 
 def q_search(query):
   """

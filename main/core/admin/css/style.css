@@ -44,6 +44,10 @@ ol {
   text-align: center;
 }
 
+.hide-field {
+  display: none !important;
+}
+
 .sidebar {
   width: 15%;
   min-width: 250px;
@@ -166,7 +170,7 @@ ol {
 .dropdownContent {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease;
+  transition: all 0.5s ease 0s;
 }
 
 .hidden {
@@ -362,6 +366,9 @@ ol {
 
 .page__add {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .page__add-btn {
@@ -570,6 +577,14 @@ ol {
 .errorlist li {
   color: rgba(255, 0, 0, 0.8);
   font-size: 14px;
+}
+
+#banquet_menu {
+  display: none;
+}
+
+.show {
+  display: flex !important;
 }
 
 .sort-admin {
@@ -837,5 +852,25 @@ ol {
   width: 20px;
   height: 20px;
   fill: #e76642;
+}
+
+.admin-category__list {
+  margin: 0px 0px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.admin-category__item {
+  padding: 15px 20px;
+  background: #fff;
+}
+
+.admin-select {
+  width: 150px;
+  height: 30px;
+  border-radius: 2px;
+  border: none;
 }
 /*# sourceMappingURL=maps/style.css.map */

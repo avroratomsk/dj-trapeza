@@ -32,7 +32,10 @@ class Category(models.Model):
     return self.name
   
   def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"slug": self.slug})
+    return reverse("category_detail", kwargs={"slug": self.slug})
+  
+  def get_category_url(self):
+    return reverse("admin_product_category", kwargs={"id": self.id})
 
 
 class Day(models.Model):
@@ -50,9 +53,17 @@ class Day(models.Model):
   def __str__(self):
     return self.name
   
-class Subsidiary(models.Model):
+class Branch(models.Model):
   name = models.CharField(max_length=150, blank=True, null=True, unique=True, verbose_name="Название филлиала")
   address_fillial = models.CharField(max_length=255, blank=True, null=True, verbose_name="Адрес филлиала")
+  phone = models.CharField(max_length=50, blank=True, null=True, verbose_name="Номер телефона")
+  time_work = models.CharField(max_length=250, null=True, blank=True, verbose_name="Режим работы")
+  weekend = models.CharField(max_length=250, null=True, blank=True, verbose_name="Выходные дни")
+  number_seats = models.CharField(max_length=50, null=True, blank=True, verbose_name="Количество посадочных мест")
+  hall_rental = models.CharField(max_length=150, null=True, blank=True, verbose_name="Аренда зала")
+  hall_rental_hollyday = models.CharField(max_length=150, null=True, blank=True, verbose_name="Аренда зала в праздники")
+  scheme_payment = models.CharField(max_length=250, null=True, blank=True, verbose_name="Схема оплаты")
+  map_code = models.TextField(null=True, blank=True, verbose_name="Код карты")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
   image = models.ImageField(upload_to="fillial", blank=True, null=True, verbose_name="Фотографии залов")
   
@@ -62,6 +73,9 @@ class Subsidiary(models.Model):
      
 class Product(models.Model):
   name = models.CharField(max_length=150, db_index=True, verbose_name="Наименование продукта")
+  funeral_menu = models.BooleanField(default=False, verbose_name="Поминальное меню ?")
+  banquet_menu_checkbox = models.BooleanField(default=False, verbose_name="Банкетное меню ?")
+  banquet_menu = models.CharField(max_length=250, blank=True, null=True, verbose_name="Цена за грамм, банкетное меню")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
   short_description = models.TextField(null=True, blank=True, verbose_name="Краткое описание")
   description = models.TextField(blank=True, null=True, verbose_name="Описание")
@@ -70,12 +84,12 @@ class Product(models.Model):
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
   image = models.ImageField(upload_to="product_iamge", blank=True, null=True, verbose_name="Изображение товара")
-  price = models.CharField(max_length=150, db_index=True, verbose_name="Цена товра")
+  price = models.CharField(max_length=150, db_index=True, blank=True, null=True, verbose_name="Цена товра")
   discount = models.DecimalField(default=0, max_digits=4, decimal_places=2, verbose_name="Скидака в %")
   quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
-  category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True, default=None, verbose_name='День недели')
-  day = models.ManyToManyField("Day", blank=True, verbose_name='День недели')
-  subsidiary = models.ManyToManyField(Subsidiary, blank=True, verbose_name='Филлиал')
+  category = models.ForeignKey("Category", on_delete=models.CASCADE, null=True, blank=True, default=None, verbose_name='Категория')
+  day = models.IntegerField(null=True, blank=True, verbose_name="Номер дня недели")
+  branch = models.ManyToManyField(Branch, blank=True, verbose_name='Филлиал')
   weight = models.CharField(max_length=150, blank=True, null=True, verbose_name="Вес в граммах")
   calories = models.CharField(max_length=150, blank=True, null=True, verbose_name="Каллории")
   proteins = models.CharField(max_length=50, blank=True, null=True, verbose_name="Белки")
@@ -114,6 +128,8 @@ class Product(models.Model):
   
   def get_absolute_url(self):
         return reverse("product", kwargs={"slug": self.slug})
+
+
   
   
   

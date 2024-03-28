@@ -1,34 +1,23 @@
 .search {
-  position: absolute;
-  top: 0%;
   background-color: rgba($color: $white, $alpha: 1.0);
   border-radius: 8px;
   left: 0;
-  width: 0%;
-  z-index: 10;
+  width: 100%;
+  z-index: 100%;
   transition: $animation_speed;
-  overflow: hidden;
-  pointer-events: none;
-
-
-  &._active {
-    width: 100%;
-    pointer-events: all;
-  }
 
   form {
     display: flex;
 
     input {
       font-size: 18px;
-      border-bottom: 1px solid rgba($color: $mainColor, $alpha: .3);
     }
 
     button {
       width: 150px;
-      background-color: $orange;
+      background-color: $accent;
       color: $white;
-      border-radius: 0px 8px 8px 0px;
+      border-radius: 8px 0px 0px 8px;
     }
   }
 }
@@ -44,8 +33,8 @@
   border-radius: 8px;
   opacity: 0;
   pointer-events: none;
+  z-index: 99;
   transition: $animation_speed;
-  z-index: 19;
 
   &._active {
     top: 100%;
@@ -55,18 +44,26 @@
 
   // .filter-sort__value
   &__value {
+    display: flex;
+    width: 100%;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
     transition: $animation_speed;
 
     &:hover {
-      color: rgba($color: $orange, $alpha: 1.0);
+      color: rgba($color: $accent, $alpha: 1.0);
     }
 
     &._active {
-      background-color: rgba($color: $orange, $alpha: 1.0);
+      background-color: rgba($color: $accent, $alpha: 1.0);
       color: rgba($color: $white, $alpha: 1.0);
+    }
+  }
+
+  .category_mb {
+    @media screen and (min-width: 990px) {
+      display: none;
     }
   }
 }
@@ -136,7 +133,7 @@
     left: 25%;
     right: 25%;
     border-radius: 5px;
-    background-color: $orange;
+    background-color: $accent;
   }
 
   // .price-input__range
@@ -159,7 +156,7 @@
         pointer-events: auto;
         appearance: none;
         border: none;
-        background-color: rgba($color: $orange, $alpha: 1.0);
+        background-color: rgba($color: $accent, $alpha: 1.0);
       }
     }
   }

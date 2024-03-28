@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% load static %}{% block content %}
 
 <div class="wrapper">
-  {% include "components/header.html" %}
+  {% include "components/header-single.html" %}
   <main class="page">
     <section class="product-page">
       <div class="product-page__container">
@@ -30,26 +30,28 @@
             {% endif %}
           </div>
           <div class="product-page__content">
-            <h1 class="product-page__title _title">{{ product.name }}</h1>
-            {% comment %}
-            <div class="product-page__text">
-              <p class="product-page__label">Категория:</p>
-              <p class="product-page__category">{{ product.category }}</p>
-            </div>
-            {% endcomment %} {% if product.short_description %}
+            <h1 class="product-page__title">{{ product.name }}</h1>{% if product.short_description %}
             <div class="product-page__text">
               <span class="product-page__label">Краткое описание блюда:</span>
               <p>{{ product.short_description }}</p>
             </div>
             {% endif %}
+            {% if product.description %}
+            <div class="product-page__text">
+              <p class="product-page__label">Состав:</p>
+              <span>{{ product.description }}</span>
+            </div>
+            {% endif %}
             <div class="product-page__price">
               {% if product.price %}
-              <span class="product-page__label">Цена:</span>
+              <p class="product-page__label">Цена:</p>
               <p>{{ product.price }} руб.</p>
               {% endif %}
             </div>
             <div class="product-page__nutritional nutritional">
+              {% if product.calories or product.proteins or product.fats or product.carbonhydrates %}
               <span class="product-page__label">Пицевая ценность продукта на 100г :</span>
+              {% endif %}
               <div class="nutritional__grid">
                 {% if product.calories %}
                 <div class="nutritional__card">
@@ -76,36 +78,36 @@
             </div>
           </div>
         </div>
-        <div class="product-page__text product-page__text-full">
-          {% if product.description %}
-          <p class="product-page__label">Полное описание:</p>
-          <p>{{ product.description }}</p>
-          {% endif %}
-        </div>
       </div>
     </section>
 
-    {% if products > 0 %}
+    {% comment %} {% if products > 0 %} {% endcomment %}
       <section class="product-related">
         <div class="product-related__container">
           <h2 class="product-related__title _title">Похожие товары</h2>
           <div class="product-related__grid">
             {% for product in products %} 
               <div class="card-product" data-id="{{ product.display_id }}">
+                {% if product.image %}
                 <a href="{{ product.get_absolute_url }}" class="card-product__image">
-                  <img src="{% static 'admin/images/food.webp' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
                 </a>
+                {% else %}
+                <a href="{{ product.get_absolute_url }}" class="card-product__image">
+                  <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                </a>
+                {% endif %}
                 <a href="#" class="card-product__name">{{ product.name }}</a>
                 <p class="card-product__price">{{ product.price }} руб.</p>
                 <div class="card-product__btns">
-                  <button class="card-product__btn">Корзина</button>
                   <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
                 </div>
               </div>
             {% endfor %}
         </div>
       </section>
-    {% endif %}
+    {% comment %} {% endif %} {% endcomment %}
   </main>
+  
 </div>
 {% endblock content %}

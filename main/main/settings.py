@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "users",
     "reviews",
     "service",
+    "blog",
     'django_ckeditor_5',
 ]
 
@@ -88,6 +89,8 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "home.context_processors.load_settings",
                 "home.context_processors.load_branch",
+                "home.context_processors.load_category",
+                "home.context_processors.load_service",
             ],
         },
     },

@@ -5,8 +5,7 @@
 
   // .footer__container
 
-  &__container {
-  }
+  &__container {}
 
   // .footer__grid
 
@@ -23,14 +22,30 @@
 
     &:nth-child(2) {
       justify-self: center;
+
+      @media screen and (max-width: 610px) {
+        justify-self: flex-start;
+      }
     }
 
     &:nth-child(3) {
       justify-self: end;
       text-align: right;
+
       .footer__nav {
         a {
           justify-content: flex-end;
+        }
+      }
+
+      @media screen and (max-width: 900px) {
+        justify-self: start;
+        text-align: left;
+
+        .footer__nav {
+          a {
+            justify-content: flex-start;
+          }
         }
       }
     }
@@ -47,7 +62,7 @@
   // .footer__item
 
   &__item {
-    
+
     &:not(:last-child) {
       margin-bottom: 30px;
     }
@@ -72,6 +87,7 @@
   &__social {
     display: flex;
     align-items: center;
+
     a {
       width: 40px;
       height: 40px;
@@ -116,10 +132,17 @@
 
   &__logo {
     margin-bottom: 40px;
-    img{
+
+    img {
       width: 100px;
     }
+
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
   }
+
+
 }
 
 
@@ -130,18 +153,17 @@
 
   // .author__container
 
-  &__container {
-  }
+  &__container {}
 
   // .author__inner
-  &__inner{
+  &__inner {
     text-align: center;
     color: $white;
     font-size: 17px;
     transition: $animation_speed;
-    
 
-    &:hover{
+
+    &:hover {
       opacity: .8;
     }
   }

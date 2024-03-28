@@ -4,50 +4,197 @@
 
   &__container {}
 
-  // .about__row
+  // .about__inner
 
-  &__row {
+  &__inner {
     display: flex;
+    align-items: flex-start;
     gap: 30px;
-  }
 
-  // .about__col
-
-  &__col {
-    flex: 1 1 50%;
-  }
-
-  // .about__title
-
-  &__title {
-    margin-bottom: 20px;
-  }
-
-  // .about__subtitle
-
-  &__subtitle {
-    font-size: 20px;
-    line-height: 140%;
-    max-width: 550px;
-    text-wrap: balance;
-    color: rgba($color: $mainColor, $alpha: .7)
-  }
-
-  // .about__text
-
-  &__text {
-    p+p {
-      margin-top: 20px;
+    @media screen and (max-width: 920px) {
+      flex-direction: column;
     }
   }
 
-  .body-service__row {
-    padding: 120px 0px 60px;
+  // .about__content
+
+  &__content {}
+
+  // .about_hall
+
+  &_hall {}
+}
+
+.link-bar {
+  display: inline-flex;
+  justify-content: center;
+  box-shadow: 0 0 4px 2px rgba(43, 70, 60, 0.05);
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba($color: $mainColor, $alpha: .1);
+  transition: $animation_speed;
+
+  // .link-bar__link
+
+  &__link {
+    padding: 20px 20px;
+    color: rgba($color: $mainColor, $alpha: 1.0);
+    transition: $animation_speed;
+
+    @media (hover:hover) {
+      &:hover {
+        background-color: rgba($color: $mainColor, $alpha: .05)
+      }
+    }
   }
+
+  &__link+&__link {
+    border-top: 1px solid rgba($color: $mainColor, $alpha: .1)
+  }
+
+  @media screen and (min-width: 920px) {
+    position: sticky;
+    top: 100px;
+    flex-direction: column;
+    max-width: 350px;
+    min-width: 250px;
+  }
+
+  @media screen and (max-width: 620px) {
+    flex-direction: column;
+  }
+
+
 }
 
 .text {
-  font-size: 17px;
-  line-height: 150%;
-  color: rgba($color: $mainColor, $alpha: .8);
+  h2 {
+    font-size: 35px;
+    color: rgba($color: $mainColor, $alpha: 1.0);
+    line-height: 120%;
+    margin-bottom: 20px;
+  }
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+
+  p {
+    line-height: 140%;
+    color: rgba($color: $mainColor, $alpha: 1.0);
+    margin-bottom: 30px;
+  }
+}
+
+.hall {
+
+
+  // .hall__container
+
+  &__container {}
+
+  // .hall__title
+
+  &__title {
+    margin-bottom: 40px;
+  }
+
+  // .hall__row
+
+  &__row {
+    display: flex;
+    gap: 40px;
+    background-color: rgba($color: $white, $alpha: 1.0);
+    padding: 20px;
+    border-radius: 20px;
+
+    &:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+
+    @media screen and (max-width: 920px) {
+      flex-direction: column;
+
+      &:nth-child(odd) {
+        flex-direction: column;
+      }
+    }
+
+    @media screen and (max-width: 520px) {
+      padding: 10px;
+    }
+
+  }
+
+  &__row+&__row {
+    margin-top: 30px;
+  }
+
+  // .hall__col
+
+  &__col {}
+
+  // .hall__image
+
+  &__image {
+    width: 600px;
+    overflow: hidden;
+    border-radius: 12px;
+
+    @media screen and (max-width: 1025px) {
+      width: 500px;
+    }
+
+    @media screen and (max-width: 575px) {
+      width: 100%;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // .hall__info
+
+  &__info {}
+
+  // .hall__item
+
+  &__item {}
+
+  // .hall__label
+
+  &__label {
+    font-size: 18px;
+    padding: 10px 0px;
+
+    span {
+      color: rgba($color: $accent, $alpha: 1.0)
+    }
+
+    @media screen and (max-width: 425px) {
+      font-size: 15px;
+    }
+  }
+
+  // .hall__text
+
+  &__text {
+    margin-top: 40px;
+
+    a {
+      color: rgba($color: $accent, $alpha: 1.0)
+    }
+
+    @media screen and (max-width: 425px) {
+      margin-top: 15px;
+    }
+  }
+
+  // .hall__btn
+  &__btn {
+    margin-top: 30px;
+  }
 }

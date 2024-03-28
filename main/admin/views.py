@@ -4,12 +4,12 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import CategoryForm, DayForm, FillialForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
-from home.models import BaseSettings, HomeTemplate, Stock
+from admin.forms import AboutTemplateForm, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
-from shop.models import Product,Category,Day,Subsidiary
+from shop.models import Product,Category,Day,Branch
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 import openpyxl
@@ -66,13 +66,12 @@ def admin_product(request):
   View, которая возвращаяет и отрисовывает все товары на странице
   и разбивает их на пагинацию 
   """
-  
   page = request.GET.get('page', 1)
   category = Category.objects.all()
+  # products = Product.objects.all().exclude(funeral_menu=True)
   products = Product.objects.all()
   paginator = Paginator(products, 10)
   current_page = paginator.page(int(page))
-  
   context = {
     "categorys": category,
     "products": current_page
@@ -122,6 +121,15 @@ def product_delete(request,pk):
   
   return redirect('admin_product')
 
+def product_day_edit(request, id):
+  product = Product.objects.get(id=id)
+  print(product)
+  if request.method == "POST":
+    set_day = request.POST['set-day']
+    print(set_day)
+    product.day = set_day
+    product.save()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 folder = 'upload/'
 
@@ -172,7 +180,7 @@ def parse_exсel(path):
   data = pd.read_excel(path)
   # Product.objects.all().delete()
   # Day.objects.all().delete()
-  # Subsidiary.objects.all().delete()
+  # Branch.objects.all().delete()
 
   for index, row in data.iterrows():
     name = row['name']
@@ -243,9 +251,9 @@ def parse_exсel(path):
       branch_name = branch_name.strip()
       branch_slug = slugify(branch_name)
       try:
-        branch = Subsidiary.objects.get(slug=branch_slug)
-      except Subsidiary.DoesNotExist:
-        branch = Subsidiary.objects.create(name=branch_name, slug=branch_slug)
+        branch = Branch.objects.get(slug=branch_slug)
+      except Branch.DoesNotExist:
+        branch = Branch.objects.create(name=branch_name, slug=branch_slug)
       branchs.append(branch)
 
     weight = ''
@@ -344,6 +352,16 @@ def category_delete(request, pk):
   
   return redirect('admin_category')
 
+def admin_product_category(request, id):
+  category = Category.objects.all()
+  product = Product.objects.filter(category_id=id)
+  context = {
+    "categorys": category,
+    "products": product
+  }
+  
+  return render(request, "shop/product/product.html", context)
+
 def day_product(request):
   days = Day.objects.all().exclude(slug="ezhednevno")
   
@@ -387,7 +405,7 @@ def day_add(request):
   return render(request, "days/days_add.html", context)
 
 def admin_fillial(request):
-  fillials = Subsidiary.objects.all()
+  fillials = Branch.objects.all()
   
   context = {
     "fillials": fillials
@@ -396,7 +414,7 @@ def admin_fillial(request):
   return render(request, "fillials/fillial.html", context)
 
 def fillial_edit(request, pk):
-  fillial = Subsidiary.objects.get(id=pk)
+  fillial = Branch.objects.get(id=pk)
   form = FillialForm(instance=fillial)
   
   if request.method == "POST":
@@ -456,6 +474,34 @@ def admin_home(request):
   }  
   
   return render(request, "static/home_page.html", context)
+
+def admin_about(request):
+  try:
+    about_page = AboutTemplate.objects.get()
+  except:
+    about_page = AboutTemplate()
+    about_page.save()
+    
+  if request.method == "POST":
+    form_new = AboutTemplateForm(request.POST, request.FILES, instance=about_page)
+    if form_new.is_valid():
+      form_new.save()
+      
+      print("Все хорошо")
+      # subprocess.call(["touch", RESET_FILE])
+      return redirect("admin")
+    else:
+      return render(request, "static/about_page.html", {"form": form_new})
+  
+  about_page = AboutTemplate.objects.get()
+  
+  form = AboutTemplateForm(instance=about_page)
+  context = {
+    "form": form,
+    "about_page":about_page
+  }  
+  
+  return render(request, "static/about_page.html", context)
 
 def admin_reviews(request):
   reviews = Reviews.objects.all()
@@ -602,3 +648,49 @@ def admin_colors(request):
     "title": "Настройки цветовой схемы сайта"
   }
   return render(request, "settings/color_scheme.html", context)
+
+def admin_gallery(requets):
+  gallery = Gallery.objects.all()
+  context = {
+    "gallerys": gallery
+  }
+  return render(requets, "gallery/gallery.html", context)
+
+def gallery_add(request):
+  form = GalleryForm()
+  
+  if request.method == "POST":
+    form_new = GalleryForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_gallery")
+    else: 
+      return render(request, "gallery/gallery_add.html", {"form": form_new})
+  
+  context = {
+    "form": form
+  }
+  
+  return render(request, "gallery/gallery_add.html", context)
+
+def gallery_edit(request, pk):
+  gallery = Gallery.objects.get(id=pk)
+  form = GalleryForm(instance=gallery)
+  if request.method == "POST":
+    form_new = GalleryForm(request.POST, request.FILES, instance=gallery)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect("admin_gallery")
+    else:
+      return render(request, "gallery/gallery_edit.html", {"form": form_new})
+  
+  context = {
+    "form": form
+  }
+  
+  return render(request, "gallery/gallery_edit.html", context)
+
+def gallery_delete(request, pk):
+  gallery = Gallery.objects.get(id=pk)
+  gallery.delete()
+  return redirect("admin_gallery")
