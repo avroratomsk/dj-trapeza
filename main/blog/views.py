@@ -1,14 +1,24 @@
 from django.shortcuts import render
 
-from blog.models import Blog
+from blog.models import Post
 
 def blog(request):
-  return render(request, "pages/blog/blog.html")
-
-def blog_detail(request, slug):
-  article = Blog.objects.filter(status=True) 
+  articles = Post.objects.filter(status=True) 
   
   context = {
-    "article": article
+    "articles": articles
   }
-  return render(request, "pages/blog/blog_detail.html", article)
+  return render(request, "pages/blog/blog.html", context)
+
+def blog_detail(request, slug):
+  pass
+
+def post(request, slug):
+  article = Post.objects.get(slug=slug) 
+  articles = Post.objects.filter(status=True).exclude(slug=slug)
+  
+  context = {
+    "article": article,
+    "articles": articles
+  }
+  return render(request, "pages/blog/blog_detail.html", context)

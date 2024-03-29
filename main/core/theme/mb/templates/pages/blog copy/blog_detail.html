@@ -1,0 +1,194 @@
+{% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
+
+<main class="page">
+  <div class="single-banner"
+    style="background-image: url({% if about_page.banner %}{{ about_page.banner.url }}{% else %}{% static "
+    theme/mb/images/stock.webp" %}{% endif %} )" data-speed="70">
+    <h1 class="stock__title _title">{{ about_page.meta_h1 }}</h1>
+    <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+      <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+        class="breadcrumbs__item">
+        Главная
+        <meta itemprop="position" content="1" />
+      </a>
+      <span itemprop="name" class="breadcrumbs__item">
+        {{ about_page.meta_h1 }}
+        <meta itemprop="position" content="3" />
+      </span>
+    </div>
+  </div>
+  <section class="about">
+    <div class="about__container">
+      <div class="about__inner">
+        <div class="link-bar">
+          <a href="{% url 'stock' %}" class="link-bar__link">Акции</a>
+          <a href="#" class="link-bar__link">Новости</a>
+          <a href="#" class="link-bar__link">Статьи</a>
+          <a href="{% url 'gallery' %}" class="link-bar__link">Галлерея</a>
+          <a href="#" class="link-bar__link">Политика конфиденциальности</a>
+        </div>
+        <div class="about__content">
+          <div class="text">
+            {{ about_page.about_text }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="about_hall hall">
+    <div class="hall__container">
+      <h2 class="hall__title _title">Информация о наших залах</h2>
+      {% if branchs %}
+      {% for branch in branchs %}
+      <div class="hall__row">
+        <div class="hall__col">
+          <div class="hall__image">
+            <img src="{{ branch.image.url }}" alt="{{ branch.name }}" title="{{ branch.name }}">
+          </div>
+        </div>
+        <div class="hall__col">
+          <div class="hall__info">
+            <div class="hall__item">
+              <p class="hall__label"><b>Адрес: </b> {{ branch.address_fillial }}</p>
+              <p class="hall__label"><b>Номер телефона:</b> <a href="tel:+79999999999">{{ branch.phone }}</a></p>
+              <p class="hall__label"><b>Количество мест:</b> {{ branch.number_seats }}</p>
+              <p class="hall__label"><b>Схема оплаты:</b> {{ branch.scheme_payment }} </p>
+              <p class="hall__label"><b>Аренда зала:</b> {{ branch.hall_rental }} </p>
+              <p class="hall__label"><b>Аренда зала в праздники:</b> {{ branch.hall_rental_hollyday }}</p>
+              <p class="hall__text">
+                Если у вас есть вопросы по бронированию <a href="{{ branch.phone }}">звоните</a>, пишите на <a
+                  href="#">whatsapp</a> или
+                оставьте заявку
+                по кнопке ниже
+              </p>
+              <button type="button" class="hall__btn _btn">Забронировать</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <!-- <div class="hall__row">
+        <div class="hall__col">
+          <div class="hall__image">
+            <img src="{% static 'theme/mb/images/hall.jpg' %}" alt="">
+          </div>
+        </div>
+        <div class="hall__col">
+          <div class="hall__info">
+            <div class="hall__item">
+              <p class="hall__label"><b>Адрес: </b> Пролетарская 57а 1 этаж</p>
+              <p class="hall__label"><b>Номер телефона:</b> <a href="tel:+79999999999"></a></p>
+              <p class="hall__label"><b>Количество мест:</b> 50</p>
+              <p class="hall__label"><b>Схема оплаты:</b> 2000 руб/чел. </p>
+              <p class="hall__label"><b>Аренда зала:</b> от 5000 </p>
+              <p class="hall__label"><b>Аренда зала в праздники:</b> от 7000</p>
+              <p class="hall__text">
+                Если у вас есть вопросы по бронированию <a href="#">звоните</a>, пишите на <a href="#">whatsapp</a> или
+                оставьте заявку
+                по кнопке ниже
+              </p>
+              <button type="button" class="hall__btn _btn">Забронировать</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- <div class="callback" style="background-image: url({% static 'theme/mb/images/3.jpg' %})">
+    <div class="callback__container">
+      <h2 class="callback__title _title">Напишите нам !</h2>
+      <p class="callback__subtitle">
+        Если вы хотите заказать корпоративные обеды, банкет, кейтеринг или другие мероприятия, предложить
+        сотрудничество
+        или связаться по другому интересующему вас вопросу,
+        заполните форму связи и мы обязательно ответим!
+      </p>
+      <form action="#" class="callback__form">
+        <input type="text" name="name" placeholder="Имя" class="callback__input" />
+        <input type="text" name="phone" placeholder="Телефон" class="callback__input" />
+        <input type="text" name="message" placeholder="Сообщение" class="callback__input" />
+        <button type="submit" class="callback__submit">Отправить</button>
+      </form>
+    </div>
+  </div> -->
+
+  <section class="contact">
+    <div class="contact__container">
+      <h2 class="contact__title _title">Контакты</h2>
+      <div class="contact__row">
+        <div class="contact__col contact-info">
+          <div class="contact-info__row">
+            <div class="contact-info__icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="contact-info__content" id="address">
+              г.Томск,<br />
+              улица Ленина, дом 23а
+            </div>
+          </div>
+          <div class="contact-info__row">
+            <div class="contact-info__icon">
+              <i class="fa-solid fa-phone-volume"></i>
+            </div>
+            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
+              settings.phone_one }}</a>
+          </div>
+          <div class="contact-info__row">
+            <div class="contact-info__icon">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <a href="#" class="contact-info__content">trapeza@mail.ru</a>
+          </div>
+          <div class="contact-info__row">
+            <div class="contact-info__icon">
+              <i class="fa-solid fa-calendar-days"></i>
+            </div>
+            <p class="contact-info__content" id="time-work">с 8:00 до 17:00</p>
+          </div>
+          <div class="contact-info__row">
+            <div class="contact-info__icon">
+              <i class="fa-regular fa-calendar"></i>
+            </div>
+            <p class="contact-info__content" id="weekend">суббота и воскресенье выходной</p>
+          </div>
+        </div>
+        <div class="contact__col form">
+          <form action="" class="form__form">
+            <div class="form__group require">
+              <label for="contact-name" class="require">Имя</label>
+              <input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
+            </div>
+            <div class="form__group">
+              <label for="contact-phone" class="require">Телефон</label>
+              <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
+                class="form__controls" />
+            </div>
+            <div class="form__group">
+              <label for="contact-email" class="require">Email</label>
+              <input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
+            </div>
+            <div class="form__group">
+              <label for="contact-message">Коментарий к заявке</label>
+              <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
+                class="form__controls"></textarea>
+            </div>
+            <div class="form__group">
+              <button type="submit" class="form__btn">Отправить</button>
+              <div class="form__agree">
+                <input type="checkbox" id="agree-checkbox" checked />
+                <label for="agree-checkbox">Даю согласие на обработку персональных данных</label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="contact__map" id="map">
+
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1748,6 +1748,73 @@ html.lock body::before {
   transition: 0.5s;
 }
 
+.blog__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.article {
+  border: 1px solid rgba(43, 70, 60, 0.3);
+  border-radius: 12px;
+  padding: 20px 20px 0px;
+  transition: 0.5s;
+}
+
+.article:hover {
+  box-shadow: 0px 0px 4px rgba(43, 70, 60, 0.2);
+}
+
+.article__inner {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+}
+
+.article__image {
+  display: flex;
+  width: 140px;
+  height: 140px;
+  flex: 1 1 50%;
+}
+
+.article__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.article__name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.article__text {
+  line-height: 140%;
+  color: rgba(43, 70, 60, 0.8);
+}
+
+.article__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 10px 20px;
+  border-top: 1px solid rgba(43, 70, 60, 0.3);
+  margin-top: 10px;
+}
+
+.article__icon {
+  font-size: 14px;
+}
+
+.article__link {
+  font-weight: 600;
+  color: #5c8600;
+}
+
 /*
     Подключение стилей отдельных блоков
 */
@@ -2127,6 +2194,21 @@ section {
   background-color: #2b463c;
 }
 
+.empty-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 300px;
+}
+
+.empty-info p {
+  font-size: 35px;
+  font-weight: 900;
+  color: rgba(43, 70, 60, 0.3);
+  text-wrap: balance;
+}
+
 .single-banner {
   display: flex;
   flex-direction: column;
@@ -2135,7 +2217,7 @@ section {
   height: 400px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: center;
   overflow: hidden;
   position: relative;
   border-radius: 20px;

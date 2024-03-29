@@ -135,6 +135,21 @@ section {
 
 }
 
+.empty-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 300px;
+
+  p {
+    font-size: 35px;
+    font-weight: 900;
+    color: rgba($color: $mainColor, $alpha: .3);
+    text-wrap: balance;
+  }
+}
+
 .text {}
 
 .single-banner {
@@ -145,7 +160,7 @@ section {
   height: 400px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: center;
   overflow: hidden;
   position: relative;
   border-radius: 20px;

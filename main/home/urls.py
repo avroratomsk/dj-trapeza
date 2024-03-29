@@ -8,7 +8,7 @@ urlpatterns = [
     path('akcii/', views.stock, name="stock"),
     path('akcii/<slug:slug>', views.stock_detail, name="stock_detail"),
     path('gallery/', views.gallery, name="gallery"),
-    path('blog/', views.about, name="about"),
+    # path('blog/', views.about, name="about"),
     # path('valancy/', views.about, name="about"),
     
     path('', views.index, name="home"),

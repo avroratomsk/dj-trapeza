@@ -1,6 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
+from blog.models import Post
 from service.models import Service
 from reviews.models import Reviews
 from shop.models import Category, Day, Product, Branch
@@ -208,6 +209,69 @@ class ProductForm(forms.ModelForm):
                 'class': "form__controls",
             })
         }
+        
+class PostForm(forms.ModelForm):
+  """ Form, отвечает за создание товара и редактирование товара"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = Post
+    fields = [
+        'name',
+        'slug',
+        'text',
+        'meta_h1',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'image',
+        'category',
+        'status',
+    ]
+    labels = {
+        'name': "Название статьи",
+        'slug': 'URL',
+        'text': 'Описание статьи',
+        'meta_h1': "Заголовок H1",
+        'meta_title': "Meta-title",
+        'meta_description': 'Meta-description',
+        'meta_keywords': "Meta-keywords",
+        'image': "Изображение поста",
+        'category': "Категория",
+        'status': "Статус публикации",
+    }
+    widgets = {
+        'name': forms.TextInput(attrs={
+            'class': 'form__controls',
+            "id":"name"
+        }),
+        'text': forms.Textarea(attrs={
+            'class': 'form__controls'
+        }),
+        'meta_h1': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_title': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_description': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_keywords': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'slug': forms.TextInput(attrs={
+            'class': 'form__controls',
+            "id": "slug"
+        }),
+        'category': forms.Select(attrs={
+            'class': 'form__controls', 
+        }),
+        'image': forms.FileInput(attrs={
+            'class': 'submit-file',
+            'accept': 'image/*'
+        })
+    }
    
 class CategoryForm(forms.ModelForm):
   """ Form, отвечает за создание категорий и редактирование категорий"""

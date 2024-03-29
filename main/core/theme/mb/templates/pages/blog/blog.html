@@ -1,10 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
 
 <main class="page">
-  <div class="single-banner"
-    style="background-image: url({% if about_page.banner %}{{ about_page.banner.url }}{% else %}{% static "
-    theme/mb/images/stock.webp" %}{% endif %} )" data-speed="70">
-    <h1 class="stock__title _title">{{ about_page.meta_h1 }}</h1>
+  <div class="single-banner" style="background-image: url({% static 'theme/mb/images/blog.jpg' %})" data-speed="70">
+    <h1 class="stock__title _title">Полезная информация</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
         class="breadcrumbs__item">
@@ -12,7 +10,7 @@
         <meta itemprop="position" content="1" />
       </a>
       <span itemprop="name" class="breadcrumbs__item">
-        {{ about_page.meta_h1 }}
+        Статьи
         <meta itemprop="position" content="3" />
       </span>
     </div>
@@ -20,31 +18,45 @@
 
   <section class="blog">
     <div class="blog__container">
+      {% if articles %}
       <div class="blog__grid">
-        <div class="blog__item">
-          1
+        {% for article in articles %}
+        <div class="blog__item article">
+          <div class="article__inner">
+            <a href="{{ article.get_absolute_url }}" class="article__image">
+              {% if article.image %}
+              {% thumbnail article.image "393x300" format="WEBP" as im %}
+              <img src="{{ im.url }}" alt="{{ article.name }}" title="{{ article.name }}" />
+              {% endthumbnail %}
+              {% else %}
+              <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ article.name }}"
+                title="{{ article.name }}">
+              {% endif %}
+            </a>
+            <div class="article__content">
+              <a href="{{ article.get_absolute_url }}" class="article__name">{{ article.name }}</a>
+              <p class="article__text">
+                {{ article.text|truncatechars:180 }}
+              </p>
+            </div>
+          </div>
+          <div class="article__bottom">
+            <div class="article__icon">
+              <i class="fa-regular fa-calendar-days"></i>
+              <span>{{ article.date_creation }}</span>
+            </div>
+            <a href="{{ article.get_absolute_url }}" class="article__link">Читать</a>
+          </div>
         </div>
+        {% endfor %}
       </div>
+      {% else %}
+      <div class="empty-info">
+        <p>В данный момент страница дорабатывается</p>
+      </div>
+      {% endif %}
     </div>
   </section>
-
-  <div class="callback" style="background-image: url({% static 'theme/mb/images/3.jpg' %})">
-    <div class="callback__container">
-      <h2 class="callback__title _title">Напишите нам !</h2>
-      <p class="callback__subtitle">
-        Если вы хотите заказать корпоративные обеды, банкет, кейтеринг или другие мероприятия, предложить
-        сотрудничество
-        или связаться по другому интересующему вас вопросу,
-        заполните форму связи и мы обязательно ответим!
-      </p>
-      <form action="#" class="callback__form">
-        <input type="text" name="name" placeholder="Имя" class="callback__input" />
-        <input type="text" name="phone" placeholder="Телефон" class="callback__input" />
-        <input type="text" name="message" placeholder="Сообщение" class="callback__input" />
-        <button type="submit" class="callback__submit">Отправить</button>
-      </form>
-    </div>
-  </div>
 
   <section class="contact">
     <div class="contact__container">

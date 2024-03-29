@@ -4,8 +4,9 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import AboutTemplateForm, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
+from admin.forms import AboutTemplateForm, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, PostForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
+from blog.models import Post
 from main.settings import BASE_DIR
 from service.models import Service
 from reviews.models import Reviews
@@ -120,6 +121,60 @@ def product_delete(request,pk):
   product.delete()
   
   return redirect('admin_product')
+
+def admin_blog(request):
+  """
+  View, которая возвращаяет и отрисовывает все товары на странице
+  и разбивает их на пагинацию 
+  """
+  posts = Post.objects.all()
+  context = {
+    "posts": posts
+  }
+  return render(request, "blog/blog_post/blog_post.html", context)
+
+def blog_add(request):
+  form = PostForm()
+  
+  if request.method == "POST":
+    form_new = PostForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('admin_blog')
+    else:
+      return render(request, "blog/blog_post/post_add.html", {"form": form_new})
+    
+  context = {
+    "form": form
+  }
+  
+  return render(request, "blog/blog_post/post_add.html", context)
+
+def blog_edit(request, pk):
+  """
+    View, которая получает данные из формы редактирования товара
+    и изменяет данные внесенные данные товара в базе данных
+  """
+  post = Post.objects.get(id=pk)
+  form = PostForm(instance=post)
+  
+  form_new = PostForm(request.POST, request.FILES, instance=post) 
+  if request.method == 'POST':
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('admin_blog')
+    else:
+      return render(request, "blog/blog_post/post_edit.html", {"form": form_new})
+  context = {
+    "form":form
+  }
+  return render(request, "blog/blog_post/post_edit.html", context)
+
+def blog_delete(request, pk):
+  post = Post.objects.get(id=pk)
+  post.delete()
+  
+  return redirect('admin_blog')
 
 def product_day_edit(request, id):
   product = Product.objects.get(id=id)

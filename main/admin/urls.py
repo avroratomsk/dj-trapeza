@@ -60,6 +60,12 @@ urlpatterns = [
     path('serv/edit/<int:pk>/', views.service_edit, name='service_edit'),
     path('serv/delete/<int:pk>/', views.service_delete, name='service_delete'),
     
+    #URl - отвечающие за отображение статей, редактирование и удаление статей
+    path('blog/', views.admin_blog, name='admin_blog'),
+    path('blog/add/', views.blog_add, name='post_add'),
+    path('blog/edit/<int:pk>/', views.blog_edit, name='post_edit'),
+    path('blog/delete/<int:pk>/', views.blog_delete, name='post_delete'),
+    
     #URl - Шаблон главной страницы
     path('home/', views.admin_home, name='admin_home'),
     path('about/', views.admin_about, name='admin_about'),
