@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from datetime import datetime
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
+from blog.models import Post
+from news.models import News
 from service.models import Service
 from shop.models import Category, Day, Product, Branch
 from reviews.models import Reviews
@@ -17,8 +19,12 @@ def index(request):
     except:
         home_page = HomeTemplate.objects.all()
         settings = BaseSettings.objects.all()
-        
+    
+    stock = Stock.objects.filter(status=True)
+    articles = Post.objects.filter(status=True) 
+    news = News.objects.filter(status=True)
     reviews = Reviews.objects.filter(status=True)
+    
     # Получаем из GET параметра page для пагинации
     page = request.GET.get("page", 1)
     category = Category.objects.all().exclude(slug="bez-kategorii")
@@ -47,6 +53,9 @@ def index(request):
         "settings": settings,
         "reviews": reviews,
         "services": service,
+        "stocks": stock,
+        "articles": articles,
+        "news": news,
     }
     return render(request, 'pages/index.html', context)
 
@@ -92,3 +101,6 @@ def gallery(request):
     }
     
     return render(request, "pages/gallery.html", context)
+
+def callback(request):
+  ...

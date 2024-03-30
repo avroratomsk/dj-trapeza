@@ -2,7 +2,8 @@ from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from blog.models import Post
-from service.models import Service
+from news.models import News
+from service.models import Service, ServicePage
 from reviews.models import Reviews
 from shop.models import Category, Day, Product, Branch
 
@@ -266,6 +267,64 @@ class PostForm(forms.ModelForm):
         }),
         'category': forms.Select(attrs={
             'class': 'form__controls', 
+        }),
+        'image': forms.FileInput(attrs={
+            'class': 'submit-file',
+            'accept': 'image/*'
+        })
+    }
+    
+class NewsForm(forms.ModelForm):
+  """ Form, отвечает за создание товара и редактирование товара"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = News
+    fields = [
+        'name',
+        'slug',
+        'text',
+        'meta_h1',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'image',
+        'status',
+    ]
+    labels = {
+        'name': "Название",
+        'slug': 'URL',
+        'text': 'Описание',
+        'meta_h1': "Заголовок H1",
+        'meta_title': "Meta-title",
+        'meta_description': 'Meta-description',
+        'meta_keywords': "Meta-keywords",
+        'image': "Изображение ноости",
+        'status': "Статус публикации",
+    }
+    widgets = {
+        'name': forms.TextInput(attrs={
+            'class': 'form__controls',
+            "id":"name"
+        }),
+        'text': forms.Textarea(attrs={
+            'class': 'form__controls'
+        }),
+        'meta_h1': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_title': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_description': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_keywords': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'slug': forms.TextInput(attrs={
+            'class': 'form__controls',
+            "id": "slug"
         }),
         'image': forms.FileInput(attrs={
             'class': 'submit-file',
@@ -662,6 +721,7 @@ class ServiceForm(forms.ModelForm):
         'status',
         'image',
         'meta_title',
+        'meta_h1',
         'meta_description',
         'meta_keywords',
     ]
@@ -671,6 +731,7 @@ class ServiceForm(forms.ModelForm):
         'subtitle':'Текст под заголовком',
         'status':'Статус публикации',
         'image': 'Изображение акции',
+        'meta_h1':'Meta h1',
         'meta_title':'Meta title',
         'untitle': 'Надзаголовок',
         'meta_description':'Мета description',
@@ -690,6 +751,51 @@ class ServiceForm(forms.ModelForm):
       }),
       'status': forms.CheckboxInput(attrs={
         'class': 'form__controls-checkbox',
+      }),
+      'meta_h1': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_title': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_description': forms.Textarea(attrs={
+        'class': 'form-controls',
+        'rows': 5,
+      }),
+      'meta_keywords': forms.TextInput(attrs={
+        'class': 'form__controls'
+      })
+    }
+    
+class ServicePageForm(forms.ModelForm):
+  """ Form, добавление и редактирование услуг"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = ServicePage
+    fields = [
+        'name',
+        'image',
+        'meta_h1',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+    ]
+    labels = {
+        'name':'Название',
+        'image': 'Изображение',
+        'meta_h1':'Meta h1',
+        'meta_title':'Meta title',
+        'meta_description':'Мета description',
+        'meta_keywords':'Meta keywords',
+    }
+    widgets = {
+      'name': forms.TextInput(attrs={
+        'class': 'form__controls',
+        'id': 'name'
+      }),
+      'meta_h1': forms.TextInput(attrs={
+        'class': 'form__controls',
       }),
       'meta_title': forms.TextInput(attrs={
         'class': 'form__controls',

@@ -2,7 +2,7 @@
 
 <main class="page">
   <div class="single-banner" style="background-image: url({% static 'theme/mb/images/blog.jpg' %})" data-speed="70">
-    <h1 class="stock__title _title">Полезная информация</h1>
+    <h1 class="stock__title _title">Новости</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
         class="breadcrumbs__item">
@@ -10,7 +10,7 @@
         <meta itemprop="position" content="1" />
       </a>
       <span itemprop="name" class="breadcrumbs__item">
-        Статьи
+        Новости
         <meta itemprop="position" content="3" />
       </span>
     </div>
@@ -18,34 +18,29 @@
 
   <section class="blog">
     <div class="blog__container">
-      {% if articles %}
+      {% if news %}
       <div class="blog__grid">
-        {% for article in articles %}
+        {% for new in news %}
         <div class="blog__item article">
           <div class="article__inner">
-            <a href="{{ article.get_absolute_url }}" class="article__image">
-              {% if article.image %}
-              {% thumbnail article.image "393x300" format="WEBP" as im %}
-              <img src="{{ im.url }}" alt="{{ article.name }}" title="{{ article.name }}" />
-              {% endthumbnail %}
-              {% else %}
-              <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ article.name }}"
-                title="{{ article.name }}">
+            <a href="{{ new.get_absolute_url }}" class="article__image">
+              {% if new.image %} {% thumbnail new.image "393x300" format="WEBP" as im %}
+              <img src="{{ im.url }}" alt="{{ new.name }}" title="{{ new.name }}" />
+              {% endthumbnail %} {% else %}
+              <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ new.name }}" title="{{ new.name }}" />
               {% endif %}
             </a>
             <div class="article__content">
-              <a href="{{ article.get_absolute_url }}" class="article__name">{{ article.name }}</a>
-              <p class="article__text">
-                {{ article.text|truncatechars:180 }}
-              </p>
+              <a href="{{ new.get_absolute_url }}" class="article__name">{{ new.name }}</a>
+              <p class="article__text">{{ new.text|truncatechars:180 }}</p>
             </div>
           </div>
           <div class="article__bottom">
             <div class="article__icon">
               <i class="fa-regular fa-calendar-days"></i>
-              <span>{{ article.date_creation }}</span>
+              <span>{{ new.date_creation }}</span>
             </div>
-            <a href="{{ article.get_absolute_url }}" class="article__link">Читать</a>
+            <a href="{{ new.get_absolute_url }}" class="article__link">Читать</a>
           </div>
         </div>
         {% endfor %}
@@ -128,9 +123,7 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map">
-
-      </div>
+      <div class="contact__map" id="map"></div>
     </div>
   </section>
 </main>

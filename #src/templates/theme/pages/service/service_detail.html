@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load static %} {% block content %}
+{% extends 'base.html' %}{% load static %} {% load thumbnail %} {% block content %}
 
 <body>
   <div class="wrapper">
@@ -31,24 +31,27 @@
           <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
           <div class="service__container">
             <div class="body-service__row">
+              {% if branchs %} {% for branch in branchs %}
               <div class="body-service__col">
-                <div class="body-service__image">
-                  <img src="{% static 'theme/mb/images/hall.jpg' %}" alt="" />
-                  <span>Пролетарская 123</span>
-                </div>
-              </div>
-              <div class="body-service__col">
+                {% if forloop.counter == 2%}
                 <h2 class="body-service__title _title">
                   Заказать обед <br />
                   в столовой
                 </h2>
-                <p class="body-service__subtitle">У нас есть два зала с посадкой до 50 человек</p>
+                {% endif %}
                 <div class="body-service__image">
-                  <img src="{% static 'theme/mb/images/hall-2.jpg' %}" alt="" />
-                  <span>Ракетная 123</span>
+                  {% if branch.image %}
+                  <img src="{{ branch.image.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+                  {% else %}
+                  <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+                  {% endif %}
+                  <span>{{ branch.address_fillial }}</span>
                 </div>
-                <button type="button" class="body-service__btn _btn">Забронировать зал</button>
+                {% if forloop.counter == 2 %}
+                <button type="button" class="body-service__btn _btn" data-popup="popup-reservation">Забронировать зал</button>
+                {% endif %}
               </div>
+              {% endfor %}{% endif %}
             </div>
           </div>
         </section>
@@ -62,63 +65,46 @@
                   <div class="aside__filter">
                     <input type="hidden" value="" class="aside__filter-hidden" />
                     <ul class="aside__list">
-                      {% for category in categorys %}
                       <li class="aside__item">
-                        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                        <a href="">Закуски</a>
                       </li>
-                      {% endfor %}
+                      <li class="aside__item">
+                        <a href="">Горячее</a>
+                      </li>
+                      <li class="aside__item">
+                        <a href="">Салаты</a>
+                      </li>
                     </ul>
                   </div>
                 </div>
-                {% comment %}
-                <div class="aside__options" id="option-part">
-                  <h5 class="aside__title">Цена</h5>
-                  <div class="price-input">
-                    <div class="price-input__fields">
-                      <div class="price-input__field">
-                        <input type="number" class="price-input__min" value="25" />
-                      </div>
-                      <div class="separator"></div>
-                      <div class="price-input__field">
-                        <input type="number" class="price-input__max" value="75" />
-                      </div>
-                    </div>
-                    <div class="price-input__slider">
-                      <div class="price-input__progress" id="prodgress"></div>
-                    </div>
-                    <div class="price-input__range">
-                      <input type="range" name="range-min" id="range-min" min="0" max="10000" class="price-input__range-min" value="2500" />
-                      <input type="range" name="range-max" id="range-max" min="0" max="10000" class="price-input__range-max" value="7500" />
-                    </div>
-                  </div>
-                </div>
-                {% endcomment %}
               </aside>
               <div class="single-content__products products-single">
                 <div class="products-single__grid">
-                  {% for product in products %}
+                  {% if products %} {% for product in products %}
                   <div class="card-product" data-id="{{ product.display_id }}">
-                    <a href="#" class="card-product__image">
-                      {% if product.image %}
-                      <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-                      {% else %}
+                    <div class="card-product__image">
+                      {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
+                      <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                      {% endthumbnail %} {% else %}
                       <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
                       {% endif %}
-                    </a>
-                    <a href="#" class="card-product__name">{{ product.name }}</a>
-                    <a href="#" class="card-product__name">{{ product.category.name }} - {{ product.day}}</a>
+                    </div>
+                    <p class="card-product__name">{{ product.name }}</p>
 
                     {% if product.discount %}
                     <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
-                    {% else %}
+                    {% else %} {% if product.price %}
                     <p class="card-product__price">{{ product.price }}₽</p>
+                    {% endif %} {% endif %} {% if product.weight %}
+                    <p class="card-product__weight">{{ product.weight }} за 100 грамм</p>
+                    {% endif %} {% if product.banquet_menu %}
+                    <p class="card-product__weight">{{ product.banquet_menu }}</p>
                     {% endif %}
-                    <div class="card-product__btns">
-                      <button class="card-product__btn">Корзина</button>
+                    <!-- <div class="card-product__btns">
                       <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
-                    </div>
+                    </div> -->
                   </div>
-                  {% endfor %}
+                  {% endfor %} {% endif %}
                 </div>
               </div>
             </div>

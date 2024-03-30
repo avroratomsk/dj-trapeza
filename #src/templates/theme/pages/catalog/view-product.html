@@ -48,6 +48,11 @@
               <p>{{ product.price }} руб.</p>
               {% endif %}
             </div>
+            <div class="product-page__price">
+              {% if product.banquet_menu %}
+              <p>{{ product.banquet_menu }}</p>
+              {% endif %}
+            </div>
             <div class="product-page__nutritional nutritional">
               {% if product.calories or product.proteins or product.fats or product.carbonhydrates %}
               <span class="product-page__label">Пицевая ценность продукта на 100г :</span>
@@ -81,7 +86,7 @@
       </div>
     </section>
 
-    {% comment %} {% if products > 0 %} {% endcomment %}
+    {% if products%}
       <section class="product-related">
         <div class="product-related__container">
           <h2 class="product-related__title _title">Похожие товары</h2>
@@ -105,8 +110,7 @@
               </div>
             {% endfor %}
         </div>
-      </section>
-    {% comment %} {% endif %} {% endcomment %}
+      </section>{% endif %}
   </main>
   
 </div>

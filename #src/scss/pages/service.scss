@@ -21,7 +21,7 @@
 .body-service {
   background-color: #f3f3f3;
   position: relative;
-  padding: 250px 0px;
+  padding: 250px 0px 100px;
 
   // .body-service__separator
 
@@ -29,6 +29,11 @@
     position: absolute;
     top: 0;
     left: 0;
+
+    &.detail {
+      transform: rotate(180deg);
+      bottom: 100% !important;
+    }
   }
 
   // .body-service__row

@@ -6,8 +6,46 @@
       <!-- <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button> -->
       <form action="/" class="form">
         {% csrf_token %} {% if branchs %} {% for branch in branchs %}
-        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">{{ branch.address_fillial }}</button>
+        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">{{ branch.address_fillial
+          }}</button>
         {% endfor %} {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="popup" id="popup-callback">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <p class="popup__title">Заказ обратного звонка</p>
+      <span class="popup__line"></span>
+      <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
+      <form action="/" class="form form-column">
+        <input type="text" placeholder="Ваше имя" class="form__controls" name="name">
+        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone">
+        <button type="submit" class="form__submit">Заказать</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="popup" id="popup-reservation">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <p class="popup__title">Забронировать зал</p>
+      <span class="popup__line"></span>
+      <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
+      <form action="/" class="form form-column">
+        <input type="text" placeholder="Ваше имя" class="form__controls" name="name">
+        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone">
+        <select name="reservation" id="reservation" class="form__select">
+          {% if branchs %}
+          {% for branch in branchs %}
+          <option value="{{ branch.name }}" class="form__option">{{ branch.name }}</option>
+          {% endfor %}
+          {% endif %}
+        </select>
+        <button type="submit" class="form__submit">Заказать</button>
       </form>
     </div>
   </div>

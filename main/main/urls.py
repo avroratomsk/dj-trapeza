@@ -12,6 +12,7 @@ urlpatterns = [
     path('catalog/', include('shop.urls')),
     path('service/', include('service.urls')),
     path('blog/', include('blog.urls')),
+    path('news/', include('news.urls')),
     # path('user/', include('users.urls')),
     path('reviews/', include('reviews.urls')),
     path('admin/', include('admin.urls')),

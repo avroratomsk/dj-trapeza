@@ -4,11 +4,11 @@
     <h1 class="page__title">{{ product.name }}</h1>
     <div class="page-edit">
       <div class="page-edit__head">
-        <button type="button" data-name="basic" class="_active">Основные</button>
-        <button type="button" data-name="seo" class="_btn">SEO</button>
-        <button type="button" data-name="related" class="_btn">Связи товара</button>
-        <button type="button" data-name="image" class="_btn">Изображение</button>
-        <button type="button" data-name="char" class="_btn">Характеристики</button>
+        <button type="button" data-name="basic" id="basic-btn" class="_active">Основные</button>
+        <button type="button" data-name="seo" id="seo-btn" class="_btn">SEO</button>
+        <button type="button" data-name="related" id="related-btn" class="_btn">Связи товара</button>
+        <button type="button" data-name="image" id="image-btn" class="_btn">Изображение</button>
+        <button type="button" data-name="char" id="char-btn" class="_btn">Характеристики</button>
       </div>
       <form action="." method="POST" class="form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -17,28 +17,35 @@
           <div class="page-edit__item _show" id="basic">
             <div class="page-edit__form">
               <div class="form__group">
-                <label for="{{ form.status.id_for_label }}" class="form__controls-label"> Статус публикации </label>
-                {{ form.status }} {{ form.status.errors }}
-              </div>
-              <div class="form__group">
-                <label for="{{ form.name.id_for_label }}" class="form__controls-label">
-                  <span>*</span>
-                  Название блюда
-                </label>
+                <label for="{{ form.name.id_for_label }}" class="form__controls-label"><span>*</span>Название блюда</label>
                 {{ form.name }} {{ form.name.errors }}
               </div>
 
               <div class="form__group">
+                <label for="{{ form.funeral_menu.id_for_label }}" class="form__controls-label">Поминальное блюдо ?</label>
+                {{ form.funeral_menu }} {{ form.funeral_menu.errors }}
+              </div>
+              <div class="form__group">
+                <label for="{{ form.banquet_menu_checkbox.id_for_label }}" class="form__controls-label">Банкетное меню ?</label>
+                {{ form.banquet_menu_checkbox }} {{ form.banquet_menu_checkbox.errors }}
+              </div>
+
+              <div class="form__group" id="banquet_menu">
+                <label for="{{ form.banquet_menu.id_for_label }}" class="form__controls-label"></label>
+                {{ form.banquet_menu }} {{ form.banquet_menu.errors }}
+              </div>
+
+              <div class="form__group" id="short_description">
                 <label for="{{ form.short_description.id_for_label }}" class="form__controls-label"> Короткое описание </label>
                 {{ form.short_description }} {{ form.short_description.errors }}
               </div>
 
-              <div class="form__group">
+              <div class="form__group" id="description">
                 <label for="{{ form.description.id_for_label }}" class="form__controls-label"> Полное описание </label>
                 {{ form.description }} {{ form.description.errors }}
               </div>
 
-              <div class="form__group">
+              <div class="form__group" id="price">
                 <label for="{{ form.price.id_for_label }}" class="form__controls-label">
                   <span>*</span>
                   Цена
@@ -46,12 +53,12 @@
                 {{ form.price }} {{ form.price.errors }}
               </div>
 
-              <div class="form__group">
+              <div class="form__group" id="discount">
                 <label for="{{ form.discount.id_for_label }}" class="form__controls-label"> Скидка в (<span>%</span>) </label>
                 {{ form.discount }} {{ form.discount.errors }}
               </div>
 
-              <div class="form__group">
+              <div class="form__group" id="weight">
                 <label for="{{ form.weight.id_for_label }}" class="form__controls-label"> Грамовка </label>
                 {{ form.weight }} {{ form.weight.errors }}
               </div>
@@ -64,8 +71,8 @@
                 {{ form.slug }} {{ form.slug.errors }}
               </div>
 
-              <div class="form__group">
-                <label for="{{ form.slug.id_for_label }}" class="form__controls-label"> Количество </label>
+              <div class="form__group" id="quantity">
+                <label for="{{ form.quantity.id_for_label }}" class="form__controls-label"> Количество </label>
                 {{ form.quantity }} {{ form.quantity.errors }}
               </div>
             </div>
@@ -84,7 +91,7 @@
               </div>
               <div class="form__group">
                 <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета описание </label>
-                {{ form.meta_description }} {{form.meta_description.errors }}
+                {{ form.meta_description }} {{ form.meta_description.errors }}
               </div>
               <div class="form__group">
                 <label for="{{ form.meta_description.id_for_label }}" class="form__controls-label"> Мета keywords </label>
@@ -105,8 +112,8 @@
                 {{ form.day }} {{ form.day.errors }}
               </div>
               <div class="form__group">
-                <label for="{{ form.subsidiary.id_for_label }}" class="form__controls-label"> Филлиал </label>
-                {{ form.subsidiary }} {{ form.subsidiary.errors }}
+                <label for="{{ form.branch.id_for_label }}" class="form__controls-label"> Филлиал </label>
+                {{ form.branch }} {{ form.branch.errors }}
               </div>
             </div>
           </div>
@@ -116,7 +123,7 @@
             <div class="page-edit__form">
               <div class="form__group">
                 <label for="{{ form.image.id_for_label }}">Изображение товара</label>
-                {{ form.image }} {{ form.image.errors }}
+                {{ form.image.src }} {{ form.image }} {{ form.image.errors }}
               </div>
             </div>
           </div>

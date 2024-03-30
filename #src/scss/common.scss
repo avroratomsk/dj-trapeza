@@ -44,10 +44,15 @@ section {
 ._title {
   line-height: 110%;
   font-weight: 600;
-  font-size: clamp(35px, 2.5vw, 45px);
+  font-size: 45px;
   position: relative;
   z-index: 2;
   color: $mainColor;
+
+  @media screen and (max-width: 620px) {
+    text-align: center;
+    font-size: 30px;
+  }
 
   // &::before {
   //   content: '';

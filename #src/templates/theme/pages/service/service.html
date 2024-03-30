@@ -4,7 +4,11 @@
   <div class="wrapper">
     {% include "components/header-single.html" %}
     <main class="page">
-      <div class="single-banner" style="background-image: url({% static "theme/mb/images/about-page.jpg" %})"
+      <div class="single-banner" style="background-image: url({% if service_page.image %}
+      {{ service_page.image.url }}
+      {% else %}
+      {% static "theme/mb/images/no-image.jpg" %}
+      {% endif %})"
         data-speed="70">
         <h1 class="stock__title _title">Услуги</h1>
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
@@ -21,6 +25,7 @@
       </div>
       <section class="service-page">
         <div class="service-page__container">
+          {% if services %}
           <div class="service-page__items">
             {% for service in services %}
             <a href="{{ service.get_absolute_url }}" class="service-page__item">
@@ -31,6 +36,9 @@
             </a>
             {% endfor %}
           </div>
+          {% else %}
+            <div class="empty-info"><p>Сайт еще не наполнен услугами</p></div>
+          {% endif %}
         </div>
       </section>
       <section class="contact">

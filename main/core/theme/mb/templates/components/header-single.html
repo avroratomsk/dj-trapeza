@@ -21,40 +21,40 @@
           <ul class="nav__list">
             <li class="nav__item">
               <a href="{% url 'catalog' %}" class="nav__link">Виды меню</a>
+              {% if categorys %}
               <ul class="submenu">
-                {% if categorys %} {% for category in categorys %}
+                {% for category in categorys %}
                 <li class="submenu__item"><a href="{{ category.get_absolute_url }}" class="submenu__link">{{ category.name }}</a></li>
-                {% endfor %} {% endif %}
+                {% endfor %}
               </ul>
+              {% endif %}
             </li>
             <li class="nav__item">
               <a href="{% url 'service' %}" class="nav__link">Услуги</a>
+              {% if services %}
               <ul class="submenu">
-                {% if services %} {% for service in services %}
+                {% for service in services %}
                 <li class="submenu__item"><a href="{{ service.get_absolute_url }}" class="submenu__link">{{ service.name }}</a></li>
-                {% endfor %} {% endif %}
+                {% endfor %}
               </ul>
+              {% endif %}
             </li>
             <li class="nav__item">
               <a href="{% url 'about' %}" class="nav__link">О нас</a>
               <ul class="submenu">
                 <li class="submenu__item"><a href="{% url 'stock' %}" class="submenu__link">Акции</a></li>
-                <li class="submenu__item"><a href="" class="submenu__link">Новости</a></li>
+                <li class="submenu__item"><a href="{% url 'news' %}" class="submenu__link">Новости</a></li>
                 <li class="submenu__item"><a href="{% url 'blog' %}" class="submenu__link">Статьи</a></li>
               </ul>
             </li>
             <li class="nav__item"><a href="#" class="nav__link">Вакансии</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Отзывы</a></li>
+            <li class="nav__item"><a href="{% url 'reviews' %}" class="nav__link">Отзывы</a></li>
             <li class="nav__item"><a href="{% url 'gallery' %}" class="nav__link">Галлерея</a></li>
             <li class="nav__item"><a href="{% url 'contact' %}" class="nav__link">Контакты</a></li>
           </ul>
         </div>
         <div class="top-header__actions">
-          <!-- <div class="top-header__actions-inner">
-            <a href="tel:{{ site_settings.phone_one }}" class="top-header__phone reg-num"> {{ site_settings.phone_one }}
-            </a>
-          </div> -->
-          <button type="button">Связаться с нами</button>
+          <button type="button" data-popup="popup-callback">Связаться с нами</button>
         </div>
       </div>
     </div>

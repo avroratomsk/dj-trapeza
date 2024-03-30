@@ -10,7 +10,7 @@
             <p class="index-banner__undertitle">{{ home_page.untitle }}</p>
             <h1 class="index-banner__title">{{ home_page.meta_h1 }}</h1>
             <div class="index-banner__btns">
-              <a href="{% url 'catalog' %}" class="index-banner__btn btn">Перейти в меню</a>
+              <a href="{% url 'catalog' %}" class="index-banner__btn _btn">Перейти в меню</a>
               <!-- <a href="#" class="index-banner__btn btn">Связаться</a> -->
             </div>
           </div>
@@ -41,7 +41,7 @@
                   </svg>
                 </div>
               </div>
-              <div class="item-service__text">{{ service.subtitle }}</div>
+              <div class="item-service__text">{{ service.subtitle|truncatechars:50 }}</div>
               <div class="item-service__image">
                 {% if service.image %}
                 <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
@@ -85,18 +85,7 @@
         <div class="index-about__col">
           <h2 class="index-about__title _title">Немного о нас</h2>
           <div class="index-about__text text">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam reprehenderit inventore impedit
-              perspiciatis, numquam blanditiis necessitatibus corrupti accusamus quod beatae veniam ratione tempore
-              doloremque placeat deserunt reiciendis explicabo recusandae illum.
-            </p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam reprehenderit inventore impedit
-              perspiciatis, numquam blanditiis necessitatibus corrupti accusamus quod beatae veniam ratione tempore
-              doloremque placeat deserunt reiciendis explicabo recusandae illum.
-            </p>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam reprehenderit inventore impedit
-              perspiciatis, numquam blanditiis necessitatibus corrupti accusamus quod beatae veniam ratione tempore
-              doloremque placeat deserunt reiciendis explicabo recusandae illum.
-            </p>
+            {{ home_page.about_text }}
           </div>
           <a href="{% url 'about' %}" class="index-about__btn _btn index-about__btn-pc">Подробнее</a>
         </div>
@@ -182,72 +171,64 @@
         <button type="button" class="index-blog__tigger" data-id="stock">Акции</button>
       </div>
       <div class="index-blog__grid _active" id="news">
+        {% if news %}
+        {% for new in news %}
         <div class="index-blog__item">
-          <a href="" class="index-blog__item-image">
-            <img src="{% static 'theme/mb/images/3.jpg' %}" alt="">
+          <a href="{{ new.get_absolute_url }}" class="index-blog__item-image">
+            {% if new.image %}
+            <img src="{{ new.image.url }}" alt="{{ new.name }}" title="{{ new.name }}">
+            {% else %}
+            <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ new.name }}" title="{{ new.name }}">
+            {% endif %}
           </a>
           <div class="index-blog__item-content">
-            <a href="" class="index-blog__item-title">Название статьи</a>
-            <p class="index-blog__item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <a href="#" class="index-blog__item-btn _btn">Читать</a>
+            <a href="{{ new.get_absolute_url }}" class="index-blog__item-title">{{ new.name }}</a>
+            <p class="index-blog__item-text">{{ new.text|truncatechars:180 }}</p>
+            <a href="{{ new.get_absolute_url }}" class="index-blog__item-btn _btn">Читать</a>
           </div>
         </div>
-        <div class="index-blog__item">
-          <a href="" class="index-blog__item-image">
-            <img src="{% static 'theme/mb/images/3.jpg' %}" alt="">
-          </a>
-          <div class="index-blog__item-content">
-            <a href="" class="index-blog__item-title">Название статьи Название статьи Название статьи</a>
-            <p class="index-blog__item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <a href="#" class="index-blog__item-btn _btn">Читать</a>
-          </div>
-        </div>
+        {% endfor %}
+        {% endif %}
       </div>
       <div class="index-blog__grid" id="article">
+        {% if articles %}
+        {% for article in articles %}
         <div class="index-blog__item">
-          <a href="" class="index-blog__item-image">
-            <img src="{% static 'theme/mb/images/3.jpg' %}" alt="">
+          <a href="{{ article.get_absolute_url }}" class="index-blog__item-image">
+            {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.name }}" title="{{ article.name }}">
+            {% else %}
+            <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ article.name }}" title="{{ article.name }}">
+            {% endif %}
           </a>
           <div class="index-blog__item-content">
-            <a href="" class="index-blog__item-title">Название статьи</a>
-            <p class="index-blog__item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus
-              ullam aliquam ...</p>
-            <a href="#" class="index-blog__item-btn _btn">Читать</a>
+            <a href="{{ article.get_absolute_url }}" class="index-blog__item-title">{{ article.name }}</a>
+            <p class="index-blog__item-text">{{ new.text|truncatechars:180 }}</p>
+            <a href="{{ article.get_absolute_url }}" class="index-blog__item-btn _btn">Читать</a>
           </div>
         </div>
-        <div class="index-blog__item">
-          <a href="" class="index-blog__item-image">
-            <img src="{% static 'theme/mb/images/3.jpg' %}" alt="">
-          </a>
-          <div class="index-blog__item-content">
-            <a href="" class="index-blog__item-title">Название статьи Название статьи Название статьи</a>
-            <p class="index-blog__item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <a href="#" class="index-blog__item-btn _btn">Читать</a>
-          </div>
-        </div>
+        {% endfor %}
+        {% endif %}
       </div>
       <div class="index-blog__grid" id="stock">
+        {% if stocks %}
+        {% for stock in stocks %}
         <div class="index-blog__item">
-          <a href="" class="index-blog__item-image">
-            <img src="{% static 'theme/mb/images/3.jpg' %}" alt="">
+          <a href="{{ stock.get_absolute_url }}" class="index-blog__item-image">
+            {% if stock.image %}
+            <img src="{{ stock.image.url }}" alt="{{ stock.name }}" title="{{ stock.name }}">
+            {% else %}
+            <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ stock.name }}" title="{{ stock.name }}">
+            {% endif %}
           </a>
           <div class="index-blog__item-content">
-            <a href="" class="index-blog__item-title">Название статьи</a>
-            <p class="index-blog__item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus
-              ullam aliquam ...</p>
-            <a href="#" class="index-blog__item-btn _btn">Читать</a>
+            <a href="{{ stock.get_absolute_url }}" class="index-blog__item-title">{{ stock.title }}</a>
+            <p class="index-blog__item-text">{{ stock.description|truncatechars:100 }}</p>
+            <a href="{{ stock.get_absolute_url }}" class="index-blog__item-btn _btn">Читать</a>
           </div>
         </div>
-        <div class="index-blog__item">
-          <a href="" class="index-blog__item-image">
-            <img src="{% static 'theme/mb/images/3.jpg' %}" alt="">
-          </a>
-          <div class="index-blog__item-content">
-            <a href="" class="index-blog__item-title">Название статьи Название статьи Название статьи</a>
-            <p class="index-blog__item-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <a href="#" class="index-blog__item-btn _btn">Читать</a>
-          </div>
-        </div>
+        {% endfor %}
+        {% endif %}
       </div>
     </div>
   </div>

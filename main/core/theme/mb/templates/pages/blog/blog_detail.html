@@ -2,9 +2,9 @@
 
 <main class="page">
   <div class="single-banner"
-    style="background-image: url({% if about_page.banner %}{{ about_page.banner.url }}{% else %}{% static "
+    style="background-image: url({% if article.image %}{{ article.image.url }}{% else %}{% static "
     theme/mb/images/stock.webp" %}{% endif %} )" data-speed="70">
-    <h1 class="stock__title _title">{{ about_page.meta_h1 }}</h1>
+    <h1 class="stock__title _title">{{ article.name }}</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
         class="breadcrumbs__item">
@@ -12,7 +12,7 @@
         <meta itemprop="position" content="1" />
       </a>
       <span itemprop="name" class="breadcrumbs__item">
-        {{ about_page.meta_h1 }}
+        {{ article.name }}
         <meta itemprop="position" content="3" />
       </span>
     </div>
@@ -20,80 +20,19 @@
   <section class="about">
     <div class="about__container">
       <div class="about__inner">
+        {% if articles %}
         <div class="link-bar">
-          <a href="{% url 'stock' %}" class="link-bar__link">Акции</a>
-          <a href="#" class="link-bar__link">Новости</a>
-          <a href="#" class="link-bar__link">Статьи</a>
-          <a href="{% url 'gallery' %}" class="link-bar__link">Галлерея</a>
-          <a href="#" class="link-bar__link">Политика конфиденциальности</a>
+          {% for article in articles %}
+          <a href="{{ article.get_absolute_url }}" class="link-bar__link">{{ article.name }}</a>
+          {% endfor %}
         </div>
+        {% endif %}
         <div class="about__content">
           <div class="text">
-            {{ about_page.about_text }}
+            {{ article.text }}
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="about_hall hall">
-    <div class="hall__container">
-      <h2 class="hall__title _title">Информация о наших залах</h2>
-      {% if branchs %}
-      {% for branch in branchs %}
-      <div class="hall__row">
-        <div class="hall__col">
-          <div class="hall__image">
-            <img src="{{ branch.image.url }}" alt="{{ branch.name }}" title="{{ branch.name }}">
-          </div>
-        </div>
-        <div class="hall__col">
-          <div class="hall__info">
-            <div class="hall__item">
-              <p class="hall__label"><b>Адрес: </b> {{ branch.address_fillial }}</p>
-              <p class="hall__label"><b>Номер телефона:</b> <a href="tel:+79999999999">{{ branch.phone }}</a></p>
-              <p class="hall__label"><b>Количество мест:</b> {{ branch.number_seats }}</p>
-              <p class="hall__label"><b>Схема оплаты:</b> {{ branch.scheme_payment }} </p>
-              <p class="hall__label"><b>Аренда зала:</b> {{ branch.hall_rental }} </p>
-              <p class="hall__label"><b>Аренда зала в праздники:</b> {{ branch.hall_rental_hollyday }}</p>
-              <p class="hall__text">
-                Если у вас есть вопросы по бронированию <a href="{{ branch.phone }}">звоните</a>, пишите на <a
-                  href="#">whatsapp</a> или
-                оставьте заявку
-                по кнопке ниже
-              </p>
-              <button type="button" class="hall__btn _btn">Забронировать</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-
-      <!-- <div class="hall__row">
-        <div class="hall__col">
-          <div class="hall__image">
-            <img src="{% static 'theme/mb/images/hall.jpg' %}" alt="">
-          </div>
-        </div>
-        <div class="hall__col">
-          <div class="hall__info">
-            <div class="hall__item">
-              <p class="hall__label"><b>Адрес: </b> Пролетарская 57а 1 этаж</p>
-              <p class="hall__label"><b>Номер телефона:</b> <a href="tel:+79999999999"></a></p>
-              <p class="hall__label"><b>Количество мест:</b> 50</p>
-              <p class="hall__label"><b>Схема оплаты:</b> 2000 руб/чел. </p>
-              <p class="hall__label"><b>Аренда зала:</b> от 5000 </p>
-              <p class="hall__label"><b>Аренда зала в праздники:</b> от 7000</p>
-              <p class="hall__text">
-                Если у вас есть вопросы по бронированию <a href="#">звоните</a>, пишите на <a href="#">whatsapp</a> или
-                оставьте заявку
-                по кнопке ниже
-              </p>
-              <button type="button" class="hall__btn _btn">Забронировать</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </section>
 

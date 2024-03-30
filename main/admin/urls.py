@@ -55,6 +55,7 @@ urlpatterns = [
     path('gallery/delete/<int:pk>/', views.gallery_delete, name='gallery_delete'),
     
     #URl - отвечающие за отображение услуг, редактирование и удаление услуг
+    path('serv-page/', views.service_page, name='service_page'),
     path('serv/', views.admin_service, name='admin_service'),
     path('serv/add/', views.service_add, name='service_add'),
     path('serv/edit/<int:pk>/', views.service_edit, name='service_edit'),
@@ -65,6 +66,12 @@ urlpatterns = [
     path('blog/add/', views.blog_add, name='post_add'),
     path('blog/edit/<int:pk>/', views.blog_edit, name='post_edit'),
     path('blog/delete/<int:pk>/', views.blog_delete, name='post_delete'),
+    
+    #URl - отвечающие за отображение новостей, редактирование и удаление новостей
+    path('news/', views.admin_news, name='admin_news'),
+    path('news/add/', views.news_add, name='news_add'),
+    path('news/edit/<int:pk>/', views.news_edit, name='news_edit'),
+    path('news/delete/<int:pk>/', views.news_delete, name='news_delete'),
     
     #URl - Шаблон главной страницы
     path('home/', views.admin_home, name='admin_home'),

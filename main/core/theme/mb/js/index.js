@@ -83,25 +83,6 @@ if (rangeInput) {
   })
 }
 
-
-/**
- * Рейтинг в виде звездочек
- */
-
-const ratingItemList = document.querySelectorAll('.form__star');
-const inputSaveRating = document.querySelector('#form-reviews__rating');
-if (ratingItemList) {
-  const ratingItemArray = Array.prototype.slice.call(ratingItemList);
-
-  ratingItemArray.forEach(item => {
-    item.addEventListener('click', function (e) {
-      const { rating } = item.dataset;
-      item.parentNode.dataset.ratingTotal = rating;
-      // inputSaveRating.value = rating;
-    })
-  })
-}
-
 /**
  * Просмотр полного описания продукта
  */
@@ -168,11 +149,21 @@ if (categoryLink) {
         .then(response => response.json())
         .then(data => {
           let data_product = data.data
-          document.getElementById('address').innerText = data.branch[3]
-          document.getElementById('phone').innerText = data.branch[2]
-          document.getElementById('time-work').innerText = data.branch[4]
-          document.getElementById('weekend').innerText = data.branch[5]
-          document.getElementById('map').innerHTML = data.branch[6]
+          if (document.getElementById('address')) {
+            document.getElementById('address').innerText = data.branch[3]
+          }
+          if (document.getElementById('phone')) {
+            document.getElementById('phone').innerText = data.branch[2]
+          }
+          if (document.getElementById('time-work')) {
+            document.getElementById('time-work').innerText = data.branch[4]
+          }
+          if (document.getElementById('weekend')) {
+            document.getElementById('weekend').innerText = data.branch[5]
+          }
+          if (document.getElementById('map')) {
+            document.getElementById('map').innerHTML = data.branch[6]
+          }
 
           if (Array.isArray(data_product)) {
             dataArray = Object.values(data_product)
@@ -253,17 +244,29 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(response => response.json())
       .then(data => {
         let data_product = data.data
-        document.getElementById('address').innerText = data.branch[3]
-        document.getElementById('phone').innerText = data.branch[2]
-        document.getElementById('time-work').innerText = data.branch[4]
-        document.getElementById('weekend').innerText = data.branch[5]
-        document.getElementById('map').innerHTML = data.branch[6]
+        if (document.getElementById('address')) {
+          document.getElementById('address').innerText = data.branch[3]
+        }
+        if (document.getElementById('phone')) {
+          document.getElementById('phone').innerText = data.branch[2]
+        }
+        if (document.getElementById('time-work')) {
+          document.getElementById('time-work').innerText = data.branch[4]
+        }
+        if (document.getElementById('weekend')) {
+          document.getElementById('weekend').innerText = data.branch[5]
+        }
+        if (document.getElementById('map')) {
+          document.getElementById('map').innerHTML = data.branch[6]
+        }
 
         if (Array.isArray(data_product)) {
           dataArray = Object.values(data_product)
           const productsContainer = document.getElementById('products-grid');
-          productsContainer.classList.remove('no-grid');
-          productsContainer.innerHTML = '';
+          if (productsContainer) {
+            productsContainer.classList.remove('no-grid');
+            productsContainer.innerHTML = '';
+          }
           if (dataArray.length > 0) {
             dataArray.forEach(product => {
               const productElement = document.createElement('div');
@@ -281,8 +284,10 @@ document.addEventListener('DOMContentLoaded', function () {
               productsContainer.appendChild(productElement);
             })
           } else {
-            productsContainer.innerHTML = '<p class="empty">Для данной категории меню дня не заполнено, посмотрите следующие категории</p>';
-            productsContainer.classList.add('no-grid');
+            if (productsContainer) {
+              productsContainer.innerHTML = '<p class="empty">Для данной категории меню дня не заполнено, посмотрите следующие категории</p>';
+              productsContainer.classList.add('no-grid');
+            }
           }
         } else {
           console.log("Не массив");
@@ -412,4 +417,41 @@ function showTab(e) {
   tabContent = document.getElementById(this.dataset.id);
   tabContent.classList.add('_active');
 
+}
+
+/**
+ * Всплывающие окна
+ */
+
+const popupBtn = document.querySelectorAll('[data-popup]')
+if (popupBtn) {
+  popupBtn.forEach(btn => {
+    btn.addEventListener('click', openPopup)
+  })
+}
+
+function openPopup(e) {
+  popup = document.getElementById(this.dataset.popup)
+
+  popup.classList.add('_show');
+  document.documentElement.classList.add('_lock');
+}
+
+
+/**
+ * Рейтинг в виде звуздочек
+ */
+
+const ratingItemList = document.querySelectorAll('.form-reviews__star');
+const inputSaveRating = document.querySelector('#form-reviews__rating');
+if (ratingItemList) {
+  const ratingItemArray = Array.prototype.slice.call(ratingItemList);
+
+  ratingItemArray.forEach(item => {
+    item.addEventListener('click', function (e) {
+      const { rating } = item.dataset;
+      item.parentNode.dataset.ratingTotal = rating;
+      inputSaveRating.value = rating;
+    })
+  })
 }

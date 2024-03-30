@@ -4,11 +4,12 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import AboutTemplateForm, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, PostForm, ProductForm, ReviewsForm, ServiceForm, StockForm, UploadFileForm
+from admin.forms import AboutTemplateForm, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PostForm, ProductForm, ReviewsForm, ServiceForm, ServicePageForm, StockForm, UploadFileForm
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from blog.models import Post
+from news.models import News
 from main.settings import BASE_DIR
-from service.models import Service
+from service.models import Service, ServicePage
 from reviews.models import Reviews
 from shop.models import Product,Category,Day,Branch
 from django.core.paginator import Paginator
@@ -175,6 +176,60 @@ def blog_delete(request, pk):
   post.delete()
   
   return redirect('admin_blog')
+
+def admin_news(request):
+  """
+  View, которая возвращаяет и отрисовывает все товары на странице
+  и разбивает их на пагинацию 
+  """
+  news = News.objects.all()
+  context = {
+    "news": news
+  }
+  return render(request, "news/new/news.html", context)
+
+def news_add(request):
+  form = NewsForm()
+  
+  if request.method == "POST":
+    form_new = NewsForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('admin_news')
+    else:
+      return render(request, "news/new/new_add.html", {"form": form_new})
+    
+  context = {
+    "form": form
+  }
+  
+  return render(request, "news/new/new_add.html", context)
+
+def news_edit(request, pk):
+  """
+    View, которая получает данные из формы редактирования товара
+    и изменяет данные внесенные данные товара в базе данных
+  """
+  news = News.objects.get(id=pk)
+  form = NewsForm(instance=news)
+  
+  form_new = NewsForm(request.POST, request.FILES, instance=news) 
+  if request.method == 'POST':
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('admin_news')
+    else:
+      return render(request, "news/new/new_edit.html", {"form": form_new})
+  context = {
+    "form":form
+  }
+  return render(request, "news/new/new_add.html", context)
+
+def news_delete(request, pk):
+  news = News.objects.get(id=pk)
+  news.delete()
+  
+  return redirect('admin_news')
 
 def product_day_edit(request, id):
   product = Product.objects.get(id=id)
@@ -649,6 +704,32 @@ def stock_delete(request, pk):
   stock = Stock.objects.get(id=pk)
   stock.delete()
   return redirect("admin_stock")
+
+def service_page(request):
+  try:
+    service_page = ServicePage.objects.get()
+  except:
+    service_page = ServicePage()
+    service_page.save()
+    
+  if request.method == "POST":
+    form_new = ServicePageForm(request.POST, request.FILES, instance=service_page)
+    if form_new.is_valid():
+      form_new.save()
+      # subprocess.call(["touch", RESET_FILE]) # restart app django
+      return redirect("admin")
+    else:
+      return render(request, "serv/serv_page.html", {"form": form_new})
+  
+  service_page = ServicePage.objects.get()
+  
+  form = ServicePageForm(instance=service_page)
+  context = {
+    "form": form,
+    "service_page":service_page
+  }  
+
+  return render(request, "serv/serv_page.html", context)
 
 def admin_service(request):
   services = Service.objects.all()

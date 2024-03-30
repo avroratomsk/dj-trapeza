@@ -10,7 +10,7 @@ class NewsSettings(models.Model):
   text = models.TextField(null=True, blank=True, verbose_name="Текст на странице")
 
 
-class New(models.Model):
+class News(models.Model):
   name = models.CharField(max_length=250, null=True, blank=True, db_index=True, verbose_name="Название статьи")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
   text = models.TextField(null=True, blank=True, verbose_name="Содержимое статьи")
@@ -27,5 +27,5 @@ class New(models.Model):
     return self.name
   
   def get_absolute_url(self):
-      return reverse("new", kwargs={"slug": self.slug})
+      return reverse("news_detail", kwargs={"slug": self.slug})
   

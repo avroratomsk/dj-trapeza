@@ -21,4 +21,5 @@ def post(request, slug):
     "article": article,
     "articles": articles
   }
+  
   return render(request, "pages/blog/blog_detail.html", context)
