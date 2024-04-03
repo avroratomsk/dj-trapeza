@@ -203,8 +203,7 @@ html.lock body::before {
 }
 
 .products__subtitle {
-  max-width: 600px;
-  text-wrap: balance;
+  max-width: 1000px;
   text-align: center;
   line-height: 150%;
   color: rgba(43, 70, 60, 0.8);
@@ -231,7 +230,7 @@ html.lock body::before {
   overflow-y: auto;
   padding: 30px 20px;
   position: sticky;
-  top: 20px;
+  top: 100px;
   box-shadow: 0px 0px 10px rgba(43, 70, 60, 0.1);
   border: 1px solid rgba(43, 70, 60, 0.1);
   border-radius: 8px;
@@ -1020,6 +1019,7 @@ html.lock body::before {
 }
 
 .index-about__btn {
+  width: 290px;
   margin-top: 30px;
 }
 
@@ -1131,6 +1131,7 @@ html.lock body::before {
 .callback__submit {
   background-color: #ffffff;
   width: 100%;
+  height: 50px;
   color: #2b463c;
   font-family: "Nunito";
   font-size: 16px;
@@ -1188,11 +1189,15 @@ html.lock body::before {
   gap: 25px;
   opacity: 0;
   height: 0px;
+  pointer-events: none;
+  visibility: hidden;
   transition: 0.3s;
 }
 
 .index-blog__grid._active {
   height: 100%;
+  pointer-events: all;
+  visibility: visible;
   opacity: 1 !important;
 }
 
@@ -1940,9 +1945,81 @@ html.lock body::before {
   align-self: flex-start;
 }
 
+.service-menu {
+  padding: 50px 0px;
+  margin-bottom: 50px;
+  background: #ffffff;
+  border-radius: 50px;
+}
+
 .service-menu__title {
   margin-bottom: 30px;
   text-align: center;
+}
+
+.service-menu__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 40px;
+}
+
+.service-menu__title {
+  margin-bottom: 30px;
+  text-align: left;
+  font-size: 30px !important;
+}
+
+.vacancy__row {
+  display: flex;
+  gap: 30px;
+}
+
+.vacancy-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(43, 70, 60, 0.3);
+  border-radius: 12px;
+  padding: 20px 20px 20px;
+  transition: 0.5s;
+}
+
+.vacancy-item__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.vacancy-item__title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.vacancy-item__salary {
+  font-weight: 600;
+}
+
+.vacancy-item__content {
+  display: flex;
+  align-items: center;
+}
+
+.vacancy-item__content p {
+  font-size: 14px;
+  color: rgba(43, 70, 60, 0.6);
+}
+
+.vacancy-item__content p:not(:first-child)::before {
+  content: "/";
+  padding: 0px 10px;
+  color: rgba(43, 70, 60, 0.6);
+}
+
+.vacancy-item__btn {
+  align-self: flex-end;
+  color: #5c8600;
+  border-bottom: 1px solid #5c8600;
 }
 
 /*
@@ -2170,14 +2247,12 @@ html.lock body::before {
   display: flex;
   font-size: 16px;
   color: rgba(243, 243, 243, 0.8);
-  font-family: "Nunito";
 }
 
 .footer__item span:first-child {
   color: #f3f3f3;
   margin-bottom: 10px;
   font-weight: 400;
-  font-family: "Nunito";
 }
 
 .footer__social {
@@ -2218,7 +2293,7 @@ html.lock body::before {
 }
 
 .footer__nav a:hover {
-  color: #e76642;
+  color: #5c8600;
 }
 
 .footer__logo {
@@ -2265,7 +2340,7 @@ body::before {
   z-index: 99;
 }
 
-._lock {
+html._lock body {
   overflow: hidden;
 }
 
@@ -2621,6 +2696,10 @@ section {
   outline: none;
 }
 
+.form__group-row {
+  flex-direction: row-reverse;
+}
+
 .form__btn-branch {
   background-color: #5c8600;
 }
@@ -2719,6 +2798,8 @@ section {
 }
 
 .contact-info__row {
+  display: flex;
+  gap: 10px;
   padding: 30px 0px;
 }
 
@@ -2856,6 +2937,7 @@ section {
   visibility: hidden;
   pointer-events: none;
   transform: translateY(-200px);
+  transition: 0.5s;
 }
 
 .popup._show {
@@ -2992,6 +3074,13 @@ section {
   transform: translateX(-11px);
 }
 
+.resume {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 #popup-callback .popup__title {
   margin-bottom: 20px;
 }
@@ -3003,6 +3092,12 @@ section {
   border: 1px solid rgba(43, 70, 60, 0.2);
   font-size: 14px;
   color: rgba(43, 70, 60, 0.8);
+}
+
+.popup__text {
+  font-size: 17px;
+  line-height: 150%;
+  margin-top: 20px;
 }
 
 @media screen and (min-width: 420px) {
@@ -3060,6 +3155,14 @@ section {
     flex-direction: column;
     max-width: 350px;
     min-width: 250px;
+  }
+
+  .vacancy__row {
+    gap: 50px;
+  }
+
+  .vacancy-item {
+    flex: 1 1 50%;
   }
 
   .contact__col {
@@ -3128,6 +3231,10 @@ section {
 
   .hall__row:nth-child(odd) {
     flex-direction: column;
+  }
+
+  .contact__container {
+    width: 100%;
   }
 
   .contact__row {

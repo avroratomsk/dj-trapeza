@@ -1,9 +1,31 @@
 .service-menu {
+  padding: 50px 0px;
+  margin-bottom: 50px;
+  background: #ffffff;
+  border-radius: 50px;
 
   // .service-menu__title
   &__title {
     margin-bottom: 30px;
     text-align: center;
+  }
+
+  // .service-menu__container
+  &__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+  }
+
+  // .service-menu__row
+  &__row {}
+
+  // .service-menu__title
+  &__title {
+    margin-bottom: 30px;
+    text-align: left;
+    font-size: 30px !important;
   }
 
 }

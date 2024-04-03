@@ -55,6 +55,16 @@ urlpatterns = [
     path('gallery/delete/<int:pk>/', views.gallery_delete, name='gallery_delete'),
     
     #URl - отвечающие за отображение услуг, редактирование и удаление услуг
+    path('serv-product/', views.service_product, name='service_product'),
+    path('serv-product/add/', views.service_product_add, name='service_product_add'),
+    path('serv-product/edit/<int:pk>/', views.service_product_edit, name='service_product_edit'),
+    path('serv-product/delete/<int:pk>/', views.service_product_delete, name='service_product_delete'),
+    
+    path('serv-category/', views.service_category, name='service_category'),
+    path('serv-category/add/', views.service_category_add, name='service_category_add'),
+    path('serv-category/edit/<int:pk>/', views.service_category_edit, name='service_category_edit'),
+    # path('serv-category/delete/<int:pk>/', views.service_category_delete, name='service_category_delete'),
+    
     path('serv-page/', views.service_page, name='service_page'),
     path('serv/', views.admin_service, name='admin_service'),
     path('serv/add/', views.service_add, name='service_add'),

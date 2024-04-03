@@ -25,20 +25,6 @@
         </div>
         <div class="single__day day-single">
           <div class="day-single__inner">
-            {% comment %}
-            <button type="button" id="open-search" class="day-single__btn">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-            {% endcomment %} {% comment %}
-            <div class="day-single__days">
-              <div class="search" id="single-search">
-                <form action="" method="get">
-                  <button type="submit">Найти</button>
-                  <input type="search" name="q" placeholder="Поиск" class="form-controls" />
-                </form>
-              </div>
-            </div>
-            {% endcomment %}
             <form action="#" class="form" method="GET">
               {% csrf_token %}
               <select name="show-by" id="show-by" class="form__select">
@@ -90,6 +76,7 @@
               </div>
             </div>
             <div id="product"></div>
+            {% comment %}
             <div class="aside__options" id="option-part">
               <h5 class="aside__title">Цена</h5>
               <div class="price-input">
@@ -111,6 +98,7 @@
                 </div>
               </div>
             </div>
+            {% endcomment %}
           </aside>
           <div class="single-content__products products-single">
             <div class="products-single__grid">

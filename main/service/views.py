@@ -1,10 +1,10 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.core.exceptions import ObjectDoesNotExist
 from shop.models import Category, Product
-from service.models import Service, ServicePage
+from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
 
 def service(request):
   services = Service.objects.filter(status=True)
@@ -24,27 +24,16 @@ def service(request):
   return render(request, "pages/service/service.html", context)
 
 def service_detail(request, slug):
-  category = Category.objects.all()
+  category = ServiceCategory.objects.all()
   service = Service.objects.get(slug=slug)
-  if(slug == "organizatsiya-banketov"):
-    try:
-      product = Product.objects.filter(banquet_menu_checkbox=True)
-    except:
-      pass
+  product = ServiceProduct.objects.filter(service=service)
+  categories_with_products = Service.objects.annotate(num_products=Count('serviceproduct')).filter(num_products__gt=0)
   
-  if(slug == "pominalnye-obedy"):
-    product = Product.objects.filter(funeral_menu=True)
-  
-  if(slug == "priyti-pokushat"):
-    product = Product.objects.all()
-    
   context = {
     "service": service,
     "products": product,
-    "categorys": category
+    "categorys": category,
   }
   
-  if(slug == "pominalnye-obedy"):
-    return render(request, "pages/service/service_pominalnye.html", context)
-  
   return render(request, "pages/service/service_detail.html", context)
+

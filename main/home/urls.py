@@ -10,7 +10,7 @@ urlpatterns = [
     path('gallery/', views.gallery, name="gallery"),
     path('callback/', views.callback, name='callback'),
     # path('blog/', views.about, name="about"),
-    # path('valancy/', views.about, name="about"),
+    path('valancies/', views.vacancies, name="vacancies"),
     
     path('', views.index, name="home"),
 ]

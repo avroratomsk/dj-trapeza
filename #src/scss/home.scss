@@ -768,6 +768,7 @@
   // .index-about__btn
 
   &__btn {
+    width: 290px;
     margin-top: 30px;
   }
 
@@ -896,6 +897,7 @@
   &__submit {
     background-color: $white;
     width: 100%;
+    height: 50px;
     color: $mainColor;
     font-family: $secondaryFont;
     font-size: 16px;
@@ -970,14 +972,16 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 25px;
-    // transform: translateY(100px);
     opacity: 0;
     height: 0px;
+    pointer-events: none;
+    visibility: hidden;
     transition: .3s;
 
     &._active {
       height: 100%;
-      // transform: translateY(0px);
+      pointer-events: all;
+      visibility: visible;
       opacity: 1 !important;
     }
   }

@@ -17,17 +17,20 @@ body {
   }
 }
 
-._lock {
-  overflow: hidden;
-}
+._lock {}
 
 html._lock {
+
+  body {
+    overflow: hidden;
+  }
 
   body::before {
     opacity: 1;
     pointer-events: all;
     visibility: visible;
   }
+
 }
 
 main {

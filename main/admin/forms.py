@@ -3,7 +3,7 @@ from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from blog.models import Post
 from news.models import News
-from service.models import Service, ServicePage
+from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
 from reviews.models import Reviews
 from shop.models import Category, Day, Product, Branch
 
@@ -793,6 +793,120 @@ class ServicePageForm(forms.ModelForm):
       'name': forms.TextInput(attrs={
         'class': 'form__controls',
         'id': 'name'
+      }),
+      'meta_h1': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_title': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_description': forms.Textarea(attrs={
+        'class': 'form-controls',
+        'rows': 5,
+      }),
+      'meta_keywords': forms.TextInput(attrs={
+        'class': 'form__controls'
+      })
+    }
+    
+class ServiceProductForm(forms.ModelForm):
+  """ Form, добавление и редактирование услуг"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = ServiceProduct
+    fields = [
+        'name',
+        'slug',
+        'status',
+        'service',
+        'category',
+        'image',
+        'meta_title',
+        'meta_h1',
+        'meta_description',
+        'meta_keywords',
+    ]
+    labels = {
+        'name':'Название',
+        'slug': 'URL',
+        'status':'Статус публикации',
+        'service':'Услуга',
+        'category':'Категория',
+        'image': 'Изображение акции',
+        'meta_h1':'Meta h1',
+        'meta_title':'Meta title',
+        'meta_description':'Мета description',
+        'meta_keywords':'Meta keywords',
+    }
+    widgets = {
+      'name': forms.TextInput(attrs={
+        'class': 'form__controls',
+        'id': 'name'
+      }),
+      'slug': forms.TextInput(attrs={
+        'class':'form__controls',
+        "id": "slug"
+      }),
+      'subtitle': forms.DateInput(attrs={
+        'class':'form__controls',
+      }),
+      'status': forms.CheckboxInput(attrs={
+        'class': 'form__controls-checkbox',
+      }),
+      'meta_h1': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_title': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
+      'meta_description': forms.Textarea(attrs={
+        'class': 'form-controls',
+        'rows': 5,
+      }),
+      'meta_keywords': forms.TextInput(attrs={
+        'class': 'form__controls'
+      }),
+      'service': forms.Select(attrs={
+        'class': 'form__controls'
+      }),
+      'category': forms.Select(attrs={
+        'class': 'form__controls'
+      })
+    }
+    
+class ServiceCategoryForm(forms.ModelForm):
+  """ Form, добавление и редактирование услуг"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+    model = ServiceCategory
+    fields = [
+        'name',
+        'slug',
+        'image',
+        'meta_title',
+        'meta_h1',
+        'meta_description',
+        'meta_keywords',
+    ]
+    labels = {
+        'name':'Название',
+        'slug': 'URL',
+        'image': 'Изображение акции',
+        'meta_h1':'Meta h1',
+        'meta_title':'Meta title',
+        'meta_description':'Мета description',
+        'meta_keywords':'Meta keywords',
+    }
+    widgets = {
+      'name': forms.TextInput(attrs={
+        'class': 'form__controls',
+        'id': 'name'
+      }),
+      'slug': forms.TextInput(attrs={
+        'class':'form__controls',
+        "id": "slug"
       }),
       'meta_h1': forms.TextInput(attrs={
         'class': 'form__controls',

@@ -71,13 +71,11 @@
       display: flex;
       font-size: 16px;
       color: rgba($color: $bodyColor, $alpha: 0.8);
-      font-family: $secondaryFont;
 
       &:first-child {
         color: rgba($color: $bodyColor, $alpha: 1);
         margin-bottom: 10px;
         font-weight: 400;
-        font-family: $fontFamily;
       }
     }
   }
@@ -123,7 +121,7 @@
       transition: $animation_speed;
 
       &:hover {
-        color: #e76642;
+        color: $accent;
       }
     }
   }

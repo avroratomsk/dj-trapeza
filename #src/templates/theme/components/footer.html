@@ -8,15 +8,19 @@
         <p class="footer__title">Контакты</p>
         <div class="footer__item">
           <span>Адрес: </span>
-          <span>г.Томск ул. Ленина 193</span>
+          <span id="footer-addres">г.Томск ул. Ленина 193</span>
         </div>
         <div class="footer__item">
           <span>Телефон: </span>
-          <a href="tel:{{ settings.phone_one }}" class="reg-num">{{ settings.phone_one }}</a>
+          <a href="tel:{{ settings.phone_one }}" class="reg-num" id="footer-phone">{{ settings.phone_one }}</a>
         </div>
         <div class="footer__item">
           <span>Время работы: </span>
-          <span>пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
+          <span id="footer-time-work">пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
+        </div>
+        <div class="footer__item">
+          <span>Выходные: </span>
+          <span id="footer-weekend">пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
         </div>
         <div class="footer__item">
           <span>Электронная почта: </span>
@@ -31,21 +35,18 @@
       <div class="footer__col">
         <p class="footer__title">Меню</p>
         <nav class="footer__nav">
-          <a href="#">Горячее</a>
-          <a href="#">Салаты</a>
-          <a href="#">Выпечка</a>
-          <a href="#">Банкетное меню</a>
-          <a href="#">Поминальное меню</a>
-          <a href="#">Меню дня</a>
+          {% if categorys %} {% for category in categorys %}
+          <a href="#">{{ category.name }}</a>
+          {% endfor %} {% endif %}
         </nav>
       </div>
       <div class="footer__col">
         <div class="footer__logo"><img src="img/logo-2-white.svg" alt="" /></div>
         <nav class="footer__nav">
           <a href="#">Политика конфиденциальности</a>
-          <a href="#">Статьи</a>
-          <a href="#">Отзывы</a>
-          <a href="#">Контакты</a>
+          <a href="{% url 'blog' %}">Статьи</a>
+          <a href="{% url 'reviews' %}">Отзывы</a>
+          <a href="{% url 'contact' %}">Контакты</a>
         </nav>
       </div>
     </div>

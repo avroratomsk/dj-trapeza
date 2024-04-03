@@ -6,8 +6,8 @@
       <!-- <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button> -->
       <form action="/" class="form">
         {% csrf_token %} {% if branchs %} {% for branch in branchs %}
-        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">{{ branch.address_fillial
-          }}</button>
+        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">
+          {{ branch.address_fillial }}</button>
         {% endfor %} {% endif %}
       </form>
     </div>
@@ -21,8 +21,8 @@
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
       <form action="/" class="form form-column">
-        <input type="text" placeholder="Ваше имя" class="form__controls" name="name">
-        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone">
+        <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
+        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
         <button type="submit" class="form__submit">Заказать</button>
       </form>
     </div>
@@ -36,17 +36,46 @@
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
       <form action="/" class="form form-column">
-        <input type="text" placeholder="Ваше имя" class="form__controls" name="name">
-        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone">
+        <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
+        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
         <select name="reservation" id="reservation" class="form__select">
-          {% if branchs %}
-          {% for branch in branchs %}
+          {% if branchs %} {% for branch in branchs %}
           <option value="{{ branch.name }}" class="form__option">{{ branch.name }}</option>
-          {% endfor %}
-          {% endif %}
+          {% endfor %} {% endif %}
         </select>
         <button type="submit" class="form__submit">Заказать</button>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="popup" id="popup-vacancy">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <p class="popup__title">Откликнуться на вакансию</p>
+      <span class="popup__line"></span>
+      <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
+      <form action="/" class="form form-column">
+        <input type="text" placeholder="ФИО" class="form__controls" name="name" />
+        <input type="tel" placeholder="Телефон" class="form__controls" name="phone" />
+        <input type="email" placeholder="Email" class="form__controls" name="phone" />
+        <label for="resume" class="resume">
+          <span>Прикрепить резюме</span>
+          <input type="file" name="resume" id="resume">
+        </label>
+        <button type="submit" class="form__submit">Отправить</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="popup" id="popup-reviews">
+  <div class="popup__wrapper">
+    <div class="popup__content">
+      <button data-close type="button" class="popup__close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="popup__text"></div>
     </div>
   </div>
 </div>

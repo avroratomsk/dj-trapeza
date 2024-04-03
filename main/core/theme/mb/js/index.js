@@ -2,10 +2,9 @@
 // import "./import/components";
 // import "./import/inputMask";
 // import "./import/script";
+// import "./import/venobox.js";
 
-// new VenoBox({
-//   selector: ".index-gallery__item"
-// });
+
 
 
 // Вычисляем ширину scrolllbar
@@ -83,25 +82,6 @@ if (rangeInput) {
   })
 }
 
-/**
- * Просмотр полного описания продукта
- */
-
-const btnViewProduct = document.querySelectorAll('.product-desc');
-if (btnViewProduct) {
-  btnViewProduct.forEach(btn => btn.addEventListener('click', viewProduct));
-}
-
-function viewProduct(e) {
-  let parentNodeHtml = this.closest('.card-product').querySelector('.card-product__info').innerHTML;
-  let popupView = document.querySelector('.popup-view .popup__grid');
-  console.log(popupView);
-
-  if (popupView) {
-    popupView.innerHTML = parentNodeHtml;
-  }
-}
-
 const orderBtn = document.querySelectorAll('.filter-sort__value');
 
 orderBtn.forEach(btn => {
@@ -126,157 +106,69 @@ function clearSimvol(str) {
  * Получние товаров из категории асинхронно
  */
 
-const categoryLink = document.querySelectorAll('.category-link');
-
-if (categoryLink) {
-  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Получаем CSRF токен
-  categoryLink.forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      categoryLink.forEach(item => item.classList.remove('_active'));
-      btn.classList.add('_active');
-      e.preventDefault();
-      branch_slug = localStorage.getItem('branch');
-      const categoryId = this.dataset.id;
-      console.log(branch_slug, categoryId);
-      fetch('/catalog/get_data/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrfToken,
-        },
-        body: JSON.stringify({ category_id: categoryId, branch_slug: branch_slug })
-      })
-        .then(response => response.json())
-        .then(data => {
-          let data_product = data.data
-          if (document.getElementById('address')) {
-            document.getElementById('address').innerText = data.branch[3]
-          }
-          if (document.getElementById('phone')) {
-            document.getElementById('phone').innerText = data.branch[2]
-          }
-          if (document.getElementById('time-work')) {
-            document.getElementById('time-work').innerText = data.branch[4]
-          }
-          if (document.getElementById('weekend')) {
-            document.getElementById('weekend').innerText = data.branch[5]
-          }
-          if (document.getElementById('map')) {
-            document.getElementById('map').innerHTML = data.branch[6]
-          }
-
-          if (Array.isArray(data_product)) {
-            dataArray = Object.values(data_product)
-            const productsContainer = document.getElementById('products-grid');
-            productsContainer.classList.remove('no-grid');
-            productsContainer.innerHTML = '';
-            if (dataArray.length > 0) {
-              dataArray.forEach(product => {
-                const productElement = document.createElement('div');
-                productElement.classList.add('tab__content-item', 'card-product')
-                productElement.innerHTML = `
-                      <a href="${product.url}" class="card-product__image">
-                        <img src="${product.image}" alt="${product.name}" title="${product.name}" />
-                      </a>
-                      <a href="${product.url}" class="card-product__name">${product.name}</a>
-                      <p class="card-product__price">${product.price} ₽</p>
-                      <div class="card-product__btns">
-                        <a href="${product.url}" class="card-product__btn">Подробнее</a>
-                      </div>
-                    `;
-                productsContainer.appendChild(productElement);
-              })
-            } else {
-              productsContainer.innerHTML = '<p class="empty">Для данной категории меню дня не заполнено, посмотрите следующие категории</p>';
-              productsContainer.classList.add('no-grid');
-            }
-          } else {
-            console.log("Не массив");
-            const dataArray = Object.values(data_product);
-            dataArray.forEach(product => {
-              const productsContainer = document.getElementById('products-grid');
-              productsContainer.classList.remove('no-grid');
-              productsContainer.innerHTML = '';
-              if (product.length > 0) {
-                product.forEach(item => {
-                  const productElement = document.createElement('div');
-                  productElement.classList.add('tab__content-item', 'card-product')
-                  productElement.innerHTML = `
-                    <a href="${item.url}" class="card-product__image">
-                      <img src="${item.image}" alt="${item.name}" title="${item.name}" />
-                    </a>
-                    <a href="${item.url}" class="card-product__name">${item.name}</a>
-                    <p class="card-product__price">${item.price} ₽</p>
-                    <div class="card-product__btns">
-                      <a href="${item.url}" class="card-product__btn">Подробнее</a>
-                    </div>
-                  `;
-                  productsContainer.appendChild(productElement);
-                })
-              } else {
-                productsContainer.innerHTML = '<p class="empty">Для данной категории меню дня не заполнено, посмотрите следующие категории</p>';
-                productsContainer.classList.add('no-grid');
-              }
-            });
-          }
-        })
-        .catch(error => console.error('Error', error))
-    })
+function getProductForBranch(categoryId, branchSlug) {
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  fetch('/catalog/get_data/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({ category_id: categoryId, branch_slug: branchSlug })
   })
-}
+    .then(response => response.json())
+    .then(data => {
+      let data_product = data.data
+      if (document.getElementById('address')) {
+        document.getElementById('address').innerText = data.branch[3]
+      }
+      if (document.getElementById('phone')) {
+        document.getElementById('phone').innerText = data.branch[2]
+      }
+      if (document.getElementById('time-work')) {
+        document.getElementById('time-work').innerText = data.branch[4]
+      }
+      if (document.getElementById('weekend')) {
+        document.getElementById('weekend').innerText = data.branch[5]
+      }
+      if (document.getElementById('map')) {
+        document.getElementById('map').innerHTML = data.branch[6]
+      }
 
-function changeInfo() { }
+      if (document.getElementById('footer-phone')) {
+        document.getElementById('footer-phone').innerText = data.branch[2]
+      }
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (localStorage.getItem('branch')) {
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Получаем CSRF токен
-    branch_slug = localStorage.getItem('branch')
-    // console.log(branch_slug);
-    const categoryId = 1;
-    fetch('/catalog/get_data/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken,
-      },
-      body: JSON.stringify({ category_id: categoryId, branch_slug: branch_slug })
-    })
-      .then(response => response.json())
-      .then(data => {
-        let data_product = data.data
-        if (document.getElementById('address')) {
-          document.getElementById('address').innerText = data.branch[3]
-        }
-        if (document.getElementById('phone')) {
-          document.getElementById('phone').innerText = data.branch[2]
-        }
-        if (document.getElementById('time-work')) {
-          document.getElementById('time-work').innerText = data.branch[4]
-        }
-        if (document.getElementById('weekend')) {
-          document.getElementById('weekend').innerText = data.branch[5]
-        }
-        if (document.getElementById('map')) {
-          document.getElementById('map').innerHTML = data.branch[6]
-        }
+      if (document.getElementById('footer-addres')) {
+        document.getElementById('footer-addres').innerText = data.branch[3]
+      }
 
-        if (Array.isArray(data_product)) {
-          dataArray = Object.values(data_product)
-          const productsContainer = document.getElementById('products-grid');
-          if (productsContainer) {
-            productsContainer.classList.remove('no-grid');
-            productsContainer.innerHTML = '';
-          }
+      if (document.getElementById('footer-time-work')) {
+        document.getElementById('footer-time-work').innerText = data.branch[4]
+      }
+
+      if (document.getElementById('footer-weekend')) {
+        document.getElementById('footer-weekend').innerText = data.branch[5]
+      }
+
+      if (Array.isArray(data_product)) {
+        dataArray = Object.values(data_product)
+        const productsContainer = document.getElementById('products-grid');
+        if (productsContainer) {
+          productsContainer.classList.remove('no-grid');
+          productsContainer.innerHTML = '';
           if (dataArray.length > 0) {
             dataArray.forEach(product => {
               const productElement = document.createElement('div');
               productElement.classList.add('tab__content-item', 'card-product')
-              productElement.innerHTML = `
+              productElement.innerHTML =
+                `
                     <a href="${product.url}" class="card-product__image">
                       <img src="${product.image}" alt="${product.name}" title="${product.name}" />
                     </a>
                     <a href="${product.url}" class="card-product__name">${product.name}</a>
                     <p class="card-product__price">${product.price} ₽</p>
+                    <p class="card-product__price">${product.weight}</p>
                     <div class="card-product__btns">
                       <a href="${product.url}" class="card-product__btn">Подробнее</a>
                     </div>
@@ -289,78 +181,73 @@ document.addEventListener('DOMContentLoaded', function () {
               productsContainer.classList.add('no-grid');
             }
           }
-        } else {
-          console.log("Не массив");
-          const dataArray = Object.values(data_product);
-          dataArray.forEach(product => {
-            const productsContainer = document.getElementById('products-grid');
-            productsContainer.classList.remove('no-grid');
-            productsContainer.innerHTML = '';
-            if (product.length > 0) {
-              product.forEach(item => {
-                const productElement = document.createElement('div');
-                productElement.classList.add('tab__content-item', 'card-product')
-                productElement.innerHTML = `
-                  <a href="${item.url}" class="card-product__image">
-                    <img src="${item.image}" alt="${item.name}" title="${item.name}" />
-                  </a>
-                  <a href="${item.url}" class="card-product__name">${item.name}</a>
-                  <p class="card-product__price">${item.price} ₽</p>
-                  <div class="card-product__btns">
-                    <a href="${item.url}" class="card-product__btn">Подробнее</a>
-                  </div>
-                `;
-                productsContainer.appendChild(productElement);
-              })
-            } else {
-              productsContainer.innerHTML = '<p class="empty">Для данной категории меню дня не заполнено, посмотрите следующие категории</p>';
-              productsContainer.classList.add('no-grid');
-            }
-          });
         }
-      })
-      .catch(error => console.error('Error', error))
+      }
+    })
+    .catch(error => console.error('Error', error))
+}
+
+const categoryLink = document.querySelectorAll('.category-link');
+
+if (categoryLink) {
+  categoryLink.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      categoryLink.forEach(item => item.classList.remove('_active'));
+      btn.classList.add('_active');
+      e.preventDefault();
+      branch_slug = localStorage.getItem('branch');
+      const categoryId = this.dataset.id;
+      getProductForBranch(categoryId, branch_slug)
+    })
+  })
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (localStorage.getItem('branch')) {
+    branch_slug = localStorage.getItem('branch');
+    const categoryId = 1;
+    getProductForBranch(categoryId, branch_slug);
+    categoryLink.forEach(btn => {
+      if (btn.dataset.name == "Супы" || btn.dataset.name == "Суп" || btn.dataset.name == "Первое" || btn.dataset.name == "Первые блюда") {
+        btn.classList.add('_active');
+      }
+    })
   } else {
-    setInterval(openPopupSetFilial, 0)
-    lockScroll(widthScrollBar)
-    unLockScroll()
+    let interval = setInterval(function () {
+      openPopupSetFilial()
+      clearInterval(interval);
+      document.documentElement.classList.add('_lock');
+      document.getElementById('popup-delivery').classList.add('_show');
+      lockScroll(widthScrollBar);
+    });
+    lockScroll(widthScrollBar);
+    unLockScroll();
   }
 })
 
 function openPopupSetFilial() {
-  document.documentElement.classList.add('_lock');
-  document.getElementById('popup-delivery').classList.add('_show');
-  lockScroll(widthScrollBar);
+
   const branchSelectionBtn = document.querySelectorAll('.form__btn-branch')
   if (branchSelectionBtn) {
     branchSelectionBtn.forEach(btn => {
-      btn.addEventListener('click', getProduct)
-      console.log('Тут2');
+      btn.addEventListener('click', getProduct);
+    })
+    branchSelectionBtn.forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        document.getElementById('popup-delivery').classList.remove('_show');
+        document.documentElement.classList.remove('_lock');
+      })
     })
   }
 }
 
 function getProduct(e) {
-  let branch_slug = e.target.dataset.slug
-  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Получаем CSRF токен
+  let branch_slug = e.target.dataset.slug;
   e.preventDefault();
-  localStorage.setItem('branch', branch_slug)
+  document.getElementById('popup-delivery').classList.remove('_show');
+  localStorage.setItem('branch', branch_slug);
   const categoryId = 1;
-  console.log('Тут3');
-  fetch('/catalog/get_data/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrfToken,
-    },
-    body: JSON.stringify({ category_id: categoryId, branch_slug: branch_slug })
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(`${data}----------------------`);
-    })
-    .catch(error => console.error('Error', error))
-
+  getProductForBranch(categoryId, branch_slug);
 }
 
 const closePopupBtns = document.querySelectorAll('.popup__close');
@@ -432,7 +319,7 @@ if (popupBtn) {
 
 function openPopup(e) {
   popup = document.getElementById(this.dataset.popup)
-
+  console.log(popup);
   popup.classList.add('_show');
   document.documentElement.classList.add('_lock');
 }
@@ -454,4 +341,20 @@ if (ratingItemList) {
       inputSaveRating.value = rating;
     })
   })
+}
+
+
+const reviewsButtons = document.querySelectorAll('.reviews__btn');
+if (reviewsButtons) {
+  reviewsButtons.forEach(btn => {
+    btn.addEventListener('click', getReviewsText)
+  })
+}
+
+function getReviewsText(e) {
+  let previeousElement = this.previousElementSibling.innerText;
+  console.log(previeousElement);
+  const openPopup = document.querySelector('#popup-reviews');
+  let popupContent = openPopup.querySelector('.popup__text');
+  popupContent.innerText += previeousElement;
 }

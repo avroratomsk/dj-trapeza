@@ -92,6 +92,7 @@ TEMPLATES = [
                 "home.context_processors.load_branch",
                 "home.context_processors.load_category",
                 "home.context_processors.load_service",
+                "home.context_processors.load_cat",
             ],
         },
     },

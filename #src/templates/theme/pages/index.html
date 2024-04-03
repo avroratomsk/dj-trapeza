@@ -1,8 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
 
-<body>
-  <div class="wrapper">
-    {% include "components/header-single.html" %}
     <main class="page">
       <div class="index-banner" style="background-image: url({{ home_page.banner.url }})">
         <div class="index-banner__container">
@@ -63,7 +60,7 @@
               {% if categorys %}
               {% for category in categorys %}
               <a href="{{ category.get_absolute_url }}" data-id="{{ category.id }}"
-                class="day-single__day category-link">{{ category.name }}</a>
+                class="day-single__day category-link" data-name="{{ category.name }}">{{ category.name }}</a>
               {% endfor %}
               {% endif %}
             </div>
@@ -85,7 +82,9 @@
         <div class="index-about__col">
           <h2 class="index-about__title _title">Немного о нас</h2>
           <div class="index-about__text text">
-            {{ home_page.about_text }}
+            <p>
+              {{ home_page.about_text }}
+            </p>
           </div>
           <a href="{% url 'about' %}" class="index-about__btn _btn index-about__btn-pc">Подробнее</a>
         </div>
@@ -229,14 +228,6 @@
         </div>
         {% endfor %}
         {% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div class="index-gallery">
-    <div class="index-gallery__grid">
-      <div class="index-gallery__item">
-        <img src="img/gallery/IMG_4300.jpg" alt="" />
       </div>
     </div>
   </div>

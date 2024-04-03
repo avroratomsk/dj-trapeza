@@ -11,6 +11,9 @@ def load_branch(request):
 def load_category(request):
     return {"categorys": Category.objects.all().exclude(slug="bez-kategorii")}
 
+def load_cat(request):
+    return {"cat": Category.objects.all().exclude(slug="bez-kategorii")}
+
 def load_service(request):
     return {"services": Service.objects.filter(status=True).exclude(slug="priyti-pokushat")}
 

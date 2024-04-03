@@ -99,9 +99,11 @@ def get_data(request):
     data = []
       
     for product in products:
+      
       data.append({
         'name': product.name,
         'price': product.price,
+        'weight': product.weight,
         'url': product.get_absolute_url(), # URL детальной страницы продукта
         'image': product.image.url
       })

@@ -18,6 +18,13 @@
 
   &__group {}
 
+  // .form__group-row
+
+  &__group-row {
+    flex-direction: row-reverse;
+  }
+
+
   // .form__label
 
   &__label {}

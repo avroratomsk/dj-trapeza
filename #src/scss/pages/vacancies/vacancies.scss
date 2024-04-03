@@ -1,0 +1,80 @@
+.vacancy {
+
+  // .vacancy__container
+
+  &__container {}
+
+  // .vacancy__row
+
+  &__row {
+    display: flex;
+    gap: 30px;
+
+    @media screen and (min-width: 920px) {
+      gap: 50px;
+    }
+  }
+}
+
+.vacancy-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(43, 70, 60, 0.3);
+  border-radius: 12px;
+  padding: 20px 20px 20px;
+  transition: 0.5s;
+
+  @media screen and (min-width: 920px) {
+    flex: 1 1 50%;
+  }
+
+  // .vacancy-item__head
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  // .vacancy-item__title
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  // .vacancy-item__salary
+
+  &__salary {
+    font-weight: 600;
+  }
+
+  // .vacancy-item__content
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    p {
+      font-size: 14px;
+      color: rgba($color: $mainColor, $alpha: .6);
+
+      &:not(:first-child) {
+        &::before {
+          content: "/";
+          padding: 0px 10px;
+          color: rgba($color: $mainColor, $alpha: .6);
+        }
+      }
+    }
+  }
+
+  // .vacancy-item__btn
+
+  &__btn {
+    align-self: flex-end;
+    color: rgba($color: $accent, $alpha: 1.0);
+    border-bottom: 1px solid rgba($color: $accent, $alpha: 1.0)
+  }
+}

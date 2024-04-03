@@ -104,3 +104,6 @@ def gallery(request):
 
 def callback(request):
   ...
+
+def vacancies(request):
+    return render(request, "pages/vacancies/vacancies.html")
