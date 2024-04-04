@@ -358,3 +358,26 @@ function getReviewsText(e) {
   let popupContent = openPopup.querySelector('.popup__text');
   popupContent.innerText += previeousElement;
 }
+
+/**
+ * Submenu мобильная версия сайта
+ */
+
+const navSubmenuBtn = document.querySelectorAll('.nav__submenu-btn');
+if (navSubmenuBtn) {
+  navSubmenuBtn.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      this.parentNode.classList.toggle('_show');
+    })
+  })
+}
+
+let burger = document.getElementById('burger');
+if (burger) {
+  burger.addEventListener('click', function (e) {
+    console.log('click');
+    console.log(e.target);
+    this.classList.toggle('_active');
+    document.querySelector('.nav').classList.toggle('_show');
+  })
+}

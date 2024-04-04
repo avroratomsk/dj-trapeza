@@ -2064,10 +2064,6 @@ html.lock body::before {
   padding: 10px 0px;
 }
 
-.top-header__container {
-  width: 100%;
-}
-
 .top-header__inner {
   display: flex;
   align-items: center;
@@ -2136,8 +2132,53 @@ html.lock body::before {
   margin-bottom: 20px;
 }
 
+.burger {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  position: relative;
+}
+
+.burger._active::after {
+  transform: rotate(-45deg);
+}
+
+.burger._active::before {
+  transform: rotate(45deg);
+}
+
+.burger._active span {
+  opacity: 0;
+}
+
+.burger span,
+.burger::before,
+.burger::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  left: 0;
+  background-color: #2b463c;
+  transition: 0.2s;
+}
+
+.burger::after {
+  transform: translateY(5px);
+}
+
+.burger::before {
+  transform: translateY(-5px);
+}
+
 .nav {
   flex: 1 1 auto;
+}
+
+.nav._show {
+  left: 0%;
 }
 
 .nav__list {
@@ -2147,13 +2188,17 @@ html.lock body::before {
 }
 
 .nav__item {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
-.nav__item:hover .submenu {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: all;
+.nav__item._show .nav__submenu-btn {
+  transform: rotate(-180deg);
+}
+
+.nav__item._show .submenu {
+  max-height: 300px;
 }
 
 .nav__link {
@@ -2171,23 +2216,19 @@ html.lock body::before {
   border-radius: 8px;
 }
 
-.nav__link:hover {
-  color: #ffffff;
-  background-color: #5c8600;
+.nav__submenu-btn {
+  padding: 15px;
+  transition: 0.5s;
 }
 
-.submenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 290px;
-  background: #ffffff;
-  padding: 20px 0px 0px;
-  border-radius: 8px;
-  transform: translateY(50px);
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.2s;
+.logo-mb {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.logo-mb img {
+  width: 170px;
 }
 
 .submenu__link {
@@ -3180,9 +3221,43 @@ section {
   }
 }
 
+@media screen and (min-width: 1100px) {
+  .burger {
+    display: none;
+  }
+
+  .nav__submenu-btn {
+    display: none;
+  }
+
+  .logo-mb {
+    display: none;
+  }
+
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 290px;
+    background: #ffffff;
+    padding: 20px 0px 0px;
+    border-radius: 8px;
+    transform: translateY(50px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .index-about__col:first-child {
     flex: 0 0 40%;
+  }
+}
+
+@media screen and (min-width: 1475px) {
+  .top-header__container {
+    width: 100%;
   }
 }
 
@@ -3197,6 +3272,54 @@ section {
 
   .index-about__btn-mb {
     display: flex !important;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .top-header__logo {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .nav {
+    position: fixed;
+    top: 0;
+    left: -150%;
+    width: 30%;
+    min-width: 300px;
+    height: 100vh;
+    padding: 20px;
+    border-right: 1px solid rgba(43, 70, 60, 0.2);
+    box-shadow: 0px 0px 4px rgba(43, 70, 60, 0.2);
+    background-color: white;
+    overflow-y: auto;
+    transition: 0.5s;
+    z-index: 99;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .nav__item {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .nav__link {
+    font-size: 18px;
+    padding: 15px 0px;
+    flex: 1 1 50%;
+  }
+
+  .submenu {
+    width: 100%;
+    max-height: 0px;
+    overflow: hidden;
+    transition: 0.5s;
   }
 }
 
@@ -3367,6 +3490,17 @@ section {
 
   .link-bar__link:hover {
     background-color: rgba(43, 70, 60, 0.05);
+  }
+
+  .nav__item:hover .submenu {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav__link:hover {
+    color: #ffffff;
+    background-color: #5c8600;
   }
 }
 /*# sourceMappingURL=maps/main.css.map */

@@ -6,8 +6,7 @@
       <!-- <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button> -->
       <form action="/" class="form">
         {% csrf_token %} {% if branchs %} {% for branch in branchs %}
-        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">
-          {{ branch.address_fillial }}</button>
+        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">{{ branch.address_fillial }}</button>
         {% endfor %} {% endif %}
       </form>
     </div>
@@ -20,7 +19,8 @@
       <p class="popup__title">Заказ обратного звонка</p>
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
-      <form action="/" class="form form-column">
+      <form action="{% url 'callback' %}" method="POST" class="form form-column">
+        {% csrf_token %}
         <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
         <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
         <button type="submit" class="form__submit">Заказать</button>
@@ -61,7 +61,7 @@
         <input type="email" placeholder="Email" class="form__controls" name="phone" />
         <label for="resume" class="resume">
           <span>Прикрепить резюме</span>
-          <input type="file" name="resume" id="resume">
+          <input type="file" name="resume" id="resume" />
         </label>
         <button type="submit" class="form__submit">Отправить</button>
       </form>

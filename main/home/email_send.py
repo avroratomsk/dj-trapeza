@@ -2,12 +2,13 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import BadHeaderError, send_mail
 from django.utils.html import strip_tags
-
+from_email = "info@xn----7sbah6bllcobpj.xn--p1ai"
+email_clients = 'saniagolovanev@gmail.com'
 
 def email_send(order):
   subject = "Заказ №" + str(order.id)
   html_content = render_to_string("mail/order_mail.html", {"order": order})
-  from_email = "info@xn----7sbah6bllcobpj.xn--p1ai"
+  from_email = from_email
   text_content = 'Не поддерживает HTML в письме'
   to = ['saniagolovanev@gmail.com']
   msg = EmailMultiAlternatives(subject, text_content, from_email, to)
@@ -18,13 +19,13 @@ def email_send(order):
   except Exception as e:
     print(f"Произошла ошибка при отправке письма: {e}")
     
-# def email_callback(title, message):
 
-#     send_mail(
-#         title,
-#         message,
-#         EMAIL_FROM,
-#         email_clients.split(','),
-#         fail_silently=False,
-#     )
+def email_callback(title, message):
+    send_mail(
+        title,
+        message,
+        from_email,
+        email_clients.split(','),
+        fail_silently=False,
+    )
     

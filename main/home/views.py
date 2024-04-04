@@ -1,8 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from datetime import datetime
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from blog.models import Post
+from home.forms import CallbackForm
+from .email_send import email_callback
 from news.models import News
 from service.models import Service
 from shop.models import Category, Day, Product, Branch
@@ -103,7 +105,23 @@ def gallery(request):
     return render(request, "pages/gallery.html", context)
 
 def callback(request):
-  ...
+    if request.method == 'POST':
+
+        form = CallbackForm(request.POST)
+        name = request.POST['name']
+        tel = request.POST['phone']
+
+        message = f"Заказ обратного звонка:nИМЯ: {name}nТЕЛЕФОН: {tel}"
+
+        if form.is_valid():
+            title = 'Заказ обратного звонка'
+            email_callback(title, message)
+            return redirect("home")
+
+        else:
+            return HttpResponse("Форма имеет ошибки. Пожалуйста, проверьте введенные данные.")
+    
+    return HttpResponse("Метод не POST. Пожалуйста, отправьте форму используя метод POST.")
 
 def vacancies(request):
     return render(request, "pages/vacancies/vacancies.html")

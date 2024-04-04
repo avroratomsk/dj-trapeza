@@ -288,7 +288,7 @@ from django.db import IntegrityError
 
 def parse_exсel(path):
   data = pd.read_excel(path)
-  # Product.objects.all().delete()
+  Product.objects.all().delete()
   # Day.objects.all().delete()
   # Branch.objects.all().delete()
 
@@ -303,6 +303,7 @@ def parse_exсel(path):
     meta_keywords = ''
     image = f"goods/{row['image']}"
     price = row['price']
+    price_two = row['price_two']
     discount = 0.0
     quantity = 1.0
     category_name = row['category']
@@ -332,7 +333,8 @@ def parse_exсel(path):
         branch = Branch.objects.create(name=branch_name, slug=branch_slug)
       branchs.append(branch)
 
-    weight = ''
+    weight = row['weight']
+    weight_two = row['weight_two']
     calories = ''
     proteins = ''
     fats = ''
@@ -354,10 +356,12 @@ def parse_exсel(path):
         meta_keywords=meta_keywords,
         image=image,
         price=price,
+        price_two=price_two,
         discount=discount,
         quantity=quantity,
         category=category,
         weight=weight,
+        weight_two=weight_two,
         calories=calories,
         proteins=proteins,
         fats=fats,
