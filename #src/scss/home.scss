@@ -1,3 +1,7 @@
+* {
+  // outline: 1px solid red;
+}
+
 .index-banner {
   // margin-top: 120px;
   background-repeat: no-repeat;
@@ -15,7 +19,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba($color: $mainColor, $alpha: .6);
+    background-color: rgba($color: $mainColor, $alpha: .3);
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 30px;
   }
 
   // .index-banner__container
@@ -37,12 +45,18 @@
   // .index-banner__undertitle
 
   &__undertitle {
-    // margin-bottom: 20px;
+    margin-bottom: 20px;
     color: $white;
     font-weight: 400;
     font-size: 30px;
+    line-height: 140%;
     font-family: $secondaryFont;
     letter-spacing: .5px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 20px;
+      text-align: center;
+    }
   }
 
   // .index-banner__title
@@ -52,10 +66,14 @@
     font-size: 130px;
     text-align: center;
     letter-spacing: 3px;
-    font-weight: 900;
-    font-family: $fontFamily;
+    // font-weight: 900;
+    font-family: "Marck Script", cursive;
     line-height: 120%;
     // text-transform: uppercase;
+
+    @media screen and (max-width: 768px) {
+      font-size: 80px;
+    }
   }
 
   // .index-banner__btns
@@ -76,14 +94,15 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 25px;
     font-weight: 600;
     transition: $animation_speed;
     color: $white;
     width: 100%;
     min-width: 290px;
     padding: 10px 50px;
-    border: 1px solid rgba($color: $accent, $alpha: 0);
+    background-color: rgba($color: $accent, $alpha: 0) !important;
+    // border: 1px solid rgba($color: $accent, $alpha: 0);
   }
 }
 
@@ -140,14 +159,21 @@
   // .index-service__grid
 
   &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    @media screen and (max-width: 768px) {
+      flex-wrap: wrap;
+    }
   }
 
   // .index-service__item
 
-  &__item {}
+  &__item {
+    min-width: 290px;
+    max-width: 370px;
+  }
 }
 
 .item-service {
@@ -185,10 +211,10 @@
   // .item-service__title
 
   &__title {
-    font-size: 23px;
-    font-weight: 500;
+    font-size: 25px;
+    // font-weight: 500;
     margin-bottom: 20px;
-    font-family: $fontFamily;
+    font-family: "Marck Script", cursive;
   }
 
   // .item-service__icon
@@ -240,6 +266,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 30px;
+
+    @media screen and (max-width: 920px) {
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    }
   }
 
 
@@ -364,6 +394,7 @@
     color: $mainColor;
     text-align: center;
     margin-bottom: 15px;
+    font-family: "Marck Script", cursive;
     // text-shadow: 0px 0px 2px rgba($color: #000000, $alpha: 1.0);
   }
 
@@ -393,6 +424,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+
   }
 
   // .tab__trigger
@@ -401,16 +433,16 @@
     // background-color: #74aa4b;
     padding: 10px 15px;
     border-radius: 20px;
-    font-family: $secondaryFont;
     letter-spacing: .5px;
     font-size: 16px;
     color: $mainColor;
     font-weight: 500;
+
     text-transform: uppercase;
     transition: $animation_speed;
 
     &.active {
-      color: #e76642;
+      color: $accent;
     }
 
     &:first-child {
@@ -418,7 +450,7 @@
     }
 
     &:hover {
-      color: #e76642;
+      color: $accent;
     }
   }
 
@@ -442,6 +474,11 @@
 
 .reviews {
   padding: 100px 0px;
+
+  @media screen and (max-width: 768px) {
+    padding: 50px 0px;
+  }
+
   // background-color: ;
 
   // .reviews__container
@@ -461,6 +498,8 @@
   &__title {
     text-align: center;
     margin-bottom: 20px;
+    font-weight: 400 !important;
+    font-family: "Marck Script", cursive;
   }
 
   // .reviews__subtitle
@@ -553,7 +592,6 @@
 
   &__name {
     font-size: 16px;
-    text-align: right;
 
     p {
       font-weight: 600;
@@ -703,6 +741,7 @@
 .index-about {
   position: relative;
   padding: 50px 0px;
+  overflow-x: hidden;
   border-bottom: 1px solid rgba($color: $mainColor, $alpha: .2);
 
   // .index-about__container
@@ -750,13 +789,15 @@
 
   &__title {
     margin-bottom: 20px;
+    font-weight: 400 !important;
+    font-family: "Marck Script", cursive;
   }
 
   // .index-about__text
 
   &__text {
     p {
-      line-height: 140%;
+      line-height: 160%;
 
     }
 
@@ -845,6 +886,8 @@
     text-align: center;
     color: $white !important;
     margin-bottom: 20px;
+    font-family: "Marck Script", cursive;
+    font-weight: 400 !important;
   }
 
   // .callback__subtitle
@@ -918,7 +961,6 @@
   // .index-blog__container
 
   &__container {
-    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -927,6 +969,8 @@
 
   &__title {
     text-align: center;
+    font-family: "Marck Script", cursive;
+    font-weight: 400 !important;
     margin-bottom: 30px;
   }
 

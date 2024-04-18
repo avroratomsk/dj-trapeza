@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from shop.models import Category, Product
 from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
 
+
 def service(request):
   services = Service.objects.filter(status=True)
   try:
@@ -24,15 +25,23 @@ def service(request):
   return render(request, "pages/service/service.html", context)
 
 def service_detail(request, slug):
+  print(slug)
   category = ServiceCategory.objects.all()
   service = Service.objects.get(slug=slug)
   product = ServiceProduct.objects.filter(service=service)
-  categories_with_products = Service.objects.annotate(num_products=Count('serviceproduct')).filter(num_products__gt=0)
+  products = ServiceProduct.objects.filter(service_id=service).prefetch_related('category')
+  products_by_category = {}
+  
+  for category in category:
+      products_by_category[category] = [product for product in products if product.category == category]
+  
   
   context = {
     "service": service,
     "products": product,
     "categorys": category,
+    "product_category": products_by_category,
+    'products_by_category': products_by_category
   }
   
   return render(request, "pages/service/service_detail.html", context)

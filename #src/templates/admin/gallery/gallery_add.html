@@ -3,7 +3,8 @@
 <div class="page">
   <div class="page__inner">
     <div class="page__add">
-      <a href="{% url 'product_add' %}">Добавить фотографию</a>
+      <h1 class="page__title">Добавление фотографии</h1>
+      <a href="javascript:history.back()"> Назад </a>
     </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
       {% csrf_token %}
@@ -19,10 +20,14 @@
               <label for="{{ form.alt.id_for_label }}" class="form__controls-label">ALT <span>:</span></label>
               {{ form.alt }} {{ form.alt.errors }}
             </div>
+            <div class="form__group form__group-checkbox">
+              <label for="{{ form.status.id_for_label }}" class="form__controls-label">Опубликовать <span>?</span></label>
+              {{ form.status }} {{ form.status.errors }}
+            </div>
+            <button type="submit" class="form__btn">Сохранить</button>
           </div>
         </div>
       </div>
-      <button type="submit" class="form__btn">Сохранить</button>
     </form>
   </div>
 </div>

@@ -61,6 +61,19 @@ def index(request):
     }
     return render(request, 'pages/index.html', context)
 
+
+from django.urls import resolve
+
+def get_breadcrumbs(request):
+    breadcrumbs = []
+    url_path = request.path
+    url_names = url_path.strip("/").split("/")
+    for index, url_name in enumerate(url_names):
+        url = "/" + "/".join(url_names[:index+1])
+        view_name = resolve(url).url_name
+        breadcrumbs.append({'url': url, 'name': view_name})
+    return breadcrumbs
+
 def about(request):
     try:
         about_page = AboutTemplate.objects.get()

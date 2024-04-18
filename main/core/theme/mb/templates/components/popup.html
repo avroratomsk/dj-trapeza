@@ -35,9 +35,12 @@
       <p class="popup__title">Забронировать зал</p>
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
-      <form action="/" class="form form-column">
+      <form action="/" class="form form-column" method="POST">
+        {% csrf_token %}
         <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
         <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
+        <input type="date" id="data" name="data" class="form__controls" />
+        <input type="number" id="number" name="number" class="form__controls" placeholder="Сколько человек ?" />
         <select name="reservation" id="reservation" class="form__select">
           {% if branchs %} {% for branch in branchs %}
           <option value="{{ branch.name }}" class="form__option">{{ branch.name }}</option>

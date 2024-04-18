@@ -22,22 +22,7 @@ def catalog(request):
 
   return render(request, "pages/catalog/products.html", context)
 
-def resize_image(image_path, width, height):
-  print(image_path)
-  if not os.path.exists(image_path):
-    print(f"File does not exist.")
-    return None
-  try:
-    img = Image.open(image_path)
-    img.thumbnail((width, height))
 
-    output = io.BytesIO()
-    img.save(output, format='JPG')
-    print(f"{output.getvalue()} - Первое")
-    return output.getvalue()
-  except Exception as e:
-    print(f"Error processing image: {e}")
-    return None
 
 # def get_category_products(request, category_id):
 #   # Получаем текущую дату

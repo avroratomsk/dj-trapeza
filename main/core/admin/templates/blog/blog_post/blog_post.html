@@ -4,8 +4,12 @@
   <div class="page__inner">
     <div class="page__add">
       <h1 class="page__title">Статьи</h1>
-      <a href="{% url 'post_add' %}">Добавить статью</a>
+      <div class="page__head-inner">
+        <a href="{% url 'post_add' %}" class="page__add-btn">Добавить статью</a>
+        <a href="javascript:history.back()" class="page__add-back"> Назад </a>
+      </div>
     </div>
+    {% if posts %}
     <div class="table-4">
       <div class="head-table table-4__head">
         <div class="head-table__image">Изображение</div>
@@ -14,7 +18,7 @@
         <div class="head-table__action">Действия</div>
       </div>
       <div class="body-table table-4__body">
-        {% if posts %}Есть {% else %}Нету{% endif %} {% for post in posts %}
+        {% for post in posts %}
         <div class="body-table__row">
           <div class="body-table__image">
             {% if post.image %} {% thumbnail post.image "150x150" format="WEBP" as im %}
@@ -30,9 +34,7 @@
             <p class="">{{ post.name }}</p>
             {% endif %}
           </div>
-          <div class="body-table__price">
-            {{ post.date_creation }}
-          </div>
+          <div class="body-table__price">{{ post.date_creation }}</div>
           <div class="body-table__action">
             <a href="{{ post.get_absolute_url }}" target="_blank" class="info">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -95,6 +97,11 @@
         {% endfor %}
       </div>
     </div>
+    {% else %}
+    <div class="empty">
+      <p>Статьи не заполнены</p>
+    </div>
+    {% endif %}
   </div>
 </div>
 

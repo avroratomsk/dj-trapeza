@@ -39,7 +39,7 @@ class ServiceProduct(models.Model):
   image = models.ImageField(upload_to="service-product", blank=True, null=True, verbose_name="Изображение товара")
   price = models.CharField(max_length=250, null=True, blank=True, verbose_name="Цена")
   service = models.ForeignKey("Service", on_delete=models.CASCADE, null=True, blank=True, default=None, verbose_name='Сервис')
-  category = models.ForeignKey("ServiceCategory", on_delete=models.CASCADE, null=True, blank=True, default=None, verbose_name='Категория')
+  category = models.ForeignKey("ServiceCategory", on_delete=models.CASCADE, related_name="category_service", null=True, blank=True, default=None, verbose_name='Категория')
   slug = models.SlugField(max_length=150, unique=True, verbose_name="URL")
   meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")

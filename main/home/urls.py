@@ -1,9 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 
 from home import views
 
 urlpatterns = [
-    path('o-nas/', views.about, name="about"),
+    path('o-nas/', include('blog.urls')),
     path('kontakty/', views.contact, name="contact"),
     path('akcii/', views.stock, name="stock"),
     path('akcii/<slug:slug>', views.stock_detail, name="stock_detail"),

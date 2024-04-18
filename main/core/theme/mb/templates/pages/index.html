@@ -1,78 +1,84 @@
 {% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
 
-    <main class="page">
-      <div class="index-banner" style="background-image: url({{ home_page.banner.url }})">
-        <div class="index-banner__container">
-          <div class="index-banner__content">
-            <p class="index-banner__undertitle">{{ home_page.untitle }}</p>
-            <h1 class="index-banner__title">{{ home_page.meta_h1 }}</h1>
-            <div class="index-banner__btns">
-              <a href="{% url 'catalog' %}" class="index-banner__btn _btn">Перейти в меню</a>
-              <!-- <a href="#" class="index-banner__btn btn">Связаться</a> -->
-            </div>
-          </div>
+<main class="page">
+  <div class="index-banner"
+    style="background-image: url({% if home_page.banner %}{{ home_page.banner.url }}{% endif %})">
+    <div class="index-banner__container">
+      <div class="index-banner__content">
+        <p class="index-banner__undertitle">{{ home_page.untitle }}</p>
+        <h1 class="index-banner__title">{{ home_page.meta_h1 }}</h1>
+        <div class="index-banner__btns">
+          <a href="{% url 'catalog' %}" class="index-banner__btn _btn">Перейти в меню</a>
+          <!-- <a href="#" class="index-banner__btn btn">Связаться</a> -->
         </div>
       </div>
-      <div class="index-service">
-        <button type="button" class="index-service__union"
-          style="background-image: url({% static 'theme/mb/images/Union.svg' %})">
-          <span>
-            <svg xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-              <path
-                d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-            </svg>
-          </span>
-        </button>
-        <div class="index-service__container">
-          <div class="index-service__grid">
-            {% if services %}
-            {% for service in services %}
-            <a href="{{ service.get_absolute_url }}" class="index-service__item item-service">
-              <div class="item-service__top">
-                <p class="item-service__title">{{ service.name }}</p>
-                <div class="item-service__icon">
-                  <svg role="presentation" class="t959__card-arrow" width="14" height="24" viewBox="0 0 14 24"
-                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 0.994385L12 11.9944L1 22.9944" stroke="#6c7c40" stroke-width="2"></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="item-service__text">{{ service.subtitle|truncatechars:50 }}</div>
-              <div class="item-service__image">
-                {% if service.image %}
-                <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
-                {% endif %}
-              </div>
-            </a>
-            {% endfor %}
-            {% else %}
-            не заполнено
+    </div>
+  </div>
+  <div class="index-service">
+    <button type="button" class="index-service__union"
+      style="background-image: url({% static 'theme/mb/images/Union.svg' %})">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+          <path
+            d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+        </svg>
+      </span>
+    </button>
+    <div class="index-service__container">
+      <div class="index-service__grid">
+        {% if services %}
+        {% for service in services %}
+        <a href="{{ service.get_absolute_url }}" class="index-service__item item-service" data-aos="fade-up"
+          data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
+
+          <div class="item-service__top">
+            <p class="item-service__title">{{ service.name }}</p>
+            <div class="item-service__icon">
+              <svg role="presentation" class="t959__card-arrow" width="14" height="24" viewBox="0 0 14 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 0.994385L12 11.9944L1 22.9944" stroke="#6c7c40" stroke-width="2"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="item-service__text">{{ service.subtitle|truncatechars:50 }}</div>
+          <div class="item-service__image">
+            {% if service.image %}
+            <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
             {% endif %}
           </div>
+        </a>
+        {% endfor %}
+        {% else %}
+        не заполнено
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="index-catalog">
+    <div class="index-catalog__container">
+      <h2 class="index-catalog__title title--dark" data-aos="zoom-in" data-aos-once="true">Меню дня</h2>
+      <div class="index-catalog__tab tab">
+        <div class="day-single__days">
+          {% if categorys %}
+          {% for category in categorys %}
+          <a href="{{ category.get_absolute_url }}" data-id="{{ category.id }}" class="day-single__day category-link"
+            data-name="{{ category.name }}" data-aos="fade-up"
+            data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
+            {{ category.name }}</a>
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
-      <div class="index-catalog">
-        <div class="index-catalog__container">
-          <h2 class="index-catalog__title title--dark">Меню дня</h2>
-          <div class="index-catalog__tab tab">
-            <div class="day-single__days">
-              {% if categorys %}
-              {% for category in categorys %}
-              <a href="{{ category.get_absolute_url }}" data-id="{{ category.id }}"
-                class="day-single__day category-link" data-name="{{ category.name }}">{{ category.name }}</a>
-              {% endfor %}
-              {% endif %}
-            </div>
-          </div>
-          <div class="tab__content">
-            <div id="products-container"></div>
-            <div class="tab__content-grid" id="products-grid">
+      <div class="tab__content">
+        <div id="products-container"></div>
+        <div class="tab__content-grid" id="products-grid" data-name="{{ category.name }}" data-aos="zoom-in"
+          data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
 
-            </div>
-          </div>
         </div>
       </div>
+    </div>
+  </div>
   </div>
 
   <div class="index-about">
@@ -80,19 +86,20 @@
     <div class="index-about__container">
       <div class="index-about__row">
         <div class="index-about__col">
-          <h2 class="index-about__title _title">Немного о нас</h2>
-          <div class="index-about__text text">
+          <h2 class="index-about__title _title" data-aos="fade-up" data-aos-once="true">Немного о нас</h2>
+          <div class="index-about__text text" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
             <p>
               {{ home_page.about_text }}
             </p>
           </div>
-          <a href="{% url 'about' %}" class="index-about__btn _btn index-about__btn-pc">Подробнее</a>
+          <a href="{% url 'blog' %}" class="index-about__btn _btn index-about__btn-pc" data-aos="zoom-in"
+            data-aos-delay="500" data-aos-once="true">Подробнее</a>
         </div>
         <div class="index-about__col">
-          <div class="index-about__image">
+          <div class="index-about__image" data-aos="fade-left" data-aos-once="true">
             <img src="{% static 'theme/mb/images/about.jpg' %}" alt="">
           </div>
-          <a href="{% url 'about' %}" class="index-about__btn _btn index-about__btn-mb">Подробнее</a>
+          <a href="{% url 'blog' %}" class="index-about__btn _btn index-about__btn-mb">Подробнее</a>
         </div>
       </div>
     </div>
@@ -102,11 +109,13 @@
     <div class="reviews__container">
       <div class="reviews__inner">
         <div class="reviews__block-top">
-          <h2 class="reviews__title title--dark">Отзывы клиентов</h2>
-          <p class="reviews__subtitle">Мы накормили уже много людей. Так как мы делаем это с любовью и профессионально,
+          <h2 class="reviews__title title--dark" data-aos="fade-up" data-aos-once="true">Отзывы клиентов</h2>
+          <p class="reviews__subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">Мы накормили уже
+            много людей. Так как мы
+            делаем это с любовью и профессионально,
             все клиенты довольные и сытые.</p>
         </div>
-        <div class="reviews__slider swiper">
+        <div class="reviews__slider swiper" data-aos="fade-up" data-aos-delay="500" data-aos-once="true">
           <div class="reviews__wrapper swiper-wrapper">
             {% for review in reviews %}
             <div class="reviews__slide swiper-slide">
@@ -133,7 +142,7 @@
           </div>
           <div class="reviews__controls">
             <!-- <button type="button" class="reviews__controls-btn">Оставить отзыв</button> -->
-            <div class="reviews__controls-inherit">
+            <div class="reviews__controls-inherit" data-aos="fade-up" data-aos-delay="700" data-aos-once="true">
               <div class="swiper-button-prev reviews__controls-prev"></div>
               <div class="swiper-pagination reviews__controls-pagination"></div>
               <div class="swiper-button-next reviews__controls-next"></div>
@@ -146,25 +155,29 @@
 
   <div class="callback" style="background-image: url({% static 'theme/mb/images/3.jpg' %})">
     <div class="callback__container">
-      <h2 class="callback__title _title">Напишите нам !</h2>
-      <p class="callback__subtitle">
+      <h2 class="callback__title _title" data-aos="fade-up" data-aos-once="true">Напишите нам !</h2>
+      <p class="callback__subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
         Если вы хотите заказать корпоративные обеды, банкет, кейтеринг или другие мероприятия, предложить сотрудничество
         или связаться по другому интересующему вас вопросу,
         заполните форму связи и мы обязательно ответим!
       </p>
       <form action="#" class="callback__form">
-        <input type="text" name="name" placeholder="Имя" class="callback__input" />
-        <input type="text" name="phone" placeholder="Телефон" class="callback__input" />
-        <input type="text" name="message" placeholder="Сообщение" class="callback__input" />
-        <button type="submit" class="callback__submit">Отправить</button>
+        <input type="text" name="name" placeholder="Имя" class="callback__input" data-aos="fade-up" data-aos-delay="400"
+          data-aos-once="true" />
+        <input type="text" name="phone" placeholder="Телефон" class="callback__input" data-aos="fade-up"
+          data-aos-delay="500" data-aos-once="true" />
+        <input type="text" name="message" placeholder="Сообщение" class="callback__input" data-aos="fade-up"
+          data-aos-delay="600" data-aos-once="true" />
+        <button type="submit" class="callback__submit" data-aos="fade-up" data-aos-once="true"
+          data-aos-delay="700">Отправить</button>
       </form>
     </div>
   </div>
 
   <div class="index-blog">
     <div class="index-blog__container">
-      <h2 class="index-blog__title _title">Интересное для Вас</h2>
-      <div class="index-blog__tab">
+      <h2 class="index-blog__title _title" data-aos="fade-up" data-aos-once="true">Интересное для Вас</h2>
+      <div class="index-blog__tab" data-aos="fade-up" data-aos-delay="200" data-aos-once="true">
         <button type="button" class="index-blog__tigger _active" data-id="news">Новости</button>
         <button type="button" class="index-blog__tigger" data-id="article">Статьи</button>
         <button type="button" class="index-blog__tigger" data-id="stock">Акции</button>
@@ -172,7 +185,8 @@
       <div class="index-blog__grid _active" id="news">
         {% if news %}
         {% for new in news %}
-        <div class="index-blog__item">
+        <div class="index-blog__item" data-aos-once="true" data-aos="fade-up"
+          data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00">
           <a href="{{ new.get_absolute_url }}" class="index-blog__item-image">
             {% if new.image %}
             <img src="{{ new.image.url }}" alt="{{ new.name }}" title="{{ new.name }}">
@@ -192,7 +206,8 @@
       <div class="index-blog__grid" id="article">
         {% if articles %}
         {% for article in articles %}
-        <div class="index-blog__item">
+        <div class="index-blog__item" data-aos="fade-up"
+          data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
           <a href="{{ article.get_absolute_url }}" class="index-blog__item-image">
             {% if article.image %}
             <img src="{{ article.image.url }}" alt="{{ article.name }}" title="{{ article.name }}">
@@ -212,7 +227,8 @@
       <div class="index-blog__grid" id="stock">
         {% if stocks %}
         {% for stock in stocks %}
-        <div class="index-blog__item">
+        <div class="index-blog__item" data-aos="fade-up"
+          data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
           <a href="{{ stock.get_absolute_url }}" class="index-blog__item-image">
             {% if stock.image %}
             <img src="{{ stock.image.url }}" alt="{{ stock.name }}" title="{{ stock.name }}">
@@ -234,9 +250,9 @@
 
   <section class="contact">
     <div class="contact__container">
-      <h2 class="contact__title _title">Контакты</h2>
+      <h2 class="contact__title _title" data-aos="fade-up" data-aos-once="true">Контакты</h2>
       <div class="contact__row">
-        <div class="contact__col contact-info">
+        <div class="contact__col contact-info" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
           <div class="contact-info__row">
             <div class="contact-info__icon">
               <i class="fa-solid fa-location-dot"></i>
@@ -250,7 +266,8 @@
             <div class="contact-info__icon">
               <i class="fa-solid fa-phone-volume"></i>
             </div>
-            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{ settings.phone_one }}</a>
+            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
+              settings.phone_one }}</a>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
@@ -271,7 +288,7 @@
             <p class="contact-info__content" id="weekend">суббота и воскресенье выходной</p>
           </div>
         </div>
-        <div class="contact__col form">
+        <div class="contact__col form" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
           <form action="" class="form__form">
             <div class="form__group require">
               <label for="contact-name" class="require">Имя</label>
@@ -301,58 +318,58 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map">
-        
+      <div class="contact__map" id="map" data-aos="fade-up" data-aos-once="true" data-aos-delay="600">
+
       </div>
     </div>
   </section>
-  </main>
+</main>
 
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    const swiper = new Swiper('.reviews__slider', {
-      // Optional parameters
-      direction: 'horizontal',
-      loop: true,
-      slidesPerView: 3,
-      spaceBetween: 30,
-      centeredSlides: true,
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('.reviews__slider', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+    slidesPerView: 3,
+    spaceBetween: 30,
+    centeredSlides: true,
 
-      // If we need pagination
-      pagination: {
-        el: '.swiper-pagination',
-      },
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
 
-      // Navigation arrows
-      navigation: {
-        nextEl: '.reviews__controls-next',
-        prevEl: '.reviews__controls-prev',
-      },
+    // Navigation arrows
+    navigation: {
+      nextEl: '.reviews__controls-next',
+      prevEl: '.reviews__controls-prev',
+    },
 
-      // And if we need scrollbar
-      scrollbar: {
-        el: '.swiper-scrollbar',
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 30,
       },
-      breakpoints: {
-        0: {
-          slidesPerView: 1,
-          spaceBetween: 30,
-        },
-        620: {
-          slidesPerView: 2,
-          spaceBetween: 30,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 40,
-        },
+      620: {
+        slidesPerView: 2,
+        spaceBetween: 30,
       },
-    });
-  </script>
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 30,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 40,
+      },
+    },
+  });
+</script>
 </body>
 {% endblock %} {% include "../components/footer.html" %}

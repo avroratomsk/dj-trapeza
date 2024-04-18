@@ -13,6 +13,9 @@
 
   &__item {
     padding: 15px 20px;
-    background: $white;
+    background: $accent;
+    color: $white;
+    border-radius: 5px;
+
   }
 }

@@ -3,10 +3,13 @@
 <div class="page">
   <div class="page__inner">
     <div class="page__add">
-      <h1 class="page__title">Акции</h1>
-      <a href="{% url 'stock_add' %}">Добавить акцию</a>
+      <h1 class="page__title">Отзывы</h1>
+      <div class="page__head-inner">
+        <a href="{% url 'stock_add' %}" class="page__add-btn">Добавить акцию</a>
+        <a href="javascript:history.back()" class="page__add-back"> Назад </a>
+      </div>
     </div>
-    {% if stocks.count > 0 %}
+    {% if stocks %}
     <div class="table-3">
       <div class="head-table table-3__head">
         <div class="head-table__image">Изображение</div>

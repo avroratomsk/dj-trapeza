@@ -6,27 +6,27 @@
     <div class="footer__grid">
       <div class="footer__col">
         <p class="footer__title">Контакты</p>
-        <div class="footer__item">
+        <div class="footer__item" data-aos="fade-up" data-aos-once="true" data-aos-delay="100">
           <span>Адрес: </span>
           <span id="footer-addres">г.Томск ул. Ленина 193</span>
         </div>
-        <div class="footer__item">
+        <div class="footer__item" data-aos="fade-up" data-aos-delay="200" data-aos-once="true">
           <span>Телефон: </span>
           <a href="tel:{{ settings.phone_one }}" class="reg-num" id="footer-phone">{{ settings.phone_one }}</a>
         </div>
-        <div class="footer__item">
+        <div class="footer__item" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
           <span>Время работы: </span>
           <span id="footer-time-work">пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
         </div>
-        <div class="footer__item">
+        <div class="footer__item" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
           <span>Выходные: </span>
           <span id="footer-weekend">пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
         </div>
-        <div class="footer__item">
+        <div class="footer__item" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
           <span>Электронная почта: </span>
           <span>trapeza@mail.ru</span>
         </div>
-        <div class="footer__social">
+        <div class="footer__social" data-aos="fade-up" data-aos-delay="600" data-aos-once="true">
           <a href="#"><img src="img/icon/i-vk.svg" alt="" /></a>
           <a href="#"><img src="img/icon/i-wa.svg" alt="" /></a>
           <a href="#"><img src="img/icon/i-telegram.svg" alt="" /></a>
@@ -35,18 +35,18 @@
       <div class="footer__col">
         <p class="footer__title">Меню</p>
         <nav class="footer__nav">
-          {% if categorys %} {% for category in categorys %}
-          <a href="#">{{ category.name }}</a>
-          {% endfor %} {% endif %}
+          {% comment %} {% if categorys %} {% for category in categorys %}
+          <a href="#" data-aos="fade-up" data-aos-once="true" data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00">{{ category.name }}</a>
+          {% endfor %} {% endif %} {% endcomment %}
         </nav>
       </div>
       <div class="footer__col">
         <div class="footer__logo"><img src="img/logo-2-white.svg" alt="" /></div>
         <nav class="footer__nav">
-          <a href="#">Политика конфиденциальности</a>
-          <a href="{% url 'blog' %}">Статьи</a>
-          <a href="{% url 'reviews' %}">Отзывы</a>
-          <a href="{% url 'contact' %}">Контакты</a>
+          <a href="#" data-aos="fade-up" data-aos-once="true" data-aos-delay="100">Политика конфиденциальности</a>
+          <a href="{% url 'blog' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="200">Статьи</a>
+          <a href="{% url 'reviews' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="300">Отзывы</a>
+          <a href="{% url 'contact' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="400">Контакты</a>
         </nav>
       </div>
     </div>

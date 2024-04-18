@@ -5,13 +5,11 @@
     <div class="service-page__container">
       <div class="products__top title-page">
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Главная
             <meta itemprop="position" content="1" />
           </a>
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Услуги
             <meta itemprop="position" content="2" />
           </a>
@@ -23,7 +21,11 @@
         <h1 class="products__title title-page__title">{{ service.name }}</h1>
         {% if service.subtitle %}
         <p class="products__subtitle">{{ service.subtitle }}</p>
-        {% endif %}
+        {% if request.path == "/service/pominalnye-obedy/" %}
+        <button type="button" class="products__btn" data-popup="popup-pominalnye">Заказать обед</button>
+        {% else %}
+        <button type="button" class="products__btn" data-popup="popup-reservation">Заказать банкет</button>
+        {% endif %} {% endif %}
       </div>
     </div>
     <section class="service-page__body body-service">
@@ -42,14 +44,12 @@
               {% if branch.image %}
               <img src="{{ branch.image.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% else %}
-              <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ branch.name }}"
-                title="{{ branch.name }}" />
+              <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% endif %}
               <span>{{ branch.address_fillial }}</span>
             </div>
             {% if forloop.counter == 2 %}
-            <button type="button" class="body-service__btn _btn" data-popup="popup-reservation">Забронировать
-              зал</button>
+            <button type="button" class="body-service__btn _btn" data-popup="popup-reservation">Забронировать зал</button>
             {% endif %}
           </div>
           {% endfor %}{% endif %}
@@ -58,8 +58,19 @@
     </section>
     {% if products %}
     <section class="service-menu">
+      {% comment %} <img src="{% static 'theme/mb/images/menun.webp' %}" alt="" class="service-menu__bg" /> {% endcomment %}
       <div class="service-menu__container">
-        <h2 class="_title">Меню</h2>
+        {% comment %}
+        <h2 class="_title service-menu__title">Меню</h2>
+        {% endcomment %} {% if request.path == "/service/pominalnye-obedy/" %}
+        <div class="pominalnye">
+          {% for category, products in products_by_category.items %} {% for product in products %}
+          <ul class="pominalnye__item">
+            <li class="pominalnye__title"><span>{{forloop.counter}}.</span>{{ product.name }}</li>
+          </ul>
+          {% endfor %} {% endfor %}
+        </div>
+        {% else %} {% for category, products in products_by_category.items %}
         <div class="service-menu__row">
           <h2 class="service-menu__title _title">{{ category.name }}</h2>
           <div class="products-single__grid">
@@ -69,29 +80,24 @@
                 {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
                 <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
                 {% endthumbnail %} {% else %}
-                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}"
-                  title="{{ product.name }}" />
+                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
                 {% endif %}
               </div>
               <p class="card-product__name">{{ product.name }}</p>
 
-              {% if product.discount %}
-              <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
-              {% else %} {% if product.price %}
-              <p class="card-product__price">{{ product.price }}₽</p>
-              {% endif %} {% endif %} {% if product.weight %}
-              <p class="card-product__weight">{{ product.weight }} за 100 грамм</p>
-              {% endif %} {% if product.banquet_menu %}
-              <p class="card-product__weight">{{ product.banquet_menu }}</p>
+              {% if product.price %}
+              <p class="card-product__price">{{ product.price }}</p>
               {% endif %}
             </div>
             {% endfor %}
           </div>
         </div>
+        {% endfor %} {% endif %}
       </div>
     </section>
     {% endif %}
   </div>
+
   <section class="contact">
     <div class="contact__container">
       <h2 class="contact__title _title">Контакты</h2>
@@ -110,8 +116,7 @@
             <div class="contact-info__icon">
               <i class="fa-solid fa-phone-volume"></i>
             </div>
-            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
-              settings.phone_one }}</a>
+            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{ settings.phone_one }}</a>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
@@ -140,8 +145,7 @@
             </div>
             <div class="form__group">
               <label for="contact-phone" class="require">Телефон</label>
-              <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
-                class="form__controls" />
+              <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*" class="form__controls" />
             </div>
             <div class="form__group">
               <label for="contact-email" class="require">Email</label>
@@ -149,8 +153,7 @@
             </div>
             <div class="form__group">
               <label for="contact-message">Коментарий к заявке</label>
-              <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
-                class="form__controls"></textarea>
+              <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий" class="form__controls"></textarea>
             </div>
             <div class="form__group">
               <button type="submit" class="form__btn">Отправить</button>
@@ -162,9 +165,7 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map">
-
-      </div>
+      <div class="contact__map" id="map"></div>
     </div>
   </section>
 </main>

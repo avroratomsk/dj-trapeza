@@ -3,18 +3,18 @@
   margin-bottom: 50px;
   background: #ffffff;
   border-radius: 50px;
+  position: relative;
 
   // .service-menu__title
   &__title {
     margin-bottom: 30px;
-    text-align: center;
   }
+
 
   // .service-menu__container
   &__container {
     display: flex;
     flex-direction: column;
-    width: 100%;
     gap: 40px;
   }
 
@@ -24,8 +24,54 @@
   // .service-menu__title
   &__title {
     margin-bottom: 30px;
-    text-align: left;
+    text-align: center;
     font-size: 30px !important;
+    font-family: "Marck Script", cursive;
   }
+
+  .service-menu__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+}
+
+.products__btn {
+  margin-top: 40px;
+  padding: 15px 40px;
+  color: rgba($color: $white, $alpha: 1.0);
+  background-color: rgba($color: $accent, $alpha: 1.0);
+  border-radius: 8px;
+}
+
+.pominalnye {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // .pominalnye__item
+
+  &__item {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  // .pominalnye__title
+
+  &__title {
+    display: flex;
+    gap: 10px;
+
+    span {
+      font-weight: 600;
+      margin-right: 5px;
+    }
+  }
+
 
 }

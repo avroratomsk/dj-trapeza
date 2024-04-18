@@ -3,8 +3,7 @@
 <div class="page">
   <div class="page__inner">
     <div class="page__add">
-      <h1 class="page__title">Глобальные настройки сайта</h1>
-      <a href="javascript:history.back()"> Назад </a>
+      <h1 class="page__title">Редактирование шаблона страницы Блог</h1>
     </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
       {% csrf_token %}
@@ -13,12 +12,8 @@
         <div class="page-edit__item _show">
           <div class="page-edit__form">
             <div class="form__group">
-              <label for="{{ form.logo.id_for_label }}" class="form__controls-label">Логотип <span>:</span></label>
-              {{ form.logo }} {{ form.logo.errors }}
-            </div>
-            <div class="form__group">
-              <label for="{{ form.email.id_for_label }}" class="form__controls-label">Email <span>:</span> </label>
-              {{ form.email }} {{ form.email.errors }}
+              <label for="{{ form.image.id_for_label }}" class="form__controls-label"><span>*</span>Баннер <span>:</span></label>
+              {{ form.image }} {{ form.image.errors }}
             </div>
             <div class="form__group">
               <label for="{{ form.meta_h1.id_for_label }}" class="form__controls-label">
@@ -26,6 +21,10 @@
                 Заголовок<span>:</span>
               </label>
               {{ form.meta_h1 }} {{ form.meta_h1.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.untitle.id_for_label }}" class="form__controls-label"> Надзаголовок <span>:</span> </label>
+              {{ form.untitle }} {{ form.untitle.errors }}
             </div>
             <div class="form__group">
               <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Meta заголовок <span>:</span> </label>
@@ -39,6 +38,10 @@
               <label for="{{ form.meta_keywords.id_for_label }}" class="form__controls-label"> Meta keywords <span>:</span> </label>
               {{ form.meta_keywords }} {{ form.meta_keywords.errors }}
             </div>
+            <div class="form__group">
+              <label for="{{ form.text.id_for_label }}" class="form__controls-label"> Текст<span>:</span> </label>
+              {{ form.text }} {{ form.text.errors }}
+            </div>
           </div>
         </div>
       </div>
@@ -46,5 +49,4 @@
     </form>
   </div>
 </div>
-
 {% endblock %}

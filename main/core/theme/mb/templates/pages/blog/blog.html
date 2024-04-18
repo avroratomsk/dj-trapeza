@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
 
 <main class="page">
-  <div class="single-banner" style="background-image: url({% static 'theme/mb/images/blog.jpg' %})" data-speed="70">
+  <div class="single-banner" style="background-image: url({)" data-speed="70">
     <h1 class="stock__title _title">Полезная информация</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
@@ -24,20 +24,16 @@
         <div class="blog__item article">
           <div class="article__inner">
             <a href="{{ article.get_absolute_url }}" class="article__image">
-              {% if article.image %}
-              {% thumbnail article.image "393x300" format="WEBP" as im %}
+              {% if article.image %} {% thumbnail article.image "393x300" format="WEBP" as im %}
               <img src="{{ im.url }}" alt="{{ article.name }}" title="{{ article.name }}" />
-              {% endthumbnail %}
-              {% else %}
+              {% endthumbnail %} {% else %}
               <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ article.name }}"
-                title="{{ article.name }}">
+                title="{{ article.name }}" />
               {% endif %}
             </a>
             <div class="article__content">
               <a href="{{ article.get_absolute_url }}" class="article__name">{{ article.name }}</a>
-              <p class="article__text">
-                {{ article.text|truncatechars:180 }}
-              </p>
+              <p class="article__text">{{ article.text|truncatechars:180 }}</p>
             </div>
           </div>
           <div class="article__bottom">
@@ -128,9 +124,7 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map">
-
-      </div>
+      <div class="contact__map" id="map"></div>
     </div>
   </section>
 </main>

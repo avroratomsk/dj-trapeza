@@ -23,6 +23,10 @@
   position: relative;
   padding: 250px 0px 100px;
 
+  @media screen and (max-width: 920px) {
+    padding: 50px 0px;
+  }
+
   // .body-service__separator
 
   &__separator {
@@ -42,6 +46,10 @@
     display: flex;
     justify-content: center;
     gap: 40px;
+
+    @media screen and (max-width: 920px) {
+      flex-direction: column-reverse;
+    }
   }
 
   // .body-service__col
@@ -49,9 +57,11 @@
   &__col {
     &:first-child {
       .body-service__image {
-        img {
-          width: 650px;
-          height: 650px;
+        @media screen and (min-width: 920px) {
+          img {
+            width: 650px;
+            height: 650px;
+          }
         }
       }
     }
@@ -60,12 +70,15 @@
       margin-top: 20px;
 
       .body-service__image {
-        img {
-          width: 350px;
-          height: 350px;
+        @media screen and (min-width: 920px) {
+          img {
+            width: 350px;
+            height: 350px;
+          }
         }
       }
     }
+
   }
 
   // .body-service__image
@@ -104,10 +117,14 @@
 
   &__btn {
     margin-top: 40px;
-    background-color: $orange;
+    background-color: $accent;
     width: 290px;
     height: 50px;
     color: $white;
     border-radius: 4px;
+
+    @media screen and (max-width: 920px) {
+      display: none;
+    }
   }
 }

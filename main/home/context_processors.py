@@ -6,7 +6,7 @@ def load_settings(request):
     return {'site_settings': BaseSettings.load()}
 
 def load_branch(request):
-    return {'branchs': Branch.objects.all()}
+    return {'branchs': Branch.objects.all()[:2]}
 
 def load_category(request):
     return {"categorys": Category.objects.all().exclude(slug="bez-kategorii")}

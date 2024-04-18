@@ -1,7 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
-from blog.models import Post
+from blog.models import BlogSettings, Post
 from news.models import News
 from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
 from reviews.models import Reviews
@@ -210,7 +210,50 @@ class ProductForm(forms.ModelForm):
                 'class': "form__controls",
             })
         }
-        
+
+class BlogPage(forms.ModelForm):
+  class Meta:
+    model = BlogSettings
+    fields = [
+      "meta_h1",
+      "meta_title",
+      "meta_description",
+      "meta_keywords",
+      "image",
+      "text"
+    ]
+    labels = {
+        'text': 'Описание статьи',
+        'meta_h1': "Заголовок H1",
+        'meta_title': "Meta-title",
+        'meta_description': 'Meta-description',
+        'meta_keywords': "Meta-keywords",
+        'image': "Баннер",
+        'text': "Текст страницы",
+    }
+    
+    widgets = {
+        'text': forms.Textarea(attrs={
+            'class': 'form__controls'
+        }),
+        'meta_h1': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_title': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_description': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'meta_keywords': forms.TextInput(attrs={
+            'class': 'form__controls',
+        }),
+        'image': forms.FileInput(attrs={
+            'class': 'submit-file',
+            'accept': 'image/*'
+        })
+    }
+    
 class PostForm(forms.ModelForm):
   """ Form, отвечает за создание товара и редактирование товара"""
   # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
@@ -819,6 +862,7 @@ class ServiceProductForm(forms.ModelForm):
         'name',
         'slug',
         'status',
+        'price',
         'service',
         'category',
         'image',
@@ -832,6 +876,7 @@ class ServiceProductForm(forms.ModelForm):
         'slug': 'URL',
         'status':'Статус публикации',
         'service':'Услуга',
+        'price':'Цена',
         'category':'Категория',
         'image': 'Изображение акции',
         'meta_h1':'Meta h1',
@@ -847,6 +892,9 @@ class ServiceProductForm(forms.ModelForm):
       'slug': forms.TextInput(attrs={
         'class':'form__controls',
         "id": "slug"
+      }),
+      'price': forms.TextInput(attrs={
+        'class':'form__controls',
       }),
       'subtitle': forms.DateInput(attrs={
         'class':'form__controls',
@@ -938,4 +986,9 @@ class GalleryForm(forms.ModelForm):
         "image": "Изображение",
         "alt": "Альтернативный текст",
         "status": "Статус публикации ",
+    }
+    widgets = {
+      'alt': forms.TextInput(attrs={
+        'class': 'form__controls',
+      }),
     }

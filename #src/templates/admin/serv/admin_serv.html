@@ -4,10 +4,9 @@
   <div class="page__inner">
     <div class="page__add">
       <h1 class="page__title">Услуги</h1>
-      <a href="" class="page__add-btn">Добавить услугу</a>
-      <a href="javascript:history.back()"> Назад </a>
+      <a href="{% url 'service_add' %}" class="page__add-btn">Добавить услугу</a>
     </div>
-    {% if products.count > 0 %}
+    {% if services%}
     <div class="table-4">
       <div class="head-table table-4__head">
         <div class="head-table__image">Изображение</div>
@@ -15,24 +14,24 @@
         <div class="head-table__action">Действия</div>
       </div>
       <div class="body-table table-4__body">
-        {% for product in products %}
+        {% for service in services %}
         <div class="body-table__row">
           <div class="body-table__image">
-            {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+            {% if service.image %}
+            <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
             {% else%}
-            <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+            <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ service.name }}" title="{{ service.name }}" />
             {% endif %}
           </div>
           <div class="body-table__name">
-            {% if product.slug %}
-            <a href="" class="">{{ product.name }}</a>
+            {% if service.slug %}
+            <a href="" class="">{{ service.name }}</a>
             {% else %}
-            <p class="">{{ product.name }}</p>
+            <p class="">{{ service.name }}</p>
             {% endif %}
           </div>
           <div class="body-table__action">
-            <a href="{{ product.get_absolute_url }}" target="_blank" class="info">
+            <a href="{{ service.get_absolute_url }}" target="_blank" class="info">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 495.558 495.558" xml:space="preserve">
                 <g>
                   <g>
@@ -57,7 +56,7 @@
                 </g>
               </svg>
             </a>
-            <a href="" class="edit">
+            <a href="{% url 'service_edit' service.pk %}" class="edit">
               <?xml version="1.0" ?><svg
                 id="Layer_1"
                 style="enable-background: new 0 0 24 24"

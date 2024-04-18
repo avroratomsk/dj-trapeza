@@ -4,9 +4,9 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import AboutTemplateForm, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, StockForm, UploadFileForm
+from admin.forms import AboutTemplateForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, StockForm, UploadFileForm
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
-from blog.models import Post
+from blog.models import BlogSettings, Post
 from news.models import News
 from main.settings import BASE_DIR
 from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 import openpyxl
 import pandas as pd
-# from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def sidebar_show(request): 
@@ -287,26 +287,28 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 
 def parse_exсel(path):
-  data = pd.read_excel(path)
+  workbook = openpyxl.load_workbook(path)
+  sheet = workbook.active
+  start_row = 2
   Product.objects.all().delete()
   # Day.objects.all().delete()
   # Branch.objects.all().delete()
 
-  for index, row in data.iterrows():
-    name = row['name']
-    slug = slugify(row['name'])
+  for row in sheet.iter_rows(min_row=start_row, values_only=True):
+    name = row[1]
+    slug = slugify(name)
     short_description = ''
-    description = row['description']
+    description = row[3]
     meta_h1 = ''
     meta_title = ''
     meta_description = ''
     meta_keywords = ''
-    image = f"goods/{row['image']}"
-    price = row['price']
-    price_two = row['price_two']
+    image = f"goods/{row[4]}"
+    price = row[5]
+    price_two = row[6]
     discount = 0.0
     quantity = 1.0
-    category_name = row['category']
+    category_name = row[8]
     category_slug = slugify(category_name)
 
     try:
@@ -321,7 +323,7 @@ def parse_exсel(path):
         category = Category.objects.filter(name=category_name).first()
     
       
-    branch_names = row['subsidiary'].split(';') if isinstance(row['subsidiary'], str) else []
+    branch_names = row[13].split(';') if isinstance(row[13], str) else []
     branchs = []
     
     for branch_name in branch_names:
@@ -333,8 +335,8 @@ def parse_exсel(path):
         branch = Branch.objects.create(name=branch_name, slug=branch_slug)
       branchs.append(branch)
 
-    weight = row['weight']
-    weight_two = row['weight_two']
+    weight = row[11]
+    weight_two = row[12]
     calories = ''
     proteins = ''
     fats = ''
@@ -570,6 +572,34 @@ def admin_about(request):
   }  
   
   return render(request, "static/about_page.html", context)
+
+def blog_page(request):
+  try:
+    blog_page = BlogSettings.objects.get()
+  except:
+    blog_page = BlogSettings()
+    blog_page.save()
+    
+  if request.method == "POST":
+    form_new = BlogPage(request.POST, request.FILES, instance=blog_page)
+    if form_new.is_valid():
+      form_new.save()
+      
+      print("Все хорошо")
+      # subprocess.call(["touch", RESET_FILE])
+      return redirect("admin")
+    else:
+      return render(request, "static/about_page.html", {"form": form_new})
+  
+  blog_page = BlogSettings.objects.get()
+  
+  form = BlogPage(instance=blog_page)
+  context = {
+    "form": form,
+    "about_page":blog_page
+  }  
+  
+  return render(request, "static/blog_page.html", context)
 
 def admin_reviews(request):
   reviews = Reviews.objects.all()
