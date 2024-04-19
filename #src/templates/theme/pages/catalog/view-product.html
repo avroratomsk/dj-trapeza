@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %}{% block content %}
+{% extends "base.html" %} {% load static %} {% load thumbnail %}{% block content %}
 
 <div class="wrapper">
   {% include "components/header-single.html" %}
@@ -11,13 +11,13 @@
             Главная
             <meta itemprop="position" content="1" />
           </a>
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+          <a href="{% url 'catalog' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
             class="breadcrumbs__item">
             Категории
             <meta itemprop="position" content="2" />
           </a>
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="{{ product.category.get_absolute_url }}" itemprop="itemListElement" itemscope=""
+            itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             {{ product.category }}
             <meta itemprop="position" content="2" />
           </a>
@@ -28,14 +28,16 @@
         </div>
         <div class="product-page__row">
           <div class="product-page__image">
-            {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-            {% else %}
-            <img src="{% static 'admin/images/food.webp' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+            {% if product.image %} {% thumbnail product.image "800x500" format="WEBP" as im %}
+            <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+            {% endthumbnail %} {% else %}
+            <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}"
+              title="{{ product.name }}" />
             {% endif %}
           </div>
           <div class="product-page__content">
-            <h1 class="product-page__title">{{ product.name }}</h1>{% if product.short_description %}
+            <h1 class="product-page__title">{{ product.name }}</h1>
+            {% if product.short_description %}
             <div class="product-page__text">
               <span class="product-page__label">Краткое описание блюда:</span>
               <p>{{ product.short_description }}</p>
@@ -50,7 +52,20 @@
             <div class="product-page__price">
               {% if product.price %}
               <p class="product-page__label">Цена:</p>
-              <p>{{ product.price }} руб.</p>
+              {% if product.price %}
+              <div class="product-page__inner">
+                <p>{{ product.weight }} гр.</p>
+                <div class="product-page__line"></div>
+                <p>{{ product.price }} руб.</p>
+              </div>
+              {% endif %}
+              {% if product.price %}
+              <div class="product-page__inner">
+                <p>{{ product.weight_two }} гр.</p>
+                <div class="product-page__line"></div>
+                <p>{{ product.price_two }} руб.</p>
+              </div>
+              {% endif %}
               {% endif %}
             </div>
             <div class="product-page__price">
@@ -92,31 +107,50 @@
     </section>
 
     {% if products%}
-      <section class="product-related">
-        <div class="product-related__container">
-          <h2 class="product-related__title _title">Похожие товары</h2>
-          <div class="product-related__grid">
-            {% for product in products %} 
-              <div class="card-product" data-id="{{ product.display_id }}">
-                {% if product.image %}
-                <a href="{{ product.get_absolute_url }}" class="card-product__image">
-                  <img src="{{ product.image.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-                </a>
-                {% else %}
-                <a href="{{ product.get_absolute_url }}" class="card-product__image">
-                  <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
-                </a>
-                {% endif %}
-                <a href="#" class="card-product__name">{{ product.name }}</a>
-                <p class="card-product__price">{{ product.price }} руб.</p>
-                <div class="card-product__btns">
-                  <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
-                </div>
-              </div>
-            {% endfor %}
+    <section class="product-related">
+      <div class="product-related__container">
+        <h2 class="product-related__title _title">Похожие товары</h2>
+        <div class="product-related__grid">
+          {% for product in products %}
+          <div class="card-product" data-id="{{ product.display_id }}">
+            <a href="{{ product.get_absolute_url }}" class="card-product__image">
+              {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
+              <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+              {% endthumbnail %} {% else %}
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}"
+                title="{{ product.name }}" />
+              {% endif %}
+            </a>
+            <a href="{{ product.get_absolute_url }}" class="card-product__name">{{ product.name }}</a>
+
+            {% if product.discount %}
+            <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
+            {% else %}
+            <div class="card-product__info">
+              <p class="card-product__weight">{{ product.weight }} {% if product.weight == "100" %} за 100 гр. {% else
+                %} гр. {% endif %}</p>
+              <div class="card-product__line"></div>
+              <p class="card-product__price">{{ product.price }} ₽</p>
+            </div>
+            {% if product.price_two or product.weight_two %}
+            <div class="card-product__info">
+              {% if product.weight_two %}
+              <p class="card-product__weight">{{ product.weight_two }} {% if product.weight_two == "100.0" %} за 100 гр.
+                {% else %} гр. {% endif %}</p>
+              <div class="card-product__line"></div>
+              {% endif %} {% if product.price_two %}
+              <p class="card-product__price">{{ product.price_two }} ₽</p>
+              {% endif %}
+            </div>
+            {% endif %} {% endif %}
+            <div class="card-product__btns">
+              <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
+            </div>
+          </div>
+          {% endfor %}
         </div>
-      </section>{% endif %}
+    </section>{% endif %}
   </main>
-  
+
 </div>
 {% endblock content %}

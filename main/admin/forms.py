@@ -17,12 +17,7 @@ class GlobalSettingsForm(forms.ModelForm):
     model = BaseSettings
     fields = [
         'logo',
-        'phone_one',
-        'phone_two',
-        'time_work',
         'email',
-        'address_one',
-        'address_two',
         'meta_h1',
         'meta_title',
         'meta_description',
@@ -30,37 +25,14 @@ class GlobalSettingsForm(forms.ModelForm):
     ]
     labels = {
         'logo': 'Логотип',
-        'phone_one': 'Номер телефона Пролетарская',
-        'phone_two': 'Номер телефона Ракетная',
-        'time_work': 'Режим работы',
         'email': 'Email',
-        'address_one': 'Адрес Пролетарская',
-        'address_two': 'Адрес Ракетная',
         'meta_h1':'Заголвок первого уровня',
         'meta_title':'Meta title',
         'meta_description':'Мета description',
         'meta_keywords':'Meta keywords',
     }
     widgets = {
-        'phone_one': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
-        'phone_one': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
-        'phone_two': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
-        'time_work': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
         'email': forms.EmailInput(attrs={
-            'class': 'form__controls'
-        }),
-        'address_one': forms.TextInput(attrs={
-            'class': 'form__controls'
-        }),
-        'address_two': forms.TextInput(attrs={
             'class': 'form__controls'
         }),
         'meta_h1': forms.TextInput(attrs={

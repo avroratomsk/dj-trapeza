@@ -15,7 +15,7 @@ def service(request):
     # Если объект найден, можете продолжать выполнение кода
   except ObjectDoesNotExist:
     # Обработка случая, когда объект не найден
-    print("ServicePage не найден")
+    pass
     # Дополнительные действия на ваше усмотрение
   
   context = {
@@ -25,7 +25,6 @@ def service(request):
   return render(request, "pages/service/service.html", context)
 
 def service_detail(request, slug):
-  print(slug)
   category = ServiceCategory.objects.all()
   service = Service.objects.get(slug=slug)
   product = ServiceProduct.objects.filter(service=service)

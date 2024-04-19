@@ -5,13 +5,11 @@
       <div class="products__top title-page">
         <h1 class="products__title title-page__title">{{ category_name.name }}</h1>
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Главная
             <meta itemprop="position" content="1" />
           </a>
-          <a href="{% url 'catalog' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="{% url 'catalog' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Категории
             <meta itemprop="position" content="2" />
           </a>
@@ -74,10 +72,8 @@
                 <div class="price-input__progress" id="prodgress"></div>
               </div>
               <div class="price-input__range">
-                <input type="range" name="range-min" id="range-min" min="0" max="10000" class="price-input__range-min"
-                  value="2500" />
-                <input type="range" name="range-max" id="range-max" min="0" max="10000" class="price-input__range-max"
-                  value="7500" />
+                <input type="range" name="range-min" id="range-min" min="0" max="10000" class="price-input__range-min" value="2500" />
+                <input type="range" name="range-max" id="range-max" min="0" max="10000" class="price-input__range-max" value="7500" />
               </div>
             </div>
           </div>
@@ -91,8 +87,7 @@
                 {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
                 <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
                 {% endthumbnail %} {% else %}
-                <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}"
-                  title="{{ product.name }}" />
+                <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
                 {% endif %}
               </a>
               <a href="{{ product.get_absolute_url }}" class="card-product__name">{{ product.name }}</a>
@@ -101,38 +96,20 @@
               <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
               {% else %}
               <div class="card-product__info">
-                <p class="card-product__weight">
-                  {{ product.weight }}
-                  {% if product.weight == "100" %}
-                  за 100 гр.
-                  {% else %}
-                  гр.
-                  {% endif %}
-                </p>
+                <p class="card-product__weight">{{ product.weight }} {% if product.weight == "100" %} за 100 гр. {% else %} гр. {% endif %}</p>
                 <div class="card-product__line"></div>
                 <p class="card-product__price">{{ product.price }} ₽</p>
               </div>
               {% if product.price_two or product.weight_two %}
               <div class="card-product__info">
                 {% if product.weight_two %}
-                <p class="card-product__weight">
-                  {{ product.weight_two }}
-                  {% if product.weight_two == "100.0" %}
-                  за 100 гр.
-                  {% else %}
-                  гр.
-                  {% endif %}
-                </p>
+                <p class="card-product__weight">{{ product.weight_two }} {% if product.weight_two == "100.0" %} за 100 гр. {% else %} гр. {% endif %}</p>
                 <div class="card-product__line"></div>
-                {% endif %}
-                {% if product.price_two %}
-                <p class="card-product__price">
-                  {{ product.price_two }} ₽
-                </p>
+                {% endif %} {% if product.price_two %}
+                <p class="card-product__price">{{ product.price_two }} ₽</p>
                 {% endif %}
               </div>
-              {% endif %}
-              {% endif %}
+              {% endif %} {% endif %}
               <div class="card-product__btns">
                 <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
               </div>
@@ -143,23 +120,23 @@
       </div>
       {% if products.paginator.count > 15 %}
       <div class="pagging">
-        <a href="{% if products.has_previous %}?{% chenge_params page=products.previous_page_number %}{% else %}#{% endif %}"
-          class="pagging__arrow {% if not products.has_previous%}disabled{% endif %}">«</a>
+        <a
+          href="{% if products.has_previous %}?{% chenge_params page=products.previous_page_number %}{% else %}#{% endif %}"
+          class="pagging__arrow {% if not products.has_previous%}disabled{% endif %}"
+          >«</a
+        >
         <ul class="pagging__list">
-          {% for page in products.paginator.page_range %}
-          {% if page >= products.number|add:-2 and page <= products.number|add:2 %} <li>
-            <a href="?{% chenge_params page=page %}"
-              class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
-            </li>
-            {% endif %} {% endfor %}
+          {% for page in products.paginator.page_range %} {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
+          <li>
+            <a href="?{% chenge_params page=page %}" class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
+          </li>
+          {% endif %} {% endfor %}
         </ul>
-        <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}"
-          class="pagging__arrow">»</a>
+        <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}" class="pagging__arrow">»</a>
       </div>
       {% endif %}
     </div>
   </section>
 </main>
-
 
 {% endblock content %}

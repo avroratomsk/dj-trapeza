@@ -29,13 +29,13 @@
               <button type="button" class="nav__submenu-btn">
                 <i class="fa-solid fa-chevron-down"></i>
               </button>
-              {% comment %} {% if categorys %}
+              {% if categorys %}
               <ul class="submenu">
-                {% for category in categorys %}
+                {% for category in cats %}
                 <li class="submenu__item"><a href="{{ category.get_absolute_url }}" class="submenu__link"> {{ category.name }}</a></li>
                 {% endfor %}
               </ul>
-              {% endif %} {% endcomment %}
+              {% endif %}
             </li>
             <li class="nav__item">
               <a href="{% url 'service' %}" class="nav__link">Услуги</a>

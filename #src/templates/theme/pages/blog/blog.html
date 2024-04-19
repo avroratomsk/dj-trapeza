@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
 
 <main class="page">
-  <div class="single-banner" style="background-image: url({)" data-speed="70">
+  <div class="single-banner" style="background-image: url({%static 'theme/mb/images/no-image.jpg' %})" data-speed="70">
     <h1 class="stock__title _title">Полезная информация</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"

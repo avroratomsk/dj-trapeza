@@ -35,9 +35,11 @@
       <div class="footer__col">
         <p class="footer__title">Меню</p>
         <nav class="footer__nav">
-          {% comment %} {% if categorys %} {% for category in categorys %}
-          <a href="#" data-aos="fade-up" data-aos-once="true" data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00">{{ category.name }}</a>
-          {% endfor %} {% endif %} {% endcomment %}
+          {% if categorys %} {% for category in cats %}
+          <a href="{{ category.get_absolute_url }}" data-aos="fade-up" data-aos-once="true" data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00"
+            >{{ category.name }}</a
+          >
+          {% endfor %} {% endif %}
         </nav>
       </div>
       <div class="footer__col">
