@@ -530,6 +530,7 @@ def admin_home(request):
   home_page = HomeTemplate.objects.get()
   
   form = HomeTemplateForm(instance=home_page)
+  
   context = {
     "form": form,
     "home_page":home_page
