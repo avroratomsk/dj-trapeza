@@ -2026,7 +2026,7 @@ html.lock body::before {
 }
 
 .pominalnye {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -3501,6 +3501,10 @@ section {
 
   .hall__row:nth-child(odd) {
     flex-direction: column;
+  }
+
+  .pominalnye {
+    grid-template-columns: 1fr;
   }
 
   .contact__row {
