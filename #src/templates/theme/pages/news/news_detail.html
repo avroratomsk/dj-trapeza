@@ -11,6 +11,11 @@
         Главная
         <meta itemprop="position" content="1" />
       </a>
+      <a href="{% url 'news' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+        class="breadcrumbs__item">
+        Новости
+        <meta itemprop="position" content="2" />
+      </a>
       <span itemprop="name" class="breadcrumbs__item">
         {{ new.name }}
         <meta itemprop="position" content="3" />

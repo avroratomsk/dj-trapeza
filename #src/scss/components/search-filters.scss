@@ -36,6 +36,10 @@
   z-index: 99;
   transition: $animation_speed;
 
+  @media screen and (max-width: 425px) {
+    width: 100%;
+  }
+
   &._active {
     top: 100%;
     pointer-events: all;

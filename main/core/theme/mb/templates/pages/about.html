@@ -2,8 +2,8 @@
 
 <main class="page">
   <div class="single-banner"
-    style="background-image: url({% if about_page.banner %}{{ about_page.banner.url }}{% else %}{% static "
-    theme/mb/images/stock.webp" %}{% endif %} )" data-speed="70">
+    style="background-image: url({% if about_page.banner %}{{ about_page.banner.url }}{% else %}{% static 'theme/mb/images/stock.webp' %}{% endif %} )"
+    data-speed="70">
     <h1 class="stock__title _title">{{ about_page.meta_h1 }}</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
@@ -12,7 +12,11 @@
         <meta itemprop="position" content="1" />
       </a>
       <span itemprop="name" class="breadcrumbs__item">
+        {% if about_page.meta_title %}
+        {{ about_page.about_page }}
+        {% else %}
         {{ about_page.meta_h1 }}
+        {% endif %}
         <meta itemprop="position" content="3" />
       </span>
     </div>
@@ -22,10 +26,10 @@
       <div class="about__inner">
         <div class="link-bar">
           <a href="{% url 'stock' %}" class="link-bar__link">Акции</a>
-          <a href="#" class="link-bar__link">Новости</a>
-          <a href="#" class="link-bar__link">Статьи</a>
+          <a href="{% url 'news' %}" class="link-bar__link">Новости</a>
+          <a href="{% url 'blog' %}" class="link-bar__link">Статьи</a>
           <a href="{% url 'gallery' %}" class="link-bar__link">Галлерея</a>
-          <a href="#" class="link-bar__link">Политика конфиденциальности</a>
+          <!-- <a href="#" class="link-bar__link">Политика конфиденциальности</a> -->
         </div>
         <div class="about__content">
           <div class="text">

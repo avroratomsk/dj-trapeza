@@ -10,6 +10,10 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   // .blog__item
@@ -34,6 +38,10 @@
     display: grid;
     grid-template-columns: 140px 1fr;
     gap: 20px;
+
+    @media screen and (max-width: 520px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   // .article__image
@@ -49,6 +57,11 @@
       height: 100%;
       object-fit: cover;
       border-radius: 6px;
+    }
+
+    @media screen and (max-width: 520px) {
+      width: 100%;
+      height: 100%;
     }
   }
 

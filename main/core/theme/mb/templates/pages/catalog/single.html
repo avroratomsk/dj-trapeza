@@ -1,229 +1,165 @@
 {% extends "base.html" %} {% load shop_tags %} {% load static %} {% load thumbnail %}{% block content %}
-
-<div class="wrapper">
-  {% include "components/header-single.html" %}
-
-  <main class="page">
-    <section class="single">
-      <div class="single__container">
-        <div class="products__top title-page">
-          <h1 class="products__title title-page__title">{{ category_name.name }}</h1>
-          <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-            <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
-              Главная
-              <meta itemprop="position" content="1" />
-            </a>
-            <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
-              Продукция
-              <meta itemprop="position" content="2" />
-            </a>
-            <span itemprop="name" class="breadcrumbs__item">
-              Ежедневное меню
-              <meta itemprop="position" content="3" />
-            </span>
+<main class="page">
+  <section class="single">
+    <div class="single__container">
+      <div class="products__top title-page">
+        <h1 class="products__title title-page__title">{{ category_name.name }}</h1>
+        <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
+            Главная
+            <meta itemprop="position" content="1" />
+          </a>
+          <a href="{% url 'catalog' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
+            Категории
+            <meta itemprop="position" content="2" />
+          </a>
+          <span itemprop="name" class="breadcrumbs__item">
+            Ежедневное меню
+            <meta itemprop="position" content="3" />
+          </span>
+        </div>
+      </div>
+      <div class="single__day day-single">
+        <div class="day-single__inner">
+          <button type="button" id="open-filter" class="day-single__btn">
+            <span class="label_mb">Категории</span>
+            <i class="fa-solid fa-sliders"></i>
+          </button>
+          <div class="filter-sort" id="filter-sort">
+            {% if category %} {% for category in category %} {% if current_slug == category.slug %}
+            <a href="{{ category.get_absolute_url }}" class="filter-sort__value _active">{{ category.name }}</a>
+            {% else %}
+            <a href="{{ category.get_absolute_url }}" class="filter-sort__value">{{ category.name }}</a>
+            {% endif %} {% endfor %} {% endif %}
           </div>
         </div>
-        <div class="single__day day-single">
-          <div class="day-single__inner">
-            <form action="#" class="form" method="GET">
-              {% csrf_token %}
-              <select name="show-by" id="show-by" class="form__select">
-                <option value="15" class="form__option">Показать по: 15</option>
-                <option value="20" class="form__option">Показать по: 20</option>
-                <option value="30" class="form__option">Показать по: 30</option>
-              </select>
-            </form>
-            <form action="#" class="form" method="GET">
-              {% csrf_token %}
-              <select name="sort" id="sort" class="form__select">
-                <option value="default" class="form__option">По умолчанию</option>
-                <option value="desc" class="form__option">По убыванию</option>
-                <option value="asc" class="form__option">По возрастанию</option>
-              </select>
-            </form>
-            <button type="button" id="open-filter" class="day-single__btn">
-              <span class="label_mb">Категории</span>
-              <i class="fa-solid fa-sliders"></i>
-            </button>
-            <div class="filter-sort" id="filter-sort">
-              {% if category %} {% for category in category %} {% if current_slug == category.slug %}
-              <a href="{{ category.get_absolute_url }}" class="filter-sort__value _active">{{ category.name }}</a>
+      </div>
+
+      <div class="single-content">
+        <aside class="single-content__aside aside">
+          <div class="aside__options" id="option-part">
+            <h5 class="aside__title">Раздел</h5>
+            <div class="aside__filter">
+              <input type="hidden" value="" class="aside__filter-hidden" />
+              <ul class="aside__list">
+                {% for category in category %} {% if current_slug == category.slug %}
+                <li class="aside__item _active">
+                  <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                </li>
+                {% else %}
+                <li class="aside__item">
+                  <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                </li>
+                {% endif %} {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div id="product"></div>
+          {% comment %}
+          <div class="aside__options" id="option-part">
+            <h5 class="aside__title">Цена</h5>
+            <div class="price-input">
+              <div class="price-input__fields">
+                <div class="price-input__field">
+                  <input type="number" class="price-input__min" value="25" />
+                </div>
+                <div class="separator"></div>
+                <div class="price-input__field">
+                  <input type="number" class="price-input__max" value="75" />
+                </div>
+              </div>
+              <div class="price-input__slider">
+                <div class="price-input__progress" id="prodgress"></div>
+              </div>
+              <div class="price-input__range">
+                <input type="range" name="range-min" id="range-min" min="0" max="10000" class="price-input__range-min"
+                  value="2500" />
+                <input type="range" name="range-max" id="range-max" min="0" max="10000" class="price-input__range-max"
+                  value="7500" />
+              </div>
+            </div>
+          </div>
+          {% endcomment %}
+        </aside>
+        <div class="single-content__products products-single">
+          <div class="products-single__grid">
+            {% for product in products %}
+            <div class="card-product" data-id="{{ product.display_id }}">
+              <a href="{{ product.get_absolute_url }}" class="card-product__image">
+                {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
+                <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                {% endthumbnail %} {% else %}
+                <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}"
+                  title="{{ product.name }}" />
+                {% endif %}
+              </a>
+              <a href="{{ product.get_absolute_url }}" class="card-product__name">{{ product.name }}</a>
+
+              {% if product.discount %}
+              <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
               {% else %}
-              <a href="{{ category.get_absolute_url }}" class="filter-sort__value">{{ category.name }}</a>
-              {% endif %} {% endfor %} {% endif %}
-            </div>
-          </div>
-        </div>
-
-        <div class="single-content">
-          <aside class="single-content__aside aside">
-            <div class="aside__options" id="option-part">
-              <h5 class="aside__title">Раздел</h5>
-
-              <div class="aside__filter">
-                <input type="hidden" value="" class="aside__filter-hidden" />
-                <ul class="aside__list">
-                  {% for category in category %} {% if current_slug == category.slug %}
-                  <li class="aside__item _active">
-                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-                  </li>
+              <div class="card-product__info">
+                <p class="card-product__weight">
+                  {{ product.weight }}
+                  {% if product.weight == "100" %}
+                  за 100 гр.
                   {% else %}
-                  <li class="aside__item">
-                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-                  </li>
-                  {% endif %} {% endfor %}
-                </ul>
-              </div>
-            </div>
-            <div id="product"></div>
-            {% comment %}
-            <div class="aside__options" id="option-part">
-              <h5 class="aside__title">Цена</h5>
-              <div class="price-input">
-                <div class="price-input__fields">
-                  <div class="price-input__field">
-                    <input type="number" class="price-input__min" value="25" />
-                  </div>
-                  <div class="separator"></div>
-                  <div class="price-input__field">
-                    <input type="number" class="price-input__max" value="75" />
-                  </div>
-                </div>
-                <div class="price-input__slider">
-                  <div class="price-input__progress" id="prodgress"></div>
-                </div>
-                <div class="price-input__range">
-                  <input type="range" name="range-min" id="range-min" min="0" max="10000" class="price-input__range-min" value="2500" />
-                  <input type="range" name="range-max" id="range-max" min="0" max="10000" class="price-input__range-max" value="7500" />
-                </div>
-              </div>
-            </div>
-            {% endcomment %}
-          </aside>
-          <div class="single-content__products products-single">
-            <div class="products-single__grid">
-              {% for product in products %}
-              <div class="card-product" data-id="{{ product.display_id }}">
-                <a href="{{ product.get_absolute_url }}" class="card-product__image">
-                  {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
-                  <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-                  {% endthumbnail %} {% else %}
-                  <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                  гр.
                   {% endif %}
-                </a>
-                <a href="{{ product.get_absolute_url }}" class="card-product__name">{{ product.name }}</a>
-
-                {% if product.discount %}
-                <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
-                {% else %}
-                <p class="card-product__price">{{ product.price }}₽</p>
-                <p class="card-product__weight">{{ product.weight }} за 100 грамм</p>
-                {% endif %}
-                <div class="card-product__btns">
-                  <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
-                </div>
+                </p>
+                <div class="card-product__line"></div>
+                <p class="card-product__price">{{ product.price }} ₽</p>
               </div>
-              {% endfor %} {% comment %} {% for product in products_day %}
-              <div class="card-product" data-id="{{ product.display_id }}">
-                <a href="#" class="card-product__image">
-                  {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
-                  <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-                  {% endthumbnail %} {% else %}
-                  <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+              {% if product.price_two or product.weight_two %}
+              <div class="card-product__info">
+                {% if product.weight_two %}
+                <p class="card-product__weight">
+                  {{ product.weight_two }}
+                  {% if product.weight_two == "100.0" %}
+                  за 100 гр.
+                  {% else %}
+                  гр.
                   {% endif %}
-                </a>
-                <a href="#" class="card-product__name">{{ product.name }}</a>
-                <a href="#" class="card-product__name">{{ product.category.name }} - {{ product.day}}</a>
-
-                {% if product.discount %}
-                <p class="card-product__price">{{ product.sell_price }}₽ | Скидка: {{ product.discount }} %</p>
-                {% else %}
-                <p class="card-product__price">{{ product.price }}₽</p>
+                </p>
+                <div class="card-product__line"></div>
                 {% endif %}
-                <div class="card-product__btns">
-                  <button class="card-product__btn">Корзина</button>
-                  <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
-                </div>
+                {% if product.price_two %}
+                <p class="card-product__price">
+                  {{ product.price_two }} ₽
+                </p>
+                {% endif %}
               </div>
-              {% endfor %} {% endcomment %}
+              {% endif %}
+              {% endif %}
+              <div class="card-product__btns">
+                <a href="{{ product.get_absolute_url }}" class="card-product__btn">Описание</a>
+              </div>
             </div>
+            {% endfor %}
           </div>
         </div>
-        {% if products.paginator.count > 15 %}
-        <div class="pagging">
-          <a
-            href="{% if products.has_previous %}?{% chenge_params page=products.previous_page_number %}{% else %}#{% endif %}"
-            class="pagging__arrow {% if not products.has_previous%}disabled{% endif %}"
-            >«</a
-          >
-          <ul class="pagging__list">
-            {% for page in products.paginator.page_range %} {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
-            <li>
-              <a href="?{% chenge_params page=page %}" class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
+      </div>
+      {% if products.paginator.count > 15 %}
+      <div class="pagging">
+        <a href="{% if products.has_previous %}?{% chenge_params page=products.previous_page_number %}{% else %}#{% endif %}"
+          class="pagging__arrow {% if not products.has_previous%}disabled{% endif %}">«</a>
+        <ul class="pagging__list">
+          {% for page in products.paginator.page_range %}
+          {% if page >= products.number|add:-2 and page <= products.number|add:2 %} <li>
+            <a href="?{% chenge_params page=page %}"
+              class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
             </li>
             {% endif %} {% endfor %}
-          </ul>
-          <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}" class="pagging__arrow">»</a>
-        </div>
-        {% endif %}
+        </ul>
+        <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}"
+          class="pagging__arrow">»</a>
       </div>
-    </section>
-  </main>
-  <footer class="footer">
-    <div class="footer__container">
-      <div class="footer__grid">
-        <div class="footer__col">
-          <p class="footer__title">Контакты</p>
-          <div class="footer__item">
-            <span>Адрес: </span>
-            <span>г.Томск ул. Ленина 193</span>
-          </div>
-          <div class="footer__item">
-            <span>Телефон: </span>
-            <span>8(999) 999-99-99</span>
-          </div>
-          <div class="footer__item">
-            <span>Время работы: </span>
-            <span>пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
-          </div>
-          <div class="footer__item">
-            <span>Электронная почта: </span>
-            <span>trapeza@mail.ru</span>
-          </div>
-          <div class="footer__social">
-            <a href="#"><img src="img/icon/i-vk.svg" alt="" /></a>
-            <a href="#"><img src="img/icon/i-wa.svg" alt="" /></a>
-            <a href="#"><img src="img/icon/i-telegram.svg" alt="" /></a>
-          </div>
-        </div>
-        <div class="footer__col">
-          <p class="footer__title">Меню</p>
-          <nav class="footer__nav">
-            <a href="#">Горячее</a>
-            <a href="#">Салаты</a>
-            <a href="#">Выпечка</a>
-            <a href="#">Банкетное меню</a>
-            <a href="#">Поминальное меню</a>
-            <a href="#">Меню дня</a>
-          </nav>
-        </div>
-        <div class="footer__col">
-          <div class="footer__logo"><img src="img/logo-2-white.svg" alt="" /></div>
-          <nav class="footer__nav">
-            <a href="#">Политика конфиденциальности</a>
-            <a href="#">Статьи</a>
-            <a href="#">Отзывы</a>
-            <a href="#">Контакты</a>
-          </nav>
-        </div>
-      </div>
+      {% endif %}
     </div>
-  </footer>
-  <div class="author">
-    <div class="author__container">
-      <div class="author__inner">Разработка сайта | <a href="#">РА Аврора</a></div>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 
 {% endblock content %}

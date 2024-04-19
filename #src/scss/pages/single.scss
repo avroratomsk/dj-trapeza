@@ -1,5 +1,9 @@
 .single {
 
+  @media screen and (max-width: 768px) {
+    padding: 0px;
+  }
+
   // .single__container
 
   &__container {}
@@ -221,6 +225,10 @@
 
     &._active {
       color: $mainColor;
+
+      @media screen and (max-width: 425px) {
+        color: rgba($color: $accent, $alpha: 1.0);
+      }
     }
 
     @media screen and (min-width: 990px) {
@@ -229,6 +237,14 @@
 
     @media screen and (max-width: 425px) {
       width: 100%;
+      justify-content: space-between;
+      background-color: rgba($color: $accent, $alpha: 1.0);
+      color: rgba($color: $white, $alpha: 1.0);
+      padding: 10px 20px;
+
+      i {
+        color: rgba($color: $white, $alpha: 1.0);
+      }
     }
   }
 }

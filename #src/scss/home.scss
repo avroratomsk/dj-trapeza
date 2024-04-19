@@ -260,12 +260,17 @@
 
 .service {
 
+  @media screen and (max-width: 520px) {
+    padding: 0px;
+  }
+
   // .service__container
 
   &__container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 30px;
+    padding: 0px;
 
     @media screen and (max-width: 920px) {
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -343,7 +348,13 @@
         border: 1px solid rgba($color: $white, $alpha: 1.0);
         transform: rotate(-45deg);
         transition: $animation_speed;
+
+        @media screen and (max-width: 520px) {
+          display: none;
+        }
       }
+
+
     }
 
 
@@ -358,6 +369,11 @@
           transform: rotate(0) !important;
         }
       }
+    }
+
+    @media screen and (max-width: 425px) {
+      padding: 40px 20px;
+      height: 300px;
     }
   }
 
