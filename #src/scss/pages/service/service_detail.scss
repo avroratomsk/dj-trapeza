@@ -48,17 +48,28 @@
   border-radius: 8px;
 }
 
+.pominalnye-title {
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .pominalnye {
+  max-width: 700px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 20px;
 
   // .pominalnye__item
 
   &__item {
     display: flex;
     align-items: flex-end;
+    border-bottom: 1px dashed rgba($color: $mainColor, $alpha: .3);
+    padding: 10px 10px;
+    font-size: 20px;
   }
 
   // .pominalnye__title
