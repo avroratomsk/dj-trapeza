@@ -46,9 +46,6 @@ def admin_settings(request):
     form_new = GlobalSettingsForm(request.POST, request.FILES, instance=settings)
     if form_new.is_valid():
       form_new.save()
-      
-      print("Все хорошо")
-      # subprocess.call(["touch", RESET_FILE])
       return redirect("admin")
     else:
       return render(request, "settings/general_settings.html", {"form": form_new})
@@ -233,10 +230,8 @@ def news_delete(request, pk):
 
 def product_day_edit(request, id):
   product = Product.objects.get(id=id)
-  print(product)
   if request.method == "POST":
     set_day = request.POST['set-day']
-    print(set_day)
     product.day = set_day
     product.save()
     return redirect(request.META.get('HTTP_REFERER'))
@@ -528,9 +523,6 @@ def admin_home(request):
     form_new = HomeTemplateForm(request.POST, request.FILES, instance=home_page)
     if form_new.is_valid():
       form_new.save()
-      
-      print("Все хорошо")
-      # subprocess.call(["touch", RESET_FILE])
       return redirect("admin")
     else:
       return render(request, "static/home_page.html", {"form": form_new})
@@ -557,8 +549,6 @@ def admin_about(request):
     if form_new.is_valid():
       form_new.save()
       
-      print("Все хорошо")
-      # subprocess.call(["touch", RESET_FILE])
       return redirect("admin")
     else:
       return render(request, "static/about_page.html", {"form": form_new})
@@ -585,8 +575,6 @@ def blog_page(request):
     if form_new.is_valid():
       form_new.save()
       
-      print("Все хорошо")
-      # subprocess.call(["touch", RESET_FILE])
       return redirect("admin")
     else:
       return render(request, "static/about_page.html", {"form": form_new})
