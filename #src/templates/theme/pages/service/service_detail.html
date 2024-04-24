@@ -46,7 +46,7 @@
           {% endfor %} {% endfor %}
         </div>
         {% else %}
-        <h2 class="_title pominalnye-title">Меню</h2>
+        <!-- <h2 class="_title pominalnye-title">Меню</h2> -->
         {% for category, products in products_by_category.items %}
         <div class="service-menu__row">
           <h2 class="service-menu__title _title">{{ category.name }}</h2>
@@ -88,9 +88,11 @@
             {% endif %}
             <div class="body-service__image">
               {% if branch.image %}
-              <img src="{{ branch.image.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+              {% thumbnail branch.image "790x490" format="WEBP" as im %}
+              <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+              {% endthumbnail %}
               {% else %}
-              <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ branch.name }}"
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
                 title="{{ branch.name }}" />
               {% endif %}
               <span>{{ branch.address_fillial }}</span>

@@ -1711,6 +1711,10 @@ html.lock body::before {
   margin-top: 30px;
 }
 
+.service-page {
+  padding-top: 70px;
+}
+
 .service-page__item {
   padding: 15px;
   display: inline-flex;
@@ -2010,6 +2014,8 @@ html.lock body::before {
 .color-section {
   background-color: #00cf00 !important;
   padding-top: 140px;
+  margin-bottom: 0px;
+  border-radius: 0px;
 }
 
 .color-section .pominalnye-title,

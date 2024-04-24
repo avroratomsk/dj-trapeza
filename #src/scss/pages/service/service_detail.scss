@@ -55,6 +55,8 @@
 .color-section {
   background-color: rgba($color: $accent, $alpha: 1.0) !important;
   padding-top: 140px;
+  margin-bottom: 0px;
+  border-radius: 0px;
 
   .pominalnye-title,
   .service-menu__title {
@@ -68,6 +70,7 @@
   .card-product {
     background-color: rgba($color: $white, $alpha: 1.0);
   }
+
 }
 
 .products__btn {
