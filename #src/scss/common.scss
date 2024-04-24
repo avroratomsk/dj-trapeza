@@ -53,32 +53,9 @@ section {
   z-index: 2;
   color: $mainColor;
 
-  @media screen and (max-width: 620px) {
-    text-align: center;
+  @media screen and (max-width: 520px) {
     font-size: 30px;
   }
-
-  // &::before {
-  //   content: '';
-  //   background-image: url(../img/icon/i-decor-title-left.svg);
-  //   background-size: contain;
-  //   background-repeat: no-repeat;
-  //   display: block;
-  //   width: 100px;
-  //   height: 30px;
-  //   margin-right: 20px;
-  // }
-
-  // &::after {
-  //   content: '';
-  //   background-image: url(../img/icon/i-decor-title-right.svg);
-  //   background-size: contain;
-  //   background-repeat: no-repeat;
-  //   display: block;
-  //   width: 100px;
-  //   height: 30px;
-  //   margin-left: 20px;
-  // }
 }
 
 .title--dark {

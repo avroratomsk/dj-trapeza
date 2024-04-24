@@ -45,6 +45,10 @@
     font-size: 30px;
     font-family: $fontFamily;
     margin-bottom: 30px;
+
+    @media screen and (max-width: 520px) {
+      font-size: 25px;
+    }
   }
 
   .service-menu__bg {

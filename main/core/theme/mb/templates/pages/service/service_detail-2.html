@@ -1,0 +1,152 @@
+{% extends 'base.html' %}{% load static %} {% load thumbnail %} {% block content %}
+
+<main class="page">
+  <div class="services">
+    <section class="services__top">
+      <div class="services__container">
+        <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
+            Главная
+            <meta itemprop="position" content="1" />
+          </a>
+          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
+            Услуги
+            <meta itemprop="position" content="2" />
+          </a>
+          <span itemprop="name" class="breadcrumbs__item">
+            {{ service.name }}
+            <meta itemprop="position" content="3" />
+          </span>
+        </div>
+        <h1 class="services__top-title">{{ service.name }}</h1>
+        {% if service.subtitle %}
+        <p class="services__top-subtitle">{{ service.subtitle }}</p>
+        {% endif %}
+        <div class="services__top-action">
+          {% if request.path == "/service/pominalnye-obedy/" %}
+          <button type="button" class="services__top-btn" data-popup="popup-pominalnye">Оставить заявку</button>
+          {% else %}
+          <button type="button" class="services__top-btn" data-popup="popup-reservation">Оставить заявку</button>
+          {% endif %}
+        </div>
+      </div>
+      {% if request.path == "/service/pominalnye-obedy/" %}
+      <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
+      {% else %}
+      <img src="{% static 'theme/mb/images/separator_detail.svg' %}" alt="" width="100%"
+        class="body-service__separator" />
+      {% endif %}
+    </section>
+
+    <section class="service-page__body body-service">
+      <div class="service__container">
+        <div class="body-service__row">
+          {% if branchs %} {% for branch in branchs %}
+          <div class="body-service__col">
+            <!-- {% if request.path == "/service/pominalnye-obedy/" %}{% endif %}-->
+            {% if forloop.counter == 2 %}
+            <h2 class="body-service__title _title">
+              Банкеты <br />
+              в наших залах
+            </h2>
+            <p class="body-service__subtitle">
+              Мы можем сделать ваш праздник уютным, душевным и вкусным, для этого у нас есть 2 зала с посадкой до 50
+              человек.
+            </p>
+            {% endif %}
+            <!-- <h2 class="body-service__title _title">
+              Заказать обед <br>в столовой
+            </h2>
+            <p class="body-service__subtitle">
+              У нас есть 2 зала с посадкой до 50 человек
+            </p> -->
+            <div class="body-service__image">
+              {% if branch.image %} {% thumbnail branch.image "790x490" format="WEBP" as im %}
+              <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+              {% endthumbnail %} {% else %}
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
+                title="{{ branch.name }}" />
+              {% endif %}
+              <span>{{ branch.address_fillial }}</span>
+            </div>
+          </div>
+          {% endfor %}{% endif %}
+        </div>
+      </div>
+    </section>
+
+    <section class="services-adv">
+      <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="services-adv__separator" />
+      <div class="services-adv__container">
+        <h2 class="services-adv__title _title">Почему выбирают нас</h2>
+        <div class="services-adv__grid">
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-1.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">Мы точно говорим сколько угощений нужно именно для вашего формата</p>
+          </div>
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-2.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">Предлагаем разнообразное
+              и понятное меню</p>
+          </div>
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-3.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">
+              Подбираем оптимальный вариант
+              под ваш бюджет
+            </p>
+          </div>
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-4.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">
+              Готовим из качественных продуктов и с любовью
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% if products %}
+    <section class="service-menu">
+      <div class="service-menu__container">
+        <h2 class="_title service-menu__title">Готовые решения</h2>
+        {% for category, products in products_by_category.items %}
+        <div class="service-menu__row">
+          <h2 class="service-menu__category-name _title">{{ category.name }}</h2>
+          <div class="products-single__grid">
+            {% for product in products %}
+            <div class="card-product" data-id="{{ product.display_id }}" data-name="{{ product.category.slug }}">
+              <div class="card-product__image">
+                {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
+                <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                {% endthumbnail %} {% else %}
+                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}"
+                  title="{{ product.name }}" />
+                {% endif %}
+              </div>
+              <p class="card-product__name">{{ product.name }}</p>
+
+              {% if product.price %}
+              <p class="card-product__weight">Цена: {{ product.price }}</p>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

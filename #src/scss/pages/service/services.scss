@@ -12,6 +12,10 @@
     text-align: center;
     padding: 100px 0px 100px;
 
+    @media screen and (max-width: 425px) {
+      padding: 50px 0px 50px;
+    }
+
 
     .breadcrumbs__item {
       color: rgba($color: $white, $alpha: 1.0);
@@ -43,6 +47,14 @@
     margin: 50px 0px 30px;
     font-family: $fontFamily;
     text-wrap: balance;
+
+    @media screen and (max-width: 585px) {
+      font-size: 55px;
+    }
+
+    @media screen and (max-width: 440px) {
+      font-size: 35px;
+    }
   }
 
   // .services__top-title
@@ -51,6 +63,10 @@
     line-height: 160%;
     color: rgba($color: $white, $alpha: 1.0);
     font-size: 17px;
+
+    @media screen and (max-width: 440px) {
+      font-size: 15px;
+    }
   }
 
   // .services__top-action
@@ -78,6 +94,10 @@
   padding-bottom: 150px;
   background-color: rgba($color: $white, $alpha: 1.0);
   border-radius: 0px 0px 50px 50px;
+
+  @media screen and (max-width: 520px) {
+    padding-bottom: 60px;
+  }
 
   // .services-adv__separator
 
