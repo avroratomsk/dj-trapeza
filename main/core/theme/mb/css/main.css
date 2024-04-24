@@ -2116,7 +2116,7 @@ html.lock body::before {
   height: 50px;
   border-radius: 8px;
   border: 1px solid white;
-  background-color: #f8f5f0;
+  background-color: white;
   color: #00cf00;
   font-weight: 600;
 }
