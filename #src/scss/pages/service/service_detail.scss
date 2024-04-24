@@ -5,10 +5,20 @@
   border-radius: 50px;
   position: relative;
 
-  // .service-menu__title
-  &__title {
-    margin-bottom: 30px;
+  // .body-service__separator
+
+  .body-service__separator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // transform: rotateY(-180deg);
+
+    &.detail {
+      transform: rotate(180deg);
+      bottom: 100% !important;
+    }
   }
+
 
 
   // .service-menu__container
@@ -24,7 +34,7 @@
   // .service-menu__title
   &__title {
     margin-bottom: 30px;
-    text-align: center;
+    text-align: left;
     font-size: 30px !important;
     font-family: "Marck Script", cursive;
   }
@@ -40,11 +50,31 @@
 
 }
 
+// .color-section
+
+.color-section {
+  background-color: rgba($color: $accent, $alpha: 1.0) !important;
+  padding-top: 140px;
+
+  .pominalnye-title,
+  .service-menu__title {
+    color: rgba($color: $white, $alpha: 1.0);
+  }
+
+  .service-menu__title {
+    font-size: 35px !important;
+  }
+
+  .card-product {
+    background-color: rgba($color: $white, $alpha: 1.0);
+  }
+}
+
 .products__btn {
   margin-top: 40px;
   padding: 15px 40px;
-  color: rgba($color: $white, $alpha: 1.0);
-  background-color: rgba($color: $accent, $alpha: 1.0);
+  color: rgba($color: $accent, $alpha: 1.0);
+  border: 1px solid rgba($color: $accent, $alpha: 1.0);
   border-radius: 8px;
 }
 

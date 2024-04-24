@@ -1574,17 +1574,6 @@ html.lock body::before {
   padding: 250px 0px 100px;
 }
 
-.body-service__separator {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.body-service__separator.detail {
-  transform: rotate(180deg);
-  bottom: 100% !important;
-}
-
 .body-service__row {
   display: flex;
   justify-content: center;
@@ -1985,8 +1974,15 @@ html.lock body::before {
   position: relative;
 }
 
-.service-menu__title {
-  margin-bottom: 30px;
+.service-menu .body-service__separator {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.service-menu .body-service__separator.detail {
+  transform: rotate(180deg);
+  bottom: 100% !important;
 }
 
 .service-menu__container {
@@ -1997,7 +1993,7 @@ html.lock body::before {
 
 .service-menu__title {
   margin-bottom: 30px;
-  text-align: center;
+  text-align: left;
   font-size: 30px !important;
   font-family: "Marck Script", cursive;
 }
@@ -2011,11 +2007,29 @@ html.lock body::before {
   object-fit: cover;
 }
 
+.color-section {
+  background-color: #00cf00 !important;
+  padding-top: 140px;
+}
+
+.color-section .pominalnye-title,
+.color-section .service-menu__title {
+  color: white;
+}
+
+.color-section .service-menu__title {
+  font-size: 35px !important;
+}
+
+.color-section .card-product {
+  background-color: white;
+}
+
 .products__btn {
   margin-top: 40px;
   padding: 15px 40px;
-  color: white;
-  background-color: #00cf00;
+  color: #00cf00;
+  border: 1px solid #00cf00;
   border-radius: 8px;
 }
 

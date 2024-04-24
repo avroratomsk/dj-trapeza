@@ -27,18 +27,6 @@
     padding: 50px 0px;
   }
 
-  // .body-service__separator
-
-  &__separator {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    &.detail {
-      transform: rotate(180deg);
-      bottom: 100% !important;
-    }
-  }
 
   // .body-service__row
 

@@ -30,8 +30,52 @@
         {% endif %} {% endif %}
       </div>
     </div>
-    <section class="service-page__body body-service">
+    {% if products %}
+    <section class="service-menu {% if request.path != '/service/pominalnye-obedy/' %}color-section{% endif %}">
       <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
+      <div class="service-menu__container">
+
+        {% if request.path == "/service/pominalnye-obedy/" %}
+        <h2 class="_title pominalnye-title">Поминальное меню</h2>
+        <div class="pominalnye">
+          {% for category, products in products_by_category.items %}
+          {% for product in products %}
+          <ul class="pominalnye__item">
+            <li class="pominalnye__title">{{ product.name }}</li>
+          </ul>
+          {% endfor %} {% endfor %}
+        </div>
+        {% else %}
+        <h2 class="_title pominalnye-title">Меню</h2>
+        {% for category, products in products_by_category.items %}
+        <div class="service-menu__row">
+          <h2 class="service-menu__title _title">{{ category.name }}</h2>
+          <div class="products-single__grid">
+            {% for product in products %}
+            <div class="card-product" data-id="{{ product.display_id }}" data-name="{{ product.category.slug }}">
+              <div class="card-product__image">
+                {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
+                <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                {% endthumbnail %} {% else %}
+                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}"
+                  title="{{ product.name }}" />
+                {% endif %}
+              </div>
+              <p class="card-product__name">{{ product.name }}</p>
+
+              {% if product.price %}
+              <p class="card-product__weight">Цена: {{ product.price }}</p>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="service-page__body body-service">
       <div class="service__container">
         <div class="body-service__row">
           {% if branchs %} {% for branch in branchs %}
@@ -60,49 +104,6 @@
         </div>
       </div>
     </section>
-    {% if products %}
-    <section class="service-menu">
-      {% comment %} <img src="{% static 'theme/mb/images/menun.webp' %}" alt="" class="service-menu__bg" />
-      {% endcomment %}
-      <div class="service-menu__container">
-
-        {% if request.path == "/service/pominalnye-obedy/" %}
-        <h2 class="_title pominalnye-title">Поминальное меню</h2>
-        <div class="pominalnye">
-          {% for category, products in products_by_category.items %}
-          {% for product in products %}
-          <ul class="pominalnye__item">
-            <li class="pominalnye__title">{{ product.name }}</li>
-          </ul>
-          {% endfor %} {% endfor %}
-        </div>
-        {% else %} {% for category, products in products_by_category.items %}
-        <div class="service-menu__row">
-          <h2 class="service-menu__title _title">{{ category.name }}</h2>
-          <div class="products-single__grid">
-            {% for product in products %}
-            <div class="card-product" data-id="{{ product.display_id }}" data-name="{{ product.category.slug }}">
-              <div class="card-product__image">
-                {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
-                <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
-                {% endthumbnail %} {% else %}
-                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}"
-                  title="{{ product.name }}" />
-                {% endif %}
-              </div>
-              <p class="card-product__name">{{ product.name }}</p>
-
-              {% if product.price %}
-              <p class="card-product__price">{{ product.price }}</p>
-              {% endif %}
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        {% endfor %} {% endif %}
-      </div>
-    </section>
-    {% endif %}
   </div>
 
   <section class="contact">
