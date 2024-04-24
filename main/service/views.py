@@ -42,6 +42,9 @@ def service_detail(request, slug):
     "product_category": products_by_category,
     'products_by_category': products_by_category
   }
-  
-  return render(request, "pages/service/service_detail.html", context)
+  if request.path == "/service/pominalnye-obedy/":
+    return render(request, "pages/service/service_pominalnye.html", context)
+  else:
+    return render(request, "pages/service/service_detail.html", context)
+    
 

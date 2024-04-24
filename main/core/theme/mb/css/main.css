@@ -2086,6 +2086,7 @@ html.lock body::before {
 
 .services__top .body-service__separator {
   position: absolute;
+  width: 100%;
   top: 100%;
   z-index: 88;
 }
@@ -2119,6 +2120,38 @@ html.lock body::before {
   background-color: white;
   color: #00cf00;
   font-weight: 600;
+}
+
+.color-pomin .services__top {
+  background-color: #f8f5f0 !important;
+}
+
+.color-pomin .body-service {
+  background-color: #efece6;
+}
+
+.color-pomin .breadcrumbs__item {
+  color: #2b463c !important;
+}
+
+.color-pomin .breadcrumbs__item::after {
+  background-color: #2b463c !important;
+}
+
+.color-pomin .services__top-title,
+.color-pomin .services__top-subtitle {
+  color: #2b463c !important;
+}
+
+.color-pomin .services__top-btn {
+  border-color: #2b463c;
+  border-width: 2px;
+  color: #2b463c;
+  background-color: transparent;
+}
+
+.color-pomin .service-menu {
+  background-color: #f8f5f0 !important;
 }
 
 .services-adv {
@@ -2156,6 +2189,75 @@ html.lock body::before {
   font-size: 18px;
   font-weight: 500;
   line-height: 140%;
+}
+
+.services-text {
+  position: relative;
+  margin-top: 120px;
+  padding-bottom: 150px;
+  background-color: white;
+  border-radius: 0px 0px 50px 50px;
+}
+
+.services-text__separator {
+  position: absolute;
+  bottom: 99.9%;
+  transform: rotateX(180deg);
+}
+
+.services-text__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+.services-text__col p {
+  font-size: 17px;
+  line-height: 150%;
+  font-weight: 600;
+}
+
+.services-text__list {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.services-text__list + .services-text__list {
+  margin-top: 50px;
+}
+
+.services-text__list-left h3 {
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 600;
+}
+
+.services-text__list-right p {
+  font-size: 17px;
+  line-height: 150%;
+  font-weight: 600;
+}
+
+.services-text__list-right p:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.services-text__list-right ul {
+  margin-bottom: 30px;
+  margin-left: 40px;
+}
+
+.services-text__list-right ul li {
+  font-size: 17px;
+  line-height: 150%;
+  font-weight: 600;
+  list-style: circle !important;
+}
+
+.services-text__list-right ul li + .services-text__list-right ul li {
+  margin-bottom: 30px;
 }
 
 .vacancy__row {
@@ -3400,6 +3502,14 @@ section {
   .reviews-add__col {
     width: 50%;
   }
+
+  .services-text__col {
+    flex: 1 1 50%;
+  }
+
+  .services-text__list-left {
+    flex: 0 0 30%;
+  }
 }
 
 @media screen and (min-width: 920px) {
@@ -3697,6 +3807,16 @@ section {
     padding-top: 70px;
   }
 
+  .services-text__row {
+    flex-direction: column;
+    margin-bottom: 40px;
+  }
+
+  .services-text__list {
+    flex-direction: column;
+    margin-top: 40px;
+  }
+
   .vacancy__row {
     flex-wrap: wrap;
   }
@@ -3801,6 +3921,32 @@ section {
 
   .services-adv {
     padding-bottom: 60px;
+  }
+
+  .services-text {
+    padding-bottom: 60px;
+    margin-top: 40px;
+  }
+
+  .services-text__col p {
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .services-text__list-left h3 {
+    font-size: 20px;
+  }
+
+  .services-text__list-right p {
+    font-size: 15px;
+  }
+
+  .services-text__list-right ul li {
+    font-size: 15px;
+  }
+
+  .services-text__list-right ul li + .services-text__list-right ul li {
+    margin-bottom: 20px;
   }
 
   .vacancy-item__content p {
