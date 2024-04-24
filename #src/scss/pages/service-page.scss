@@ -4,7 +4,12 @@
 
   // .service-page__container
 
-  &__container {}
+  &__container {
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 40px;
+    }
+  }
 
   // .service-page__items
 

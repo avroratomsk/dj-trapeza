@@ -19,7 +19,6 @@
 }
 
 .body-service {
-  background-color: #f3f3f3;
   position: relative;
   padding: 250px 0px 100px;
 
@@ -93,12 +92,16 @@
 
   &__title {
     margin-bottom: 20px;
+    font-family: $fontFamily;
   }
 
   // .body-service__subtitle
 
   &__subtitle {
     margin-bottom: 50px;
+    max-width: 400px;
+    text-wrap: balance;
+    line-height: 150%;
   }
 
   // .body-service__btn

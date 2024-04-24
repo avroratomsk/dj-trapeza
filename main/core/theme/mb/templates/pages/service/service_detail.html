@@ -1,9 +1,9 @@
 {% extends 'base.html' %}{% load static %} {% load thumbnail %} {% block content %}
 
 <main class="page">
-  <div class="service-page">
-    <div class="service-page__container">
-      <div class="products__top title-page">
+  <div class="services">
+    <section class="services__top">
+      <div class="services__container">
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
           <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
             class="breadcrumbs__item">
@@ -20,36 +20,109 @@
             <meta itemprop="position" content="3" />
           </span>
         </div>
-        <h1 class="products__title title-page__title">{{ service.name }}</h1>
+        <h1 class="services__top-title">{{ service.name }}</h1>
         {% if service.subtitle %}
-        <p class="products__subtitle">{{ service.subtitle }}</p>
-        {% if request.path == "/service/pominalnye-obedy/" %}
-        <button type="button" class="products__btn" data-popup="popup-pominalnye">Заказать обед</button>
-        {% else %}
-        <button type="button" class="products__btn" data-popup="popup-reservation">Заказать банкет</button>
-        {% endif %} {% endif %}
-      </div>
-    </div>
-    {% if products %}
-    <section class="service-menu {% if request.path != '/service/pominalnye-obedy/' %}color-section{% endif %}">
-      <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
-      <div class="service-menu__container">
-
-        {% if request.path == "/service/pominalnye-obedy/" %}
-        <h2 class="_title pominalnye-title">Поминальное меню</h2>
-        <div class="pominalnye">
-          {% for category, products in products_by_category.items %}
-          {% for product in products %}
-          <ul class="pominalnye__item">
-            <li class="pominalnye__title">{{ product.name }}</li>
-          </ul>
-          {% endfor %} {% endfor %}
+        <p class="services__top-subtitle">{{ service.subtitle }}</p>
+        {% endif %}
+        <div class="services__top-action">
+          {% if request.path == "/service/pominalnye-obedy/" %}
+          <button type="button" class="services__top-btn" data-popup="popup-pominalnye">Оставить заявку</button>
+          {% else %}
+          <button type="button" class="services__top-btn" data-popup="popup-reservation">Оставить заявку</button>
+          {% endif %}
         </div>
-        {% else %}
-        <!-- <h2 class="_title pominalnye-title">Меню</h2> -->
+      </div>
+      {% if request.path == "/service/pominalnye-obedy/" %}
+      <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
+      {% else %}
+      <img src="{% static 'theme/mb/images/separator_detail.svg' %}" alt="" width="100%"
+        class="body-service__separator" />
+      {% endif %}
+    </section>
+
+    <section class="service-page__body body-service">
+      <div class="service__container">
+        <div class="body-service__row">
+          {% if branchs %} {% for branch in branchs %}
+          <div class="body-service__col">
+            <!-- {% if request.path == "/service/pominalnye-obedy/" %}{% endif %}-->
+            {% if forloop.counter == 2 %}
+            <h2 class="body-service__title _title">
+              Банкеты <br />
+              в наших залах
+            </h2>
+            <p class="body-service__subtitle">
+              Мы можем сделать ваш праздник уютным, душевным и вкусным, для этого у нас есть 2 зала с посадкой до 50
+              человек.
+            </p>
+            {% endif %}
+            <!-- <h2 class="body-service__title _title">
+              Заказать обед <br>в столовой
+            </h2>
+            <p class="body-service__subtitle">
+              У нас есть 2 зала с посадкой до 50 человек
+            </p> -->
+            <div class="body-service__image">
+              {% if branch.image %} {% thumbnail branch.image "790x490" format="WEBP" as im %}
+              <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+              {% endthumbnail %} {% else %}
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
+                title="{{ branch.name }}" />
+              {% endif %}
+              <span>{{ branch.address_fillial }}</span>
+            </div>
+          </div>
+          {% endfor %}{% endif %}
+        </div>
+      </div>
+    </section>
+
+    <section class="services-adv">
+      <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="services-adv__separator" />
+      <div class="services-adv__container">
+        <h2 class="services-adv__title _title">Почему выбирают нас</h2>
+        <div class="services-adv__grid">
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-1.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">Мы точно говорим сколько угощений нужно именно для вашего формата</p>
+          </div>
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-2.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">Предлагаем разнообразное
+              и понятное меню</p>
+          </div>
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-3.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">
+              Подбираем оптимальный вариант
+              под ваш бюджет
+            </p>
+          </div>
+          <div class="services-adv__item">
+            <div class="services-adv__icon">
+              <img src="{% static 'theme/mb/images/adv-4.svg' %}" alt="">
+            </div>
+            <p class="services-adv__text">
+              Готовим из качественных продуктов и с любовью
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% if products %}
+    <section class="service-menu">
+      <div class="service-menu__container">
+        <h2 class="_title service-menu__title">Готовые решения</h2>
         {% for category, products in products_by_category.items %}
         <div class="service-menu__row">
-          <h2 class="service-menu__title _title">{{ category.name }}</h2>
+          <h2 class="service-menu__category-name _title">{{ category.name }}</h2>
           <div class="products-single__grid">
             {% for product in products %}
             <div class="card-product" data-id="{{ product.display_id }}" data-name="{{ product.category.slug }}">
@@ -70,125 +143,10 @@
             {% endfor %}
           </div>
         </div>
-        {% endfor %} {% endif %}
+        {% endfor %}
       </div>
     </section>
     {% endif %}
-
-    <section class="service-page__body body-service">
-      <div class="service__container">
-        <div class="body-service__row">
-          {% if branchs %} {% for branch in branchs %}
-          <div class="body-service__col">
-            {% if forloop.counter == 2%}
-            <h2 class="body-service__title _title">
-              Заказать обед <br />
-              в столовой
-            </h2>
-            {% endif %}
-            <div class="body-service__image">
-              {% if branch.image %}
-              {% thumbnail branch.image "790x490" format="WEBP" as im %}
-              <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
-              {% endthumbnail %}
-              {% else %}
-              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
-                title="{{ branch.name }}" />
-              {% endif %}
-              <span>{{ branch.address_fillial }}</span>
-            </div>
-            {% if forloop.counter == 2 %}
-            <button type="button" class="body-service__btn _btn" data-popup="popup-reservation">Забронировать
-              зал</button>
-            {% endif %}
-          </div>
-          {% endfor %}{% endif %}
-        </div>
-      </div>
-    </section>
   </div>
-
-  <section class="contact">
-    <div class="contact__container">
-      <h2 class="contact__title _title">Контакты</h2>
-      <div class="contact__row">
-        <div class="contact__col contact-info">
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <div class="contact-info__content" id="address">
-              г.Томск,<br />
-              улица Ленина, дом 23а
-            </div>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-phone-volume"></i>
-            </div>
-            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
-              settings.phone_one }}</a>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-envelope"></i>
-            </div>
-            <a href="#" class="contact-info__content">trapeza@mail.ru</a>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-calendar-days"></i>
-            </div>
-            <p class="contact-info__content" id="time-work">с 8:00 до 17:00</p>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-regular fa-calendar"></i>
-            </div>
-            <p class="contact-info__content" id="weekend">суббота и воскресенье выходной</p>
-          </div>
-        </div>
-        <div class="contact__col form">
-          <form action="" class="form__form">
-            <div class="form__group require">
-              <label for="contact-name" class="require">Имя</label>
-              <input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-phone" class="require">Телефон</label>
-              <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
-                class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-email" class="require">Email</label>
-              <input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-message">Коментарий к заявке</label>
-              <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
-                class="form__controls"></textarea>
-            </div>
-            <div class="form__group">
-              <button type="submit" class="form__btn">Отправить</button>
-              <div class="form__agree">
-                <input type="checkbox" id="agree-checkbox" checked />
-                <label for="agree-checkbox">Даю согласие на обработку персональных данных</label>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="contact__map" id="map"></div>
-    </div>
-  </section>
 </main>
 {% endblock %}
-
-<!-- {% for category in categorys %}
-              <li>{{ category.name }}</li>
-              <ul>
-                {% for product in category.serviceproduct_set.all %}
-                <li>{{ product.name }}</li>
-                {% endfor %}
-              </ul>
-              {% endfor %} -->

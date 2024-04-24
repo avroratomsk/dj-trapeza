@@ -59,7 +59,7 @@
                 <p>{{ product.price }} руб.</p>
               </div>
               {% endif %}
-              {% if product.price %}
+              {% if product.price_two or product.weight_two %}
               <div class="product-page__inner">
                 <p>{{ product.weight_two }} гр.</p>
                 <div class="product-page__line"></div>

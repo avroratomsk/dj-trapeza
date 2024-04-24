@@ -50,7 +50,6 @@
     font-weight: 400;
     font-size: 30px;
     line-height: 140%;
-    font-family: $secondaryFont;
     letter-spacing: .5px;
 
     @media screen and (max-width: 768px) {
@@ -67,7 +66,6 @@
     text-align: center;
     letter-spacing: 3px;
     // font-weight: 900;
-    font-family: "Marck Script", cursive;
     line-height: 120%;
     // text-transform: uppercase;
 
@@ -214,7 +212,6 @@
     font-size: 25px;
     // font-weight: 500;
     margin-bottom: 20px;
-    font-family: "Marck Script", cursive;
   }
 
   // .item-service__icon
@@ -270,7 +267,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 30px;
-    padding: 0px;
+    // padding: 0px;
 
     @media screen and (max-width: 920px) {
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -410,7 +407,6 @@
     color: $mainColor;
     text-align: center;
     margin-bottom: 15px;
-    font-family: "Marck Script", cursive;
     // text-shadow: 0px 0px 2px rgba($color: #000000, $alpha: 1.0);
   }
 
@@ -515,7 +511,6 @@
     text-align: center;
     margin-bottom: 20px;
     font-weight: 400 !important;
-    font-family: "Marck Script", cursive;
   }
 
   // .reviews__subtitle
@@ -570,7 +565,6 @@
     top: -43px;
     opacity: 0;
     right: 50%;
-    font-family: $playForDisplay;
     font-size: 220px;
     font-style: italic;
     text-shadow: 0 2px 7px rgba(26, 47, 51, 0.15);
@@ -633,7 +627,6 @@
     font-size: 15px;
     line-height: 150%;
     overflow: hidden;
-    font-family: $secondaryFont;
   }
 
   // .reviews__btn
@@ -641,8 +634,6 @@
     font-size: 14px;
     font-weight: 400;
     color: rgba($color: $mainColor, $alpha: .8);
-    // font-family: $fontFamily;
-    font-family: $secondaryFont;
     padding: 20px 0px 0px;
     transition: $animation_speed;
 
@@ -670,7 +661,6 @@
       background-color: $mainColor;
       border-radius: 8px;
       color: $bodyColor;
-      font-family: $secondaryFont;
       font-size: 15px;
       transition: $animation_speed;
 
@@ -806,7 +796,6 @@
   &__title {
     margin-bottom: 20px;
     font-weight: 400 !important;
-    font-family: "Marck Script", cursive;
   }
 
   // .index-about__text
@@ -902,7 +891,6 @@
     text-align: center;
     color: $white !important;
     margin-bottom: 20px;
-    font-family: "Marck Script", cursive;
     font-weight: 400 !important;
   }
 
@@ -916,7 +904,6 @@
     max-width: 800px;
     margin: 0 auto;
     margin-bottom: 40px;
-    font-family: $secondaryFont;
   }
 
   // .callback__form
@@ -939,7 +926,6 @@
     padding: 0px 20px;
     border-radius: 8px;
     color: $bodyColor;
-    font-family: $secondaryFont;
 
     &::placeholder {
       color: $bodyColor;
@@ -958,7 +944,6 @@
     width: 100%;
     height: 50px;
     color: $mainColor;
-    font-family: $secondaryFont;
     font-size: 16px;
     font-weight: 600;
     border-radius: 8px;
@@ -985,7 +970,6 @@
 
   &__title {
     text-align: center;
-    font-family: "Marck Script", cursive;
     font-weight: 400 !important;
     margin-bottom: 30px;
   }
@@ -1136,7 +1120,6 @@
       display: flex;
       padding: 15px 15px;
       margin: 0px 5px;
-      font-family: $secondaryFont;
       border-radius: 8px;
       transition: $animation_speed;
 
@@ -1271,7 +1254,6 @@
       width: auto;
       display: inline;
       padding: 10px 0px;
-      font-family: $secondaryFont;
       height: 100%;
       cursor: pointer;
       transition: $animation_speed;
@@ -1312,7 +1294,6 @@
   &__callback-action {
 
     button {
-      font-family: $secondaryFont;
       padding: 10px 30px;
       background-color: #e76642;
       color: $white;

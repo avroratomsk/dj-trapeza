@@ -45,8 +45,9 @@ section {
 }
 
 ._title {
-  line-height: 110%;
-  // font-weight: 600;
+  line-height: 140%;
+  font-family: $fontFamily;
+  font-weight: 600;
   font-size: 45px;
   position: relative;
   z-index: 2;
@@ -154,7 +155,6 @@ section {
     font-size: 35px;
     color: rgba($color: $mainColor, $alpha: .3);
     text-wrap: balance;
-    font-family: "Marck Script", cursive;
   }
 }
 
@@ -208,7 +208,6 @@ section {
   font-size: 30px;
   text-align: center;
   text-wrap: balance;
-  font-family: "Marck Script", cursive;
   color: rgba($color: $mainColor, $alpha: .8);
 
   @media screen and (max-width: 768px) {

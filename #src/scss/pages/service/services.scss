@@ -1,0 +1,129 @@
+.services {
+  position: relative;
+
+  // .services__top
+
+  &__top {
+    position: relative;
+    background-color: rgba($color: $accent, $alpha: 1.0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 0px 100px;
+
+
+    .breadcrumbs__item {
+      color: rgba($color: $white, $alpha: 1.0);
+
+      &::after {
+        background-color: rgba($color: $white, $alpha: 1.0) !important;
+      }
+    }
+
+    .body-service__separator {
+      position: absolute;
+      top: 100%;
+      z-index: 88;
+    }
+
+  }
+
+  // .services__container
+
+  &__container {}
+
+  // services__top-title
+
+  &__top-title {
+    font-size: 75px;
+    font-weight: 900;
+    line-height: 140%;
+    color: rgba($color: $white, $alpha: 1.0);
+    margin: 50px 0px 30px;
+    font-family: $fontFamily;
+    text-wrap: balance;
+  }
+
+  // .services__top-title
+  &__top-subtitle {
+    text-wrap: balance;
+    line-height: 160%;
+    color: rgba($color: $white, $alpha: 1.0);
+    font-size: 17px;
+  }
+
+  // .services__top-action
+
+  &__top-action {
+    margin-top: 50px;
+  }
+
+  // .services__top-btn
+
+  &__top-btn {
+    width: 290px;
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid rgba($color: $white, $alpha: 1.0);
+    background-color: rgba($color: $bodyColor, $alpha: 1.0);
+    color: rgba($color: $accent, $alpha: 1.0);
+    font-weight: 600;
+  }
+}
+
+.services-adv {
+  position: relative;
+  margin-top: 120px;
+  padding-bottom: 150px;
+  background-color: rgba($color: $white, $alpha: 1.0);
+  border-radius: 0px 0px 50px 50px;
+
+  // .services-adv__separator
+
+  &__separator {
+    position: absolute;
+    bottom: 99.9%;
+
+    transform: rotateX(180deg);
+  }
+
+  // .services-adv__container
+
+  &__container {}
+
+  // .services-adv__title
+
+  &__title {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  // .services-adv__grid
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 50px;
+  }
+
+  // .services-adv__item
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  // .services-adv__icon
+
+  &__icon {}
+
+  // .services-adv__text
+
+  &__text {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 140%;
+  }
+}

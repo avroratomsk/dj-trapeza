@@ -15,22 +15,14 @@
 //@import "fonts/icons";
 
 // Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
-// $fontFamily: "Comfortaa", sans-serif;
-$victorMono: 'Victor Mono', monospace;
-$fontFamily: "Nunito";
-$ruslanDisplay: 'Ruslan Display', sans-serif;
-// $secondaryFont: "Train One", cursive;
-// $secondaryFont: "TildaSans";
-$secondaryFont: "Nunito";
-$menuFont: "Amatic SC";
-$playForDisplay: "Playfair Display";
-$tildaSans: "TildaSans", sans-serif;
+$fontFamily: "Merriweather", serif;
+$secondaryFont: "Open Sans", sans-serif;
 
 $fontSize: 16px; // где 16(px) - размер шрифта по умолчанию из макета
 
 // Основные цвета
 // $bodyColor: #ffffff;
-$bodyColor: #f3f3f3;
+$bodyColor: #f8f5f0;
 // $bodyColor: #f7efdb;
 // $bodyColor: #f4f1e9;
 // $bodyColor: #f4f1e9;
@@ -194,6 +186,7 @@ body {
 @import './pages/blog/blog';
 @import './pages/reviews/reviews';
 @import './pages/service/service_detail';
+@import './pages/service/services';
 @import './pages/vacancies/vacancies';
 // @import './deps';
 // @import './bootstrap';

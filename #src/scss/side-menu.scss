@@ -14,6 +14,7 @@
 
   &:hover {
     width: 397.5px;
+
     .side-menu__open {
       opacity: 0;
       width: 0;
@@ -146,7 +147,6 @@
     letter-spacing: 1px;
     color: $accent;
     padding: 20px 0px;
-    // font-family: $menuFont;
     text-wrap: nowrap;
     transition: $animation_speed;
   }

@@ -5,6 +5,17 @@
 	font-weight: 400;
 	font-style: normal;
 }
+
+@font-face {
+	font-family: 'Monologue';
+	src: local('Monologue Rounded'), local('Monologue-Rounded'),
+		url('MonologueRounded-Regular.woff2') format('woff2'),
+		url('MonologueRounded-Regular.woff') format('woff'),
+		url('MonologueRounded-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
 @font-face {
 	font-family: "MonologueRounded";
 	font-display: swap;
@@ -12,6 +23,7 @@
 	font-weight: 400;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "SanghaKali";
 	font-display: swap;
@@ -19,6 +31,7 @@
 	font-weight: 400;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "TildaSans";
 	font-display: swap;
@@ -26,6 +39,7 @@
 	font-weight: 700;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "TildaSans";
 	font-display: swap;
@@ -33,6 +47,7 @@
 	font-weight: 900;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "TildaSans";
 	font-display: swap;
@@ -40,6 +55,7 @@
 	font-weight: 800;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "TildaSans";
 	font-display: swap;
@@ -47,6 +63,7 @@
 	font-weight: 300;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "TildaSans";
 	font-display: swap;
@@ -54,6 +71,7 @@
 	font-weight: 500;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "TildaSansVF";
 	font-display: swap;
@@ -61,6 +79,7 @@
 	font-weight: 400;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "TildaSans";
 	font-display: swap;
