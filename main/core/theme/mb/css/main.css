@@ -1972,6 +1972,11 @@ html.lock body::before {
   bottom: 100% !important;
 }
 
+.service-menu .services__top-action {
+  display: flex;
+  justify-content: center;
+}
+
 .service-menu__container {
   display: flex;
   flex-direction: column;
