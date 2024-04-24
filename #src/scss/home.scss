@@ -65,9 +65,9 @@
     font-size: 130px;
     text-align: center;
     letter-spacing: 3px;
-    // font-weight: 900;
+    font-weight: 900;
+    font-family: $fontFamily;
     line-height: 120%;
-    // text-transform: uppercase;
 
     @media screen and (max-width: 768px) {
       font-size: 80px;

@@ -484,6 +484,8 @@ html.lock body::before {
   font-size: 130px;
   text-align: center;
   letter-spacing: 3px;
+  font-weight: 900;
+  font-family: "Merriweather", serif;
   line-height: 120%;
 }
 
@@ -3127,7 +3129,6 @@ section {
 
 .contact__title {
   margin-bottom: 40px;
-  font-family: "Marck Script", cursive;
 }
 
 .contact__row {
