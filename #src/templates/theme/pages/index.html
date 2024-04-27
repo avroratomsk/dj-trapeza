@@ -29,24 +29,13 @@
       <div class="index-service__grid">
         {% if services %}
         {% for service in services %}
-        <a href="{{ service.get_absolute_url }}" class="index-service__item item-service" data-aos="fade-up"
+        <a href="{{ service.get_absolute_url }}" ыенду class="index-service__item item-service" data-aos="fade-up"
           data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
-
-          <div class="item-service__top">
-            <p class="item-service__title">{{ service.name }}</p>
-            <div class="item-service__icon">
-              <svg role="presentation" class="t959__card-arrow" width="14" height="24" viewBox="0 0 14 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 0.994385L12 11.9944L1 22.9944" stroke="#6c7c40" stroke-width="2"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="item-service__text">{{ service.subtitle|truncatechars:50 }}</div>
-          <div class="item-service__image">
-            {% if service.image %}
-            <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
-            {% endif %}
-          </div>
+          <img src="{{ service.image.url }}" alt="" class="index-service__img">
+          <p class="index-service__title">{{ service.name }}</p>
+          <p class="index-service__descr">
+            {{ service.subtitle|truncatechars:150 }}
+          </p>
         </a>
         {% endfor %}
         {% else %}
@@ -82,24 +71,96 @@
   </div>
 
   <div class="index-about">
-    <div class="rect"></div>
+    <img src="{% static 'theme/mb/images/separator_detail.svg' %}" alt="" class="separator-img">
     <div class="index-about__container">
-      <div class="index-about__row">
-        <div class="index-about__col">
-          <h2 class="index-about__title _title" data-aos="fade-up" data-aos-once="true">Немного о нас</h2>
-          <div class="index-about__text text" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
-            <p>
-              {{ home_page.about_text }}
-            </p>
+      <div class="index-about__inner">
+        <h2 class="index-about__title _title">Почему мы ?</h2>
+        <div class="index-about__who who">
+          <div class="who__grid">
+            <div class="who__item">
+              <div class="who__icon">
+                <img src="{% static 'theme/mb/images/chef.png' %}" alt="">
+              </div>
+              <p class="who__text">Домашняя кухня</p>
+            </div>
+            <div class="who__item">
+              <div class="who__icon">
+                <img src="{% static 'theme/mb/images/chef.png' %}" alt="">
+              </div>
+              <p class="who__text">Душевность</p>
+            </div>
+            <div class="who__item">
+              <div class="who__icon">
+                <img src="{% static 'theme/mb/images/chef.png' %}" alt="">
+              </div>
+              <p class="who__text">Уникальность</p>
+            </div>
+            <div class="who__item">
+              <div class="who__icon">
+                <img src="{% static 'theme/mb/images/chef.png' %}" alt="">
+              </div>
+              <p class="who__text">Креативность</p>
+            </div>
+            <div class="who__item">
+              <div class="who__icon">
+                <img src="{% static 'theme/mb/images/chef.png' %}" alt="">
+              </div>
+              <p class="who__text">Безопасность</p>
+            </div>
           </div>
-          <a href="{% url 'about' %}" class="index-about__btn _btn index-about__btn-pc" data-aos="zoom-in"
-            data-aos-delay="500" data-aos-once="true">Подробнее</a>
         </div>
-        <div class="index-about__col">
-          <div class="index-about__image" data-aos="fade-left" data-aos-once="true">
-            <img src="{% static 'theme/mb/images/about.jpg' %}" alt="">
+        <div class="index-about__text">
+          <h2 class="index-about__title _title">Немного о нас </h2>
+          <div class="index-about__row">
+            <div class="index-about__col">
+              <p>
+                <i>«Lorem, ipsum dolor sit amet consectetur adipisicing elit.»</i>
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+              </p>
+            </div>
+            <div class="index-about__col">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
+                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
+                maxime sunt iste.
+              </p>
+            </div>
           </div>
-          <a href="{% url 'about' %}" class="index-about__btn _btn index-about__btn-mb">Подробнее</a>
+          <a href="" class="index-about__link">Подробнее о нас</a>
         </div>
       </div>
     </div>

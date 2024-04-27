@@ -192,7 +192,7 @@
     }
 
     &._active {
-      background-color: rgba($color: $mainColor, $alpha: 1.0);
+      background-color: rgba($color: $accent, $alpha: 1.0);
       color: $white;
       font-weight: 600;
     }

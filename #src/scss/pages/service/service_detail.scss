@@ -33,8 +33,6 @@
     gap: 40px;
   }
 
-  // .service-menu__row
-  &__row {}
 
   // .service-menu__title
   &__title {
@@ -46,26 +44,117 @@
     text-align: center;
   }
 
-  .service-menu__category-name {
-    font-size: 30px;
-    font-family: $fontFamily;
-    margin-bottom: 30px;
+  // .service-menu__row
 
-    @media screen and (max-width: 520px) {
-      font-size: 25px;
+  &__row {
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: 40px;
+  }
+
+  // .service-menu__sidebar
+
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    overflow-y: auto;
+    padding: 30px 20px;
+    position: sticky;
+    top: 100px;
+    box-shadow: 0px 0px 10px rgba($color: $mainColor, $alpha: .1);
+    border: 1px solid rgba($color: $mainColor, $alpha: .1);
+    border-radius: 8px;
+
+
+    @media screen and (max-width: 990px) {
+      display: none;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      /* ширина всей полосы прокрутки */
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba($color: $mainColor, $alpha: .03);
+      border-radius: 2px;
+      /* цвет зоны отслеживания */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $accent;
+      border-radius: 2px;
+      /* цвет бегунка */
+    }
+
+    button {
+      padding: 10px 20px;
+      border-radius: 4px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: $animation_speed;
+
+      @media (hover:hover) {
+        &:hover {
+          color: $accent;
+        }
+      }
+
+      &._active {
+        background-color: $accent;
+        color: $white;
+      }
     }
   }
 
-  .service-menu__bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  // .service-menu__menu
+
+  &__menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 30px;
   }
 
 }
+
+.card-product {
+
+  // .card-product__image
+
+  &__image {}
+
+  // .card-product__name
+
+  &__name {}
+
+  // .card-product__price
+
+  &__price {}
+
+  // .card-product__info
+
+  &__info {}
+
+  // .card-product__weight
+
+  &__weight {}
+
+  // .card-product__line
+
+  &__line {}
+
+  // .card-product__btns
+
+  &__btns {}
+
+  // .card-product__btn
+
+  &__btn {}
+}
+
 
 // .color-section
 

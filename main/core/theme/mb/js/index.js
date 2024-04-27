@@ -159,19 +159,27 @@ function getProductForBranch(categoryId, branchSlug) {
           productsContainer.innerHTML = '';
           if (dataArray.length > 0) {
             dataArray.forEach(product => {
+              let prodcut_price = product.price;
               const productElement = document.createElement('div');
               productElement.classList.add('tab__content-item', 'card-product')
               productElement.innerHTML =
-                `
-                    <a href="${product.url}" class="card-product__image">
-                      <img src="${product.image}" alt="${product.name}" title="${product.name}" />
-                    </a>
-                    <a href="${product.url}" class="card-product__name">${product.name}</a>
-                    <p class="card-product__price">${product.price} ₽</p>
-                    <p class="card-product__price">${product.weight}</p>
-                    <div class="card-product__btns">
-                      <a href="${product.url}" class="card-product__btn">Подробнее</a>
-                    </div>
+                `<a href="${product.url}" class="card-product__image">
+                <img src="${product.image}" alt="${product.name}" title="${product.name}" />
+                <a href="${product.url}" class="card-product__name">${product.name}</a>
+      
+                <div class="card-product__info">
+                  <p class="card-product__weight">${product.weight} гр.</p>
+                  <div class="card-product__line"></div>
+                  <p class="card-product__price">${prodcut_price} ₽</p>
+                </div>
+                <div class="card-product__info">
+                  <p class="card-product__weight">${product.weight_two} гр.</p>
+                  <div class="card-product__line"></div>
+                  <p class="card-product__price">${product.price_two} ₽</p>
+                </div>
+                <div class="card-product__btns">
+                  <a href="${product.url}" class="card-product__btn">Описание</a>
+                </div>
                   `;
               productsContainer.appendChild(productElement);
             })
@@ -185,6 +193,74 @@ function getProductForBranch(categoryId, branchSlug) {
       }
     })
     .catch(error => console.error('Error', error))
+}
+
+function getProductService(categoryId) {
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log(csrfToken)
+  fetch('/service/get_data_service/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken,
+    },
+    body: JSON.stringify({ category_id: categoryId })
+  })
+    .then(response => response.json())
+    .then(data => {
+      dataArray = Object.values(data)
+      const productsContainer = document.getElementById('service-menu');
+      dataArray.forEach(item => {
+        item.forEach(product => {
+          console.log(product);
+          const productElement = document.createElement('div');
+          productElement.classList.add('tab__content-item', 'card-product')
+          productElement.innerHTML =
+            `<a href="" class="card-product__image">
+              <img src="${product.image}" alt="${product.name}" title="${product.name}" />
+
+              <div class="card-product__info">
+                <div class="card-product__line"></div>
+                <p class="card-product__price">${product.price} ₽</p>
+              </div>
+                `;
+          productsContainer.appendChild(productElement);
+          console.log(productsContainer);
+        })
+      })
+      // if (Array.isArray(data)) {
+      //   dataArray = Object.values(data_product)
+
+      //   if (productsContainer) {
+      //     productsContainer.innerHTML = '';
+      //     if (dataArray.length > 0) {
+      //       dataArray.forEach(product => {
+
+
+      //       })
+      //     } else {
+      //       if (productsContainer) {
+
+      //         productsContainer.innerHTML = '<p class="empty">Для данной категории меню дня не заполнено, посмотрите следующие категории</p>';
+      //         productsContainer.classList.add('no-grid');
+      //         console.log(productsContainer);
+      //       }
+      //     }
+      //   }
+      // }
+    })
+    .catch(error => console.error('Error', error))
+}
+
+const serviceLink = document.querySelectorAll('.service-link');
+if (serviceLink) {
+  serviceLink.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const categoryId = this.dataset.id;
+      console.log(categoryId);
+      getProductService(categoryId);
+    })
+  });
 }
 
 const categoryLink = document.querySelectorAll('.category-link');

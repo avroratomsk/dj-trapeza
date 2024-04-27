@@ -5,13 +5,11 @@
     <section class="services__top">
       <div class="services__container">
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Главная
             <meta itemprop="position" content="1" />
           </a>
-          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Услуги
             <meta itemprop="position" content="2" />
           </a>
@@ -28,8 +26,7 @@
           <button type="button" class="services__top-btn" data-popup="popup-pominalnye">Оставить заявку</button>
         </div>
       </div>
-      <img src="{% static 'theme/mb/images/separator_pomin.svg' %}" alt="" width="100%"
-        class="body-service__separator" />
+      <img src="{% static 'theme/mb/images/separator_pomin.svg' %}" alt="" width="100%" class="body-service__separator" />
     </section>
 
     <section class="service-page__body body-service">
@@ -52,8 +49,7 @@
               {% if branch.image %} {% thumbnail branch.image "790x490" format="WEBP" as im %}
               <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% endthumbnail %} {% else %}
-              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
-                title="{{ branch.name }}" />
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% endif %}
               <span>{{ branch.address_fillial }}</span>
             </div>
@@ -69,47 +65,45 @@
         <div class="services-text__row">
           <div class="services-text__col">
             <p>
-              Организация похорон требует решения огромного количества проблем, и одной из них становится вопрос о
-              проведении поминок. Повара нашей столовой возьмут на себя заботы по поминальному обеду, чтобы облегчить
-              ваши хлопоты после смерти близкого человека.
+              Организация похорон требует решения огромного количества проблем, и одной из них становится вопрос о проведении поминок. Повара нашей столовой возьмут на себя заботы
+              по поминальному обеду, чтобы облегчить ваши хлопоты после смерти близкого человека.
             </p>
           </div>
           <div class="services-text__col">
             <p>
-              Мы можем организовать обед памяти в столовой — есть два отдельных зала с посадкой до 50 человек.
-              Дополнительно предложим помощь подготовленного для такого мероприятия персонала.
+              Мы можем организовать обед памяти в столовой — есть два отдельных зала с посадкой до 50 человек. Дополнительно предложим помощь подготовленного для такого мероприятия
+              персонала.
             </p>
           </div>
         </div>
         <div class="services-text__list">
           <div class="services-text__list-left">
-            <h3>Меню поминального <br> обеда</h3>
+            <h3>
+              Меню поминального <br />
+              обеда
+            </h3>
           </div>
           <div class="services-text__list-right">
             <p>
-              Мы предлагаем традиционные блюда, приготовленные по особым рецептам. Повара готовят кутью из риса с
-              добавлением меда и изюма. Также на стол подаются блины, домашняя лапша, горячее, салаты и закуски, морс,
-              компот.
+              Мы предлагаем традиционные блюда, приготовленные по особым рецептам. Повара готовят кутью из риса с добавлением меда и изюма. Также на стол подаются блины, домашняя
+              лапша, горячее, салаты и закуски, морс, компот.
             </p>
           </div>
         </div>
         <div class="services-text__list">
           <div class="services-text__list-left">
-            <h3>Поминальная трапеза <br>в столовой</h3>
+            <h3>Поминальная трапеза <br />в столовой</h3>
           </div>
           <div class="services-text__list-right">
-            <p>
-              При заказе услуги вы сможете не волноваться о мелочах. Мы возьмем на себя:
-            </p>
+            <p>При заказе услуги вы сможете не волноваться о мелочах. Мы возьмем на себя:</p>
             <ul>
               <li>составление меню;</li>
               <li>приготовление по-домашнему вкусных блюд;</li>
               <li>профессиональное обслуживание по доступным ценам.</li>
             </ul>
             <p>
-              При организации трапезы будут учтены любые нюансы — мы сделаем все возможное, чтобы оказать вам поддержку
-              в тяжелые дни. Мы с пониманием и сочувствием выполним всю подготовку, чтобы вы могли почтить память о
-              близком.
+              При организации трапезы будут учтены любые нюансы — мы сделаем все возможное, чтобы оказать вам поддержку в тяжелые дни. Мы с пониманием и сочувствием выполним всю
+              подготовку, чтобы вы могли почтить память о близком.
             </p>
           </div>
         </div>
@@ -121,12 +115,11 @@
       <div class="service-menu__container">
         <h2 class="_title service-menu__title">Поминальное меню 850 рублей с человка</h2>
         <div class="pominalnye">
-          {% for category, products in products_by_category.items %}
           {% for product in products %}
           <ul class="pominalnye__item">
             <li class="pominalnye__title">{{ product.name }}</li>
           </ul>
-          {% endfor %} {% endfor %}
+          {% endfor %}
         </div>
         <div class="services__top-action">
           <button type="button" class="services__top-btn" data-popup="popup-pominalnye">Оставить заявку</button>

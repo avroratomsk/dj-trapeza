@@ -8,6 +8,7 @@ import io
 import os
 from .services import *
 import datetime
+from django.http import JsonResponse
 
 
 from .models import *
@@ -88,12 +89,15 @@ def get_data(request):
       data.append({
         'name': product.name,
         'price': product.price,
+        'price_two': product.price_two,
         'weight': product.weight,
+        'weight_two': product.weight_two,
         'url': product.get_absolute_url(), # URL детальной страницы продукта
         'image': product.image.url
       })
       # print(data)
     return JsonResponse({"data": data, "branch": branch_info})
+
 
 def get_products(request, id):
   product = Product.objects.filter(category_id=id)
@@ -139,7 +143,7 @@ def product(request, slug):
   }
   return render(request, "pages/catalog/view-product.html", context)
 
-from django.http import JsonResponse
+
 # from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from PIL import Image
