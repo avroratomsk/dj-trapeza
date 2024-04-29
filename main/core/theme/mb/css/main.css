@@ -3744,6 +3744,12 @@ section {
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .service-menu__row {
+    flex-direction: column;
+  }
+}
+
 @media screen and (max-width: 990px) {
   .aside {
     display: none;

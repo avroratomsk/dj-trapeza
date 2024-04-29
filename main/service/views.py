@@ -64,10 +64,11 @@ def get_data_service(request):
       except:
         product_image = '/core/theme/mb/images/no-image.jpg'
       
-      try: 
-        product_price = product.price
-      except:
+      if product.price is None:
         product_price = "Не указана"
+      else:
+        product_price = product.price
+        
         
       data.append({
         'name': product.name,
