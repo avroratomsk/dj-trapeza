@@ -63,10 +63,15 @@ def get_data_service(request):
         product_image = product.image.url
       except:
         product_image = '/core/theme/mb/images/no-image.jpg'
+      
+      try: 
+        product_price = product.price
+      except:
+        product_price = "Не указана"
         
       data.append({
         'name': product.name,
-        'price': product.price,
+        'price': product_price,
         'image': product_image
       })
     return JsonResponse({"data": data})
