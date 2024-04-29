@@ -55,9 +55,7 @@ def service_detail(request, slug):
 def get_data_service(request):
     data = json.loads(request.body)
     category_id = data.get('category_id')
-    print(category_id)
     products = ServiceProduct.objects.filter(category_id=category_id)
-    print(products)
     data = []
       
     for product in products:
