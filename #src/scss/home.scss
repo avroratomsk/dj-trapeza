@@ -212,6 +212,9 @@
     color: rgba($color: $white, $alpha: 1.0);
     position: relative;
     z-index: 2;
+    text-align: center;
+    line-height: 150%;
+
   }
 
   // .index-service__descr
@@ -841,12 +844,17 @@
   // .who__icon
 
   &__icon {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
+    background-color: rgba($color: $white, $alpha: 1.0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    img {
-      width: 100%;
-      height: 100%;
+    i {
+      font-size: 30px;
+      color: rgba($color: $accent, $alpha: 1.0);
     }
   }
 

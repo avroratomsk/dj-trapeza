@@ -608,6 +608,8 @@ html.lock body::before {
   color: white;
   position: relative;
   z-index: 2;
+  text-align: center;
+  line-height: 150%;
 }
 
 .index-service__descr {
@@ -1045,13 +1047,18 @@ html.lock body::before {
 }
 
 .who__icon {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.who__icon img {
-  width: 100%;
-  height: 100%;
+.who__icon i {
+  font-size: 30px;
+  color: #00cf00;
 }
 
 .who__text {
@@ -2020,8 +2027,6 @@ html.lock body::before {
   height: 100%;
   overflow-y: auto;
   padding: 30px 20px;
-  position: sticky;
-  top: 100px;
   box-shadow: 0px 0px 10px rgba(43, 70, 60, 0.1);
   border: 1px solid rgba(43, 70, 60, 0.1);
   border-radius: 8px;
@@ -2056,6 +2061,10 @@ html.lock body::before {
 .service-menu__sidebar button._active {
   background-color: #00CF00;
   color: #ffffff;
+}
+
+.service-menu .service-link._active:hover {
+  color: white;
 }
 
 .service-menu__menu {
@@ -3621,6 +3630,13 @@ section {
   }
 }
 
+@media screen and (min-width: 1024px) {
+  .service-menu__sidebar {
+    position: sticky;
+    top: 100px;
+  }
+}
+
 @media screen and (min-width: 1100px) {
   .top-header__actions-phone {
     display: none;
@@ -3727,12 +3743,14 @@ section {
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .service-menu__row {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media screen and (max-width: 990px) {
   .aside {
-    display: none;
-  }
-
-  .service-menu__sidebar {
     display: none;
   }
 }
@@ -3903,10 +3921,6 @@ section {
 
   .empty {
     font-size: 20px;
-  }
-
-  .form__controls {
-    width: auto;
   }
 
   .form__agree {
@@ -4129,6 +4143,12 @@ section {
 
   .breadcrumbs__item:not(:last-child)::after {
     width: 10px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .popup__content {
+    padding: 30px 10px;
   }
 }
 
