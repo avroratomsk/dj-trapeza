@@ -107,7 +107,7 @@
         </div>
       </div>
     </section>
-
+    <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="">
     {% if products %}
     <section class="service-menu">
       <div class="service-menu__container">
@@ -124,6 +124,7 @@
             {% endfor %}
           </div>
           {% endif %}
+
           <div class="service-menu__menu" id="service-menu">
             {% for product in products %}
             <div class="card-product" data-id="{{ product.display_id }}" data-name="{{ product.category.slug }}">

@@ -205,6 +205,7 @@ function getProductService(categoryId) {
       'X-CSRFToken': csrfToken,
     },
     body: JSON.stringify({ category_id: categoryId })
+
   })
     .then(response => response.json())
     .then(data => {
@@ -238,7 +239,6 @@ if (serviceLink) {
     btn.addEventListener('click', function (e) {
       serviceLink.forEach(item => item.classList.remove('_active'));
       btn.classList.add('_active');
-      e.preventDefault();
       const categoryId = this.dataset.id;
       console.log(categoryId);
       getProductService(categoryId);
