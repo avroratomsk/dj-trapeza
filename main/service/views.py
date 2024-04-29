@@ -66,7 +66,6 @@ def get_data_service(request):
         'price': product.price,
         'image': product.image.url
       })
-      print(data)
     return JsonResponse({"data": data})
     
 
