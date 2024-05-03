@@ -31,7 +31,7 @@
               </button>
               {% if categorys %}
               <ul class="submenu">
-                {% for category in cats %}
+                {% for category in cat %}
                 <li class="submenu__item"><a href="{{ category.get_absolute_url }}" class="submenu__link"> {{ category.name }}</a></li>
                 {% endfor %}
               </ul>
