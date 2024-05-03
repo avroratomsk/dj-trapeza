@@ -1,63 +1,77 @@
 <header class="header">
+  <div class="header__under">
+    <div class="header__container-under">
+      <a href="tel:+79999999999" class="header__under-phone">89236464726</a>
+      {% csrf_token %}
+      <select name="fillal" id="branch-select" class="header__under-select">
+        <option value="23">{{ site_settings.address_one }}</option>
+        <option value="24">{{ site_settings.address_two }}</option>
+      </select>
+    </div>
+  </div>
   <div class="header__top top-header">
     <div class="top-header__container">
       <div class="top-header__inner">
         <a href="/" class="top-header__logo">
-          <img src="{{ site_settings.logo.url }}" alt="" />
+          {% if site_settings.logo %}
+          <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.phone_one }}" />
+          {% else %} Logo {% endif %}
         </a>
         <div class="top-header__nav nav">
+          <a href="/" class="top-header__logo logo-mb">
+            {% if site_settings.logo %}
+            <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.phone_one }}" />
+            {% else %} Logo {% endif %}
+          </a>
           <ul class="nav__list">
-            <li class="nav__item"><a href="{% url 'catalog' %}" class="nav__link">Меню</a></li>
-            <li class="nav__item"><a href="{% url 'service' %}" class="nav__link">Услуги</a></li>
-            <li class="nav__item"><a href="{% url "about" %}" class="nav__link">О нас</a></li>
-            <li class="nav__item"><a href="{% url 'stock' %}" class="nav__link">Акции</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Вакансии</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Отзывы</a></li>
+            <li class="nav__item">
+              <a href="{% url 'catalog' %}" class="nav__link">Виды меню</a>
+              <button type="button" class="nav__submenu-btn">
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              {% if categorys %}
+              <ul class="submenu">
+                {% for category in cat %}
+                <li class="submenu__item"><a href="{{ category.get_absolute_url }}" class="submenu__link"> {{ category.name }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            <li class="nav__item">
+              <a href="{% url 'service' %}" class="nav__link">Услуги</a>
+              <button type="button" class="nav__submenu-btn">
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              {% if services %}
+              <ul class="submenu">
+                {% for service in services %}
+                <li class="submenu__item"><a href="{{ service.get_absolute_url }}" class="submenu__link"> {{ service.name }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            <li class="nav__item">
+              <a href="{% url 'about' %}" class="nav__link">О нас</a>
+              <button type="button" class="nav__submenu-btn">
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <ul class="submenu">
+                <li class="submenu__item"><a href="{% url 'stock' %}" class="submenu__link">Акции</a></li>
+                <li class="submenu__item"><a href="{% url 'news' %}" class="submenu__link">Новости</a></li>
+                <li class="submenu__item"><a href="{% url 'blog' %}" class="submenu__link">Статьи</a></li>
+              </ul>
+            </li>
+            <li class="nav__item"><a href="{% url 'vacancies' %}" class="nav__link">Вакансии</a></li>
+            <li class="nav__item"><a href="{% url 'reviews' %}" class="nav__link">Отзывы</a></li>
+            <li class="nav__item"><a href="{% url 'gallery' %}" class="nav__link">Галерея</a></li>
             <li class="nav__item"><a href="{% url 'contact' %}" class="nav__link">Контакты</a></li>
           </ul>
         </div>
         <div class="top-header__actions">
-          <a href="tel:{{ site_settings.phone_one }}" class="top-header__phone">{{ site_settings.phone_one }}</a>
-          <button type="button">Связаться с нами</button>
+          <a href="tel:" class="top-header__actions-phone">8(999) 999-99-99</a>
+          <button type="button" data-popup="popup-callback">Связаться с нами</button>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="header__bottom bottom-header">
-    <div class="bottom-header__container">
-      <div class="bottom-header__days">
-        <a href="#" class="bottom-header__day">
-          <span class="bottom-header__day--name">Понедельник</span>
-          <span class="bottom-header__day--number">12 декабря</span>
-        </a>
-        <a href="#" class="bottom-header__day">
-          <span class="bottom-header__day--name">Вторник</span>
-          <span class="bottom-header__day--number">13 декабря</span>
-        </a>
-        <a href="#" class="bottom-header__day">
-          <span class="bottom-header__day--name">Среда</span>
-          <span class="bottom-header__day--number">14 декабря</span>
-        </a>
-        <a href="#" class="bottom-header__day active">
-          <span class="bottom-header__day--name">Четверг</span>
-          <span class="bottom-header__day--number">15 декабря</span>
-        </a>
-        <a href="#" class="bottom-header__day">
-          <span class="bottom-header__day--name">Пятница</span>
-          <span class="bottom-header__day--number">16 декабря</span>
-        </a>
-        <a href="#" class="bottom-header__day">
-          <span class="bottom-header__day--name">Суббота</span>
-          <span class="bottom-header__day--number">17 декабря</span>
-        </a>
-        <a href="#" class="bottom-header__day">
-          <span class="bottom-header__day--name">Воскресенье</span>
-          <span class="bottom-header__day--number">18 декабря</span>
-        </a>
-        <a href="#" class="bottom-header__day">
-          <span class="bottom-header__day--name">Понедельник</span>
-          <span class="bottom-header__day--number">19 декабря</span>
-        </a>
+        <button type="button" class="top__header-burger burger" id="burger"><span></span></button>
       </div>
     </div>
   </div>

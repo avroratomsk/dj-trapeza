@@ -29,9 +29,9 @@
               <button type="button" class="nav__submenu-btn">
                 <i class="fa-solid fa-chevron-down"></i>
               </button>
-              {% if categorys %}
+              {% if cat %}
               <ul class="submenu">
-                {% for category in cats %}
+                {% for category in cat %}
                 <li class="submenu__item"><a href="{{ category.get_absolute_url }}" class="submenu__link"> {{ category.name }}</a></li>
                 {% endfor %}
               </ul>
