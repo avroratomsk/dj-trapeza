@@ -33,22 +33,13 @@
       <div class="index-service__grid">
         {% if services %}
         {% for service in services %}
-        <a href="{{ service.get_absolute_url }}" class="index-service__item item-service">
-          <div class="item-service__top">
-            <p class="item-service__title">{{ service.name }}</p>
-            <div class="item-service__icon">
-              <svg role="presentation" class="t959__card-arrow" width="14" height="24" viewBox="0 0 14 24" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 0.994385L12 11.9944L1 22.9944" stroke="#6c7c40" stroke-width="2"></path>
-              </svg>
-            </div>
-          </div>
-          <div class="item-service__text">{{ service.subtitle|truncatechars:50 }}</div>
-          <div class="item-service__image">
-            {% if service.image %}
-            <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
-            {% endif %}
-          </div>
+        <a href="{{ service.get_absolute_url }}"  class="index-service__item item-service" data-aos="fade-up"
+          data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
+          <img src="{{ service.image.url }}" alt="" class="index-service__img">
+          <p class="index-service__title">{{ service.name }}</p>
+          <p class="index-service__descr">
+            {{ service.subtitle|truncatechars:150 }}
+          </p>
         </a>
         {% endfor %}
         {% else %}

@@ -29,7 +29,7 @@
       <div class="index-service__grid">
         {% if services %}
         {% for service in services %}
-        <a href="{{ service.get_absolute_url }}" ыенду class="index-service__item item-service" data-aos="fade-up"
+        <a href="{{ service.get_absolute_url }}"  class="index-service__item item-service" data-aos="fade-up"
           data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
           <img src="{{ service.image.url }}" alt="" class="index-service__img">
           <p class="index-service__title">{{ service.name }}</p>
