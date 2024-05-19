@@ -1,94 +1,95 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <main class="page-contact page">
-  <div class="single-banner" style="background-image: url({%static'theme/mb/images/stock.jpg'%})" data-speed="70">
-    <h1 class="contact__title _title">Фотографии</h1>
-    <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-      <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
-        Главная
-        <meta itemprop="position" content="1" />
-      </a>
-      <span itemprop="name" class="breadcrumbs__item">
-        Галерея
-        <meta itemprop="position" content="2" />
-      </span>
-    </div>
-  </div>
-  <section class="gallery">
-    <div class="gallery__container">
-      <div class="gallery__grid">
-        {% if gallerys %} {% for gallery in gallerys %}
-        <a href="{{ gallery.image.url }}" class="gallery__item">
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45px" height="45px" viewBox="0 0 45 45" xml:space="preserve">
-            <path
-              d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141
+	<div class="single-banner" style="background-image: url({% static 'theme/mb/images/stock.jpg' %})" data-speed="70">
+		<h1 class="contact__title _title">Фотографии</h1>
+		<div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+			<a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+				class="breadcrumbs__item">
+				Главная
+				<meta itemprop="position" content="1" />
+			</a>
+			<span itemprop="name" class="breadcrumbs__item">
+				Галерея
+				<meta itemprop="position" content="2" />
+			</span>
+		</div>
+	</div>
+	<section class="gallery">
+		<div class="gallery__container">
+			<div class="gallery__grid">
+				{% if gallerys %} {% for gallery in gallerys %}
+				<a href="{{ gallery.image.url }}" class="gallery__item">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45px"
+						height="45px" viewBox="0 0 45 45" xml:space="preserve">
+						<path d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141
 									c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27
 									c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435
-									c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"
-            />
-          </svg>
-          <img src="{{ gallery.image.url }}" alt="{{ gallery.alt }}" title="{{ gallery.alt }}" />
-        </a>
-        {% endfor %}{% endif %}
-      </div>
-    </div>
-  </section>
-  <section class="contact">
-    <div class="contact__container">
-      <h2 class="contact__title _title">Контакты</h2>
-      <div class="contact__row">
-        <div class="contact__col contact-info">
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <div class="contact-info__content" id="address">г.Томск, улица Ленина, дом 23а</div>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-phone-volume"></i>
-            </div>
-            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{ settings.phone_one }}</a>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-envelope"></i>
-            </div>
-            <a href="#" class="contact-info__content">trapeza@mail.ru</a>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-solid fa-calendar-days"></i>
-            </div>
-            <p class="contact-info__content" id="time-work">с 8:00 до 17:00</p>
-          </div>
-          <div class="contact-info__row">
-            <div class="contact-info__icon">
-              <i class="fa-regular fa-calendar"></i>
-            </div>
-            <p class="contact-info__content" id="weekend">суббота и воскресенье выходной</p>
-          </div>
-        </div>
-        <div class="contact__col form">
-          <form action="{% url 'contacform' %}" class="form__form" method="POST">
-            {% csrf_token %}
-            <div class="form__group require">{{ contactform.name }}</div>
-            <div class="form__group">{{ contactform.phone }}</div>
-            <div class="form__group">{{ contactform.email }}</div>
-            <div class="form__group">{{ contactform.message }}</div>
-            <div class="form__group form__group-row">
-              <button type="submit" class="form__btn">Отправить</button>
-              <div class="form__agree">
-                <input type="checkbox" id="agree-checkbox" checked />
-                <label for="agree-checkbox">Даю согласие на обработку персональных данных</label>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="contact__map" id="map"></div>
-    </div>
-  </section>
+									c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z" />
+					</svg>
+					<img src="{{ gallery.image.url }}" alt="{{ gallery.alt }}" title="{{ gallery.alt }}" />
+				</a>
+				{% endfor %}{% endif %}
+			</div>
+		</div>
+	</section>
+	<section class="contact">
+		<div class="contact__container">
+			<h2 class="contact__title _title">Контакты</h2>
+			<div class="contact__row">
+				<div class="contact__col contact-info">
+					<div class="contact-info__row">
+						<div class="contact-info__icon">
+							<i class="fa-solid fa-location-dot"></i>
+						</div>
+						<div class="contact-info__content" id="address">г.Томск, улица Ленина, дом 23а</div>
+					</div>
+					<div class="contact-info__row">
+						<div class="contact-info__icon">
+							<i class="fa-solid fa-phone-volume"></i>
+						</div>
+						<a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
+							settings.phone_one }}</a>
+					</div>
+					<div class="contact-info__row">
+						<div class="contact-info__icon">
+							<i class="fa-solid fa-envelope"></i>
+						</div>
+						<a href="#" class="contact-info__content">trapeza@mail.ru</a>
+					</div>
+					<div class="contact-info__row">
+						<div class="contact-info__icon">
+							<i class="fa-solid fa-calendar-days"></i>
+						</div>
+						<p class="contact-info__content" id="time-work">с 8:00 до 17:00</p>
+					</div>
+					<div class="contact-info__row">
+						<div class="contact-info__icon">
+							<i class="fa-regular fa-calendar"></i>
+						</div>
+						<p class="contact-info__content" id="weekend">суббота и воскресенье выходной</p>
+					</div>
+				</div>
+				<div class="contact__col form">
+					<form action="{% url 'contacform' %}" class="form__form" method="POST">
+						{% csrf_token %}
+						<div class="form__group require">{{ contactform.name }}</div>
+						<div class="form__group">{{ contactform.phone }}</div>
+						<div class="form__group">{{ contactform.email }}</div>
+						<div class="form__group">{{ contactform.message }}</div>
+						<div class="form__group form__group-row">
+							<button type="submit" class="form__btn">Отправить</button>
+							<div class="form__agree">
+								<input type="checkbox" id="agree-checkbox" checked />
+								<label for="agree-checkbox">Даю согласие на обработку персональных данных</label>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="contact__map" id="map"></div>
+		</div>
+	</section>
 </main>
 
 {% endblock %}

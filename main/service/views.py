@@ -28,8 +28,16 @@ def service(request):
 def service_detail(request, slug):
   category = ServiceCategory.objects.all()
   service = Service.objects.get(slug=slug)
-  pomin = PominalnyeObed.objects.get()
-  banket = Banket.objects.get()
+  try:
+    pomin = PominalnyeObed.objects.get()
+  except:
+    pomin = PominalnyeObed()
+  
+  try:
+    banket = Banket.objects.get()
+  except:
+    banket = Banket()
+  
     
   category = ServiceCategory.objects.all()
   if request.path != "/service/pominalnye-obedy/":
