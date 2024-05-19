@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.db.models import Q, Count
 from django.core.exceptions import ObjectDoesNotExist
 from shop.models import Category, Product
-from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
+from service.models import Banket, PominalnyeObed, Service, ServiceCategory, ServicePage, ServiceProduct
 import json
 from django.http import JsonResponse
 
@@ -28,7 +28,9 @@ def service(request):
 def service_detail(request, slug):
   category = ServiceCategory.objects.all()
   service = Service.objects.get(slug=slug)
-  
+  pomin = PominalnyeObed.objects.get()
+  banket = Banket.objects.get()
+    
   category = ServiceCategory.objects.all()
   if request.path != "/service/pominalnye-obedy/":
     try:
@@ -45,6 +47,8 @@ def service_detail(request, slug):
     "service": service,
     "products": product,
     "categorys": category,
+    "pomin_page": pomin,
+    "banket_page": banket
   }
   
   if request.path == "/service/pominalnye-obedy/":

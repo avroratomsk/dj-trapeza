@@ -3,7 +3,7 @@ from django_ckeditor_5.widgets import CKEditor5Widget
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from blog.models import BlogSettings, Post
 from news.models import News
-from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
+from service.models import Banket, PominalnyeObed, Service, ServiceCategory, ServicePage, ServiceProduct
 from reviews.models import Reviews
 from shop.models import Category, Day, Product, Branch
 
@@ -511,6 +511,10 @@ class HomeTemplateForm(forms.ModelForm):
           'banner',
           'meta_h1',
           'untitle',
+          'left_text',
+          'right_text',
+          'callback_image',
+          'callback_text',
           'meta_title',
           'meta_description',
           'meta_keywords',
@@ -537,6 +541,18 @@ class HomeTemplateForm(forms.ModelForm):
           'untitle': forms.TextInput(attrs={
               'class': 'form__controls',
           }),
+          'left_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'right_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'callback_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
           'meta_title': forms.TextInput(attrs={
               'class': 'form__controls',
               # 'placeholder': 'Мета заголовок',
@@ -548,9 +564,139 @@ class HomeTemplateForm(forms.ModelForm):
           'meta_keywords': forms.TextInput(attrs={
               'class': 'form__controls',
           }),
-          'about_text': forms.TextInput(attrs={
+          'about_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 5
+          }),
+      }
+      
+class PominalnyeForm(forms.ModelForm):
+  """ Form, редактирование Поминальные обеды страницы"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+      model = PominalnyeObed
+      fields = [
+          'title',
+          'subtitle',
+          'left_text',
+          'right_text',
+          'first_text_title',
+          'first_text_text',
+          'second_text_title',
+          'second_text_text',
+          'meta_h1',
+          'meta_title',
+          'meta_description',
+          'meta_keywords',
+      ]
+      widgets = {
+          'title': forms.TextInput(attrs={
+              'class': 'form__controls'
+          }),
+          'meta_h1': forms.TextInput(attrs={
               'class': 'form__controls',
           }),
+          'subtitle': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'left_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'right_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'first_text_title': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'first_text_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'second_text_title': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'second_text_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'meta_title': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета заголовок',
+          }),
+          'meta_description': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета описание',
+          }),
+          'meta_keywords': forms.TextInput(attrs={
+              'class': 'form__controls',
+          })
+      }
+      
+class BanketForm(forms.ModelForm):
+  """ Form, редактирование Поминальные обеды страницы"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+  
+  class Meta:
+      model = Banket
+      fields = [
+          'title',
+          'subtitle',
+          'left_text',
+          'text_one',
+          'text_two',
+          'text_three',
+          'text_four',
+          'meta_h1',
+          'meta_title',
+          'meta_description',
+          'meta_keywords',
+      ]
+      widgets = {
+          'title': forms.TextInput(attrs={
+              'class': 'form__controls'
+          }),
+          'meta_h1': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'subtitle': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'left_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'text_one': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'text_two': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'text_three': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'text_four': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 15
+          }),
+          'meta_title': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета заголовок',
+          }),
+          'meta_description': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета описание',
+          }),
+          'meta_keywords': forms.TextInput(attrs={
+              'class': 'form__controls',
+          })
       }
       
 class AboutTemplateForm(forms.ModelForm):

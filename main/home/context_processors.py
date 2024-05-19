@@ -1,4 +1,5 @@
 from home.models import BaseSettings
+from home.forms import CallbackForm
 from shop.models import Branch, Category 
 from service.models import Service
  
@@ -24,3 +25,7 @@ def setup(request):
         setup = []
         
     return {"setup": setup}
+
+def callback(request):
+    callback = CallbackForm()
+    return {"callback": callback}

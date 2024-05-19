@@ -20,9 +20,7 @@
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
       <form action="{% url 'callback' %}" method="POST" class="form form-column">
-        {% csrf_token %}
-        <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
-        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
+        {% csrf_token %} {{ callback.name }} {{ callback.phone }}
         <button type="submit" class="form__submit">Заказать</button>
       </form>
     </div>

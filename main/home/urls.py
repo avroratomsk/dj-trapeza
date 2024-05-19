@@ -11,6 +11,7 @@ urlpatterns = [
     path('callback/', views.callback, name='callback'),
     path('blog/', include('blog.urls')),
     path('valancies/', views.vacancies, name="vacancies"),
-    
+    path('callback/', views.callback, name="callback"),
+    path('callback-success/', views.callback_success, name="callback_success"),
     path('', views.index, name="home"),
 ]

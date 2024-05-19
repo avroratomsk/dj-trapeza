@@ -535,6 +535,7 @@
   // .reviews__quote
 
   &__quote {
+    display: none;
     width: 100px;
     color: $mainColor;
     line-height: 100px;
@@ -601,6 +602,7 @@
 
   &__text {
     max-height: 100px;
+    min-height: 100px;
     font-size: 15px;
     line-height: 150%;
     overflow: hidden;
@@ -776,12 +778,14 @@
   // .index-about__col
 
   &__col {
+    white-space: pre-wrap;
+
     @media screen and (min-width: 768px) {
       flex: 1 1 50%;
     }
 
     p {
-      // font-weight: 600;
+      white-space: pre-wrap;
       color: rgba($color: $white, $alpha: 1.0);
       margin-bottom: 20px;
       line-height: 150%;

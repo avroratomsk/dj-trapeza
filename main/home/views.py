@@ -118,23 +118,28 @@ def gallery(request):
     return render(request, "pages/gallery.html", context)
 
 def callback(request):
-    if request.method == 'POST':
+  if request.method == "POST":
+    form = CallbackForm(request.POST)
+    if form.is_valid():
+      name  = form.cleaned_data['name']
+      phone = form.cleaned_data['phone']
+      title = 'Заказ обратного звонка'
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n"
+      
+      email_callback(messages, title)
+      print(form)
+      return redirect('callback_success')
+  else:
+    form = CallbackForm()
+  
+  context = {
+    'form': form
+  }
+  
+  return render(request, 'pages/callback-succes.html', context)
 
-        form = CallbackForm(request.POST)
-        name = request.POST['name']
-        tel = request.POST['phone']
-
-        message = f"Заказ обратного звонка:nИМЯ: {name}nТЕЛЕФОН: {tel}"
-
-        if form.is_valid():
-            title = 'Заказ обратного звонка'
-            email_callback(title, message)
-            return redirect("home")
-
-        else:
-            return HttpResponse("Форма имеет ошибки. Пожалуйста, проверьте введенные данные.")
-    
-    return HttpResponse("Метод не POST. Пожалуйста, отправьте форму используя метод POST.")
+def callback_success(request):
+  return redirect(request.META.get('HTTP_REFERER'))
 
 def vacancies(request):
     return render(request, "pages/vacancies/vacancies.html")

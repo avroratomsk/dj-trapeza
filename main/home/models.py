@@ -14,13 +14,17 @@ class BaseSettings(SingletonModel):
 
 class HomeTemplate(SingletonModel):
   banner = models.ImageField(upload_to="home-page", blank=True, null=True, verbose_name="Картинка главной страницы")
-  meta_h1 = models.CharField(max_length=250, blank=True, null=True, verbose_name="Заголовок первого уровня")
   untitle = models.CharField(max_length=250, blank=True, null=True, verbose_name="Надзаголовок")
+  left_text = models.TextField(null=True, blank=True, verbose_name="О нас левый текст")
+  right_text = models.TextField(null=True, blank=True, verbose_name="О нас правый текст")
+  meta_h1 = models.CharField(max_length=250, blank=True, null=True, verbose_name="Заголовок первого уровня")
   meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
   meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
   about_text = models.TextField(null=True, blank=True, verbose_name="О компании")
   about_image = models.ImageField(upload_to="home-page", null=True, blank=True, verbose_name="О компании картинка")
+  callback_image = models.ImageField(upload_to="home-page", null=True, blank=True, verbose_name="CallBack картинка")
+  callback_text = models.TextField(null=True, blank=True, verbose_name="CallBack текст")
   
 class Stock(models.Model):
   """Model"""

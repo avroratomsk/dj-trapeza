@@ -1,35 +1,31 @@
-{% extends 'admin_base.html' %} {% load shop_tags %} {% load static %} {% load thumbnail %} {% block body %}
+{% extends 'admin_base.html' %} {% load shop_tags %} {% load thumbnail %} {% load static %} {% block body %}
 
 <div class="page">
   <div class="page__inner">
     <div class="page__add">
       <h1 class="page__title">Товары</h1>
-      <a href="{% url 'product_add' %}">Добавить товар</a>
+      <a href="{% url 'product_add' %}" class="page__add-btn">
+        <img src="{% static 'theme/mb/images/admin/add.svg' %}" alt="" />
+        Добавить
+      </a>
     </div>
-    {% if categorys %}
-    <div class="admin-category__list">
-      {% for category in categorys %}
-      <a href="{{ category.get_category_url }}" class="admin-category__item">{{ category.name }}</a>
-      {% endfor %}
-    </div>
-    {% endif %}
-    {% if products %}
-    <div class="table-5">
-      <div class="head-table table-5__head">
+    <div class="table-4">
+      <div class="head-table table-4__head">
         <div class="head-table__image">Изображение</div>
         <div class="head-table__name">Название</div>
         <div class="head-table__price">Цена</div>
-        <div class="head-table__price">Выбор дня</div>
-        <div class="head-table__action">Действия</div>
+        <div class="head-table__action">
+          <img src="{% static 'theme/mb/images/admin/gear.svg' %}" alt="" />
+        </div>
       </div>
-      <div class="body-table table-5__body">
+      <div class="body-table table-4__body">
         {% for product in products %}
         <div class="body-table__row">
           <div class="body-table__image">
-            {% if product.image %} {% thumbnail product.image "150x150" format="WEBP" as im %}
-            <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
+            {% if product.image %} {% thumbnail product.image "100x100" format="WEBP" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
             {% endthumbnail %} {% else%}
-            <img src="{% static 'admin/images/no-image.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+            <img src="{% static 'admin/images/no-image.png' %}" alt="" />
             {% endif %}
           </div>
           <div class="body-table__name">
@@ -40,56 +36,9 @@
             {% endif %}
           </div>
           <div class="body-table__price">
-            {% if product.price %}
             <span>{{ product.price }} руб.</span>
-            {% else %}
-            <span>Не указана</span>
-            {% endif %}
-          </div>
-          <div class="body-table__day">
-            {% if product.funeral_menu != False %}
-            <span>не указан</span>
-            {% else %}
-            <form action="{% url 'product_day_edit' product.id %}" method="POST">
-              {% csrf_token %}
-              <select name="set-day" id="set-day" class="admin-select">
-                <option disabled selected class="admin-select__option">Выберите день</option>
-                <option value="0" class="admin-select__option" {% if product.day == 0 %}selected{% endif %}>Понедельник</option>
-                <option value="1" class="admin-select__option" {% if product.day == 1 %}selected{% endif %}>Вторник</option>
-                <option value="2" class="admin-select__option" {% if product.day == 2 %}selected{% endif %}>Среда</option>
-                <option value="3" class="admin-select__option" {% if product.day == 3 %}selected{% endif %}>Четверг</option>
-                <option value="4" class="admin-select__option" {% if product.day == 4 %}selected{% endif %}>Пятница</option>
-              </select>
-              <button type="submit">Сохранить</button>
-            </form>
-            {% endif %}
           </div>
           <div class="body-table__action">
-            <a href="{{ product.get_absolute_url }}" target="_blank" class="info">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 495.558 495.558" xml:space="preserve">
-                <g>
-                  <g>
-                    <path
-                      d="M492.538,242.716c-3.702-6.173-92.288-151.327-244.76-151.327c-152.476,0-241.063,145.154-244.76,151.327L0,247.774 l3.019,5.058c3.697,6.173,92.284,151.337,244.76,151.337c152.471,0,241.058-145.164,244.76-151.337l3.019-5.058L492.538,242.716z M247.779,384.476c-125.769,0-207.625-111.394-224.587-136.702c16.962-25.298,98.817-136.692,224.587-136.692 s207.625,111.394,224.587,136.692C455.404,273.082,373.548,384.476,247.779,384.476z"
-                    />
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      d="M247.779,140.505c-59.149,0-107.274,48.125-107.274,107.269c0,59.154,48.125,107.279,107.274,107.279 c59.154,0,107.279-48.125,107.279-107.279C355.058,188.63,306.933,140.505,247.779,140.505z M247.779,335.361 c-48.293,0-87.582-39.288-87.582-87.587c0-48.288,39.288-87.577,87.582-87.577c48.298,0,87.587,39.288,87.587,87.577 C335.365,296.072,296.077,335.361,247.779,335.361z"
-                    />
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      d="M247.779,207.438c-22.24,0-40.337,18.096-40.337,40.336c0,22.24,18.096,40.337,40.337,40.337 c22.24,0,40.337-18.096,40.337-40.337C288.115,225.534,270.019,207.438,247.779,207.438z M247.779,268.418 c-11.385,0-20.644-9.26-20.644-20.644c0-11.385,9.26-20.644,20.644-20.644c11.385,0,20.644,9.26,20.644,20.644 C268.423,259.159,259.163,268.418,247.779,268.418z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </a>
             <a href="{% url 'product_edit' product.id %}" class="edit">
               <?xml version="1.0" ?><svg
                 id="Layer_1"
@@ -108,29 +57,60 @@
                 />
               </svg>
             </a>
-            <a href="{% url 'product_delete' product.id %}" class="remove" title="Удалить продукт">
-              <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <style>
-                    .cls-1 {
-                      fill: none;
-                      stroke: #fff;
-                      stroke-linecap: round;
-                      stroke-linejoin: round;
-                      stroke-width: 2px;
-                    }
-                  </style>
-                </defs>
-                <title />
-                <g id="trash">
-                  <rect class="cls-1" height="22" width="18" x="7" y="7" />
-                  <line class="cls-1" x1="3" x2="29" y1="7" y2="7" />
-                  <line class="cls-1" x1="13" x2="19" y1="3" y2="3" />
-                  <line class="cls-1" x1="13" x2="13" y1="12" y2="22" />
-                  <line class="cls-1" x1="19" x2="19" y1="12" y2="22" />
-                </g>
-              </svg>
-            </a>
+
+            <div class="body-table__action-hidden">
+              <a href="{{ product.get_absolute_url }}" target="_blank" class="info">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 495.558 495.558" xml:space="preserve">
+                  <g>
+                    <g>
+                      <path
+                        d="M492.538,242.716c-3.702-6.173-92.288-151.327-244.76-151.327c-152.476,0-241.063,145.154-244.76,151.327L0,247.774 l3.019,5.058c3.697,6.173,92.284,151.337,244.76,151.337c152.471,0,241.058-145.164,244.76-151.337l3.019-5.058L492.538,242.716z M247.779,384.476c-125.769,0-207.625-111.394-224.587-136.702c16.962-25.298,98.817-136.692,224.587-136.692 s207.625,111.394,224.587,136.692C455.404,273.082,373.548,384.476,247.779,384.476z"
+                      />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path
+                        d="M247.779,140.505c-59.149,0-107.274,48.125-107.274,107.269c0,59.154,48.125,107.279,107.274,107.279 c59.154,0,107.279-48.125,107.279-107.279C355.058,188.63,306.933,140.505,247.779,140.505z M247.779,335.361 c-48.293,0-87.582-39.288-87.582-87.587c0-48.288,39.288-87.577,87.582-87.577c48.298,0,87.587,39.288,87.587,87.577 C335.365,296.072,296.077,335.361,247.779,335.361z"
+                      />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path
+                        d="M247.779,207.438c-22.24,0-40.337,18.096-40.337,40.336c0,22.24,18.096,40.337,40.337,40.337 c22.24,0,40.337-18.096,40.337-40.337C288.115,225.534,270.019,207.438,247.779,207.438z M247.779,268.418 c-11.385,0-20.644-9.26-20.644-20.644c0-11.385,9.26-20.644,20.644-20.644c11.385,0,20.644,9.26,20.644,20.644 C268.423,259.159,259.163,268.418,247.779,268.418z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </a>
+              <a href="{% url 'product_delete' product.id %}" class="remove" title="Удалить продукт">
+                <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: none;
+                        stroke: #fff;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 2px;
+                      }
+                    </style>
+                  </defs>
+                  <title />
+                  <g id="trash">
+                    <rect class="cls-1" height="22" width="18" x="7" y="7" />
+                    <line class="cls-1" x1="3" x2="29" y1="7" y2="7" />
+                    <line class="cls-1" x1="13" x2="19" y1="3" y2="3" />
+                    <line class="cls-1" x1="13" x2="13" y1="12" y2="22" />
+                    <line class="cls-1" x1="19" x2="19" y1="12" y2="22" />
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <button type="button" class="body-table__settings">
+              <img src="{% static 'theme/mb/images/admin/dots.svg' %}" alt="" />
+            </button>
           </div>
         </div>
         {% endfor %}
@@ -151,7 +131,6 @@
       </ul>
       <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}" class="pagging__arrow">»</a>
     </div>
-    {% endif %}
   </div>
 </div>
 

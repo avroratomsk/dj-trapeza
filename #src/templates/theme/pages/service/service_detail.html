@@ -5,13 +5,11 @@
     <section class="services__top">
       <div class="services__container">
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Главная
             <meta itemprop="position" content="1" />
           </a>
-          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-            class="breadcrumbs__item">
+          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Услуги
             <meta itemprop="position" content="2" />
           </a>
@@ -35,8 +33,7 @@
       {% if request.path == "/service/pominalnye-obedy/" %}
       <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
       {% else %}
-      <img src="{% static 'theme/mb/images/separator_detail.svg' %}" alt="" width="100%"
-        class="body-service__separator" />
+      <img src="{% static 'theme/mb/images/separator_detail.svg' %}" alt="" width="100%" class="body-service__separator" />
       {% endif %}
     </section>
 
@@ -45,27 +42,18 @@
         <div class="body-service__row">
           {% if branchs %} {% for branch in branchs %}
           <div class="body-service__col">
-            <!-- {% if request.path == "/service/pominalnye-obedy/" %}{% endif %}-->
             {% if forloop.counter == 2 %}
             <h2 class="body-service__title _title">
               Банкеты <br />
               в наших залах
             </h2>
-            <p class="body-service__subtitle">Мы можем сделать ваш праздник уютным, душевным и вкусным, для этого у нас
-              есть 2 зала с посадкой до 50 человек.</p>
+            <p class="body-service__subtitle">Мы можем сделать ваш праздник уютным, душевным и вкусным, для этого у нас есть 2 зала с посадкой до 50 человек.</p>
             {% endif %}
-            <!-- <h2 class="body-service__title _title">
-              Заказать обед <br>в столовой
-            </h2>
-            <p class="body-service__subtitle">
-              У нас есть 2 зала с посадкой до 50 человек
-            </p> -->
             <div class="body-service__image">
               {% if branch.image %} {% thumbnail branch.image "790x490" format="WEBP" as im %}
               <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% endthumbnail %} {% else %}
-              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
-                title="{{ branch.name }}" />
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% endif %}
               <span>{{ branch.address_fillial }}</span>
             </div>
@@ -84,25 +72,25 @@
             <div class="services-adv__icon">
               <img src="{% static 'theme/mb/images/adv-1.svg' %}" alt="" />
             </div>
-            <p class="services-adv__text">Мы точно говорим сколько угощений нужно именно для вашего формата</p>
+            <p class="services-adv__text">{{ banket_page.text_one }}</p>
           </div>
           <div class="services-adv__item">
             <div class="services-adv__icon">
               <img src="{% static 'theme/mb/images/adv-2.svg' %}" alt="" />
             </div>
-            <p class="services-adv__text">Предлагаем разнообразное и понятное меню</p>
+            <p class="services-adv__text">{{ banket_page.text_two }}</p>
           </div>
           <div class="services-adv__item">
             <div class="services-adv__icon">
               <img src="{% static 'theme/mb/images/adv-3.svg' %}" alt="" />
             </div>
-            <p class="services-adv__text">Подбираем оптимальный вариант под ваш бюджет</p>
+            <p class="services-adv__text">{{ banket_page.text_three }}</p>
           </div>
           <div class="services-adv__item">
             <div class="services-adv__icon">
               <img src="{% static 'theme/mb/images/adv-4.svg' %}" alt="" />
             </div>
-            <p class="services-adv__text">Готовим из качественных продуктов и с любовью</p>
+            <p class="services-adv__text">{{ banket_page.text_four }}</p>
           </div>
         </div>
       </div>
@@ -114,12 +102,8 @@
         <div class="service-menu__row">
           {% if categorys %}
           <div class="service-menu__sidebar">
-            {% csrf_token %}
-            {% for category in categorys %}
-            <button type="button" class="service-link {% if forloop.counter == 1 %}_active{% endif %}"
-              data-id="{{category.id}}">
-              {{ category.name }}
-            </button>
+            {% csrf_token %} {% for category in categorys %}
+            <button type="button" class="service-link {% if forloop.counter == 1 %}_active{% endif %}" data-id="{{category.id}}">{{ category.name }}</button>
             {% endfor %}
           </div>
           {% endif %}
@@ -131,8 +115,7 @@
                 {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
                 <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
                 {% endthumbnail %} {% else %}
-                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}"
-                  title="{{ product.name }}" />
+                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
                 {% endif %}
               </div>
               <p class="card-product__name">{{ product.name }}</p>

@@ -103,6 +103,23 @@ function clearSimvol(str) {
 }
 
 /**
+ * Вспомогательные общие функции
+ */
+
+function bodyLock(e) {
+  let widthScrollBar = window.innerWidth - document.documentElement.clientWidth;
+  document.documentElement.style.marginRight = widthScrollBar + 'px';
+  document.documentElement.classList.add('_lock');
+  document.querySelector('.header').style.paddingRight = widthScrollBar + 'px';
+}
+
+function bodyUnLock(e) {
+  document.documentElement.style.marginRight = '0px';
+  document.querySelector('.header').style.paddingRight = '0px';
+  document.documentElement.classList.remove('_lock');
+}
+
+/**
  * Получние товаров из категории асинхронно
  */
 
@@ -314,10 +331,9 @@ const closePopupBtns = document.querySelectorAll('.popup__close');
 if (closePopupBtns) {
   closePopupBtns.forEach(btn => {
     btn.addEventListener('click', function (e) {
-      console.log(btn);
       parent = btn.closest('.popup');
-      console.log(parent);
       if (parent) {
+        bodyUnLock();
         parent.classList.remove('_show');
         document.documentElement.classList.remove('_lock');
       }
@@ -377,8 +393,8 @@ if (popupBtn) {
 }
 
 function openPopup(e) {
-  popup = document.getElementById(this.dataset.popup)
-  console.log(popup);
+  bodyLock();
+  popup = document.getElementById(this.dataset.popup);
   popup.classList.add('_show');
   document.documentElement.classList.add('_lock');
 }

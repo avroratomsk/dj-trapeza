@@ -87,6 +87,8 @@ urlpatterns = [
     path('home/', views.admin_home, name='admin_home'),
     path('about/', views.admin_about, name='admin_about'),
     path('blog-page/', views.blog_page, name='blog_page'),
+    path('pomin/', views.pomin_page, name='pomin_page'),
+    path('banket/', views.banket_page, name='banket_page'),
     
     #URl - Шаблон общих настроек сайта
     path('settings/', views.admin_settings, name='admin_settings'),

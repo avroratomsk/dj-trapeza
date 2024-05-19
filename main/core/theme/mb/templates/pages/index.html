@@ -29,7 +29,7 @@
       <div class="index-service__grid">
         {% if services %}
         {% for service in services %}
-        <a href="{{ service.get_absolute_url }}"  class="index-service__item item-service" data-aos="fade-up"
+        <a href="{{ service.get_absolute_url }}" class="index-service__item item-service" data-aos="fade-up"
           data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
           <img src="{{ service.image.url }}" alt="" class="index-service__img">
           <p class="index-service__title">{{ service.name }}</p>
@@ -114,49 +114,12 @@
           <div class="index-about__row">
             <div class="index-about__col">
               <p>
-                <i>«Lorem, ipsum dolor sit amet consectetur adipisicing elit.»</i>
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
+                {{ home_page.left_text }}
               </p>
             </div>
             <div class="index-about__col">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus odit sit, tenetur dolorem voluptatibus
-                laborum id ab cupiditate officia delectus libero, nesciunt optio ipsum reprehenderit debitis voluptatem
-                maxime sunt iste.
+                {{ home_page.right_text }}
               </p>
             </div>
           </div>
@@ -196,7 +159,7 @@
                 <div class="reviews__text">
                   <p>{{ review.text }}</p>
                 </div>
-                <a href="{{ review.get_absolute_url }}" class="reviews__btn">Читать отзыв полностью</a>
+                <button type="button" class="reviews__btn" data-popup="popup-reviews">Показать весь отзыв</button>
               </div>
             </div>
             {% endfor %}
@@ -214,13 +177,11 @@
     </div>
   </div>
 
-  <div class="callback" style="background-image: url({% static 'theme/mb/images/3.jpg' %})">
+  <div class="callback" style="background-image: url({{ home_page.callback_image.url }})">
     <div class="callback__container">
       <h2 class="callback__title _title" data-aos="fade-up" data-aos-once="true">Напишите нам !</h2>
       <p class="callback__subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
-        Если вы хотите заказать корпоративные обеды, банкет, кейтеринг или другие мероприятия, предложить сотрудничество
-        или связаться по другому интересующему вас вопросу,
-        заполните форму связи и мы обязательно ответим!
+        {{ home_page.callback_text}}
       </p>
       <form action="#" class="callback__form">
         <input type="text" name="name" placeholder="Имя" class="callback__input" data-aos="fade-up" data-aos-delay="400"

@@ -4,12 +4,12 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import AboutTemplateForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, StockForm, UploadFileForm
+from admin.forms import AboutTemplateForm, BanketForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PominalnyeForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, StockForm, UploadFileForm
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from blog.models import BlogSettings, Post
 from news.models import News
 from main.settings import BASE_DIR
-from service.models import Service, ServiceCategory, ServicePage, ServiceProduct
+from service.models import Banket, PominalnyeObed, Service, ServiceCategory, ServicePage, ServiceProduct
 from reviews.models import Reviews
 from shop.models import Product,Category,Day,Branch
 from django.core.paginator import Paginator
@@ -523,7 +523,7 @@ def admin_home(request):
     form_new = HomeTemplateForm(request.POST, request.FILES, instance=home_page)
     if form_new.is_valid():
       form_new.save()
-      return redirect("admin")
+      return redirect(request.META.get('HTTP_REFERER'))
     else:
       return render(request, "static/home_page.html", {"form": form_new})
   
@@ -537,6 +537,58 @@ def admin_home(request):
   }  
   
   return render(request, "static/home_page.html", context)
+
+def pomin_page(request):
+  try:
+    pomin_page = PominalnyeObed.objects.get()
+  except:
+    pomin_page = PominalnyeObed()
+    pomin_page.save()
+    
+  if request.method == "POST":
+    form_new = PominalnyeForm(request.POST, request.FILES, instance=pomin_page)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect(request.META.get('HTTP_REFERER'))
+    else:
+      return render(request, "static/pomin.html", {"form": form_new})
+  
+  pomin_page = PominalnyeObed.objects.get()
+  
+  form = PominalnyeForm(instance=pomin_page)
+  
+  context = {
+    "form": form,
+    "pomin_page":pomin_page
+  }  
+  
+  return render(request, "static/pomin.html", context)
+
+def banket_page(request):
+  try:
+    banket_page = Banket.objects.get()
+  except:
+    banket_page = Banket()
+    banket_page.save()
+    
+  if request.method == "POST":
+    form_new = BanketForm(request.POST, request.FILES, instance=banket_page)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect(request.META.get('HTTP_REFERER'))
+    else:
+      return render(request, "static/banket.html", {"form": form_new})
+  
+  banket_page = Banket.objects.get()
+  
+  form = BanketForm(instance=banket_page)
+  
+  context = {
+    "form": form,
+    "banket_page":banket_page
+  }  
+  
+  return render(request, "static/banket.html", context)
 
 def admin_about(request):
   try:

@@ -820,6 +820,7 @@ html.lock body::before {
 }
 
 .reviews__quote {
+  display: none;
   width: 100px;
   color: #2b463c;
   line-height: 100px;
@@ -876,6 +877,7 @@ html.lock body::before {
 
 .reviews__text {
   max-height: 100px;
+  min-height: 100px;
   font-size: 15px;
   line-height: 150%;
   overflow: hidden;
@@ -1012,7 +1014,12 @@ html.lock body::before {
   margin-bottom: 50px;
 }
 
+.index-about__col {
+  white-space: pre-wrap;
+}
+
 .index-about__col p {
+  white-space: pre-wrap;
   color: white;
   margin-bottom: 20px;
   line-height: 150%;
@@ -2299,16 +2306,25 @@ html.lock body::before {
   margin-top: 50px;
 }
 
+.services-text__list p {
+  white-space: pre-wrap;
+}
+
 .services-text__list-left h3 {
   font-size: 24px;
   line-height: 150%;
   font-weight: 600;
 }
 
+.services-text__list-left p {
+  white-space: pre-wrap;
+}
+
 .services-text__list-right p {
   font-size: 17px;
   line-height: 150%;
   font-weight: 600;
+  white-space: pre-wrap;
 }
 
 .services-text__list-right p:not(:last-child) {

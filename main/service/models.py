@@ -66,6 +66,33 @@ class ServiceCategory(models.Model):
   def get_absolute_url(self):
     return reverse("service_product_category", kwargs={"slug": self.slug})
   
+class PominalnyeObed(models.Model):
+  title = models.CharField(max_length=250, null=True, blank=True, verbose_name="Заголовок")
+  subtitle = models.TextField(null=True, blank=True, verbose_name="Подзаголовк")
+  left_text = models.TextField(null=True, blank=True, verbose_name="Левый текст")
+  right_text = models.TextField(null=True, blank=True, verbose_name="Правый текст текст")
+  first_text_title = models.CharField(max_length=250, null=True, blank=True, verbose_name="Первый заголовок текста")
+  first_text_text = models.TextField(null=True, blank=True, verbose_name=" текст")
+  second_text_title = models.CharField(max_length=250, null=True, blank=True, verbose_name="Второй заголовок текста")
+  second_text_text = models.TextField(null=True, blank=True, verbose_name="текст")
+  meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
+
+class Banket(models.Model):
+  title = models.CharField(max_length=250, null=True, blank=True, verbose_name="Заголовок")
+  subtitle = models.TextField(null=True, blank=True, verbose_name="Подзаголовк")
+  left_text = models.TextField(null=True, blank=True, verbose_name="Левый текст")
+  text_one = models.CharField(max_length=200, null=True, blank=True, verbose_name="Текст")
+  text_two = models.CharField(max_length=200, null=True, blank=True, verbose_name="Текст")
+  text_three = models.CharField(max_length=200, null=True, blank=True, verbose_name="Текст")
+  text_four = models.CharField(max_length=200, null=True, blank=True, verbose_name="Текст")
+  meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
+  
   
   
   

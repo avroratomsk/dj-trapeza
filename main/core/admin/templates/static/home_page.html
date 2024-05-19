@@ -2,16 +2,19 @@
 
 <div class="page">
   <div class="page__inner">
-    <div class="page__add">
-      <h1 class="page__title">Редактирование шаблона главной страницы</h1>
-    </div>
     <form action="." method="POST" class="form" enctype="multipart/form-data">
       {% csrf_token %}
-      <div class="page-edit__body">
-        <!-- Основные настройки -->
-        <div class="page-edit__item _show">
-          <div class="page-edit__form">
-            <div class="form__group">
+      <div class="page__add">
+        <h1 class="page__title">Главная страница</h1>
+        <button type="submit" class="form__btn">
+          <img src="{% static 'theme/mb/images/admin/save.svg' %}" alt="" />
+          Сохранить
+        </button>
+      </div>
+      <div class="page-edit__item _show">
+        <div class="page-content__row">
+          <div class="page-content__onecol">
+            <div class="form__group-image">
               <label for="{{ form.banner.id_for_label }}" class="form__controls-label"><span>*</span>Баннера <span>:</span></label>
               {{ form.banner }} {{ form.banner.errors }}
             </div>
@@ -23,8 +26,24 @@
               {{ form.meta_h1 }} {{ form.meta_h1.errors }}
             </div>
             <div class="form__group">
-              <label for="{{ form.untitle.id_for_label }}" class="form__controls-label"> Надзаголовок <span>:</span> </label>
+              <label for="{{ form.untitle.id_for_label }}" class="form__controls-label"> Текст надзаголовоком <span>:</span> </label>
               {{ form.untitle }} {{ form.untitle.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.left_text.id_for_label }}" class="form__controls-label">Текст о нас слево<span>:</span> </label>
+              {{ form.left_text }} {{ form.left_text.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.right_text.id_for_label }}" class="form__controls-label">Текст о нас справо<span>:</span> </label>
+              {{ form.right_text }} {{ form.right_text.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.callback_image.id_for_label }}" class="form__controls-label">Картинка блока напишите нам<span>:</span> </label>
+              {{ form.callback_image }} {{ form.callback_image.errors }}
+            </div>
+            <div class="form__group">
+              <label for="{{ form.callback_text.id_for_label }}" class="form__controls-label">Текст блока напишите нам<span>:</span> </label>
+              {{ form.callback_text }} {{ form.callback_text.errors }}
             </div>
             <div class="form__group">
               <label for="{{ form.meta_title.id_for_label }}" class="form__controls-label"> Meta заголовок <span>:</span> </label>
@@ -49,7 +68,6 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="form__btn">Сохранить</button>
     </form>
   </div>
 </div>
