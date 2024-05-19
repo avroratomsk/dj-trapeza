@@ -18,6 +18,11 @@ class GlobalSettingsForm(forms.ModelForm):
     fields = [
         'logo',
         'email',
+        'instagram',
+        'telegram',
+        'vk',
+        'viber',
+        'phone_whatsapp',
         'meta_h1',
         'meta_title',
         'meta_description',
@@ -46,7 +51,22 @@ class GlobalSettingsForm(forms.ModelForm):
         }),
         'meta_keywords': forms.TextInput(attrs={
             'class': 'form__controls'
-        })
+        }),
+        'instagram': forms.TextInput(attrs={
+          'class': 'form__controls'
+        }),
+        'telegram': forms.TextInput(attrs={
+          'class': 'form__controls'
+        }),
+        'vk': forms.TextInput(attrs={
+          'class': 'form__controls'  
+        }),
+        'viber': forms.TextInput(attrs={
+          'class': 'form__controls' 
+        }),
+        'phone_whatsapp': forms.TextInput(attrs={
+          'class': 'form__controls'
+        }),
     }
     
 class ProductForm(forms.ModelForm):
@@ -801,7 +821,7 @@ class ReviewsForm(forms.ModelForm):
         'class': 'form__controls',
       }),
       'meta_description': forms.Textarea(attrs={
-        'class': 'form-controls',
+        'class': 'form__controls',
         'rows': 5,
       }),
       'meta_keywords': forms.TextInput(attrs={
@@ -920,7 +940,7 @@ class ServiceForm(forms.ModelForm):
         'class': 'form__controls',
       }),
       'meta_description': forms.Textarea(attrs={
-        'class': 'form-controls',
+        'class': 'form__controls',
         'rows': 5,
       }),
       'meta_keywords': forms.TextInput(attrs={

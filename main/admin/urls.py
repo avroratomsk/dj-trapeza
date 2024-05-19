@@ -72,6 +72,7 @@ urlpatterns = [
     path('serv/delete/<int:pk>/', views.service_delete, name='service_delete'),
     
     #URl - отвечающие за отображение статей, редактирование и удаление статей
+    path('blog-settings/', views.blog_settings, name='blog_settings'),
     path('blog/', views.admin_blog, name='admin_blog'),
     path('blog/add/', views.blog_add, name='post_add'),
     path('blog/edit/<int:pk>/', views.blog_edit, name='post_edit'),

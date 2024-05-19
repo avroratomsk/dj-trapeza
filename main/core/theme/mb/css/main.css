@@ -1160,7 +1160,7 @@ html.lock body::before {
 }
 
 .callback__submit:hover {
-  background-color: #e76642;
+  background-color: #00CF00;
   color: #ffffff;
 }
 

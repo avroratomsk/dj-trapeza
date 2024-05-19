@@ -27,9 +27,17 @@
           <span>trapeza@mail.ru</span>
         </div>
         <div class="footer__social" data-aos="fade-up" data-aos-delay="600" data-aos-once="true">
-          <a href="#"><img src="img/icon/i-vk.svg" alt="" /></a>
-          <a href="#"><img src="img/icon/i-wa.svg" alt="" /></a>
-          <a href="#"><img src="img/icon/i-telegram.svg" alt="" /></a>
+          {% if settings.vk %}
+          <a href="{{ settings.vk }}"><i class="fa-brands fa-vk"></i></a>
+          {% endif %} {% if settings.phone_whatsapp %}
+          <a href="{{ settings.phone_whatsapp }}"><i class="fa-brands fa-square-whatsapp"></i></a>
+          {% endif %} {% if settings.viber %}
+          <a href="{{ settings.viber }}"><i class="fa-brands fa-viber"></i></a>
+          {% endif %} {% if settings.instagram %}
+          <a href="{{ settings.instagram }}"><i class="fa-brands fa-instagram"></i></a>
+          {% endif %} {% if settings.telegram %}
+          <a href="{{ settings.telegram }}"><i class="fa-brands fa-telegram"></i></a>
+          {% endif %}
         </div>
       </div>
       <div class="footer__col">

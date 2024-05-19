@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from datetime import datetime
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
 from blog.models import Post
-from home.forms import CallbackForm
+from home.forms import CallbackForm, ContactForm, ReviewsForm, WriteToUsForm
 from .email_send import email_callback
 from news.models import News
 from service.models import Service
@@ -128,9 +128,77 @@ def callback(request):
       
       email_callback(messages, title)
       print(form)
-      return redirect('callback_success')
+      return redirect(request.META.get('HTTP_REFERER'))
   else:
     form = CallbackForm()
+  
+  context = {
+    'form': form
+  }
+  
+  return render(request, 'pages/callback-succes.html', context)
+
+def writetous(request):
+  if request.method == "POST":
+    form = WriteToUsForm(request.POST)
+    if form.is_valid():
+      name  = form.cleaned_data['name']
+      phone = form.cleaned_data['phone']
+      message = form.cleaned_data['message']
+      title = 'Форма Напишите нам'
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "*Сообщение*: " + str(message) + "\n"
+      
+      email_callback(messages, title)
+      return redirect(request.META.get('HTTP_REFERER'))
+  else:
+    form = WriteToUsForm()
+  
+  context = {
+    'form': form
+  }
+  
+  return render(request, 'pages/callback-succes.html', context)
+
+def contacform(request):
+  if request.method == "POST":
+    form = ContactForm(request.POST)
+    if form.is_valid():
+      name  = form.cleaned_data['name']
+      phone = form.cleaned_data['phone']
+      email = form.cleaned_data['email']
+      message = form.cleaned_data['message']
+      title = 'Заявка со страницы контакты'
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone)  + "\n" + "*Email*: " + str(email) + "\n" + "*Сообщение*: " + str(message) + "\n"
+      
+      email_callback(messages, title)
+      return redirect(request.META.get('HTTP_REFERER'))
+  else:
+    form = ContactForm()
+  
+  context = {
+    'form': form
+  }
+  
+  return render(request, 'pages/callback-succes.html', context)
+
+def reviewsform(request):
+  if request.method == "POST":
+    form = ReviewsForm(request.POST)
+    if form.is_valid():
+      name  = form.cleaned_data['name']
+      try:
+        rating = form.cleaned_data['rating']
+      except: 
+          rating = 5  
+      email = form.cleaned_data['email']
+      message = form.cleaned_data['message']
+      title = 'Отзыв с сайта'
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*Оценка*: " + str(rating)  + "\n" + "*Email*: " + str(email) + "\n" + "*Сообщение*: " + str(message) + "\n"
+      
+      email_callback(messages, title)
+      return redirect(request.META.get('HTTP_REFERER'))
+  else:
+    form = ReviewsForm()
   
   context = {
     'form': form

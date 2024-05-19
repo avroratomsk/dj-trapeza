@@ -53,21 +53,12 @@
 					</div>
 				</div>
 				<div class="contact__col form">
-					<form action="" class="form__form">
-						<div class="form__group require">
-							<input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
-						</div>
-						<div class="form__group">
-							<input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
-								class="form__controls" />
-						</div>
-						<div class="form__group">
-							<input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
-						</div>
-						<div class="form__group">
-							<textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
-								class="form__controls"></textarea>
-						</div>
+					<form action="{% url 'contacform' %}" class="form__form" method="POST">
+						{% csrf_token %}
+						<div class="form__group require">{{ contactform.name }}</div>
+						<div class="form__group">{{ contactform.phone }}</div>
+						<div class="form__group">{{ contactform.email }}</div>
+						<div class="form__group">{{ contactform.message }}</div>
 						<div class="form__group form__group-row">
 							<button type="submit" class="form__btn">Отправить</button>
 							<div class="form__agree">

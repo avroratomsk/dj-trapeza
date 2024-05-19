@@ -25,11 +25,12 @@
           <h2 class="reviews-add__title _title">
             Напишите о нас отзыв
           </h2>
-          <form action="#" method="post" class="reviews-add__form form">
-            <input type="text" name="name" id="name" placeholder="Имя" class="form__controls" />
-            <input type="mail" name="email" id="email" placeholder="Почта" class="form__controls" />
+          <form action="{% url 'reviewsform' %}" method="POST" class="reviews-add__form form">
+            {% csrf_token %}
+           {{ reviewsform.name }}
+           {{ reviewsform.email }}
             <div class="form-reviews__group">
-              <input type="hidden" name="rating" id="form-reviews__rating" value="" />
+              {{ reviewsform.rating }}
               <div class="form-reviews__stars" data-rating-total="0">
                 <span data-rating="5" class="form-reviews__star"></span>
                 <span data-rating="4" class="form-reviews__star"></span>
@@ -38,7 +39,7 @@
                 <span data-rating="1" class="form-reviews__star"></span>
               </div>
             </div>
-            <textarea name="reviews" id="reviews" rows="5" placeholder="Ваш отзыв" class="form__controls"></textarea>
+            {{ reviewsform.message }}
             <button type="submit" class="form__submit">Отправить</button>
           </form>
         </div>
@@ -116,33 +117,20 @@
           </div>
         </div>
         <div class="contact__col form">
-          <form action="" class="form__form">
-            <div class="form__group require">
-              <label for="contact-name" class="require">Имя</label>
-              <input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-phone" class="require">Телефон</label>
-              <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
-                class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-email" class="require">Email</label>
-              <input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-message">Коментарий к заявке</label>
-              <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
-                class="form__controls"></textarea>
-            </div>
-            <div class="form__group">
-              <button type="submit" class="form__btn">Отправить</button>
-              <div class="form__agree">
-                <input type="checkbox" id="agree-checkbox" checked />
-                <label for="agree-checkbox">Даю согласие на обработку персональных данных</label>
-              </div>
-            </div>
-          </form>
+          <form action="{% url 'contacform' %}" class="form__form" method="POST">
+						{% csrf_token %}
+						<div class="form__group require">{{ contactform.name }}</div>
+						<div class="form__group">{{ contactform.phone }}</div>
+						<div class="form__group">{{ contactform.email }}</div>
+						<div class="form__group">{{ contactform.message }}</div>
+						<div class="form__group form__group-row">
+							<button type="submit" class="form__btn">Отправить</button>
+							<div class="form__agree">
+								<input type="checkbox" id="agree-checkbox" checked />
+								<label for="agree-checkbox">Даю согласие на обработку персональных данных</label>
+							</div>
+						</div>
+					</form>
         </div>
       </div>
       <div class="contact__map">

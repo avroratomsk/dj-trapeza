@@ -616,6 +616,32 @@ def admin_about(request):
   
   return render(request, "static/about_page.html", context)
 
+def blog_settings(request):
+  try:
+    blog_set = BlogSettings.objects.get()
+  except:
+    blog_set = BlogSettings()
+    blog_set.save()
+    
+  if request.method == "POST":
+    form_new = BlogPage(request.POST, request.FILES, instance=blog_set)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect(request.META.get('HTTP_REFERER'))
+    else:
+      return render(request, "blog/blog_settings.html", {"form": form_new})
+  
+  blog_set = BlogSettings.objects.get()
+  
+  form = BlogPage(instance=blog_set)
+  
+  context = {
+    "form": form,
+    "blog_set":blog_set
+  }  
+  
+  return render(request, "blog/blog_settings.html", context)
+
 def blog_page(request):
   try:
     blog_page = BlogSettings.objects.get()
@@ -630,7 +656,7 @@ def blog_page(request):
       
       return redirect("admin")
     else:
-      return render(request, "static/about_page.html", {"form": form_new})
+      return render(request, "static/blog_page.html", {"form": form_new})
   
   blog_page = BlogSettings.objects.get()
   

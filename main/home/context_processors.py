@@ -1,10 +1,10 @@
 from home.models import BaseSettings
-from home.forms import CallbackForm
+from home.forms import CallbackForm, ContactForm, ReviewsForm, WriteToUsForm
 from shop.models import Branch, Category 
 from service.models import Service
  
 def load_settings(request):
-    return {'site_settings': BaseSettings.load()}
+    return {'settings': BaseSettings.load()}
 
 def load_branch(request):
     return {'branchs': Branch.objects.all()[:2]}
@@ -29,3 +29,15 @@ def setup(request):
 def callback(request):
     callback = CallbackForm()
     return {"callback": callback}
+
+def writetous(request):
+    writetous = WriteToUsForm()
+    return {"writetous": writetous}
+
+def contactform(request):
+    contactform = ContactForm()
+    return {"contactform": contactform}
+
+def reviewsform(request):
+    reviewsform = ReviewsForm()
+    return {"reviewsform": reviewsform}
