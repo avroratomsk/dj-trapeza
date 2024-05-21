@@ -9,16 +9,24 @@
         Добавить
       </a>
     </div>
-    <div class="table-4">
-      <div class="head-table table-4__head">
+    {% if categorys %}
+    <div class="admin-category__list">
+      {% for category in categorys %}
+      <a href="{{ category.get_category_url }}" class="admin-category__item">{{ category.name }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="table-5">
+      <div class="head-table table-5__head">
         <div class="head-table__image">Изображение</div>
         <div class="head-table__name">Название</div>
         <div class="head-table__price">Цена</div>
+        <div class="head-table__price">День недели</div>
         <div class="head-table__action">
           <img src="{% static 'theme/mb/images/admin/gear.svg' %}" alt="" />
         </div>
       </div>
-      <div class="body-table table-4__body">
+      <div class="body-table table-5__body">
         {% for product in products %}
         <div class="body-table__row">
           <div class="body-table__image">
@@ -37,6 +45,20 @@
           </div>
           <div class="body-table__price">
             <span>{{ product.price }} руб.</span>
+          </div>
+          <div class="body-table__day">
+            <form action="{% url 'product_day_edit' product.id %}" method="POST">
+              {% csrf_token %}
+              <select name="set-day" id="set-day" class="admin-select">
+                <option disabled selected class="admin-select__option">Выберите день</option>
+                <option value="0" class="admin-select__option" {% if product.day == 0 %}selected{% endif %}>Понедельник</option>
+                <option value="1" class="admin-select__option" {% if product.day == 1 %}selected{% endif %}>Вторник</option>
+                <option value="2" class="admin-select__option" {% if product.day == 2 %}selected{% endif %}>Среда</option>
+                <option value="3" class="admin-select__option" {% if product.day == 3 %}selected{% endif %}>Четверг</option>
+                <option value="4" class="admin-select__option" {% if product.day == 4 %}selected{% endif %}>Пятница</option>
+              </select>
+              <button type="submit" class="admin-select__save">Сохранить</button>
+            </form>
           </div>
           <div class="body-table__action">
             <a href="{% url 'product_edit' product.id %}" class="edit">

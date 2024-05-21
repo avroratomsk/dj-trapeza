@@ -29,9 +29,13 @@
 </head>
 
 <body>
-  <div class="wrapper">{% include "./components/header-single.html" %}{% block content %}{% endblock %}
-    {% include './components/footer.html' %}</div>
+  <div class="wrapper">
+    {% include "./components/header-single.html" %}
+    {% block content %}{% endblock %}
+    {% include './components/footer.html' %}
+  </div>
   {% include "./components/popup.html" %}
+  {% include "./components/fillal.html" %}
   <script type="module" src="{% static 'theme/mb/js/venobox.js' %}"></script>
   <!-- <script>
 

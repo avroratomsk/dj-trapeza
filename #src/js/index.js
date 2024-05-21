@@ -356,11 +356,18 @@ const branchSelectionBtn = document.querySelectorAll('.change-filial');
 if (branchSelectionBtn) {
   branchSelectionBtn.forEach(btn => {
     btn.addEventListener('click', (e) => {
+      console.log('click');
       unLockScroll();
       document.getElementById('popup-delivery').classList.remove('_show');
     })
   })
 }
+
+const branchSelection = document.querySelector('.fillal__title');
+branchSelection.addEventListener('click', function (e) {
+  lockScroll();
+  document.getElementById('popup-delivery').classList.add('_show');
+})
 
 
 const indexBlogTabTigger = document.querySelectorAll('.index-blog__tigger');

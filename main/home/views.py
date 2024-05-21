@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from datetime import datetime
-from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, Vacancy
 from blog.models import Post
 from home.forms import CallbackForm, ContactForm, ReviewsForm, WriteToUsForm
 from .email_send import email_callback
@@ -210,4 +210,12 @@ def callback_success(request):
   return redirect(request.META.get('HTTP_REFERER'))
 
 def vacancies(request):
-    return render(request, "pages/vacancies/vacancies.html")
+  vacancy = Vacancy.objects.filter(status=True)
+  
+  context = {
+    "vacancy": vacancy
+  }
+  return render(request, "pages/vacancies/vacancies.html", context)
+
+def policy(request):
+  return render(request, "pages/policy.html")

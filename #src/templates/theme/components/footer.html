@@ -27,9 +27,17 @@
           <span>trapeza@mail.ru</span>
         </div>
         <div class="footer__social" data-aos="fade-up" data-aos-delay="600" data-aos-once="true">
-          <a href="#"><img src="img/icon/i-vk.svg" alt="" /></a>
-          <a href="#"><img src="img/icon/i-wa.svg" alt="" /></a>
-          <a href="#"><img src="img/icon/i-telegram.svg" alt="" /></a>
+          {% if settings.vk %}
+          <a href="{{ settings.vk }}"><i class="fa-brands fa-vk"></i></a>
+          {% endif %} {% if settings.phone_whatsapp %}
+          <a href="{{ settings.phone_whatsapp }}"><i class="fa-brands fa-square-whatsapp"></i></a>
+          {% endif %} {% if settings.viber %}
+          <a href="{{ settings.viber }}"><i class="fa-brands fa-viber"></i></a>
+          {% endif %} {% if settings.instagram %}
+          <a href="{{ settings.instagram }}"><i class="fa-brands fa-instagram"></i></a>
+          {% endif %} {% if settings.telegram %}
+          <a href="{{ settings.telegram }}"><i class="fa-brands fa-telegram"></i></a>
+          {% endif %}
         </div>
       </div>
       <div class="footer__col">
@@ -43,9 +51,9 @@
         </nav>
       </div>
       <div class="footer__col">
-        <div class="footer__logo"><img src="img/logo-2-white.svg" alt="" /></div>
+        <div class="footer__logo"><img src="img/logo-2-white.svg" alt="Лого" /></div>
         <nav class="footer__nav">
-          <a href="#" data-aos="fade-up" data-aos-once="true" data-aos-delay="100">Политика конфиденциальности</a>
+          <a href="{% url 'policy' %}" data-aos="fade-up" data-aos-once="true" data-aos-delay="100">Политика конфиденциальности</a>
           <a href="{% url 'blog' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="200">Статьи</a>
           <a href="{% url 'reviews' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="300">Отзывы</a>
           <a href="{% url 'contact' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="400">Контакты</a>
@@ -56,6 +64,6 @@
 </footer>
 <div class="author">
   <div class="author__container">
-    <div class="author__inner">Разработка сайта | <a href="#">РА Аврора</a></div>
+    <div class="author__inner">Разработка сайта | <a href="https://xn----7sbah6bllcobpj.xn--p1ai/">РА Аврора</a></div>
   </div>
 </div>

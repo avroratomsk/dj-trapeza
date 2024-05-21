@@ -974,7 +974,7 @@
     transition: $animation_speed;
 
     &:hover {
-      background-color: #e76642;
+      background-color: $accent;
       color: $white;
     }
   }
@@ -1336,4 +1336,45 @@
       }
     }
   }
+}
+
+.policy {
+
+  // .policy__container
+
+  &__container {
+    margin-top: 70px;
+    margin-bottom: 70px;
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 35px;
+      font-weight: 600;
+      text-wrap: balance;
+    }
+
+    p {
+      margin-bottom: 15px;
+      line-height: 150%;
+    }
+  }
+}
+
+.fillal {
+  position: fixed;
+  top: 50%;
+  right: -70px;
+  background-color: rgba($color: $accent, $alpha: 1.0);
+  width: 180px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: rgba($color: $white, $alpha: 1.0);
+  transform: rotate(-90deg);
+
+  // .fillal__title
+
+  &__title {}
 }

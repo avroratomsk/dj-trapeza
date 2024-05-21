@@ -1449,6 +1449,38 @@ html.lock body::before {
   color: #2b463c;
 }
 
+.policy__container {
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+.policy__container h1 {
+  margin-bottom: 30px;
+  font-size: 35px;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.policy__container p {
+  margin-bottom: 15px;
+  line-height: 150%;
+}
+
+.fillal {
+  position: fixed;
+  top: 50%;
+  right: -70px;
+  background-color: #00cf00;
+  width: 180px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: white;
+  transform: rotate(-90deg);
+}
+
 .product-page__row {
   display: flex;
   gap: 40px;

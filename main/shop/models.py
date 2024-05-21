@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 
+from admin.singleton_model import SingletonModel
+
 # Дни недели с краткими ключами и полнымим наименованиями.
 DAY_NAMES = (
     ('mon', 'Понедельник'),
@@ -12,6 +14,12 @@ DAY_NAMES = (
     ('sat', 'Суббота'),
     ('sun', 'Воскресенье')
 )
+
+class ShopSettings(SingletonModel):
+  meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
 
 
 class Category(models.Model):
@@ -73,9 +81,6 @@ class Branch(models.Model):
      
 class Product(models.Model):
   name = models.CharField(max_length=150, db_index=True, verbose_name="Наименование продукта")
-  funeral_menu = models.BooleanField(default=False, verbose_name="Поминальное меню ?")
-  banquet_menu_checkbox = models.BooleanField(default=False, verbose_name="Банкетное меню ?")
-  banquet_menu = models.CharField(max_length=250, blank=True, null=True, verbose_name="Цена за грамм, банкетное меню")
   slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
   short_description = models.TextField(null=True, blank=True, verbose_name="Краткое описание")
   description = models.TextField(blank=True, null=True, verbose_name="Описание")

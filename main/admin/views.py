@@ -4,14 +4,14 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import AboutTemplateForm, BanketForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PominalnyeForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, StockForm, UploadFileForm
-from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock
+from admin.forms import AboutTemplateForm, BanketForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PominalnyeForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, ShopSettingsForm, StockForm, UploadFileForm, VacancyForm, VacancySettingsForm
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, Vacancy, VacancySettings
 from blog.models import BlogSettings, Post
 from news.models import News
 from main.settings import BASE_DIR
 from service.models import Banket, PominalnyeObed, Service, ServiceCategory, ServicePage, ServiceProduct
 from reviews.models import Reviews
-from shop.models import Product,Category,Day,Branch
+from shop.models import Product,Category,Day,Branch, ShopSettings
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 import openpyxl
@@ -786,6 +786,7 @@ def service_page(request):
 
   return render(request, "serv/serv_page.html", context)
 
+
 def admin_service(request):
   services = Service.objects.all()
   
@@ -794,6 +795,54 @@ def admin_service(request):
   }
   
   return render(request, "serv/admin_serv.html", context)
+
+def admin_shop(request):
+  """Настройки магазина"""
+  try:
+    shop_setup = ShopSettings.objects.get()
+    form = ShopSettingsForm(instance=shop_setup)
+  except:
+    form = ShopSettingsForm()
+    
+  if request.method == "POST":
+    shop_setup = ShopSettings.objects.get()
+    form_new = ShopSettingsForm(request.POST, request.FILES, instance=shop_setup)
+    
+    if form_new.is_valid:
+      form_new.save()
+      
+      return redirect('admin_shop')
+    else:
+      return render(request, "shop/settings.html", {"form": form})
+  
+  context = {
+    "form": form,
+  }  
+  return render(request, "shop/settings.html", context)
+
+def admin_vacancy(request):
+  """Настройки Вакансий"""
+  try:
+    vacancy_setup = VacancySettings.objects.get()
+    form = VacancySettingsForm(instance=vacancy_setup)
+  except:
+    form = VacancySettingsForm()
+    
+  if request.method == "POST":
+    vacancy_setup = VacancySettings.objects.get()
+    form_new = VacancySettingsForm(request.POST, request.FILES, instance=vacancy_setup)
+    
+    if form_new.is_valid:
+      form_new.save()
+      
+      return redirect('admin_shop')
+    else:
+      return render(request, "vacancy/vacancy_settings.html", {"form": form})
+  
+  context = {
+    "form": form,
+  }  
+  return render(request, "vacancy/vacancy_settings.html", context)
 
 def service_add(request):
   form = ServiceForm()
@@ -976,3 +1025,54 @@ def gallery_delete(request, pk):
   gallery = Gallery.objects.get(id=pk)
   gallery.delete()
   return redirect("admin_gallery")
+
+
+def vacancys(request):
+  vacancys = Vacancy.objects.all()
+  context = {
+    "products": vacancys,
+  }
+  return render(request, "vacancy/vacancy.html", context)
+
+def vacancy_edit(request, pk):
+  """
+    View, которая получает данные из формы редактирования товара
+    и изменяет данные внесенные данные товара в базе данных
+  """
+  vacancy = Vacancy.objects.get(id=pk)
+  form = VacancyForm(instance=vacancy)
+  
+  form_new = VacancyForm(request.POST, request.FILES, instance=vacancy) 
+  if request.method == 'POST':
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('vacancys')
+    else:
+      return render(request, 'vacancy/vacancy_edit.html', {'form': form_new})
+  context = {
+    "form":form
+  }
+  return render(request, "vacancy/vacancy_edit.html", context)
+
+def vacancy_add(request):
+  form = VacancyForm()
+  
+  if request.method == "POST":
+    form_new = VacancyForm(request.POST, request.FILES)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect('vacancys')
+    else:
+      return render(request, "vacancy/vacancy_add.html", {"form": form_new})
+    
+  context = {
+    "form": form
+  }
+  
+  return render(request, 'vacancy/vacancy_add.html', context)
+
+def vacancy_delete(request,pk):
+  vacancy = Vacancy.objects.get(id=pk)
+  vacancy.delete()
+  
+  return redirect('vacancys')

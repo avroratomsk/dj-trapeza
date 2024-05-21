@@ -17,32 +17,18 @@
   <section class="vacancy">
     <div class="vacancy__container">
       <div class="vacancy__row">
+        {% if vacancy %} {% for vac in vacancy %}
         <div class="vacancy-item">
           <div class="vacancy-item__head">
-            <h2 class="vacancy-item__title">Повар-кондитер</h2>
-            <p class="vacancy-item__salary">от 30 000 тыс.</p>
+            <h2 class="vacancy-item__title">{{ vac.name }}</h2>
+            <p class="vacancy-item__salary">от {{ vac.price }} тыс.</p>
           </div>
           <div class="vacancy-item__content">
-            <p>Томск</p>
-            <p>Пролетарская 54</p>
-            <p>Опыт от 1 года</p>
-            <p>Полный день</p>
+            <p>{{ vac.description }}</p>
           </div>
           <button type="button" class="vacancy-item__btn" data-popup="popup-vacancy">Откликнуться</button>
         </div>
-        <div class="vacancy-item">
-          <div class="vacancy-item__head">
-            <h2 class="vacancy-item__title">Повар-кондитер</h2>
-            <p class="vacancy-item__salary">от 30 000 тыс.</p>
-          </div>
-          <div class="vacancy-item__content">
-            <p>Томск</p>
-            <p>Пролетарская 54</p>
-            <p>Опыт от 1 года</p>
-            <p>Полный день</p>
-          </div>
-          <button type="button" class="vacancy-item__btn" data-popup="popup-vacancy">Откликнуться</button>
-        </div>
+        {% endfor %} {% else %} нету {% endif %}
       </div>
     </div>
   </section>

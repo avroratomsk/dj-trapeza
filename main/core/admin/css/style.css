@@ -1045,4 +1045,40 @@ ol {
   flex-direction: column;
   gap: 20px;
 }
+
+.admin-category__list {
+  margin: 0px 0px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 4px rgba(38, 53, 61, 0.1);
+  background-color: white;
+}
+
+.admin-category__item {
+  padding: 15px 20px;
+  color: #fff;
+  color: #5776c4;
+  border-radius: 5px;
+}
+
+.admin-select {
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid rgba(38, 53, 61, 0.4);
+}
+
+.admin-select__save {
+  background-color: #5776c4;
+  color: white;
+  height: 30px;
+  padding: 0px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 /*# sourceMappingURL=maps/style.css.map */

@@ -7,19 +7,18 @@
 			<a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
 				class="breadcrumbs__item">
 				Главная
-				<meta itemprop="position" content="1">
+				<meta itemprop="position" content="1" />
 			</a>
 			<span itemprop="name" class="breadcrumbs__item">
 				Галерея
-				<meta itemprop="position" content="2">
+				<meta itemprop="position" content="2" />
 			</span>
 		</div>
 	</div>
 	<section class="gallery">
 		<div class="gallery__container">
 			<div class="gallery__grid">
-				{% if gallerys %}
-				{% for gallery in gallerys %}
+				{% if gallerys %} {% for gallery in gallerys %}
 				<a href="{{ gallery.image.url }}" class="gallery__item">
 					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45px"
 						height="45px" viewBox="0 0 45 45" xml:space="preserve">
@@ -28,7 +27,7 @@
 									c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435
 									c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z" />
 					</svg>
-					<img src="{{ gallery.image.url }}" alt="{{ gallery.alt }}" title="{{ gallery.alt }}">
+					<img src="{{ gallery.image.url }}" alt="{{ gallery.alt }}" title="{{ gallery.alt }}" />
 				</a>
 				{% endfor %}{% endif %}
 			</div>
@@ -43,10 +42,7 @@
 						<div class="contact-info__icon">
 							<i class="fa-solid fa-location-dot"></i>
 						</div>
-						<div class="contact-info__content" id="address">
-							г.Томск,
-							улица Ленина, дом 23а
-						</div>
+						<div class="contact-info__content" id="address">г.Томск, улица Ленина, дом 23а</div>
 					</div>
 					<div class="contact-info__row">
 						<div class="contact-info__icon">
@@ -75,21 +71,12 @@
 					</div>
 				</div>
 				<div class="contact__col form">
-					<form action="" class="form__form">
-						<div class="form__group require">
-							<input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
-						</div>
-						<div class="form__group">
-							<input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
-								class="form__controls" />
-						</div>
-						<div class="form__group">
-							<input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
-						</div>
-						<div class="form__group">
-							<textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
-								class="form__controls"></textarea>
-						</div>
+					<form action="{% url 'contacform' %}" class="form__form" method="POST">
+						{% csrf_token %}
+						<div class="form__group require">{{ contactform.name }}</div>
+						<div class="form__group">{{ contactform.phone }}</div>
+						<div class="form__group">{{ contactform.email }}</div>
+						<div class="form__group">{{ contactform.message }}</div>
 						<div class="form__group form__group-row">
 							<button type="submit" class="form__btn">Отправить</button>
 							<div class="form__agree">
@@ -100,9 +87,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="contact__map" id="map">
-
-			</div>
+			<div class="contact__map" id="map"></div>
 		</div>
 	</section>
 </main>

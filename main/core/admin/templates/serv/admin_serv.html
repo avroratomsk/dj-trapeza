@@ -5,23 +5,22 @@
     <div class="page__add">
       <h1 class="page__title">Услуги</h1>
       <a href="{% url 'service_add' %}" class="page__add-btn">Добавить услугу</a>
-      <a href="javascript:history.back()"> Назад </a>
     </div>
-    {% if services.count > 0 %}
+    {% if services%}
     <div class="table-3">
-      <div class="head-table table-3__head">
+      <div class="head-table table-4__head">
         <div class="head-table__image">Изображение</div>
         <div class="head-table__name">Название</div>
         <div class="head-table__action">Действия</div>
       </div>
-      <div class="body-table table-3__body">
+      <div class="body-table table-4__body">
         {% for service in services %}
         <div class="body-table__row">
           <div class="body-table__image">
             {% if service.image %}
             <img src="{{ service.image.url }}" alt="{{ service.name }}" title="{{ service.name }}" />
             {% else%}
-            <img src="{% static 'admin/images/food.webp' %}" alt="" />
+            <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ service.name }}" title="{{ service.name }}" />
             {% endif %}
           </div>
           <div class="body-table__name">
@@ -57,7 +56,7 @@
                 </g>
               </svg>
             </a>
-            <a href="{% url "service_edit" service.pk %}" class="edit">
+            <a href="{% url 'service_edit' service.pk %}" class="edit">
               <?xml version="1.0" ?><svg
                 id="Layer_1"
                 style="enable-background: new 0 0 24 24"
@@ -75,7 +74,7 @@
                 />
               </svg>
             </a>
-            <a href="{% url "service_delete" service.pk %}" class="remove" title="Удалить продукт">
+            <a href="" class="remove" title="Удалить продукт">
               <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <style>

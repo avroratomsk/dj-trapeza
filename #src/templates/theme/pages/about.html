@@ -1,22 +1,19 @@
 {% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
 
 <main class="page">
-  <div class="single-banner"
+  <div
+    class="single-banner"
     style="background-image: url({% if about_page.banner %}{{ about_page.banner.url }}{% else %}{% static 'theme/mb/images/stock.webp' %}{% endif %} )"
-    data-speed="70">
+    data-speed="70"
+  >
     <h1 class="stock__title _title">{{ about_page.meta_h1 }}</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-      <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
-        class="breadcrumbs__item">
+      <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
         Главная
         <meta itemprop="position" content="1" />
       </a>
       <span itemprop="name" class="breadcrumbs__item">
-        {% if about_page.meta_title %}
-        {{ about_page.about_page }}
-        {% else %}
-        {{ about_page.meta_h1 }}
-        {% endif %}
+        {% if about_page.meta_title %} {{ about_page.about_page }} {% else %} {{ about_page.meta_h1 }} {% endif %}
         <meta itemprop="position" content="3" />
       </span>
     </div>
@@ -32,9 +29,7 @@
           <!-- <a href="#" class="link-bar__link">Политика конфиденциальности</a> -->
         </div>
         <div class="about__content">
-          <div class="text">
-            {{ about_page.about_text }}
-          </div>
+          <div class="text">{{ about_page.about_text }}</div>
         </div>
       </div>
     </div>
@@ -42,12 +37,11 @@
   <section class="about_hall hall">
     <div class="hall__container">
       <h2 class="hall__title _title">Информация о наших залах</h2>
-      {% if branchs %}
-      {% for branch in branchs %}
+      {% if branchs %} {% for branch in branchs %}
       <div class="hall__row">
         <div class="hall__col">
           <div class="hall__image">
-            <img src="{{ branch.image.url }}" alt="{{ branch.name }}" title="{{ branch.name }}">
+            <img src="{{ branch.image.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
           </div>
         </div>
         <div class="hall__col">
@@ -56,22 +50,18 @@
               <p class="hall__label"><b>Адрес: </b> {{ branch.address_fillial }}</p>
               <p class="hall__label"><b>Номер телефона:</b> <a href="tel:+79999999999">{{ branch.phone }}</a></p>
               <p class="hall__label"><b>Количество мест:</b> {{ branch.number_seats }}</p>
-              <p class="hall__label"><b>Схема оплаты:</b> {{ branch.scheme_payment }} </p>
-              <p class="hall__label"><b>Аренда зала:</b> {{ branch.hall_rental }} </p>
+              <p class="hall__label"><b>Схема оплаты:</b> {{ branch.scheme_payment }}</p>
+              <p class="hall__label"><b>Аренда зала:</b> {{ branch.hall_rental }}</p>
               <p class="hall__label"><b>Аренда зала в праздники:</b> {{ branch.hall_rental_hollyday }}</p>
               <p class="hall__text">
-                Если у вас есть вопросы по бронированию <a href="{{ branch.phone }}">звоните</a>, пишите на <a
-                  href="#">whatsapp</a> или
-                оставьте заявку
-                по кнопке ниже
+                Если у вас есть вопросы по бронированию <a href="{{ branch.phone }}">звоните</a>, пишите на <a href="#">whatsapp</a> или оставьте заявку по кнопке ниже
               </p>
               <button type="button" class="hall__btn _btn">Забронировать</button>
             </div>
           </div>
         </div>
       </div>
-      {% endfor %}
-      {% endif %}
+      {% endfor %} {% endif %}
 
       <!-- <div class="hall__row">
         <div class="hall__col">
@@ -137,8 +127,7 @@
             <div class="contact-info__icon">
               <i class="fa-solid fa-phone-volume"></i>
             </div>
-            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
-              settings.phone_one }}</a>
+            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{ settings.phone_one }}</a>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
@@ -160,26 +149,13 @@
           </div>
         </div>
         <div class="contact__col form">
-          <form action="" class="form__form">
-            <div class="form__group require">
-              <label for="contact-name" class="require">Имя</label>
-              <input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-phone" class="require">Телефон</label>
-              <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
-                class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-email" class="require">Email</label>
-              <input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <label for="contact-message">Коментарий к заявке</label>
-              <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
-                class="form__controls"></textarea>
-            </div>
-            <div class="form__group">
+          <form action="{% url 'contacform' %}" class="form__form" method="POST">
+            {% csrf_token %}
+            <div class="form__group require">{{ contactform.name }}</div>
+            <div class="form__group">{{ contactform.phone }}</div>
+            <div class="form__group">{{ contactform.email }}</div>
+            <div class="form__group">{{ contactform.message }}</div>
+            <div class="form__group form__group-row">
               <button type="submit" class="form__btn">Отправить</button>
               <div class="form__agree">
                 <input type="checkbox" id="agree-checkbox" checked />
@@ -189,9 +165,7 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map">
-
-      </div>
+      <div class="contact__map" id="map"></div>
     </div>
   </section>
 </main>

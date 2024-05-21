@@ -60,5 +60,27 @@ class AboutTemplate(SingletonModel):
   meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
   about_text = models.TextField(null=True, blank=True, verbose_name="О компании")
   about_image = models.ImageField(upload_to="home-page", null=True, blank=True, verbose_name="О компании картинка")
+  
+
+class VacancySettings(SingletonModel):
+  meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="META заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="META описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="META keywords")
+  
+
+class Vacancy(models.Model):
+  name = models.CharField(max_length=150, db_index=True, verbose_name="Наименование")
+  slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name="URL")
+  description = models.TextField(blank=True, null=True, verbose_name="Описание")
+  price = models.CharField(max_length=150, db_index=True, blank=True, null=True, verbose_name="Зарплата")
+  status = models.BooleanField(default=True, verbose_name="Статус публикации")
+  meta_h1 = models.CharField(max_length=350, null=True, blank=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+  
+  # def get_absolute_url(self):
+  #       return reverse("vacancy", kwargs={"slug": self.slug})
 
   

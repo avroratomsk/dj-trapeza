@@ -2,13 +2,24 @@
 
 <div class="page">
   <div class="page__inner">
-    <div class="page__add">
-      <h1 class="page__title">Товары</h1>
-      <form action="" method="POST" enctype="multipart/form-data" class="form">
-        {% csrf_token %} {{ form.as_p }}
-        <button type="submit">Отправить</button>
-      </form>
-    </div>
+    <form action="." method="POST" class="form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="page__add">
+        <h1 class="page__title">Загрузка Excel файла</h1>
+      </div>
+      <div class="page-content _show" id="basic">
+        <!-- Основные настройки -->
+        <div class="page-content__row">
+          <div class="page-content__onecol">
+            <form action="" method="POST" enctype="multipart/form-data" class="form">
+              {% csrf_token %} {{ form.as_p }}
+              <button type="submit" class="form__btn">Отправить</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
+
 {% endblock %}

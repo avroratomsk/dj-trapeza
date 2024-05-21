@@ -94,6 +94,13 @@ urlpatterns = [
     #URl - Шаблон общих настроек сайта
     path('settings/', views.admin_settings, name='admin_settings'),
     
+    path('shop/', views.admin_shop, name='admin_shop'),
+    path('vacancy/', views.admin_vacancy, name='admin_vacancy'),
+    path('vacancys/', views.vacancys, name='vacancys'),
+    path('vacancys/add/', views.vacancy_add, name='vacancy_add'),
+    path('vacancys/edit/<int:pk>', views.vacancy_edit, name='vacancy_edit'),
+    path('vacancys/delete/<int:pk>', views.vacancy_delete, name='vacancy_delete'),
+    
     #URl - настройка цветовой схемы на сайте
     path('design/', views.admin_colors, name='admin_colors'),
 ]

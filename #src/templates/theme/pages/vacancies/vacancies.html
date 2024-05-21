@@ -17,32 +17,18 @@
   <section class="vacancy">
     <div class="vacancy__container">
       <div class="vacancy__row">
+        {% if vacancy %} {% for vac in vacancy %}
         <div class="vacancy-item">
           <div class="vacancy-item__head">
-            <h2 class="vacancy-item__title">Повар-кондитер</h2>
-            <p class="vacancy-item__salary">от 30 000 тыс.</p>
+            <h2 class="vacancy-item__title">{{ vac.name }}</h2>
+            <p class="vacancy-item__salary">от {{ vac.price }} тыс.</p>
           </div>
           <div class="vacancy-item__content">
-            <p>Томск</p>
-            <p>Пролетарская 54</p>
-            <p>Опыт от 1 года</p>
-            <p>Полный день</p>
+            <p>{{ vac.description }}</p>
           </div>
           <button type="button" class="vacancy-item__btn" data-popup="popup-vacancy">Откликнуться</button>
         </div>
-        <div class="vacancy-item">
-          <div class="vacancy-item__head">
-            <h2 class="vacancy-item__title">Повар-кондитер</h2>
-            <p class="vacancy-item__salary">от 30 000 тыс.</p>
-          </div>
-          <div class="vacancy-item__content">
-            <p>Томск</p>
-            <p>Пролетарская 54</p>
-            <p>Опыт от 1 года</p>
-            <p>Полный день</p>
-          </div>
-          <button type="button" class="vacancy-item__btn" data-popup="popup-vacancy">Откликнуться</button>
-        </div>
+        {% endfor %} {% else %} нету {% endif %}
       </div>
     </div>
   </section>
@@ -55,10 +41,7 @@
             <div class="contact-info__icon">
               <i class="fa-solid fa-location-dot"></i>
             </div>
-            <div class="contact-info__content" id="address">
-              г.Томск,
-              улица Ленина, дом 23а
-            </div>
+            <div class="contact-info__content" id="address">г.Томск, улица Ленина, дом 23а</div>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
@@ -87,21 +70,12 @@
           </div>
         </div>
         <div class="contact__col form">
-          <form action="" class="form__form">
-            <div class="form__group require">
-              <input type="text" name="contact-name" id="contact-name" placeholder="ФИО" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <input type="text" name="contact-phone" id="contact-phone" placeholder="Телефон*"
-                class="form__controls" />
-            </div>
-            <div class="form__group">
-              <input type="text" name="contact-email" id="contact-email" placeholder="Email" class="form__controls" />
-            </div>
-            <div class="form__group">
-              <textarea type="text" rows="5" name="contact-message" id="contact-message" placeholder="Комментарий"
-                class="form__controls"></textarea>
-            </div>
+          <form action="{% url 'contacform' %}" class="form__form" method="POST">
+            {% csrf_token %}
+            <div class="form__group require">{{ contactform.name }}</div>
+            <div class="form__group">{{ contactform.phone }}</div>
+            <div class="form__group">{{ contactform.email }}</div>
+            <div class="form__group">{{ contactform.message }}</div>
             <div class="form__group form__group-row">
               <button type="submit" class="form__btn">Отправить</button>
               <div class="form__agree">
@@ -112,9 +86,7 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map">
-
-      </div>
+      <div class="contact__map" id="map"></div>
     </div>
   </section>
 </main>

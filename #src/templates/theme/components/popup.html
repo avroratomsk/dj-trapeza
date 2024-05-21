@@ -79,6 +79,11 @@
       <p class="popup__title">Откликнуться на вакансию</p>
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
+      <form action="{% url 'callback' %}" method="POST" class="form form-column">
+        {% csrf_token %} {{ callback.name }} {{ callback.phone }}
+        <button type="submit" class="form__submit">Заказать</button>
+      </form>
+      {% comment %}
       <form action="/" class="form form-column">
         <input type="text" placeholder="ФИО" class="form__controls" name="name" />
         <input type="tel" placeholder="Телефон" class="form__controls" name="phone" />
@@ -89,6 +94,7 @@
         </label>
         <button type="submit" class="form__submit">Отправить</button>
       </form>
+      {% endcomment %}
     </div>
   </div>
 </div>

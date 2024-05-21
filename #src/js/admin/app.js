@@ -120,44 +120,22 @@ if (dropdownButtons) {
   })
 }
 
-const funeral_menu = document.getElementById('funeral_menu')
-if (funeral_menu) {
-  funeral_menu.addEventListener('change', hideFields)
+
+
+const data_name_tab = document.querySelectorAll('[data-name]');
+if (data_name_tab) {
+  data_name_tab.forEach(btn => {
+    btn.addEventListener('click', showPageConetnt)
+  })
 }
 
-window.addEventListener('load', function (e) {
-  hideFields();
-  shwoField();
-})
-
-
-function hideFields() {
-  console.log('Change');
-  if (funeral_menu.checked || banquetMenuCheckbox.checked) {
-    console.log("Выполнилось");
-    // document.getElementById('related').classList.add('hide-field');
-    // document.getElementById('char').classList.add('hide-field');
-    // document.getElementById('related-btn').classList.add('hide-field');
-    // document.getElementById('char-btn').classList.add('hide-field');
-    // document.getElementById('quantity').classList.add('hide-field');
-    // document.getElementById('weight').classList.add('hide-field');
-    // document.getElementById('discount').classList.add('hide-field');
-    // document.getElementById('price').classList.add('hide-field');
-    // document.getElementById('description').classList.add('hide-field');
-    // document.getElementById('short_description').classList.add('hide-field');
-  } else {
-    // document.getElementById('related').classList.remove('hide-field');
-    // document.getElementById('char').classList.remove('hide-field');
-    // document.getElementById('related-btn').classList.remove('hide-field');
-    // document.getElementById('char-btn').classList.remove('hide-field');
-    // document.getElementById('quantity').classList.remove('hide-field');
-    // document.getElementById('weight').classList.remove('hide-field');
-    // document.getElementById('discount').classList.remove('hide-field');
-    // document.getElementById('price').classList.remove('hide-field');
-    // document.getElementById('description').classList.remove('hide-field');
-    // document.getElementById('short_description').classList.remove('hide-field');
-  }
+function showPageConetnt(e) {
+  document.querySelectorAll('.page-content').forEach(item => item.classList.remove('_show'));
+  document.getElementById(this.dataset.name).classList.add('_show');
+  data_name_tab.forEach(item => item.classList.remove('_active'));
+  this.classList.add('_active');
 }
+
 
 const banquetMenuCheckbox = document.getElementById('banquet_menu-checkbox');
 if (banquetMenuCheckbox) {
