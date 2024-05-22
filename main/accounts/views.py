@@ -33,7 +33,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateResponseMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
-from allauth.core.exceptions import ImmediateHttpResponse
+from allauth.exceptions import ImmediateHttpResponse
 from allauth.utils import get_form_class, get_request_param
 from allauth.account import app_settings, signals
 from allauth.account.adapter import get_adapter
