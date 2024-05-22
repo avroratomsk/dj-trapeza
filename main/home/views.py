@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from datetime import datetime
-from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, Vacancy
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy
 from blog.models import Post
 from home.forms import CallbackForm, ContactForm, ReviewsForm, WriteToUsForm
 from .email_send import email_callback
@@ -93,8 +93,14 @@ def contact(request):
 def stock(request):
     stocks = Stock.objects.filter(status=True)
     
+    try:
+      stock = StockSettings.objects.get()
+    except:
+      stock = StockSettings()
+    
     context = {
-        "stocks": stocks
+        "stocks": stocks,
+        "stock": stock
     }
     
     return render(request, "pages/stock/stock.html", context)

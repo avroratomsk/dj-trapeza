@@ -43,6 +43,7 @@ urlpatterns = [
     # path('admin_reviews/delete/<int:pk>/', views.admin_reviews_delete, name='admin_reviews_delete'),
     
     #URl - отвечающие за отображение акций, редактирование и удаление акций
+    path('stock-settings/', views.stock_settings, name='stock_settings'),
     path('stock/', views.admin_stock, name='admin_stock'),
     path('stock/add/', views.stock_add, name='stock_add'),
     path('stock/edit/<int:pk>/', views.stock_edit, name='stock_edit'),
@@ -79,7 +80,8 @@ urlpatterns = [
     path('blog/delete/<int:pk>/', views.blog_delete, name='post_delete'),
     
     #URl - отвечающие за отображение новостей, редактирование и удаление новостей
-    path('news/', views.admin_news, name='admin_news'),
+    path('news-settings/', views.news_settings, name='news_settings'),
+    path('news-admin/', views.admin_news, name='admin_news'),
     path('news/add/', views.news_add, name='news_add'),
     path('news/edit/<int:pk>/', views.news_edit, name='news_edit'),
     path('news/delete/<int:pk>/', views.news_delete, name='news_delete'),

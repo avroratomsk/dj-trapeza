@@ -15,6 +15,8 @@ urlpatterns = [
     path('news/', include('news.urls')),
     # path('user/', include('users.urls')),
     path('reviews/', include('reviews.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
     path('admin/', include('admin.urls')),
     path('', include('home.urls')),
 ]

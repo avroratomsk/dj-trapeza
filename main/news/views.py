@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from django.shortcuts import render
-from news.models import News
+from news.models import News, NewsSettings
 
 def news(request):
   news = News.objects.filter(status=True) 
+  try:
+    new = NewsSettings.objects.get()
+  except:
+    new = NewsSettings()
   
   context = {
-    "news": news
+    "news": news,
+    "new": new
   }
   return render(request, "pages/news/news.html", context)
 

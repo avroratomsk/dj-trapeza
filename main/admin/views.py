@@ -4,10 +4,10 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import AboutTemplateForm, BanketForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, PominalnyeForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, ShopSettingsForm, StockForm, UploadFileForm, VacancyForm, VacancySettingsForm
-from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, Vacancy, VacancySettings
+from admin.forms import AboutTemplateForm, BanketForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, NewsPage, PominalnyeForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, ShopSettingsForm, StockForm, StockPage, UploadFileForm, VacancyForm, VacancySettingsForm
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy, VacancySettings
 from blog.models import BlogSettings, Post
-from news.models import News
+from news.models import News, NewsSettings
 from main.settings import BASE_DIR
 from service.models import Banket, PominalnyeObed, Service, ServiceCategory, ServicePage, ServiceProduct
 from reviews.models import Reviews
@@ -27,6 +27,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 # @user_passes_test(lambda u: u.is_superuser)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin(request):
   """Данная предстовление отобразает главную страницу админ панели"""
   product = Product.objects.all()
@@ -35,6 +36,7 @@ def admin(request):
   }
   return render(request, "page/index.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_settings(request):
   try:
     settings = BaseSettings.objects.get()
@@ -60,6 +62,7 @@ def admin_settings(request):
 
   return render(request, "settings/general_settings.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_product(request):
   """
   View, которая возвращаяет и отрисовывает все товары на странице
@@ -77,6 +80,7 @@ def admin_product(request):
   }
   return render(request, "shop/product/product.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_edit(request, pk):
   """
     View, которая получает данные из формы редактирования товара
@@ -97,6 +101,7 @@ def product_edit(request, pk):
   }
   return render(request, "shop/product/product_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_add(request):
   form = ProductForm()
   
@@ -114,12 +119,14 @@ def product_add(request):
   
   return render(request, 'shop/product/product_add.html', context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_delete(request,pk):
   product = Product.objects.get(id=pk)
   product.delete()
   
   return redirect('admin_product')
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_blog(request):
   """
   View, которая возвращаяет и отрисовывает все товары на странице
@@ -131,6 +138,7 @@ def admin_blog(request):
   }
   return render(request, "blog/blog_post/blog_post.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def blog_add(request):
   form = PostForm()
   
@@ -148,6 +156,7 @@ def blog_add(request):
   
   return render(request, "blog/blog_post/post_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def blog_edit(request, pk):
   """
     View, которая получает данные из формы редактирования товара
@@ -168,12 +177,14 @@ def blog_edit(request, pk):
   }
   return render(request, "blog/blog_post/post_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def blog_delete(request, pk):
   post = Post.objects.get(id=pk)
   post.delete()
   
   return redirect('admin_blog')
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_news(request):
   """
   View, которая возвращаяет и отрисовывает все товары на странице
@@ -185,6 +196,7 @@ def admin_news(request):
   }
   return render(request, "news/new/news.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def news_add(request):
   form = NewsForm()
   
@@ -202,6 +214,7 @@ def news_add(request):
   
   return render(request, "news/new/new_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def news_edit(request, pk):
   """
     View, которая получает данные из формы редактирования товара
@@ -222,12 +235,14 @@ def news_edit(request, pk):
   }
   return render(request, "news/new/new_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def news_delete(request, pk):
   news = News.objects.get(id=pk)
   news.delete()
   
   return redirect('admin_news')
 
+@user_passes_test(lambda u: u.is_superuser)
 def product_day_edit(request, id):
   product = Product.objects.get(id=id)
   if request.method == "POST":
@@ -240,6 +255,7 @@ folder = 'upload/'
 
 from PIL import Image
 
+@user_passes_test(lambda u: u.is_superuser)
 def upload_goods(request):
     form = UploadFileForm()
     if request.method == 'POST':
@@ -271,6 +287,7 @@ def upload_goods(request):
         form = UploadFileForm()
     return render(request, 'upload/upload.html', {'form': form})
 
+@user_passes_test(lambda u: u.is_superuser)
 def upload_succes(request):
   return render(request, "upload/upload-succes.html")
 
@@ -281,6 +298,7 @@ from pytils.translit import slugify
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 
+@user_passes_test(lambda u: u.is_superuser)
 def parse_exсel(path):
   workbook = openpyxl.load_workbook(path)
   sheet = workbook.active
@@ -371,6 +389,7 @@ def parse_exсel(path):
   
 # parse_exсel(path)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_category(request):
   categorys = Category.objects.all()
   
@@ -379,6 +398,7 @@ def admin_category(request):
   }
   return render(request, "shop/category/category.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def category_add(request):
   form = CategoryForm()
   if request.method == "POST":
@@ -394,6 +414,7 @@ def category_add(request):
   }
   return render(request, "shop/category/category_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def category_edit(request, pk):
   categorys = Category.objects.get(id=pk)
   if request.method == "POST":
@@ -411,12 +432,14 @@ def category_edit(request, pk):
 
   return render(request, "shop/category/category_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def category_delete(request, pk):
   category = Category.objects.get(id=pk)
   category.delete()
   
   return redirect('admin_category')
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_product_category(request, id):
   category = Category.objects.all()
   product = Product.objects.filter(category_id=id)
@@ -427,6 +450,7 @@ def admin_product_category(request, id):
   
   return render(request, "shop/product/product.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def day_product(request):
   days = Day.objects.all().exclude(slug="ezhednevno")
   
@@ -436,6 +460,7 @@ def day_product(request):
   
   return render(request, "days/days.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def day_edit(request, pk):
   day = Day.objects.get(id=pk)
   form = DayForm(instance=day)
@@ -454,6 +479,7 @@ def day_edit(request, pk):
   
   return render(request, "days/days_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def day_add(request):
   form = DayForm()
   if request.method == "POST":
@@ -469,6 +495,7 @@ def day_add(request):
   
   return render(request, "days/days_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_fillial(request):
   fillials = Branch.objects.all()
   
@@ -478,6 +505,7 @@ def admin_fillial(request):
   
   return render(request, "fillials/fillial.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def fillial_edit(request, pk):
   fillial = Branch.objects.get(id=pk)
   form = FillialForm(instance=fillial)
@@ -496,6 +524,7 @@ def fillial_edit(request, pk):
   
   return render(request, "fillials/fillial_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def fillial_add(request):
   form = FillialForm()
   if request.method == "POST":
@@ -512,6 +541,7 @@ def fillial_add(request):
   
   return render(request, "fillials/fillial_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_home(request):
   try:
     home_page = HomeTemplate.objects.get()
@@ -538,6 +568,7 @@ def admin_home(request):
   
   return render(request, "static/home_page.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def pomin_page(request):
   try:
     pomin_page = PominalnyeObed.objects.get()
@@ -564,6 +595,7 @@ def pomin_page(request):
   
   return render(request, "static/pomin.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def banket_page(request):
   try:
     banket_page = Banket.objects.get()
@@ -590,6 +622,7 @@ def banket_page(request):
   
   return render(request, "static/banket.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_about(request):
   try:
     about_page = AboutTemplate.objects.get()
@@ -616,6 +649,61 @@ def admin_about(request):
   
   return render(request, "static/about_page.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
+def news_settings(request):
+  try:
+    news_set = NewsSettings.objects.get()
+  except:
+    news_set = NewsSettings()
+    news_set.save()
+    
+  if request.method == "POST":
+    form_new = NewsPage(request.POST, request.FILES, instance=news_set)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect(request.META.get('HTTP_REFERER'))
+    else:
+      return render(request, "news/news_settings.html", {"form": form_new})
+  
+  news_set = NewsSettings.objects.get()
+  
+  form = NewsPage(instance=news_set)
+  
+  context = {
+    "form": form,
+    "news_set": news_set
+  }  
+  
+  return render(request, "news/news_settings.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def stock_settings(request):
+  try:
+    stock_set = StockSettings.objects.get()
+  except:
+    stock_set = StockSettings()
+    stock_set.save()
+    
+  if request.method == "POST":
+    form_new = StockPage(request.POST, request.FILES, instance=stock_set)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect(request.META.get('HTTP_REFERER'))
+    else:
+      return render(request, "stock/stock_settings.html", {"form": form_new})
+  
+  stock_set = StockSettings.objects.get()
+  
+  form = StockPage(instance=stock_set)
+  
+  context = {
+    "form": form,
+    "stock_set": stock_set
+  }  
+  
+  return render(request, "stock/stock_settings.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
 def blog_settings(request):
   try:
     blog_set = BlogSettings.objects.get()
@@ -642,6 +730,7 @@ def blog_settings(request):
   
   return render(request, "blog/blog_settings.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def blog_page(request):
   try:
     blog_page = BlogSettings.objects.get()
@@ -668,6 +757,7 @@ def blog_page(request):
   
   return render(request, "static/blog_page.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_reviews(request):
   reviews = Reviews.objects.all()
   
@@ -677,6 +767,7 @@ def admin_reviews(request):
   
   return render(request, "reviews/reviews.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_reviews_edit(request, pk):
   review = Reviews.objects.get(id=pk)
   form = ReviewsForm(instance=review)
@@ -696,6 +787,7 @@ def admin_reviews_edit(request, pk):
   
   return render(request, "reviews/reviews_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_reviews_add(request):
   form = ReviewsForm()
   if request.method == "POST":
@@ -712,6 +804,7 @@ def admin_reviews_add(request):
   
   return render(request, "reviews/reviews_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_stock(request):
   stocks = Stock.objects.all()
   
@@ -721,6 +814,7 @@ def admin_stock(request):
   
   return render(request, "stock/stock.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def stock_add(request):
   form = StockForm()
   
@@ -738,6 +832,7 @@ def stock_add(request):
   
   return render(request, "stock/stock_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def stock_edit(request, pk):
   stock = Stock.objects.get(id=pk)
   form = StockForm(instance=stock)
@@ -755,11 +850,13 @@ def stock_edit(request, pk):
   
   return render(request, "stock/stock_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def stock_delete(request, pk):
   stock = Stock.objects.get(id=pk)
   stock.delete()
   return redirect("admin_stock")
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_page(request):
   try:
     service_page = ServicePage.objects.get()
@@ -787,6 +884,7 @@ def service_page(request):
   return render(request, "serv/serv_page.html", context)
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_service(request):
   services = Service.objects.all()
   
@@ -796,6 +894,7 @@ def admin_service(request):
   
   return render(request, "serv/admin_serv.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_shop(request):
   """Настройки магазина"""
   try:
@@ -820,6 +919,7 @@ def admin_shop(request):
   }  
   return render(request, "shop/settings.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_vacancy(request):
   """Настройки Вакансий"""
   try:
@@ -844,6 +944,7 @@ def admin_vacancy(request):
   }  
   return render(request, "vacancy/vacancy_settings.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_add(request):
   form = ServiceForm()
   
@@ -861,6 +962,7 @@ def service_add(request):
   
   return render(request, "serv/serv_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_edit(request, pk):
   services = Service.objects.get(id=pk)
   form = ServiceForm(instance=services)
@@ -878,11 +980,14 @@ def service_edit(request, pk):
   
   return render(request, "serv/serv_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_delete(request, pk):
   service = Service.objects.get(id=pk)
   service.delete()
   return redirect("admin_service")
 
+
+@user_passes_test(lambda u: u.is_superuser)
 def service_product(request):
   product = ServiceProduct.objects.filter(status=True)
   
@@ -892,6 +997,7 @@ def service_product(request):
   
   return render(request, "serv/serv_product.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_product_add(request):
   form = ServiceProductForm()
   
@@ -909,6 +1015,7 @@ def service_product_add(request):
   
   return render(request, "serv/serv_product_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_product_edit(request, pk):
   product = ServiceProduct.objects.get(id=pk)
   form = ServiceProductForm(instance=product)
@@ -926,11 +1033,13 @@ def service_product_edit(request, pk):
   
   return render(request, "serv/serv_product_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_product_delete(request, pk):
   product = ServiceProduct.objects.get(id=pk)
   product.delete()
   return redirect(service_product)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_category(request):
   category = ServiceCategory.objects.all()
   
@@ -940,6 +1049,7 @@ def service_category(request):
   
   return render(request, "serv/serv_category.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_category_add(request):
   form = ServiceCategoryForm()
   
@@ -957,6 +1067,7 @@ def service_category_add(request):
   
   return render(request, "serv/serv_category_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def service_category_edit(request, pk):
   category = ServiceCategory.objects.get(id=pk)
   form = ServiceCategoryForm(instance=category)
@@ -974,12 +1085,14 @@ def service_category_edit(request, pk):
   
   return render(request, "serv/serv_category_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_colors(request):
   context = {
     "title": "Настройки цветовой схемы сайта"
   }
   return render(request, "settings/color_scheme.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_gallery(requets):
   gallery = Gallery.objects.all()
   context = {
@@ -987,6 +1100,7 @@ def admin_gallery(requets):
   }
   return render(requets, "gallery/gallery.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def gallery_add(request):
   form = GalleryForm()
   
@@ -1004,6 +1118,7 @@ def gallery_add(request):
   
   return render(request, "gallery/gallery_add.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def gallery_edit(request, pk):
   gallery = Gallery.objects.get(id=pk)
   form = GalleryForm(instance=gallery)
@@ -1021,12 +1136,13 @@ def gallery_edit(request, pk):
   
   return render(request, "gallery/gallery_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def gallery_delete(request, pk):
   gallery = Gallery.objects.get(id=pk)
   gallery.delete()
   return redirect("admin_gallery")
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def vacancys(request):
   vacancys = Vacancy.objects.all()
   context = {
@@ -1034,6 +1150,7 @@ def vacancys(request):
   }
   return render(request, "vacancy/vacancy.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def vacancy_edit(request, pk):
   """
     View, которая получает данные из формы редактирования товара
@@ -1054,6 +1171,7 @@ def vacancy_edit(request, pk):
   }
   return render(request, "vacancy/vacancy_edit.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def vacancy_add(request):
   form = VacancyForm()
   
@@ -1071,6 +1189,7 @@ def vacancy_add(request):
   
   return render(request, 'vacancy/vacancy_add.html', context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def vacancy_delete(request,pk):
   vacancy = Vacancy.objects.get(id=pk)
   vacancy.delete()

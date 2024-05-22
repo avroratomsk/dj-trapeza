@@ -326,6 +326,12 @@ function getProduct(e) {
   getProductForBranch(categoryId, branch_slug);
 }
 
+const branchSelection = document.querySelector('.fillal__title');
+branchSelection.addEventListener('click', function (e) {
+  lockScroll();
+  document.getElementById('popup-delivery').classList.add('_show');
+})
+
 const closePopupBtns = document.querySelectorAll('.popup__close');
 
 if (closePopupBtns) {
@@ -363,11 +369,7 @@ if (branchSelectionBtn) {
   })
 }
 
-const branchSelection = document.querySelector('.fillal__title');
-branchSelection.addEventListener('click', function (e) {
-  lockScroll();
-  document.getElementById('popup-delivery').classList.add('_show');
-})
+
 
 
 const indexBlogTabTigger = document.querySelectorAll('.index-blog__tigger');

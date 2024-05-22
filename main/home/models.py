@@ -30,7 +30,15 @@ class HomeTemplate(SingletonModel):
   about_image = models.ImageField(upload_to="home-page", null=True, blank=True, verbose_name="О компании картинка")
   callback_image = models.ImageField(upload_to="home-page", null=True, blank=True, verbose_name="CallBack картинка")
   callback_text = models.TextField(null=True, blank=True, verbose_name="CallBack текст")
-  
+
+class StockSettings(models.Model):
+  meta_h1 = models.CharField(max_length=250, blank=True, null=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+  image = models.ImageField(upload_to="blog", blank=True, null=True, verbose_name="Изображение баннера")
+  text = models.TextField(null=True, blank=True, verbose_name="Текст на странице")
+
 class Stock(models.Model):
   """Model"""
   title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Название акции")

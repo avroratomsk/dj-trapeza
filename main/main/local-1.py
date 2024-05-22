@@ -16,7 +16,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
+    'allauth',
+    'allauth.account',
     "sorl.thumbnail",
     # "debug_toolbar",
     "home",
@@ -38,5 +39,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
