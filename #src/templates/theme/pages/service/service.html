@@ -1,10 +1,14 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% block title %}{{ service.meta_title }}{% endblock %}
+{% block description %}{{ service.description }}{% endblock %}
+{% block keywords %}{{ service.keywords }}{% endblock %}
+{% load static %} {% block content %}
 
 <main class="page page-service">
   <div class="single-banner" style="background-image: url({% if service_page.image %}
       {{ service_page.image.url }}
       {% else %}
-      {% static " theme/mb/images/no-image.jpg" %} {% endif %})" data-speed="70">
+      {% static 'theme/mb/images/no-image.jpg' %} {% endif %})" data-speed="70">
     <h1 class="stock__title _title">Услуги</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
@@ -33,7 +37,7 @@
       <div class="index-service__grid">
         {% if services %}
         {% for service in services %}
-        <a href="{{ service.get_absolute_url }}"  class="index-service__item item-service" data-aos="fade-up"
+        <a href="{{ service.get_absolute_url }}" class="index-service__item item-service" data-aos="fade-up"
           data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00" data-aos-once="true">
           <img src="{{ service.image.url }}" alt="" class="index-service__img">
           <p class="index-service__title">{{ service.name }}</p>

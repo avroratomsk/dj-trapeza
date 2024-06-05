@@ -1,15 +1,21 @@
-{% extends 'base.html' %}{% load static %} {% load thumbnail %} {% block content %}
+{% extends 'base.html' %}{% load static %}
+{% block title %}{{ service.meta_title }}{% endblock %}
+{% block description %}{{ service.description }}{% endblock %}
+{% block keywords %}{{ service.keywords }}{% endblock %}
+{% load thumbnail %} {% block content %}
 
 <main class="page" style="background-color: #efece6">
   <div class="services color-pomin">
     <section class="services__top">
       <div class="services__container">
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
             Главная
             <meta itemprop="position" content="1" />
           </a>
-          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
             Услуги
             <meta itemprop="position" content="2" />
           </a>
@@ -26,7 +32,8 @@
           <button type="button" class="services__top-btn" data-popup="popup-pominalnye">Оставить заявку</button>
         </div>
       </div>
-      <img src="{% static 'theme/mb/images/separator_pomin.svg' %}" alt="" width="100%" class="body-service__separator" />
+      <img src="{% static 'theme/mb/images/separator_pomin.svg' %}" alt="" width="100%"
+        class="body-service__separator" />
     </section>
 
     <section class="service-page__body body-service">
@@ -49,7 +56,8 @@
               {% if branch.image %} {% thumbnail branch.image "790x490" format="WEBP" as im %}
               <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% endthumbnail %} {% else %}
-              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
+                title="{{ branch.name }}" />
               {% endif %}
               <span>{{ branch.address_fillial }}</span>
             </div>

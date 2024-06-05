@@ -1,4 +1,8 @@
-{% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
+{% extends 'base.html' %} {% load static %} 
+{% block title %}{{ new.meta_title }}{% endblock %}
+{% block description %}{{ new.description }}{% endblock %}
+{% block keywords %}{{ new.keywords }}{% endblock %}
+{% load shop_tags %} {% load thumbnail %} {% block content %}
 
 <main class="page">
   <div class="single-banner"

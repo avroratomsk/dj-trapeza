@@ -1,15 +1,21 @@
-{% extends 'base.html' %}{% load static %} {% load thumbnail %} {% block content %}
+{% extends 'base.html' %}
+{% block title %}{{ service.meta_title }}{% endblock %}
+{% block description %}{{ service.description }}{% endblock %}
+{% block keywords %}{{ service.keywords }}{% endblock %}
+{% load static %} {% load thumbnail %} {% block content %}
 
 <main class="page">
   <div class="services">
     <section class="services__top">
       <div class="services__container">
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+          <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
             Главная
             <meta itemprop="position" content="1" />
           </a>
-          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
+          <a href="{% url 'service' %}" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
+            class="breadcrumbs__item">
             Услуги
             <meta itemprop="position" content="2" />
           </a>
@@ -33,7 +39,8 @@
       {% if request.path == "/service/pominalnye-obedy/" %}
       <img src="{% static 'theme/mb/images/separator.svg' %}" alt="" width="100%" class="body-service__separator" />
       {% else %}
-      <img src="{% static 'theme/mb/images/separator_detail.svg' %}" alt="" width="100%" class="body-service__separator" />
+      <img src="{% static 'theme/mb/images/separator_detail.svg' %}" alt="" width="100%"
+        class="body-service__separator" />
       {% endif %}
     </section>
 
@@ -47,13 +54,15 @@
               Банкеты <br />
               в наших залах
             </h2>
-            <p class="body-service__subtitle">Мы можем сделать ваш праздник уютным, душевным и вкусным, для этого у нас есть 2 зала с посадкой до 50 человек.</p>
+            <p class="body-service__subtitle">Мы можем сделать ваш праздник уютным, душевным и вкусным, для этого у нас
+              есть 2 зала с посадкой до 50 человек.</p>
             {% endif %}
             <div class="body-service__image">
               {% if branch.image %} {% thumbnail branch.image "790x490" format="WEBP" as im %}
               <img src="{{ im.url }}" alt="{{ branch.name }}" title="{{ branch.name }}" />
               {% endthumbnail %} {% else %}
-              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}" title="{{ branch.name }}" />
+              <img src="{% static 'theme/mb/images/image-not-found.jpg' %}" alt="{{ branch.name }}"
+                title="{{ branch.name }}" />
               {% endif %}
               <span>{{ branch.address_fillial }}</span>
             </div>
@@ -103,7 +112,8 @@
           {% if categorys %}
           <div class="service-menu__sidebar">
             {% csrf_token %} {% for category in categorys %}
-            <button type="button" class="service-link {% if forloop.counter == 1 %}_active{% endif %}" data-id="{{category.id}}">{{ category.name }}</button>
+            <button type="button" class="service-link {% if forloop.counter == 1 %}_active{% endif %}"
+              data-id="{{category.id}}">{{ category.name }}</button>
             {% endfor %}
           </div>
           {% endif %}
@@ -115,7 +125,8 @@
                 {% if product.image %} {% thumbnail product.image "393x300" format="WEBP" as im %}
                 <img src="{{ im.url }}" alt="{{ product.name }}" title="{{ product.name }}" />
                 {% endthumbnail %} {% else %}
-                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}" title="{{ product.name }}" />
+                <img src="{% static 'theme/mb/images/no-image.jpg' %}" alt="{{ product.name }}"
+                  title="{{ product.name }}" />
                 {% endif %}
               </div>
               <p class="card-product__name">{{ product.name }}</p>

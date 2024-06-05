@@ -1,9 +1,12 @@
-{% extends 'base.html' %} {% load static %} {% load shop_tags %} {% load thumbnail %} {% block content %}
+{% extends 'base.html' %} {% load static %}
+{% block title %}{{ article.meta_title }}{% endblock %}
+{% block description %}{{ article.description }}{% endblock %}
+{% block keywords %}{{ article.keywords }}{% endblock %}
+{% load shop_tags %} {% load thumbnail %} {% block content %}
 
 <main class="page">
-  <div class="single-banner"
-    style="background-image: url({% if article.image %}{{ article.image.url }}{% else %}{% static "
-    theme/mb/images/stock.webp" %}{% endif %} )" data-speed="70">
+  <div class="single-banner" style="background-image: url({% if article.image %}{{ article.image.url }}{% else %}
+    {% static 'theme/mb/images/stock.webp' %}{% endif %} )" data-speed="70">
     <h1 class="stock__title _title">{{ article.name }}</h1>
     <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
       <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"

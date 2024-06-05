@@ -29,13 +29,13 @@
           </div>
           <div class="body-table__name">
             {% if product.slug %}
-            <a href="{% url 'product_edit' product.id %}" class="">{{ product.name }}</a>
+            <a href="{% url 'post_edit' product.id %}" class="">{{ product.name }}</a>
             {% else %}
             <p class="">{{ product.name }}</p>
             {% endif %}
           </div>
           <div class="body-table__action">
-            <a href="{% url 'product_edit' product.id %}" class="edit">
+            <a href="{% url 'post_edit' product.id %}" class="edit">
               <?xml version="1.0" ?><svg
                 id="Layer_1"
                 style="enable-background: new 0 0 24 24"
@@ -80,7 +80,7 @@
                   </g>
                 </svg>
               </a>
-              <a href="{% url 'product_delete' product.id %}" class="remove" title="Удалить продукт">
+              <a href="{% url 'post_delete' product.id %}" class="remove" title="Удалить продукт">
                 <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <style>
