@@ -69,9 +69,9 @@ def admin_product(request):
   и разбивает их на пагинацию 
   """
   page = request.GET.get('page', 1)
-  category = Category.objects.all()
+  category = Category.objects.all().order_by('id')
   # products = Product.objects.all().exclude(funeral_menu=True)
-  products = Product.objects.all()
+  products = Product.objects.all().order_by('id')
   paginator = Paginator(products, 10)
   current_page = paginator.page(int(page))
   context = {
@@ -132,7 +132,7 @@ def admin_blog(request):
   View, которая возвращаяет и отрисовывает все товары на странице
   и разбивает их на пагинацию 
   """
-  posts = Post.objects.all()
+  posts = Post.objects.all().order_by('id')
   context = {
     "posts": posts
   }
@@ -190,7 +190,7 @@ def admin_news(request):
   View, которая возвращаяет и отрисовывает все товары на странице
   и разбивает их на пагинацию 
   """
-  news = News.objects.all()
+  news = News.objects.all().order_by('id')
   context = {
     "news": news
   }
@@ -391,7 +391,7 @@ def parse_exсel(path):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_category(request):
-  categorys = Category.objects.all()
+  categorys = Category.objects.all().order_by('id')
   
   context ={
     "categorys": categorys,
@@ -441,7 +441,7 @@ def category_delete(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_product_category(request, id):
-  category = Category.objects.all()
+  category = Category.objects.all().order_by('id')
   product = Product.objects.filter(category_id=id)
   context = {
     "categorys": category,
@@ -497,7 +497,7 @@ def day_add(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_fillial(request):
-  fillials = Branch.objects.all()
+  fillials = Branch.objects.all().order_by('id')
   
   context = {
     "fillials": fillials
@@ -759,7 +759,7 @@ def blog_page(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_reviews(request):
-  reviews = Reviews.objects.all()
+  reviews = Reviews.objects.all().order_by('id')
   
   context = {
     "reviews": reviews
@@ -806,7 +806,7 @@ def admin_reviews_add(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_stock(request):
-  stocks = Stock.objects.all()
+  stocks = Stock.objects.all().order_by('id')
   
   context = {
     "stocks": stocks
@@ -886,7 +886,7 @@ def service_page(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_service(request):
-  services = Service.objects.all()
+  services = Service.objects.all().order_by('id')
   
   context = {
     "products": services
@@ -989,7 +989,7 @@ def service_delete(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def service_product(request):
-  product = ServiceProduct.objects.filter(status=True)
+  product = ServiceProduct.objects.filter(status=True).order_by('-id')
   
   context = {
     "products": product
@@ -1041,7 +1041,7 @@ def service_product_delete(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def service_category(request):
-  category = ServiceCategory.objects.all()
+  category = ServiceCategory.objects.all().order_by('id')
   
   context = {
     "categorys": category
@@ -1094,7 +1094,7 @@ def admin_colors(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_gallery(requets):
-  gallery = Gallery.objects.all()
+  gallery = Gallery.objects.all().order_by('id')
   context = {
     "gallerys": gallery
   }
@@ -1144,7 +1144,7 @@ def gallery_delete(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def vacancys(request):
-  vacancys = Vacancy.objects.all()
+  vacancys = Vacancy.objects.all().order_by('id')
   context = {
     "products": vacancys,
   }

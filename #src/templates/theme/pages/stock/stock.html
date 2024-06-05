@@ -4,15 +4,15 @@
   <div class="wrapper">
     {% include "components/header-single.html" %}
     <main class="page">
-      <div class="single-banner" style="background-image: url({% static "theme/mb/images/stock.jpg" %} )" data-speed="70">
-        <h1 class="stock__title _title">Скидки и Акции</h1>
+      <div class="single-banner" style="background-image: url({% if stock.image %}{{ stock.image.url }}{% else %}static "theme/mb/images/stock.jpg"{% endif %} )" data-speed="70">
+        <h1 class="stock__title _title">{{ stock.meta_h1 }}</h1>
         <div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
           <a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem" class="breadcrumbs__item">
             Главная
             <meta itemprop="position" content="1" />
           </a>
           <span itemprop="name" class="breadcrumbs__item">
-            Акции
+            {{ stock.meta_h1 }}
             <meta itemprop="position" content="2" />
           </span>
         </div>

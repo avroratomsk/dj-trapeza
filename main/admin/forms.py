@@ -227,6 +227,18 @@ class VacancyForm(forms.ModelForm):
             'slug': forms.NumberInput(attrs={
                 'class': 'form__controls',
             }),
+            'meta_h1': forms.NumberInput(attrs={
+                'class': 'form__controls',
+            }),
+            'meta_title': forms.NumberInput(attrs={
+                'class': 'form__controls',
+            }),
+            'meta_description': forms.NumberInput(attrs={
+                'class': 'form__controls',
+            }),
+            'meta_keywords': forms.NumberInput(attrs={
+                'class': 'form__controls',
+            }),
         }
 
 class BlogPage(forms.ModelForm):
