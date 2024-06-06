@@ -151,4 +151,20 @@ function shwoField() {
   }
 }
 
+/**
+ * Открывает настройки товара на странице товаров
+ */
+
+const tableSettingsBtn = document.querySelectorAll('.body-table__settings');
+if (tableSettingsBtn) {
+  tableSettingsBtn.forEach(btn => {
+    btn.addEventListener('click', openSettingsProduct);
+  })
+}
+
+function openSettingsProduct() {
+  let elem = this.previousElementSibling;
+  elem.classList.toggle('_active');
+}
+
 
