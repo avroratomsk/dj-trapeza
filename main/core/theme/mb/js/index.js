@@ -107,15 +107,15 @@ function clearSimvol(str) {
  */
 
 function bodyLock(e) {
-  let widthScrollBar = window.innerWidth - document.documentElement.clientWidth;
-  document.documentElement.style.marginRight = widthScrollBar + 'px';
+  // let widthScrollBar = window.innerWidth - document.documentElement.clientWidth;
+  // document.body.style.paddingRight = widthScrollBar + 'px';
   document.documentElement.classList.add('_lock');
   document.querySelector('.header').style.paddingRight = widthScrollBar + 'px';
 }
 
 function bodyUnLock(e) {
-  document.documentElement.style.marginRight = '0px';
-  document.querySelector('.header').style.paddingRight = '0px';
+  // document.body.style.paddingRight = '0px';
+  // document.querySelector('.header').style.paddingRight = '0px';
   document.documentElement.classList.remove('_lock');
 }
 
@@ -301,36 +301,40 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 })
 
-function openPopupSetFilial() {
+const branchSelection = document.querySelector('.fillal__title');
 
-  const branchSelectionBtn = document.querySelectorAll('.form__btn-branch')
-  if (branchSelectionBtn) {
-    branchSelectionBtn.forEach(btn => {
-      btn.addEventListener('click', getProduct);
+branchSelection?.addEventListener('click', function (e) {
+  lockScroll();
+  openPopupSetFilial();
+})
+
+function openPopupSetFilial(e) {
+  document.getElementById('popup-delivery').classList.add('_show');
+  const branchSelectionBtn = document.querySelectorAll('.form__btn-branch');
+
+
+
+  branchSelectionBtn?.forEach(btn => {
+    btn.addEventListener('click', getProduct);
+  })
+  branchSelectionBtn?.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      document.getElementById('popup-delivery').classList.remove('_show');
+      document.documentElement.classList.remove('_lock');
     })
-    branchSelectionBtn.forEach(btn => {
-      btn.addEventListener('click', function (e) {
-        document.getElementById('popup-delivery').classList.remove('_show');
-        document.documentElement.classList.remove('_lock');
-      })
-    })
-  }
+  })
 }
 
 function getProduct(e) {
-  let branch_slug = e.target.dataset.slug;
   e.preventDefault();
+  let branch_slug = e.target.dataset.slug;
+  console.log(branch_slug);
+
   document.getElementById('popup-delivery').classList.remove('_show');
   localStorage.setItem('branch', branch_slug);
   const categoryId = 1;
   getProductForBranch(categoryId, branch_slug);
 }
-
-const branchSelection = document.querySelector('.fillal__title');
-branchSelection.addEventListener('click', function (e) {
-  lockScroll();
-  document.getElementById('popup-delivery').classList.add('_show');
-})
 
 const closePopupBtns = document.querySelectorAll('.popup__close');
 
@@ -405,7 +409,7 @@ function openPopup(e) {
   bodyLock();
   popup = document.getElementById(this.dataset.popup);
   popup.classList.add('_show');
-  document.documentElement.classList.add('_lock');
+  // document.documentElement.classList.add('_lock');
 }
 
 

@@ -85,7 +85,11 @@ def get_data(request):
     data = []
       
     for product in products:
-      
+      try:
+        image  = product.image.url
+      except:
+        image = "/core/theme/mb/images/no-image.png"
+        
       data.append({
         'name': product.name,
         'price': product.price,
@@ -93,7 +97,7 @@ def get_data(request):
         'weight': product.weight,
         'weight_two': product.weight_two,
         'url': product.get_absolute_url(), # URL детальной страницы продукта
-        'image': product.image.url
+        'image': image
       })
       # print(data)
     return JsonResponse({"data": data, "branch": branch_info})
