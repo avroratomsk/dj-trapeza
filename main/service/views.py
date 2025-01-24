@@ -15,8 +15,7 @@ def service(request):
     service_page = ServicePage.objects.get()
     # Если объект найден, можете продолжать выполнение кода
   except ObjectDoesNotExist:
-    # Обработка случая, когда объект не найден
-    pass
+    service_page = ServicePage()
     # Дополнительные действия на ваше усмотрение
   
   context = {
