@@ -93,7 +93,7 @@ def get_data(request):
       try:
         image  = product.image.url
       except:
-        image = "/core/theme/mb/images/no-image.png"
+        image = "/core/admin/images/no-image.png"
         
       data.append({
         'name': product.name,
