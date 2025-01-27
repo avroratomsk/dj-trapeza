@@ -131,6 +131,7 @@ class ProductForm(forms.ModelForm):
                 "id":"name"
                 # 'placeholder': 'Название товара',
             }),
+            'branch': forms.CheckboxSelectMultiple,
             'short_description': forms.Textarea(attrs={
                 'class': 'form__controls',
             }),

@@ -80,11 +80,18 @@ def get_data(request):
     category_id = data.get('category_id')
     branch_slug = data.get('branch_slug')
     branch = Branch.objects.get(slug=branch_slug)
-    branch_info = [branch.name, branch.image.url, branch.phone, branch.address_fillial, branch.time_work, branch.weekend, branch.map_code]
+    try:
+        branch_image = branch.image.url
+    except:
+        branch_image = "core/theme/mb/images/no-image.png"
+
+    branch_info = [branch.name, branch_image, branch.phone, branch.address_fillial, branch.time_work, branch.weekend, branch.map_code]
     products = Product.objects.filter(branch=branch, category_id=category_id, day=day_of_week)
+    print(products)
     data = []
       
     for product in products:
+      print(product.day)
       try:
         image  = product.image.url
       except:

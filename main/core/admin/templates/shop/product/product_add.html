@@ -106,14 +106,13 @@
             </div>
             <div class="form__group">
               <label for="{{ form.day.id_for_label }}" class="form__controls-label">Выбор дня недели:</label>
-              {% comment %}{{ form.day }} {{ form.day.errors }}{% endcomment %}
-              <select name="day" id="id-day" class="admin-select">
-                <option disabled selected class="admin-select__option">Выберите день</option>
-                <option value="0" class="admin-select__option" {% if product.day == 0 %}selected{% endif %}>Понедельник</option>
-                <option value="1" class="admin-select__option" {% if product.day == 1 %}selected{% endif %}>Вторник</option>
-                <option value="2" class="admin-select__option" {% if product.day == 2 %}selected{% endif %}>Среда</option>
-                <option value="3" class="admin-select__option" {% if product.day == 3 %}selected{% endif %}>Четверг</option>
-                <option value="4" class="admin-select__option" {% if product.day == 4 %}selected{% endif %}>Пятница</option>
+              <select name="day" id="id-day" class="form__controls">
+                <option disabled selected class="form__controls-option">Выберите день</option>
+                <option value="0" class="form__controls-option" {% if form.day.value == 0 %}selected{% endif %}>Понедельник</option>
+                <option value="1" class="form__controls-option" {% if form.day.value == 1 %}selected{% endif %}>Вторник</option>
+                <option value="2" class="form__controls-option" {% if form.day.value == 2 %}selected{% endif %}>Среда</option>
+                <option value="3" class="form__controls-option" {% if form.day.value == 3 %}selected{% endif %}>Четверг</option>
+                <option value="4" class="form__controls-option" {% if form.day.value == 4 %}selected{% endif %}>Пятница</option>
               </select>
             </div>
             <div class="form__group">
