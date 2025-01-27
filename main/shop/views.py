@@ -87,11 +87,9 @@ def get_data(request):
 
     branch_info = [branch.name, branch_image, branch.phone, branch.address_fillial, branch.time_work, branch.weekend, branch.map_code]
     products = Product.objects.filter(branch=branch, category_id=category_id, day=day_of_week)
-    print(products)
     data = []
       
     for product in products:
-      print(product.day)
       try:
         image  = product.image.url
       except:
@@ -106,7 +104,6 @@ def get_data(request):
         'url': product.get_absolute_url(), # URL детальной страницы продукта
         'image': image
       })
-      # print(data)
     return JsonResponse({"data": data, "branch": branch_info})
 
 
