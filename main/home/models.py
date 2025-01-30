@@ -59,7 +59,14 @@ class Gallery(models.Model):
   alt = models.CharField(max_length=250, blank=True, null=True, verbose_name="Альтернативный текст")
   status = models.BooleanField(default=True, verbose_name="Статус публикации ?")
   
-  
+class GallerySettings(SingletonModel):
+  banner = models.ImageField(upload_to="about-page", blank=True, null=True, verbose_name="Баннер")
+  meta_h1 = models.CharField(max_length=250, blank=True, null=True, verbose_name="Заголовок первого уровня")
+  meta_title = models.CharField(max_length=350, null=True, blank=True, verbose_name="Мета заголовок")
+  meta_description = models.TextField(null=True, blank=True, verbose_name="Meta описание")
+  meta_keywords = models.TextField(null=True, blank=True, verbose_name="Meta keywords")
+  gallery_text = models.TextField(null=True, blank=True, verbose_name="Текс на странице")
+
 class AboutTemplate(SingletonModel):
   banner = models.ImageField(upload_to="about-page", blank=True, null=True, verbose_name="Баннер")
   meta_h1 = models.CharField(max_length=250, blank=True, null=True, verbose_name="Заголовок первого уровня")

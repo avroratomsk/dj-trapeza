@@ -4,8 +4,8 @@ import zipfile
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from admin.forms import AboutTemplateForm, BanketForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, NewsPage, PominalnyeForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, ShopSettingsForm, StockForm, StockPage, UploadFileForm, VacancyForm, VacancySettingsForm
-from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy, VacancySettings
+from admin.forms import GalleryTemplateForm, AboutTemplateForm, BanketForm, BlogPage, CategoryForm, DayForm, FillialForm, GalleryForm, GlobalSettingsForm, HomeTemplateForm, NewsForm, NewsPage, PominalnyeForm, PostForm, ProductForm, ReviewsForm, ServiceCategoryForm, ServiceForm, ServicePageForm, ServiceProductForm, ShopSettingsForm, StockForm, StockPage, UploadFileForm, VacancyForm, VacancySettingsForm
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy, VacancySettings, GallerySettings
 from blog.models import BlogSettings, Post
 from news.models import News, NewsSettings
 from main.settings import BASE_DIR
@@ -567,6 +567,33 @@ def admin_home(request):
   }  
   
   return render(request, "static/home_page.html", context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_gallery_settings(request):
+  try:
+    gallery_page = GallerySettings.objects.get()
+  except:
+    gallery_page = GallerySettings()
+    gallery_page.save()
+
+  if request.method == "POST":
+    form_new = GalleryTemplateForm(request.POST, request.FILES, instance=gallery_page)
+    if form_new.is_valid():
+      form_new.save()
+      return redirect(request.META.get('HTTP_REFERER'))
+    else:
+      return render(request, "static/home_page.html", {"form": form_new})
+
+  #gallery_page = GallerySettings.objects.get()
+
+  form = GalleryTemplateForm(instance=gallery_page)
+
+  context = {
+    "form": form,
+    "gallery_page":gallery_page
+  }
+
+  return render(request, "static/gallery_page.html", context)
 
 @user_passes_test(lambda u: u.is_superuser)
 def pomin_page(request):

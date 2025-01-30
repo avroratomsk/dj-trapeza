@@ -181,7 +181,7 @@
     </div>
   </div>
 
-  <div class="callback" style="background-image: url({{ home_page.callback_image.url }})">
+  <div class="callback" style="background-image: url({% if home_page.callback_image%}}{ home_page.callback_image.url }}{% endif %})">
     <div class="callback__container">
       <h2 class="callback__title _title" data-aos="fade-up" data-aos-once="true">Напишите нам !</h2>
       <p class="callback__subtitle" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">

@@ -1,6 +1,6 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
-from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy, GallerySettings
 from blog.models import BlogSettings, Post
 from news.models import News, NewsSettings
 from service.models import Banket, PominalnyeObed, Service, ServiceCategory, ServicePage, ServiceProduct
@@ -699,6 +699,34 @@ class HomeTemplateForm(forms.ModelForm):
               'class': 'form__controls',
           }),
           'about_text': forms.Textarea(attrs={
+              'class': 'form__controls',
+              'rows': 5
+          }),
+      }
+
+class GalleryTemplateForm(forms.ModelForm):
+  """ Form, редактирование главной страницы"""
+  # description = forms.CharField(label='Полное описание товара', required=False, widget=CKEditorUploadingWidget())
+
+  class Meta:
+      model = GallerySettings
+      fields = "__all__"
+      widgets = {
+          'meta_h1': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'meta_title': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета заголовок',
+          }),
+          'meta_description': forms.TextInput(attrs={
+              'class': 'form__controls',
+              # 'placeholder': 'Мета описание',
+          }),
+          'meta_keywords': forms.TextInput(attrs={
+              'class': 'form__controls',
+          }),
+          'gallery_text': forms.Textarea(attrs={
               'class': 'form__controls',
               'rows': 5
           }),

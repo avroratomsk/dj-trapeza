@@ -8,7 +8,7 @@
         <p class="footer__title">Контакты</p>
         <div class="footer__item" data-aos="fade-up" data-aos-once="true" data-aos-delay="100">
           <span>Адрес: </span>
-          <span id="footer-addres">г.Томск ул. Ленина 193</span>
+          <span id="footer-addres">{{ branchs.address_fillial }}</span>
         </div>
         <div class="footer__item" data-aos="fade-up" data-aos-delay="200" data-aos-once="true">
           <span>Телефон: </span>
@@ -16,15 +16,15 @@
         </div>
         <div class="footer__item" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
           <span>Время работы: </span>
-          <span id="footer-time-work">пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
+          <span id="footer-time-work">{{ branchs.time_work }}</span>
         </div>
         <div class="footer__item" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
           <span>Выходные: </span>
-          <span id="footer-weekend">пн-пт: 8:00-20:00, сб-вс: 10:00-20:00</span>
+          <span id="footer-weekend">{{ branchs.weekend }}</span>
         </div>
         <div class="footer__item" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
           <span>Электронная почта: </span>
-          <span>trapeza@mail.ru</span>
+          <span>{{ settings.email }}</span>
         </div>
         <div class="footer__social" data-aos="fade-up" data-aos-delay="600" data-aos-once="true">
           {% if settings.vk %}
