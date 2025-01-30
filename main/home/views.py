@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from datetime import datetime
-from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy
+from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy, GallerySettings
 from blog.models import Post
 from home.forms import CallbackForm, ContactForm, ReviewsForm, WriteToUsForm
 from .email_send import email_callback
@@ -116,8 +116,13 @@ def stock_detail(request, slug):
 
 def gallery(request):
     gallery = Gallery.objects.all()
-    
+    try:
+        gallery_settings = GallerySettings.objects.get()
+    except:
+        gallery_settings = GallerySettings()
+
     context = {
+        "gallery_settings": gallery_settings,
         "gallerys": gallery
     }
     

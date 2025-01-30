@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Фотографии нашей столовой{% endblock %}
-{% block description %}Фотографии нашей столовой{% endblock %}
-{% block keywords %}Фотографии столовая трапеза, трапеза фото{% endblock %}
+{% block title %}{{ gallery_settings.meta_title }}{% endblock %}
+{% block description %}{{ gallery_settings.meta_description }}{% endblock %}
+{% block keywords %}{{ gallery_settings.meta_keywords }}{% endblock %}
 {% load static %} {% block content %}
 
 <main class="page-contact page">
-	<div class="single-banner" style="background-image: url({% static 'theme/mb/images/stock.jpg' %})" data-speed="70">
-		<h1 class="contact__title _title">Фотографии</h1>
+	<div class="single-banner" style="background-image: url({% if gallery_settings.banner %}{{ gallery_settings.banner.url }}{% endif %})" data-speed="70">
+		<h1 class="contact__title _title">{{ gallery_settings.meta_h1 }}</h1>
 		<div class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
 			<a href="/" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"
 				class="breadcrumbs__item">
