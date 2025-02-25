@@ -96,11 +96,10 @@
         </div>
       </div>
     </section>
-    {{ service.price }}
     {% if products %}
     <section class="service-menu">
       <div class="service-menu__container">
-        <h2 class="_title service-menu__title">{{ service.price }}</h2>
+        <h2 class="_title service-menu__title">{{ pomin_page.price }}</h2>
         <div class="pominalnye">
           {% for product in products %}
           <ul class="pominalnye__item">
