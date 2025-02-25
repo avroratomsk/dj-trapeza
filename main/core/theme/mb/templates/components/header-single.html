@@ -1,7 +1,7 @@
 <header class="header">
   <div class="header__under">
     <div class="header__container-under">
-      <a href="tel:+79999999999" class="header__under-phone">89236464726</a>
+      <a href="tel:{{ settings.phone_one }}" class="header__under-phone">{{ settings.phone_one }}</a>
       {% csrf_token %}
       <select name="fillal" id="branch-select" class="header__under-select">
         <option value="23">{{ site_settings.address_one }}</option>
@@ -68,7 +68,9 @@
           </ul>
         </div>
         <div class="top-header__actions">
-          <a href="tel:" class="top-header__actions-phone">8(999) 999-99-99</a>
+          <a href="tel:{{ settings.phone_one }}" class="top-header__actions-phone">
+            {{ settings.phone_one }}
+          </a>
           <button type="button" data-popup="popup-callback">Связаться с нами</button>
         </div>
         <button type="button" class="top__header-burger burger" id="burger"><span></span></button>
