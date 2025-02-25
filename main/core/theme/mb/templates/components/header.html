@@ -10,6 +10,7 @@
     </div>
   </div>
   <div class="header__top top-header">
+    {{ branchs.phone }}
     <div class="top-header__container">
       <div class="top-header__inner">
         <a href="/" class="top-header__logo">
@@ -68,8 +69,8 @@
           </ul>
         </div>
         <div class="top-header__actions">
-          <a href="tel:{{ settings.phone_one }}" class="top-header__actions-phone">
-            {{ settings.phone_one }}
+          <a href="tel:" class="top-header__actions-phone" id="header-phone">
+
           </a>
           <button type="button" data-popup="popup-callback">Связаться с нами</button>
         </div>
