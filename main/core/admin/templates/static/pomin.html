@@ -20,6 +20,11 @@
               {{ form.title }} {{ form.title.errors }}
             </div>
             <div class="form__group">
+              <label for="{{ form.price.id_for_label }}" class="form__controls-label">Цена
+                <span>:</span></label>
+              {{ form.price }} {{ form.price.errors }}
+            </div>
+            <div class="form__group">
               <label for="{{ form.subtitle.id_for_label }}" class="form__controls-label"><span>*</span>Текст под
                 заголовоком<span>:</span></label>
               {{ form.subtitle }} {{ form.subtitle.errors }}

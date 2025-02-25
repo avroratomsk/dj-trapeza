@@ -738,21 +738,11 @@ class PominalnyeForm(forms.ModelForm):
   
   class Meta:
       model = PominalnyeObed
-      fields = [
-          'title',
-          'subtitle',
-          'left_text',
-          'right_text',
-          'first_text_title',
-          'first_text_text',
-          'second_text_title',
-          'second_text_text',
-          'meta_h1',
-          'meta_title',
-          'meta_description',
-          'meta_keywords',
-      ]
+      fields = "__all__"
       widgets = {
+          'price': forms.TextInput(attrs={
+              'class': 'form__controls'
+          }),
           'title': forms.TextInput(attrs={
               'class': 'form__controls'
           }),

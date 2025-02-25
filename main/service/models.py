@@ -68,6 +68,7 @@ class ServiceCategory(models.Model):
   
 class PominalnyeObed(models.Model):
   title = models.CharField(max_length=250, null=True, blank=True, verbose_name="Заголовок")
+  price = models.CharField(max_length=250, null=True, blank=True, verbose_name="Цена")
   subtitle = models.TextField(null=True, blank=True, verbose_name="Подзаголовк")
   left_text = models.TextField(null=True, blank=True, verbose_name="Левый текст")
   right_text = models.TextField(null=True, blank=True, verbose_name="Правый текст текст")
