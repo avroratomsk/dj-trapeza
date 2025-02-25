@@ -28,32 +28,32 @@
 						<div class="contact-info__icon">
 							<i class="fa-solid fa-location-dot"></i>
 						</div>
-						<div class="contact-info__content" id="address">г.Томск, улица Ленина, дом 23а</div>
+						<div class="contact-info__content" id="address"></div>
 					</div>
 					<div class="contact-info__row">
 						<div class="contact-info__icon">
 							<i class="fa-solid fa-phone-volume"></i>
 						</div>
-						<a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
-							settings.phone_one }}</a>
+						<a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">
+							{{ settings.phone_one }}</a>
 					</div>
 					<div class="contact-info__row">
 						<div class="contact-info__icon">
 							<i class="fa-solid fa-envelope"></i>
 						</div>
-						<a href="#" class="contact-info__content">trapeza@mail.ru</a>
+						<a href="mailto:{{ settings.email }}" class="contact-info__content">{{ settings.email }}</a>
 					</div>
 					<div class="contact-info__row">
 						<div class="contact-info__icon">
 							<i class="fa-solid fa-calendar-days"></i>
 						</div>
-						<p class="contact-info__content" id="time-work">с 8:00 до 17:00</p>
+						<p class="contact-info__content" id="time-work">{{ branchs.time_work }}</p>
 					</div>
 					<div class="contact-info__row">
 						<div class="contact-info__icon">
 							<i class="fa-regular fa-calendar"></i>
 						</div>
-						<p class="contact-info__content" id="weekend">суббота и воскресенье выходной</p>
+						<p class="contact-info__content" id="weekend">{{ branchs.weekend }}</p>
 					</div>
 				</div>
 				<div class="contact__col form">

@@ -63,45 +63,45 @@
 
   <section class="contact">
     <div class="contact__container">
-      <h2 class="contact__title _title">Контакты</h2>
+      <h2 class="contact__title _title" data-aos="fade-up" data-aos-once="true">Контакты</h2>
       <div class="contact__row">
-        <div class="contact__col contact-info">
+        <div class="contact__col contact-info" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
           <div class="contact-info__row">
             <div class="contact-info__icon">
               <i class="fa-solid fa-location-dot"></i>
             </div>
             <div class="contact-info__content" id="address">
-              г.Томск,<br />
-              улица Ленина, дом 23а
+              {{ branchs.address_fillial }}
             </div>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
               <i class="fa-solid fa-phone-volume"></i>
             </div>
-            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">{{
-              settings.phone_one }}</a>
+            <a href="tel:{{ settings.phone_one }}" class="contact-info__content reg-num" id="phone">
+              {{ settings.phone_one }}
+            </a>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
               <i class="fa-solid fa-envelope"></i>
             </div>
-            <a href="#" class="contact-info__content">trapeza@mail.ru</a>
+            <a href="#" class="contact-info__content">{{ settings.email }}</a>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
               <i class="fa-solid fa-calendar-days"></i>
             </div>
-            <p class="contact-info__content" id="time-work">с 8:00 до 17:00</p>
+            <p class="contact-info__content" id="time-work">{{ branchs.time_work }}</p>
           </div>
           <div class="contact-info__row">
             <div class="contact-info__icon">
               <i class="fa-regular fa-calendar"></i>
             </div>
-            <p class="contact-info__content" id="weekend">суббота и воскресенье выходной</p>
+            <p class="contact-info__content" id="weekend">{{ branchs.weekend }}</p>
           </div>
         </div>
-        <div class="contact__col form">
+        <div class="contact__col form" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
           <form action="{% url 'contacform' %}" class="form__form" method="POST">
             {% csrf_token %}
             <div class="form__group require">{{ contactform.name }}</div>
@@ -118,7 +118,9 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map"></div>
+      <div class="contact__map" id="map" data-aos="fade-up" data-aos-once="true" data-aos-delay="600">
+
+      </div>
     </div>
   </section>
 </main>
