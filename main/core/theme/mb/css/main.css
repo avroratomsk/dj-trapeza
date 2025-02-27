@@ -440,6 +440,10 @@ html.lock body::before {
   z-index: 0;
 }
 
+* {
+  scroll-behavior: smooth;
+}
+
 .index-banner {
   background-repeat: no-repeat;
   background-position: center;
