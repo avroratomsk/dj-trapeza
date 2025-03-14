@@ -33,7 +33,7 @@
       <p class="popup__title">Забронировать зал</p>
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
-      <form action="/" class="form form-column" method="POST">
+      <form action="{% url 'consultation' %}" class="form form-column" method="POST">
         {% csrf_token %}
         <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
         <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
@@ -56,7 +56,7 @@
       <p class="popup__title">Получить консультацию</p>
       <span class="popup__line"></span>
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
-      <form action="/" class="form form-column" method="POST">
+      <form action="{% url 'consultation' %}" class="form form-column" method="POST">
         {% csrf_token %}
         <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
         <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />

@@ -15,6 +15,7 @@ urlpatterns = [
     path('callback/', views.callback, name="callback"),
     path('writetous/', views.writetous, name="writetous"),
     path('contacform/', views.contacform, name="contacform"),
+    path('consultation/', views.consultation, name="consultation"),
     path('reviewsform/', views.reviewsform, name="reviewsform"),
     path('callback-success/', views.callback_success, name="callback_success"),
     path('', views.index, name="home"),

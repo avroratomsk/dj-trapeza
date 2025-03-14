@@ -1,19 +1,10 @@
-// import "./import/modules";
-// import "./import/components";
-// import "./import/inputMask";
-// import "./import/script";
-// import "./import/venobox.js";
-
-
-
-
 // Вычисляем ширину scrolllbar
 
 let widthScrollBar = window.innerWidth - document.documentElement.clientWidth;
 
 /**
  * Функция отктия и закрытия строку поиска  и фильтрацию по убыванию/возрастанию
- *
+ * 
  * Оптимизировать код
  */
 
@@ -46,9 +37,9 @@ if (openFilterBtn) {
 }
 
 /**
- * Фильтр по цене
- *
- * Разобраться в скрипке
+ * Фильтр по цене 
+ * 
+ * Разобраться в скрипке 
  */
 
 const rangeInput = document.querySelectorAll(".price-input__range input");
@@ -237,6 +228,7 @@ function getProductService(categoryId) {
             productsContainer.innerHTML = "";
             dataArray.forEach(item => {
                 item.forEach(product => {
+                    console.log(product);
                     const productElement = document.createElement("div");
                     productElement.classList.add("card-product");
                     productElement.innerHTML =
@@ -248,6 +240,7 @@ function getProductService(categoryId) {
               <p class="card-product__weight">Цена: ${product.price}</p>
             `;
                     productsContainer.appendChild(productElement);
+                    console.log(productsContainer);
                 });
             });
         })
@@ -261,6 +254,7 @@ if (serviceLink) {
             serviceLink.forEach(item => item.classList.remove("_active"));
             btn.classList.add("_active");
             const categoryId = this.dataset.id;
+            console.log(categoryId);
             getProductService(categoryId);
         });
     });
@@ -305,6 +299,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function openPopupSetFilial() {
+
     const branchSelectionBtn = document.querySelectorAll(".form__btn-branch");
     if (branchSelectionBtn) {
         branchSelectionBtn.forEach(btn => {
@@ -318,17 +313,6 @@ function openPopupSetFilial() {
         });
     }
 }
-
-const branchSwitchBtn = document.querySelectorAll(".form__btn-branch");
-branchSwitchBtn?.forEach(btn => {
-    btn.addEventListener("click", function (e) {
-        console.log("this is");
-        getProduct(e);
-        document.getElementById("popup-delivery").classList.remove("_show");
-        document.documentElement.classList.remove("_lock");
-    });
-});
-
 
 function getProduct(e) {
     let branch_slug = e.target.dataset.slug;
@@ -381,9 +365,6 @@ if (branchSelectionBtn) {
         });
     });
 }
-
-
-
 
 const indexBlogTabTigger = document.querySelectorAll(".index-blog__tigger");
 if (indexBlogTabTigger) {

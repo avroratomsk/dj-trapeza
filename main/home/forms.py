@@ -46,6 +46,39 @@ class WriteToUsForm(forms.Form):
       }
   ))
   
+class ConsultForm(forms.Form):
+  name = forms.CharField(widget=forms.TextInput(
+    attrs={
+      'placeholder': 'Имя',
+      'class': 'form__controls',
+      }
+  ))
+
+  phone = forms.CharField(widget=forms.TextInput(
+    attrs={
+      'placeholder': 'Телефон',
+      'class': 'form__controls',
+      }
+  ))
+  
+  data = forms.CharField(widget=forms.TextInput(
+    attrs={
+      'class': 'form__controls',
+      }
+  ))
+  
+  number = forms.CharField(widget=forms.TextInput(
+    attrs={
+      'placeholder': 'Количество человек',
+      'class': 'form__controls',
+      }
+  ))
+  reservation = forms.CharField(widget=forms.TextInput(
+    attrs={
+      'class': 'form__controls',
+      }
+  ))
+
 class ContactForm(forms.Form):
   name = forms.CharField(min_length=2, widget=forms.TextInput(
     attrs={
@@ -60,14 +93,14 @@ class ContactForm(forms.Form):
       'class': 'form__controls',
       }
   ))
-  
+
   email = forms.EmailField(min_length=2, widget=forms.TextInput(
     attrs={
       'placeholder': 'Email',
       'class': 'form__controls',
       }
   ))
-  
+
   message = forms.CharField(min_length=2, widget=forms.TextInput(
     attrs={
       'placeholder': 'Сообщение',

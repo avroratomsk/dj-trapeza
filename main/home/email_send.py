@@ -2,9 +2,10 @@ from django.core.mail import send_mail
 from .models import BaseSettings
 
 try: 
-  email_clients = BaseSettings.objects.get().email
+#   email_clients = BaseSettings.objects.get().email
+  email_clients = "trapezatomsk@yandex.ru"
 except:
-  email_clients = "default"
+  email_clients = "trapezatomsk@yandex.ru"
 
 EMAIL_FROM = "info@xn----7sbah6bllcobpj.xn--p1ai"
 # email_clients = "saniagolovanev@gmail.com"

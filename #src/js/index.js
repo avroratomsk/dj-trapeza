@@ -1,12 +1,3 @@
-// import "./import/modules";
-// import "./import/components";
-// import "./import/inputMask";
-// import "./import/script";
-// import "./import/venobox.js";
-
-
-
-
 // Вычисляем ширину scrolllbar
 
 let widthScrollBar = window.innerWidth - document.documentElement.clientWidth;
@@ -374,9 +365,6 @@ if (branchSelectionBtn) {
         });
     });
 }
-
-
-
 
 const indexBlogTabTigger = document.querySelectorAll(".index-blog__tigger");
 if (indexBlogTabTigger) {

@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from datetime import datetime
 from home.models import AboutTemplate, BaseSettings, Gallery, HomeTemplate, Stock, StockSettings, Vacancy, GallerySettings
 from blog.models import Post
-from home.forms import CallbackForm, ContactForm, ReviewsForm, WriteToUsForm
+from home.forms import CallbackForm, ContactForm, ReviewsForm, WriteToUsForm, ConsultForm
 from .email_send import email_callback
 from news.models import News
 from service.models import Service
@@ -190,6 +190,31 @@ def contacform(request):
     'form': form
   }
   
+  return render(request, 'pages/callback-succes.html', context)
+
+def consultation(request):
+  if request.method == "POST":
+    form = ConsultForm(request.POST)
+    if form.is_valid():
+      name  = form.cleaned_data['name']
+      phone = form.cleaned_data['phone']
+      data = form.cleaned_data['data']
+      number = form.cleaned_data['number']
+      reservation = form.cleaned_data['reservation']
+      title = 'Заказ консультации'
+      messages = "Заказ консультации:" + "\n" + "ИМЯ: " +str(name) + "\n" + "ТЕЛЕФОН: " + str(phone)  + "\n" + "Дата бронирования: " + str(data) + "\n" + "Количество человек: " + str(number) + "\n" + "Зал: " + str(reservation) + "\n"
+
+      email_callback(messages, title)
+      return redirect(request.META.get('HTTP_REFERER'))
+
+    print(form)
+  else:
+    form = ConsultForm()
+
+  context = {
+    'form': form
+  }
+
   return render(request, 'pages/callback-succes.html', context)
 
 def reviewsform(request):
