@@ -1,10 +1,8 @@
-// Вычисляем ширину scrolllbar
-
 let widthScrollBar = window.innerWidth - document.documentElement.clientWidth;
 
 /**
  * Функция отктия и закрытия строку поиска  и фильтрацию по убыванию/возрастанию
- * 
+ *
  * Оптимизировать код
  */
 
@@ -37,9 +35,9 @@ if (openFilterBtn) {
 }
 
 /**
- * Фильтр по цене 
- * 
- * Разобраться в скрипке 
+ * Фильтр по цене
+ *
+ * * Разобраться в скрипке
  */
 
 const rangeInput = document.querySelectorAll(".price-input__range input");
@@ -67,28 +65,26 @@ if (rangeInput) {
                 progress.style.right = 100 - (maxValue / rangeInput[1].max) * 100 + "%";
             }
 
-
         });
-
     });
 }
 
 const orderBtn = document.querySelectorAll(".filter-sort__value");
 
 orderBtn.forEach(btn => {
-    btn.addEventListener("click", function (e) {
-    // e.preventDefault();
+    btn.addEventListener("click", function () {
     });
 });
 
 const regNum = document.querySelectorAll(".reg-num");
 if (regNum) {
     regNum.forEach(num => {
-        phoneNumber = num.href.replace("tel:", "");
-        newNumber = clearSimvol(phoneNumber.replace("8", "+7"));
+        const phoneNumber = num.href.replace("tel:", "");
+        const newNumber = clearSimvol(phoneNumber.replace("8", "+7"));
         num.href = `tel:${newNumber}`;
     });
 }
+
 function clearSimvol(str) {
     return str.replace(/[\s.,%,),(,-]/g, "");
 }
@@ -97,14 +93,14 @@ function clearSimvol(str) {
  * Вспомогательные общие функции
  */
 
-function bodyLock(e) {
+function bodyLock() {
     let widthScrollBar = window.innerWidth - document.documentElement.clientWidth;
     document.documentElement.style.marginRight = widthScrollBar + "px";
     document.documentElement.classList.add("_lock");
     document.querySelector(".header").style.paddingRight = widthScrollBar + "px";
 }
 
-function bodyUnLock(e) {
+function bodyUnLock() {
     document.documentElement.style.marginRight = "0px";
     document.querySelector(".header").style.paddingRight = "0px";
     document.documentElement.classList.remove("_lock");
@@ -122,7 +118,7 @@ function getProductForBranch(categoryId, branchSlug) {
             "Content-Type": "application/json",
             "X-CSRFToken": csrfToken,
         },
-        body: JSON.stringify({ category_id: categoryId, branch_slug: branchSlug })
+        body: JSON.stringify({category_id: categoryId, branch_slug: branchSlug})
     })
         .then(response => response.json())
         .then(data => {
@@ -166,7 +162,7 @@ function getProductForBranch(categoryId, branchSlug) {
             }
 
             if (Array.isArray(data_product)) {
-                dataArray = Object.values(data_product);
+                const dataArray = Object.values(data_product);
                 const productsContainer = document.getElementById("products-grid");
                 if (productsContainer) {
                     productsContainer.classList.remove("no-grid");
@@ -218,12 +214,12 @@ function getProductService(categoryId) {
             "Content-Type": "application/json",
             "X-CSRFToken": csrfToken,
         },
-        body: JSON.stringify({ category_id: categoryId })
+        body: JSON.stringify({category_id: categoryId})
 
     })
         .then(response => response.json())
         .then(data => {
-            dataArray = Object.values(data);
+            const dataArray = Object.values(data);
             const productsContainer = document.getElementById("service-menu");
             productsContainer.innerHTML = "";
             dataArray.forEach(item => {
@@ -248,36 +244,34 @@ function getProductService(categoryId) {
 }
 
 const serviceLink = document.querySelectorAll(".service-link");
-if (serviceLink) {
-    serviceLink.forEach(btn => {
-        btn.addEventListener("click", function (e) {
-            serviceLink.forEach(item => item.classList.remove("_active"));
-            btn.classList.add("_active");
-            const categoryId = this.dataset.id;
-            console.log(categoryId);
-            getProductService(categoryId);
-        });
+serviceLink?.forEach(btn => {
+    btn.addEventListener("click", function () {
+        serviceLink.forEach(item => item.classList.remove("_active"));
+        btn.classList.add("_active");
+        const categoryId = this.dataset.id;
+        console.log(categoryId);
+        getProductService(categoryId);
     });
-}
+});
+
 
 const categoryLink = document.querySelectorAll(".category-link");
 
-if (categoryLink) {
-    categoryLink.forEach(btn => {
-        btn.addEventListener("click", function (e) {
-            categoryLink.forEach(item => item.classList.remove("_active"));
-            btn.classList.add("_active");
-            e.preventDefault();
-            branch_slug = localStorage.getItem("branch");
-            const categoryId = this.dataset.id;
-            getProductForBranch(categoryId, branch_slug);
-        });
+categoryLink?.forEach(btn => {
+    btn.addEventListener("click", function (e) {
+        categoryLink.forEach(item => item.classList.remove("_active"));
+        btn.classList.add("_active");
+        e.preventDefault();
+        const branch_slug = localStorage.getItem("branch");
+        const categoryId = this.dataset.id;
+        getProductForBranch(categoryId, branch_slug);
     });
-}
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("branch")) {
-        branch_slug = localStorage.getItem("branch");
+        const branch_slug = localStorage.getItem("branch");
         const categoryId = 1;
         getProductForBranch(categoryId, branch_slug);
         categoryLink.forEach(btn => {
@@ -299,20 +293,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function openPopupSetFilial() {
-
-    const branchSelectionBtn = document.querySelectorAll(".form__btn-branch");
-    if (branchSelectionBtn) {
-        branchSelectionBtn.forEach(btn => {
-            btn.addEventListener("click", getProduct);
-        });
-        branchSelectionBtn.forEach(btn => {
-            btn.addEventListener("click", function (e) {
-                document.getElementById("popup-delivery").classList.remove("_show");
-                document.documentElement.classList.remove("_lock");
-            });
-        });
-    }
 }
+
+const branchSelectionBtns = document.querySelectorAll(".form__btn-branch");
+
+branchSelectionBtns?.forEach(btn => {
+    btn.addEventListener("click", function (e) {
+        getProduct(e);
+        document.getElementById("popup-delivery").classList.remove("_show");
+        document.documentElement.classList.remove("_lock");
+    });
+});
 
 function getProduct(e) {
     let branch_slug = e.target.dataset.slug;
@@ -325,6 +316,7 @@ function getProduct(e) {
 
 const branchSelection = document.querySelector(".fillal__title");
 branchSelection.addEventListener("click", function (e) {
+    console.log(e.currentTarget);
     lockScroll();
     document.getElementById("popup-delivery").classList.add("_show");
 });
@@ -414,7 +406,7 @@ if (ratingItemList) {
 
     ratingItemArray.forEach(item => {
         item.addEventListener("click", function (e) {
-            const { rating } = item.dataset;
+            const {rating} = item.dataset;
             item.parentNode.dataset.ratingTotal = rating;
             inputSaveRating.value = rating;
         });
