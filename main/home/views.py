@@ -144,7 +144,6 @@ def callback(request):
       messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "Пользователь согласился с обработкой персональных данных:: " + privacy_text
 
       email_callback(messages, title)
-      print(form)
       return redirect(request.META.get('HTTP_REFERER'))
   else:
     form = CallbackForm()
@@ -227,8 +226,6 @@ def consultation(request):
 
       email_callback(messages, title)
       return redirect(request.META.get('HTTP_REFERER'))
-
-    print(form)
   else:
     form = ConsultForm()
 
