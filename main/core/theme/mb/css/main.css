@@ -1102,6 +1102,11 @@ html.lock body::before {
   background-color: rgba(43, 70, 60, 0.8);
 }
 
+.callback a {
+  text-decoration: underline;
+  color: #00CF00;
+}
+
 .callback__container {
   position: relative;
   z-index: 2;
@@ -1126,14 +1131,13 @@ html.lock body::before {
 }
 
 .callback__form {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  justify-content: center;
-  justify-items: center;
 }
 
 .callback__input {
+  flex: 1 1;
   background: transparent;
   height: 50px;
   width: 100%;
@@ -1150,6 +1154,10 @@ html.lock body::before {
 .callback__input:focus {
   border-color: #f8f5f0;
   outline: none;
+}
+
+.callback__label {
+  color: #FFFFFF;
 }
 
 .callback__submit {
@@ -2958,6 +2966,34 @@ section {
   margin-top: 70px;
 }
 
+.cookie-notice {
+  display: none;
+  width: 60%;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 15px;
+  border-radius: 5px;
+  line-height: 150%;
+  z-index: 1000;
+}
+
+.cookie-notice a {
+  color: #00CF00;
+  text-decoration: underline;
+}
+
+.accept-cookies {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
 /*
     Подключение стилей отдельных компонентов
 */
@@ -3205,6 +3241,11 @@ section {
   flex-direction: row-reverse;
 }
 
+.form__label {
+  font-size: 14px;
+  line-height: 140%;
+}
+
 .form__btn-branch {
   background-color: #00CF00;
 }
@@ -3230,6 +3271,11 @@ section {
 
 .form__option:focus {
   background: #00cf00;
+}
+
+.form__row {
+  display: flex;
+  gap: 10px;
 }
 
 .form__submit {
@@ -3392,46 +3438,6 @@ section {
   align-items: center;
 }
 
-.form__agree input[type=checkbox] {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 2px;
-  border: 1px solid rgba(43, 70, 60, 0.2);
-  margin-right: 10px;
-  position: relative;
-  cursor: pointer;
-}
-
-.form__agree input[type=checkbox]::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -5px;
-  margin-left: -5px;
-  border-radius: 2px;
-  width: 10px;
-  height: 10px;
-  display: block;
-  background-color: #00cf00;
-  transform: scale(0);
-  transition: 0.5s;
-}
-
-.form__agree input[type=checkbox]:checked {
-  border-color: #00cf00;
-}
-
-.form__agree input[type=checkbox]:checked::before {
-  transform: scale(1);
-}
-
-.form__agree label {
-  font-size: 16px;
-  font-weight: 400;
-}
-
 .popup {
   position: fixed;
   top: 0;
@@ -3454,6 +3460,11 @@ section {
   visibility: visible;
   pointer-events: all;
   transform: translateY(0px);
+}
+
+.popup a {
+  text-decoration: underline;
+  color: #00CF00;
 }
 
 .popup__title {

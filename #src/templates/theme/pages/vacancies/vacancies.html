@@ -38,9 +38,9 @@
   </section>
   <section class="contact">
     <div class="contact__container">
-      <h2 class="contact__title _title" data-aos="fade-up" data-aos-once="true">Контакты</h2>
+      <h2 class="contact__title _title">Контакты</h2>
       <div class="contact__row">
-        <div class="contact__col contact-info" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
+        <div class="contact__col contact-info">
           <div class="contact-info__row">
             <div class="contact-info__icon">
               <i class="fa-solid fa-location-dot"></i>
@@ -76,7 +76,7 @@
             <p class="contact-info__content" id="weekend">{{ branchs.weekend }}</p>
           </div>
         </div>
-        <div class="contact__col form" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
+        <div class="contact__col form">
           <form action="{% url 'contacform' %}" class="form__form" method="POST">
             {% csrf_token %}
             <div class="form__group require">{{ contactform.name }}</div>
@@ -93,7 +93,7 @@
           </form>
         </div>
       </div>
-      <div class="contact__map" id="map" data-aos="fade-up" data-aos-once="true" data-aos-delay="600">
+      <div class="contact__map" id="map">
 
       </div>
     </div>

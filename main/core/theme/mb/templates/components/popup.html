@@ -6,7 +6,8 @@
       <!-- <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button> -->
       <form action="/" class="form">
         {% csrf_token %} {% if branchs %} {% for branch in branchs %}
-        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">{{ branch.address_fillial }}</button>
+        <button type="button" class="form__btn-branch" data-slug="{{ branch.slug }}">{{ branch.address_fillial }}
+        </button>
         {% endfor %} {% endif %}
       </form>
     </div>
@@ -21,6 +22,14 @@
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
       <form action="{% url 'callback' %}" method="POST" class="form form-column">
         {% csrf_token %} {{ callback.name }} {{ callback.phone }}
+        <div class="form__row">
+          <input type="checkbox" name="agreement" id="agreement">
+          <label for="agreement" class="form__label">
+            Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
+            и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
+            <a href="/policy/">политикой конфиденциальности</a>.
+          </label>
+        </div>
         <button type="submit" class="form__submit">Заказать</button>
       </form>
     </div>
@@ -35,15 +44,23 @@
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
       <form action="{% url 'consultation' %}" class="form form-column" method="POST">
         {% csrf_token %}
-        <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
-        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
-        <input type="date" id="data" name="data" class="form__controls" />
-        <input type="number" id="number" name="number" class="form__controls" placeholder="Сколько человек ?" />
+        <input type="text" placeholder="Ваше имя" class="form__controls" name="name"/>
+        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone"/>
+        <input type="date" id="data" name="data" class="form__controls"/>
+        <input type="number" id="number" name="number" class="form__controls" placeholder="Сколько человек ?"/>
         <select name="reservation" id="reservation" class="form__select">
           {% if branchs %} {% for branch in branchs %}
           <option value="{{ branch.name }}" class="form__option">{{ branch.name }}</option>
           {% endfor %} {% endif %}
         </select>
+        <div class="form__row">
+          <input type="checkbox" name="agreement" id="agreement">
+          <label for="agreement" class="form__label">
+            Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
+            и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
+            <a href="/policy/">политикой конфиденциальности</a>.
+          </label>
+        </div>
         <button type="submit" class="form__submit">Заказать</button>
       </form>
     </div>
@@ -58,15 +75,23 @@
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
       <form action="{% url 'consultation' %}" class="form form-column" method="POST">
         {% csrf_token %}
-        <input type="text" placeholder="Ваше имя" class="form__controls" name="name" />
-        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone" />
-        <input type="date" id="data" name="data" class="form__controls" />
-        <input type="number" id="number" name="number" class="form__controls" placeholder="Сколько человек ?" />
+        <input type="text" placeholder="Ваше имя" class="form__controls" name="name"/>
+        <input type="tel" placeholder="Ваш номер телефона" class="form__controls" name="phone"/>
+        <input type="date" id="data" name="data" class="form__controls"/>
+        <input type="number" id="number" name="number" class="form__controls" placeholder="Сколько человек ?"/>
         <select name="reservation" id="reservation" class="form__select">
           {% if branchs %} {% for branch in branchs %}
           <option value="{{ branch.name }}" class="form__option">{{ branch.name }}</option>
           {% endfor %} {% endif %}
         </select>
+        <div class="form__row">
+          <input type="checkbox" name="agreement" id="agreement">
+          <label for="agreement" class="form__label">
+            Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
+            и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
+            <a href="/policy/">политикой конфиденциальности</a>.
+          </label>
+        </div>
         <button type="submit" class="form__submit">Заказать</button>
       </form>
     </div>
@@ -81,20 +106,16 @@
       <button type="button" aria-label="Закрыть всплывающие окно" class="popup__close"><span></span></button>
       <form action="{% url 'callback' %}" method="POST" class="form form-column">
         {% csrf_token %} {{ callback.name }} {{ callback.phone }}
+        <div class="form__row">
+          <input type="checkbox" name="agreement" id="agreement">
+          <label for="agreement" class="form__label">
+            Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
+            и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
+            <a href="/policy/">политикой конфиденциальности</a>.
+          </label>
+        </div>
         <button type="submit" class="form__submit">Заказать</button>
       </form>
-      {% comment %}
-      <form action="/" class="form form-column">
-        <input type="text" placeholder="ФИО" class="form__controls" name="name" />
-        <input type="tel" placeholder="Телефон" class="form__controls" name="phone" />
-        <input type="email" placeholder="Email" class="form__controls" name="phone" />
-        <label for="resume" class="resume">
-          <span>Прикрепить резюме</span>
-          <input type="file" name="resume" id="resume" />
-        </label>
-        <button type="submit" class="form__submit">Отправить</button>
-      </form>
-      {% endcomment %}
     </div>
   </div>
 </div>

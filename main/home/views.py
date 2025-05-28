@@ -255,3 +255,6 @@ def vacancies(request):
 
 def policy(request):
   return render(request, "pages/policy.html")
+
+def cookie(request):
+  return render(request, "pages/cookies.html")

@@ -19,30 +19,21 @@ class WriteToUsForm(forms.Form):
   name = forms.CharField(min_length=2, widget=forms.TextInput(
     attrs={
       'placeholder': 'Имя',
-      'class': 'callback__input aos-init aos-animate',
-      'data-aos': 'fade-up',
-      'data-aos-delay': 400,
-      'data-aos-once': True
+      'class': 'callback__input',
       }
   ))
 
   phone = forms.CharField(min_length=2, widget=forms.TextInput(
     attrs={
       'placeholder': 'Ваш номер телефона',
-      'class': 'callback__input aos-init aos-animate',
-      'data-aos': 'fade-up',
-      'data-aos-delay': 500,
-      'data-aos-once': True
+      'class': 'callback__input',
       }
   ))
   
   message = forms.CharField(min_length=2, widget=forms.TextInput(
     attrs={
       'placeholder': 'Сообщение',
-      'class': 'callback__input aos-init aos-animate',
-      'data-aos': 'fade-up',
-      'data-aos-delay': 600,
-      'data-aos-once': True
+      'class': 'callback__input',
       }
   ))
   

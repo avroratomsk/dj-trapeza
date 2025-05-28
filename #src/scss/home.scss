@@ -901,6 +901,11 @@
     background-color: rgba($color: $mainColor, $alpha: 0.8);
   }
 
+  a {
+    text-decoration: underline;
+    color: #00CF00;
+  }
+
   // .callback__container
 
   &__container {
@@ -933,16 +938,15 @@
   // .callback__form
 
   &__form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 30px;
-    justify-content: center;
-    justify-items: center;
   }
 
   // .callback__input
 
   &__input {
+    flex: 1 1 ;
     background: transparent;
     height: 50px;
     width: 100%;
@@ -959,6 +963,10 @@
       border-color: $bodyColor;
       outline: none;
     }
+  }
+
+  &__label {
+    color: #FFFFFF;
   }
 
   // .callback__submit

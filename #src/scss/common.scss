@@ -17,7 +17,8 @@ body {
   }
 }
 
-._lock {}
+._lock {
+}
 
 html._lock {
 
@@ -38,7 +39,8 @@ main {
   // margin-left: 100px;
 }
 
-.btn {}
+.btn {
+}
 
 section {
   padding: clamp(30px, 3vw, 50px) 0px;
@@ -134,7 +136,8 @@ section {
   }
 }
 
-.text {}
+.text {
+}
 
 .single-banner {
   display: flex;
@@ -193,4 +196,32 @@ section {
 
 .page {
   margin-top: 70px;
+}
+
+.cookie-notice {
+  display: none;
+  width: 60%;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 15px;
+  border-radius: 5px;
+  line-height: 150%;
+  z-index: 1000;
+
+  a {
+    color: #00CF00;
+    text-decoration: underline;
+  }
+}
+
+.accept-cookies {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }

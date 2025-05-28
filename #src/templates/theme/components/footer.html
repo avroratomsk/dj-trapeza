@@ -6,27 +6,27 @@
     <div class="footer__grid">
       <div class="footer__col">
         <p class="footer__title">Контакты</p>
-        <div class="footer__item" data-aos="fade-up" data-aos-once="true" data-aos-delay="100">
+        <div class="footer__item">
           <span>Адрес: </span>
           <span id="footer-addres">{{ branchs.address_fillial }}</span>
         </div>
-        <div class="footer__item" data-aos="fade-up" data-aos-delay="200" data-aos-once="true">
+        <div class="footer__item">
           <span>Телефон: </span>
           <a href="tel:{{ settings.phone_one }}" class="reg-num" id="footer-phone">{{ settings.phone_one }}</a>
         </div>
-        <div class="footer__item" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
+        <div class="footer__item">
           <span>Время работы: </span>
           <span id="footer-time-work">{{ branchs.time_work }}</span>
         </div>
-        <div class="footer__item" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
+        <div class="footer__item">
           <span>Выходные: </span>
           <span id="footer-weekend">{{ branchs.weekend }}</span>
         </div>
-        <div class="footer__item" data-aos="fade-up" data-aos-delay="400" data-aos-once="true">
+        <div class="footer__item">
           <span>Электронная почта: </span>
           <span>{{ settings.email }}</span>
         </div>
-        <div class="footer__social" data-aos="fade-up" data-aos-delay="600" data-aos-once="true">
+        <div class="footer__social">
           {% if settings.vk %}
           <a href="{{ settings.vk }}"><i class="fa-brands fa-vk"></i></a>
           {% endif %} {% if settings.phone_whatsapp %}
@@ -44,19 +44,18 @@
         <p class="footer__title">Меню</p>
         <nav class="footer__nav">
           {% if categorys %} {% for category in cats %}
-          <a href="{{ category.get_absolute_url }}" data-aos="fade-up" data-aos-once="true" data-aos-delay="{% if forloop.counter > 1%}{{forloop.counter}}{% endif %}00"
-            >{{ category.name }}</a
-          >
+          <a href="{{ category.get_absolute_url }}"
+            >{{ category.name }}</a>
           {% endfor %} {% endif %}
         </nav>
       </div>
       <div class="footer__col">
         <div class="footer__logo"><img src="img/logo-2-white.svg" alt="Лого" /></div>
         <nav class="footer__nav">
-          <a href="{% url 'policy' %}" data-aos="fade-up" data-aos-once="true" data-aos-delay="100">Политика конфиденциальности</a>
-          <a href="{% url 'blog' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="200">Статьи</a>
-          <a href="{% url 'reviews' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="300">Отзывы</a>
-          <a href="{% url 'contact' %}" data-aos-once="true" data-aos="fade-up" data-aos-delay="400">Контакты</a>
+          <a href="{% url 'policy' %}">Политика конфиденциальности</a>
+          <a href="{% url 'blog' %}">Статьи</a>
+          <a href="{% url 'reviews' %}">Отзывы</a>
+          <a href="{% url 'contact' %}">Контакты</a>
         </nav>
       </div>
     </div>
@@ -66,4 +65,12 @@
   <div class="author__container">
     <div class="author__inner">Разработка сайта | <a href="https://xn----7sbah6bllcobpj.xn--p1ai/">РА Аврора</a></div>
   </div>
+</div>
+
+<div id="cookie-notice" class="cookie-notice">
+  Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов
+  <a href="{% url 'cookie' %}" target="_blank">cookie</a> и
+  <a href="{% url 'policy' %}" target="_blank">политикой конфиденциаьности.</a>
+
+  <button id="accept-cookies" class="accept-cookies">Я согласен</button>
 </div>
