@@ -134,9 +134,15 @@ def callback(request):
     if form.is_valid():
       name  = form.cleaned_data['name']
       phone = form.cleaned_data['phone']
+      privacy = form.cleaned_data['agreement']
+      if privacy == True:
+        privacy_text = "Да"
+      else:
+        privacy_text = "Нет"
+
       title = 'Заказ обратного звонка'
-      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n"
-      
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "Пользователь согласился с обработкой персональных данных:: " + privacy_text
+
       email_callback(messages, title)
       print(form)
       return redirect(request.META.get('HTTP_REFERER'))
@@ -156,8 +162,13 @@ def writetous(request):
       name  = form.cleaned_data['name']
       phone = form.cleaned_data['phone']
       message = form.cleaned_data['message']
+      privacy = form.cleaned_data['agreement']
+      if privacy == True:
+        privacy_text = "Да"
+      else:
+        privacy_text = "Нет"
       title = 'Форма Напишите нам'
-      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "*Сообщение*: " + str(message) + "\n"
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone) + "\n" + "*Сообщение*: " + str(message) + "\n" + "Пользователь согласился с обработкой персональных данных:: " + privacy_text
       
       email_callback(messages, title)
       return redirect(request.META.get('HTTP_REFERER'))
@@ -178,8 +189,13 @@ def contacform(request):
       phone = form.cleaned_data['phone']
       email = form.cleaned_data['email']
       message = form.cleaned_data['message']
+      privacy = form.cleaned_data['agreement']
+      if privacy == True:
+        privacy_text = "Да"
+      else:
+        privacy_text = "Нет"
       title = 'Заявка со страницы контакты'
-      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone)  + "\n" + "*Email*: " + str(email) + "\n" + "*Сообщение*: " + str(message) + "\n"
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*ТЕЛЕФОН*: " + str(phone)  + "\n" + "*Email*: " + str(email) + "\n" + "*Сообщение*: " + str(message) + "\n" + "Пользователь согласился с обработкой персональных данных:: " + privacy_text
       
       email_callback(messages, title)
       return redirect(request.META.get('HTTP_REFERER'))
@@ -201,8 +217,13 @@ def consultation(request):
       data = form.cleaned_data['data']
       number = form.cleaned_data['number']
       reservation = form.cleaned_data['reservation']
+      privacy = form.cleaned_data['agreement']
+      if privacy == True:
+        privacy_text = "Да"
+      else:
+        privacy_text = "Нет"
       title = 'Заказ консультации'
-      messages = "Заказ консультации:" + "\n" + "ИМЯ: " +str(name) + "\n" + "ТЕЛЕФОН: " + str(phone)  + "\n" + "Дата бронирования: " + str(data) + "\n" + "Количество человек: " + str(number) + "\n" + "Зал: " + str(reservation) + "\n"
+      messages = "Заказ консультации:" + "\n" + "ИМЯ: " +str(name) + "\n" + "ТЕЛЕФОН: " + str(phone)  + "\n" + "Дата бронирования: " + str(data) + "\n" + "Количество человек: " + str(number) + "\n" + "Зал: " + str(reservation) + "\n" + "Пользователь согласился с обработкой персональных данных:: " + privacy_text
 
       email_callback(messages, title)
       return redirect(request.META.get('HTTP_REFERER'))
@@ -228,8 +249,13 @@ def reviewsform(request):
           rating = 5  
       email = form.cleaned_data['email']
       message = form.cleaned_data['message']
+      privacy = form.cleaned_data['agreement']
+      if privacy == True:
+        privacy_text = "Да"
+      else:
+        privacy_text = "Нет"
       title = 'Отзыв с сайта'
-      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*Оценка*: " + str(rating)  + "\n" + "*Email*: " + str(email) + "\n" + "*Сообщение*: " + str(message) + "\n"
+      messages = "Заказ обратного звонка:" + "\n" + "*ИМЯ*: " +str(name) + "\n" + "*Оценка*: " + str(rating)  + "\n" + "*Email*: " + str(email) + "\n" + "*Сообщение*: " + str(message) + "\n" + "Пользователь согласился с обработкой персональных данных:: " + privacy_text
       
       email_callback(messages, title)
       return redirect(request.META.get('HTTP_REFERER'))

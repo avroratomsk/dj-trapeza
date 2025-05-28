@@ -14,6 +14,14 @@ class CallbackForm(forms.Form):
       'class': 'form__controls'
       }
   ))
+  agreement = forms.BooleanField(
+      required=True,
+      label="Я согласен с условиями",
+      widget=forms.CheckboxInput(
+         attrs={
+           'id': 'agreement'
+         }
+  ))
   
 class WriteToUsForm(forms.Form):
   name = forms.CharField(min_length=2, widget=forms.TextInput(
@@ -36,6 +44,14 @@ class WriteToUsForm(forms.Form):
       'class': 'callback__input',
       }
   ))
+  agreement = forms.BooleanField(
+    required=True,
+    label="Я согласен с условиями",
+    widget=forms.CheckboxInput(
+       attrs={
+         'id': 'agreement'
+       }
+    ))
   
 class ConsultForm(forms.Form):
   name = forms.CharField(widget=forms.TextInput(
@@ -69,6 +85,14 @@ class ConsultForm(forms.Form):
       'class': 'form__controls',
       }
   ))
+  agreement = forms.BooleanField(
+    required=True,
+    label="Я согласен с условиями",
+    widget=forms.CheckboxInput(
+       attrs={
+         'id': 'agreement'
+       }
+  ))
 
 class ContactForm(forms.Form):
   name = forms.CharField(min_length=2, widget=forms.TextInput(
@@ -99,6 +123,14 @@ class ContactForm(forms.Form):
       'rows': 5
       }
   ))
+  agreement = forms.BooleanField(
+    required=True,
+    label="Я согласен с условиями",
+    widget=forms.CheckboxInput(
+       attrs={
+         'id': 'agreement'
+       }
+    ))
      
 class ReviewsForm(forms.Form):
   name = forms.CharField(min_length=2, widget=forms.TextInput(
@@ -128,4 +160,13 @@ class ReviewsForm(forms.Form):
       'class': 'form__controls',
       'rows': 5
       }
+  ))
+
+  agreement = forms.BooleanField(
+    required=True,
+    label="Я согласен с условиями",
+    widget=forms.CheckboxInput(
+       attrs={
+         'id': 'agreement'
+       }
   ))

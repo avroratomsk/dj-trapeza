@@ -23,11 +23,11 @@
       <form action="{% url 'callback' %}" method="POST" class="form form-column">
         {% csrf_token %} {{ callback.name }} {{ callback.phone }}
         <div class="form__row">
-          <input type="checkbox" name="agreement" id="agreement">
-          <label for="agreement" class="form__label">
+          <input type="checkbox" id="agreement-callback" name="agreement" required>
+          <label for="agreement-callback" class="form__label">
             Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
             и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
-            <a href="/policy/">политикой конфиденциальности</a>.
+            <a href="{% url 'policy' %}">политикой конфиденциальности</a>.
           </label>
         </div>
         <button type="submit" class="form__submit">Заказать</button>
@@ -54,11 +54,11 @@
           {% endfor %} {% endif %}
         </select>
         <div class="form__row">
-          <input type="checkbox" name="agreement" id="agreement">
-          <label for="agreement" class="form__label">
+          <input type="checkbox" id="agreement-reservation" name="agreement" required>
+          <label for="agreement-reservation" class="form__label">
             Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
             и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
-            <a href="/policy/">политикой конфиденциальности</a>.
+            <a href="{% url 'policy' %}">политикой конфиденциальности</a>.
           </label>
         </div>
         <button type="submit" class="form__submit">Заказать</button>
@@ -85,11 +85,11 @@
           {% endfor %} {% endif %}
         </select>
         <div class="form__row">
-          <input type="checkbox" name="agreement" id="agreement">
-          <label for="agreement" class="form__label">
+          <input type="checkbox" id="agreement-pominalnye" name="agreement" required>
+          <label for="agreement-pominalnye" class="form__label">
             Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
             и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
-            <a href="/policy/">политикой конфиденциальности</a>.
+            <a href="{% url 'policy' %}">политикой конфиденциальности</a>.
           </label>
         </div>
         <button type="submit" class="form__submit">Заказать</button>
@@ -107,11 +107,11 @@
       <form action="{% url 'callback' %}" method="POST" class="form form-column">
         {% csrf_token %} {{ callback.name }} {{ callback.phone }}
         <div class="form__row">
-          <input type="checkbox" name="agreement" id="agreement">
-          <label for="agreement" class="form__label">
+          <input type="checkbox" id="agreement-vacancy" name="agreement" required>
+          <label for="agreement-vacancy" class="form__label">
             Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом
             и делать его лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и
-            <a href="/policy/">политикой конфиденциальности</a>.
+            <a href="{% url 'policy' %}">политикой конфиденциальности</a>.
           </label>
         </div>
         <button type="submit" class="form__submit">Заказать</button>
