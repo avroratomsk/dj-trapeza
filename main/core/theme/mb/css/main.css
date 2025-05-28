@@ -3326,6 +3326,10 @@ section {
   display: none;
 }
 
+.contact .form__agree label {
+  display: block;
+}
+
 .contact__title {
   margin-bottom: 40px;
 }
@@ -3436,6 +3440,7 @@ section {
   margin-top: 30px;
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .popup {

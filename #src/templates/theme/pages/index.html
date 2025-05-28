@@ -195,7 +195,7 @@
           <label for="agreement-callback" class="callback__label">
             Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом и делать его
             лучше.
-            Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и <a href="/policy/">политикой
+            Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов <a href="{% url 'cookie' %}">cookie</a> и <a href="{% url 'policy' %}">политикой
             конфиденциальности</a>.
           </label>
         </div>
@@ -324,11 +324,11 @@
             <div class="form__group form__group-row">
               <button type="submit" class="form__btn">Отправить</button>
               <div class="form__agree">
-                <input type="checkbox" id="agree-checkbox" checked/>
+                <input type="checkbox" id="agree-checkbox" name="agreement" />
                 <label for="agree-checkbox">
                   Мы используем cookie. Это позволяет нам анализировать взаимодействие посетителей с сайтом и делать его
-                  лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов cookie и политикой
-                  конфиденциальности.
+                  лучше. Продолжая пользоваться сайтом, вы соглашаетесь с использованием файлов <a href="{% url 'cookie' %}">cookie</a> и <a
+                  href="{% url 'policy' %}">политикой конфиденциальности</a>.
                 </label>
               </div>
             </div>

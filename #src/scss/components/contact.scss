@@ -10,6 +10,12 @@
 
 .contact {
 
+.form__agree {
+  label {
+    display: block;
+  }
+}
+
   // .contact__container
 
   &__container {
@@ -178,6 +184,7 @@
     margin-top: 30px;
     display: flex;
     align-items: center;
+    gap: 20px;
 
     //input[type="checkbox"] {
     //  appearance: none;
