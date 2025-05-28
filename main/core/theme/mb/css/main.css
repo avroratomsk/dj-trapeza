@@ -3443,6 +3443,11 @@ section {
   gap: 20px;
 }
 
+.form__agree a {
+  color: #00CF00;
+  text-decoration: underline;
+}
+
 .popup {
   position: fixed;
   top: 0;
