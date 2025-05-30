@@ -1432,3 +1432,11 @@
     }
   }
 }
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse; /* чтобы границы не дублировались */
+}
+th, td {
+  padding: 8px;
+}

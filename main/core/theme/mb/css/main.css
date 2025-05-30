@@ -1530,6 +1530,19 @@ html.lock body::before {
   height: 100%;
 }
 
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  /* чтобы границы не дублировались */
+}
+
+th,
+td {
+  padding: 8px;
+}
+
 .product-page__row {
   display: flex;
   gap: 40px;
