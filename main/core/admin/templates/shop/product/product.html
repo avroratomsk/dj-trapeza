@@ -25,6 +25,7 @@
         <div class="head-table__action">
           <img src="{% static 'theme/mb/images/admin/gear.svg' %}" alt="" />
         </div>
+          <button type="button" id="resetBtn" class="page__add-btn">Сбросить</button>
       </div>
       <div class="body-table table-5__body">
         {% for product in products %}
@@ -47,7 +48,7 @@
             <span>{{ product.price }} руб.</span>
           </div>
           <div class="body-table__day">
-            <form action="{% url 'product_day_edit' product.id %}" method="POST">
+            <form action="{% url 'product_day_edit' product.id %}" method="POST" class="form__reset">
               {% csrf_token %}
               <select name="set-day" id="set-day" class="admin-select">
                 <option disabled selected class="admin-select__option">Выберите день</option>

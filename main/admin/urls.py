@@ -20,6 +20,7 @@ urlpatterns = [
     path('days/', views.day_product, name='admin_day'),
     path('days/add/', views.day_add, name='days_add'),
     path('days/edit/<int:pk>/', views.day_edit, name='days_edit'),
+    path('days/reset-days/', views.reset_day_by_category, name='reset_day_by_category'),
     # path('days/delete/<int:pk>/', views.day_delete, name='days_delete'),
     
     #URl - отвечающие за отображение товаров, редактирование и удаление товара

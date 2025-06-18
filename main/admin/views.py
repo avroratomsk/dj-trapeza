@@ -251,6 +251,23 @@ def product_day_edit(request, id):
     product.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt  # Убери если используешь CSRF через токен в JS
+def reset_day_by_category(request):
+    if request.method == "POST":
+        import json
+        data = json.loads(request.body)
+        category_id = data.get("category_id")
+
+        if not category_id:
+            return JsonResponse({"success": False, "error": "No category ID"}, status=400)
+
+        updated = Product.objects.filter(category_id=category_id).update(day=None)  # или day=0
+
+        return JsonResponse({"success": True, "updated": updated})
+
+    return JsonResponse({"success": False, "error": "Invalid request"}, status=405)
 folder = 'upload/'
 
 from PIL import Image
