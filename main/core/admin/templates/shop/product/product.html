@@ -5,12 +5,14 @@
     <div class="page__add">
       <h1 class="page__title">Товары</h1>
       {% if reset_btn %}
-      <button type="button" id="resetBtn" class="page__add-btn">Сбросить дни</button>
-      {% endif %}
-      <a href="{% url 'product_add' %}" class="page__add-btn">
-        <img src="{% static 'theme/mb/images/admin/add.svg' %}" alt="" />
-        Добавить
-      </a>
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <button type="button" id="resetBtn" class="page__add-btn">Сбросить дни</button>
+        {% endif %}
+        <a href="{% url 'product_add' %}" class="page__add-btn">
+          <img src="{% static 'theme/mb/images/admin/add.svg' %}" alt=""/>
+          Добавить
+        </a>
+      </div>
     </div>
     {% if categorys %}
     <div class="admin-category__list">
@@ -26,7 +28,7 @@
         <div class="head-table__price">Цена</div>
         <div class="head-table__price">День недели</div>
         <div class="head-table__action">
-          <img src="{% static 'theme/mb/images/admin/gear.svg' %}" alt="" />
+          <img src="{% static 'theme/mb/images/admin/gear.svg' %}" alt=""/>
         </div>
       </div>
       <div class="body-table table-5__body">
@@ -34,9 +36,9 @@
         <div class="body-table__row">
           <div class="body-table__image">
             {% if product.image %} {% thumbnail product.image "100x100" format="WEBP" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
             {% endthumbnail %} {% else%}
-            <img src="{% static 'admin/images/no-image.png' %}" alt="" />
+            <img src="{% static 'admin/images/no-image.png' %}" alt=""/>
             {% endif %}
           </div>
           <div class="body-table__name">
@@ -54,18 +56,24 @@
               {% csrf_token %}
               <select name="set-day" id="set-day" class="admin-select">
                 <option disabled selected class="admin-select__option">Выберите день</option>
-                <option value="0" class="admin-select__option" {% if product.day == 0 %}selected{% endif %}>Понедельник</option>
-                <option value="1" class="admin-select__option" {% if product.day == 1 %}selected{% endif %}>Вторник</option>
-                <option value="2" class="admin-select__option" {% if product.day == 2 %}selected{% endif %}>Среда</option>
-                <option value="3" class="admin-select__option" {% if product.day == 3 %}selected{% endif %}>Четверг</option>
-                <option value="4" class="admin-select__option" {% if product.day == 4 %}selected{% endif %}>Пятница</option>
+                <option value="0" class="admin-select__option" {% if product.day == 0 %}selected{% endif %}>Понедельник
+                </option>
+                <option value="1" class="admin-select__option" {% if product.day == 1 %}selected{% endif %}>Вторник
+                </option>
+                <option value="2" class="admin-select__option" {% if product.day == 2 %}selected{% endif %}>Среда
+                </option>
+                <option value="3" class="admin-select__option" {% if product.day == 3 %}selected{% endif %}>Четверг
+                </option>
+                <option value="4" class="admin-select__option" {% if product.day == 4 %}selected{% endif %}>Пятница
+                </option>
               </select>
               <button type="submit" class="admin-select__save">Сохранить</button>
             </form>
           </div>
           <div class="body-table__action">
             <a href="{% url 'product_edit' product.id %}" class="edit">
-              <?xml version="1.0" ?><svg
+              <?xml version="1.0" ?>
+              <svg
                 id="Layer_1"
                 style="enable-background: new 0 0 24 24"
                 version="1.1"
@@ -85,7 +93,8 @@
 
             <div class="body-table__action-hidden">
               <a href="{{ product.get_absolute_url }}" target="_blank" class="info">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 495.558 495.558" xml:space="preserve">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                     y="0px" viewBox="0 0 495.558 495.558" xml:space="preserve">
                   <g>
                     <g>
                       <path
@@ -110,52 +119,57 @@
                 </svg>
               </a>
               <a href="{% url 'product_delete' product.id %}" class="remove" title="Удалить продукт">
-                <?xml version="1.0" ?><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <?xml version="1.0" ?>
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <style>
-                      .cls-1 {
-                        fill: none;
-                        stroke: #fff;
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        stroke-width: 2px;
-                      }
+                        .cls-1 {
+                            fill: none;
+                            stroke: #fff;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 2px;
+                        }
                     </style>
                   </defs>
-                  <title />
+                  <title/>
                   <g id="trash">
-                    <rect class="cls-1" height="22" width="18" x="7" y="7" />
-                    <line class="cls-1" x1="3" x2="29" y1="7" y2="7" />
-                    <line class="cls-1" x1="13" x2="19" y1="3" y2="3" />
-                    <line class="cls-1" x1="13" x2="13" y1="12" y2="22" />
-                    <line class="cls-1" x1="19" x2="19" y1="12" y2="22" />
+                    <rect class="cls-1" height="22" width="18" x="7" y="7"/>
+                    <line class="cls-1" x1="3" x2="29" y1="7" y2="7"/>
+                    <line class="cls-1" x1="13" x2="19" y1="3" y2="3"/>
+                    <line class="cls-1" x1="13" x2="13" y1="12" y2="22"/>
+                    <line class="cls-1" x1="19" x2="19" y1="12" y2="22"/>
                   </g>
                 </svg>
               </a>
             </div>
             <button type="button" class="body-table__settings">
-              <img src="{% static 'theme/mb/images/admin/dots.svg' %}" alt="" />
+              <img src="{% static 'theme/mb/images/admin/dots.svg' %}" alt=""/>
             </button>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
-    <div class="pagging">
+   {% comment%} <div class="pagging">
       <a
         href="{% if products.has_previous %}?{% chenge_params page=products.previous_page_number %}{% else %}#{% endif %}"
         class="pagging__arrow {% if not products.has_previous%}disabled{% endif %}"
-        >«</a
+      >«</a
       >
       <ul class="pagging__list">
-        {% for page in products.paginator.page_range %} {% if page >= products.number|add:-2 and page <= products.number|add:2 %}
+        {% for page in products.paginator.page_range %} {% if page >= products.number|add:-2 and page <=
+        products.number|add:2 %}
         <li>
-          <a href="?{% chenge_params page=page %}" class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
+          <a href="?{% chenge_params page=page %}"
+             class="pagging__item {% if products.number == page %}_active{% endif %}">{{page}}</a>
         </li>
         {% endif %} {% endfor %}
       </ul>
-      <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}" class="pagging__arrow">»</a>
+      <a href="{% if products.has_next %}?{% chenge_params page=products.next_page_number %}{% else %}#{% endif %}"
+         class="pagging__arrow">»</a>
     </div>
+    {% endcomment %}
   </div>
 </div>
 
