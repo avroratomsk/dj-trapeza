@@ -4,6 +4,9 @@
   <div class="page__inner">
     <div class="page__add">
       <h1 class="page__title">Товары</h1>
+      {% if reset_btn %}
+      <button type="button" id="resetBtn" class="page__add-btn">Сбросить дни</button>
+      {% endif %}
       <a href="{% url 'product_add' %}" class="page__add-btn">
         <img src="{% static 'theme/mb/images/admin/add.svg' %}" alt="" />
         Добавить
@@ -25,7 +28,6 @@
         <div class="head-table__action">
           <img src="{% static 'theme/mb/images/admin/gear.svg' %}" alt="" />
         </div>
-          <button type="button" id="resetBtn" class="page__add-btn">Сбросить</button>
       </div>
       <div class="body-table table-5__body">
         {% for product in products %}

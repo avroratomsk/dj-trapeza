@@ -460,9 +460,13 @@ def category_delete(request, pk):
 def admin_product_category(request, id):
   category = Category.objects.all().order_by('id')
   product = Product.objects.filter(category_id=id)
+
+  reset_btn = True
+
   context = {
     "categorys": category,
-    "products": product
+    "products": product,
+    "reset_btn": reset_btn
   }
   
   return render(request, "shop/product/product.html", context)
